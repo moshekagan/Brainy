@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Brainy</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="login">Login</string>
+    <string name="range_selection">Pick a range:</string>
+    <string name="action_settings">Settings</string>
+    <string name="start_button">Start</string>
+    <string name="default_range_value">100</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="guess_number_headline">Guess a number between 0 to</string>
+    <string name="guess_request">Your Guess:</string>
+    <string name="approve_guess">Go!</string>
+    <string name="guess_number_done">Done</string>
+    <string name="guess_number_title">Guess the Number</string>
+    <string name="connect">Connect</string>
+    <string name="title_activity_main">MainActivity</string>
+
+</resources>

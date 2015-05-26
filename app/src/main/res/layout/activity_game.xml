@@ -1,0 +1,273 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:weightSum="20"
+    tools:context=".GameActivity">
+
+    <TextView
+        android:text="@string/guess_number_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_weight="0" />
+
+    <TextView
+        android:id="@+id/guessNumberHeadLineText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/guess_number_headline"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_weight="0" />
+
+    <LinearLayout
+        android:background="@drawable/input_field"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/guessInput"
+            android:layout_width="150sp"
+            android:layout_weight="4"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="100dp"
+            android:textSize="25sp" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:id="@+id/backspaceButton"
+            android:onClick="gameButtonClicked"
+            android:stateListAnimator="@null"
+            android:background="@drawable/ic_removeicon"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/outputText"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:textSize="17sp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="13"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button1"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="1" />
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button2"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="2" />
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button3"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="3" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button4"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="4" />
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button5"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="5" />
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button6"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="6" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button7"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="7" />
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button8"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="8" />
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button9"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="9" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/button0"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/approveGuessButton"
+                style="gameButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/approve_button"
+                android:onClick="gameButtonClicked"
+                android:stateListAnimator="@null"
+                android:text="Guess"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <Button
+            style="gameButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button1"
+            android:onClick="gameButtonClicked"
+            android:stateListAnimator="@null"
+            android:text="Connect"
+            android:id="@+id/connectBtn"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/connectivityImageView"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/attentionTextView"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.example.first.kaganmoshe.brainy.GraphFragment"
+        android:id="@+id/fragment"
+        android:layout_weight="3"/>
+</LinearLayout>
