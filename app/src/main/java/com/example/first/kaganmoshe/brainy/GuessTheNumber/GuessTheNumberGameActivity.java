@@ -1,9 +1,8 @@
-package com.example.first.kaganmoshe.brainy;
+package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.first.kaganmoshe.brainy.R;
 
 import EEG.EConnectionState;
 import EEG.EHeadSetType;
@@ -22,16 +23,16 @@ import EEG.MindWave;
 import Utils.Logs;
 
 
-public class GameActivity extends FragmentActivity implements IHeadSetData {
+public class GuessTheNumberGameActivity extends FragmentActivity implements IHeadSetData {
 
     private static final int MAX_INPUT_DIGITS = 3;
-    private final String GAME_ACTIVITY = "GameActivity";
+    private final String GUESS_THE_NUMBER_GAME_ACTIVITY = "GuessTheNumberGameActivity";
     private TextView outputText;
     private TextView inputText;
     private TextView headLineText;
     private Button approveGuessButton;
     private Button backspaceButton;
-    private GuessTheNumber game;
+    private GuessTheNumberEngine game;
 
     // Activity components
     private ImageView m_ConnectivityIconImageV;
@@ -45,7 +46,7 @@ public class GameActivity extends FragmentActivity implements IHeadSetData {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_guess_the_number_game);
 
         outputText = (TextView) findViewById(R.id.outputText);
         headLineText = (TextView) findViewById(R.id.guessNumberHeadLineText);
@@ -83,11 +84,11 @@ public class GameActivity extends FragmentActivity implements IHeadSetData {
             }
         });
 
-        // Get HeadSet - MindWaveMobile
+        // Get HeadSet - ic_mind_wave_mobile
         try{
             m_HeadSet = MindWave.getInstance(EHeadSetType.MindWave);
             m_HeadSet.registerListener(this);
-            Logs.info(GAME_ACTIVITY, Logs.SEPARATOR_LINE + "Just created MindWave HeadSet" + Logs.SEPARATOR_LINE);
+            Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, Logs.SEPARATOR_LINE + "Just created MindWave HeadSet" + Logs.SEPARATOR_LINE);
         } catch (Exception e){
             // TODO - Not need to go hear never!!!!
         }
@@ -95,13 +96,13 @@ public class GameActivity extends FragmentActivity implements IHeadSetData {
 
     private void initialize() {
         Intent intent = getIntent();
-        game = new GuessTheNumber(Integer.parseInt(intent.getStringExtra(MainActivity.EXTRA_MESSAGE)));
+        game = new GuessTheNumberEngine(Integer.parseInt(intent.getStringExtra(GuessTheNumberConfigActivity.EXTRA_MESSAGE)));
         headLineText.append(" " + Integer.toString(game.getMaxValue()));
     }
 
     private void checkGuess() {
         try {
-            GuessTheNumber.GuessResult result = game.checkGuess(Integer.parseInt(inputText.getText().toString()));
+            GuessTheNumberEngine.GuessResult result = game.checkGuess(Integer.parseInt(inputText.getText().toString()));
 
             switch(result){
                 case GOOD:
@@ -118,7 +119,7 @@ public class GameActivity extends FragmentActivity implements IHeadSetData {
                     break;
             }
 
-            if(result != GuessTheNumber.GuessResult.GOOD){
+            if(result != GuessTheNumberEngine.GuessResult.GOOD){
                 inputText.setText("");
             }
         } catch (NumberFormatException ex) {
@@ -179,7 +180,7 @@ public class GameActivity extends FragmentActivity implements IHeadSetData {
 
     @Override
     public void onAttentionReceived(int attValue) {
-        Logs.info(GAME_ACTIVITY, "Got Attention! " + EegHeadSet.ATTENTION_STR + ": " + attValue);
+        Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, "Got Attention! " + EegHeadSet.ATTENTION_STR + ": " + attValue);
 
         if (attValue != Integer.parseInt(m_AttentionTextV.getText().toString())){
             final String newAttValue = Integer.toString(attValue);
@@ -196,7 +197,7 @@ public class GameActivity extends FragmentActivity implements IHeadSetData {
 
     @Override
     public void onMeditationReceived(int medValue) {
-        Logs.info(GAME_ACTIVITY, "Got Meditation!" + EegHeadSet.MEDITATION_STR + ": " + medValue);
+        Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, "Got Meditation!" + EegHeadSet.MEDITATION_STR + ": " + medValue);
 
         // TODO - To see if we need it
 //        if (medValue != Integer.parseInt(m_AttentionTextV.getText().toString())){

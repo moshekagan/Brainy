@@ -77,7 +77,7 @@ public class GraphFragment extends Fragment implements IHeadSetData {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        // Get HeadSet - MindWaveMobile and register
+        // Get HeadSet - ic_mind_wave_mobile and register
         try{
             EegHeadSet headSet = MindWave.getInstance(EHeadSetType.MindWave);
             headSet.registerListener(this);

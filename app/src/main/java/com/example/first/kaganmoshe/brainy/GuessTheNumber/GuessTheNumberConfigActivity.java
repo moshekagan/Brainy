@@ -1,4 +1,4 @@
-package com.example.first.kaganmoshe.brainy;
+package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.R;
 
-public class MainActivity extends Activity {
+
+public class GuessTheNumberConfigActivity extends Activity {
     private static final String CURRENT_RANGE_VALUE = "CURRENT_RANGE_VALUE";
     public final static String EXTRA_MESSAGE = "MESSAGE";
     private int currentRangeValue;
@@ -22,7 +24,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_guess_the_number_config);
 
         if(savedInstanceState == null){
             currentRangeValue = 100;
@@ -63,7 +65,7 @@ public class MainActivity extends Activity {
     }
 
     private void onStartGameClick(){
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, GuessTheNumberGameActivity.class);
         String rangeValue = rangeValueText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, rangeValue);
         startActivity(intent);

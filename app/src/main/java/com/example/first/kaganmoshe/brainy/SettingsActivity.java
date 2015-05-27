@@ -2,6 +2,7 @@ package com.example.first.kaganmoshe.brainy;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,31 +10,38 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class LoginActivity extends Activity {
+public class SettingsActivity extends Activity {
 
-    private Button m_ConnectBtn;
+    private Button m_DoneBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_settings);
 
         initViewActivity();
     }
 
     private void initViewActivity() {
-        m_ConnectBtn = (Button) findViewById(R.id.connectBtn);
-        m_ConnectBtn.setOnClickListener(new View.OnClickListener() {
+        m_DoneBtn = (Button) findViewById(R.id.doneBtn);
+        m_DoneBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                onConnectClick();
+                onDoneClick();
             }
         });
+    }
+
+    private void onDoneClick() {
+        //TODO - Update settings
+        Intent intent = new Intent(this, MenuActivity.class);
+        intent.putExtra("Message","");
+        startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
+        getMenuInflater().inflate(R.menu.menu_setting, menu);
         return true;
     }
 
@@ -50,11 +58,5 @@ public class LoginActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void onConnectClick(){
-        Intent intent = new Intent(this, SettingsActivity.class);
-        intent.putExtra("Message","");
-        startActivity(intent);
     }
 }

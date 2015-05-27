@@ -1,11 +1,11 @@
-package com.example.first.kaganmoshe.brainy;
+package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
 import java.util.Random;
 
 /**
  * Created by tamirkash on 5/25/15.
  */
-public class GuessTheNumber {
+public class GuessTheNumberEngine {
     public enum GuessResult{
         NOT_IN_RANGE, TOO_LOW, TOO_HIGH, GOOD;
     }
@@ -14,7 +14,7 @@ public class GuessTheNumber {
     private final Random random;
     private int value;
 
-    public GuessTheNumber(int maxValue){
+    public GuessTheNumberEngine(int maxValue){
         random = new Random();
         setNewValue(maxValue);
     }
