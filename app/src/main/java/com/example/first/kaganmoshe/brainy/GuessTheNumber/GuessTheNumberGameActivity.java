@@ -1,14 +1,16 @@
 package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,15 +32,17 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     private TextView outputText;
     private TextView inputText;
     private TextView headLineText;
+    private TextView guessRequestText;
     private Button approveGuessButton;
     private Button backspaceButton;
     private GuessTheNumberEngine game;
+    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
 
     // Activity components
-    private ImageView m_ConnectivityIconImageV;
+//    private ImageView m_ConnectivityIconImageV;
     private TextView m_AttentionTextV;
     private TextView m_MeditationTextV;
-    private Button m_ConnectBtn;
+//    private Button m_ConnectBtn;
 
     // Data Members
     private EegHeadSet m_HeadSet;
@@ -48,16 +52,17 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guess_the_number_game);
 
+        guessRequestText = (TextView) findViewById(R.id.guessNumberRequest);
         outputText = (TextView) findViewById(R.id.outputText);
-        headLineText = (TextView) findViewById(R.id.guessNumberHeadLineText);
+        headLineText = (TextView) findViewById(R.id.guessNumberTitle);
         approveGuessButton = (Button) findViewById(R.id.approveGuessButton);
         backspaceButton = (Button) findViewById(R.id.backspaceButton);
         inputText = (TextView) findViewById(R.id.guessInput);
 
-//        String fontPath = "fonts/kidsn.ttf";
-//        TextView title = (TextView) findViewById(R.id.guessNumberHeadLineText);
-//        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
-//        title.setTypeface(tf);
+        //changing title font
+        String fontPath = "fonts/Kidsn.ttf";
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+        headLineText.setTypeface(tf);
 
         if (savedInstanceState == null) {
             initialize();
@@ -69,35 +74,35 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     }
 
     private void initializationActivity() {
-        m_ConnectivityIconImageV = (ImageView) findViewById(R.id.connectivityImageView);
-        m_ConnectivityIconImageV.setImageResource(R.drawable.bad);
-
-        m_AttentionTextV = (TextView) findViewById(R.id.attentionTextView);
+//        m_ConnectivityIconImageV = (ImageView) findViewById(R.id.connectivityImageView);
+//        m_ConnectivityIconImageV.setImageResource(R.drawable.bad);
+//
+//        m_AttentionTextV = (TextView) findViewById(R.id.attentionTextView);
 //        m_MeditationTextV = (TextView) findViewById(R.id.meditationTextView);
-
-        m_ConnectBtn = (Button) findViewById(R.id.connectBtn);
-        m_ConnectBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (!m_HeadSet.IsConnected()) {
-                    m_HeadSet.connect();
-                }
-            }
-        });
+//
+//        m_ConnectBtn = (Button) findViewById(R.id.connectBtn);
+//        m_ConnectBtn.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                if (!m_HeadSet.IsConnected()) {
+//                    m_HeadSet.connect();
+//                }
+//            }
+//        });
 
         // Get HeadSet - ic_mind_wave_mobile
-        try{
-            m_HeadSet = MindWave.getInstance(EHeadSetType.MindWave);
-            m_HeadSet.registerListener(this);
-            Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, Logs.SEPARATOR_LINE + "Just created MindWave HeadSet" + Logs.SEPARATOR_LINE);
-        } catch (Exception e){
-            // TODO - Not need to go hear never!!!!
-        }
+//        try{
+//            m_HeadSet = MindWave.getInstance(EHeadSetType.MindWave);
+//            m_HeadSet.registerListener(this);
+//            Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, Logs.SEPARATOR_LINE + "Just created MindWave HeadSet" + Logs.SEPARATOR_LINE);
+//        } catch (Exception e){
+//            // TODO - Not need to go hear never!!!!
+//        }
     }
 
     private void initialize() {
         Intent intent = getIntent();
         game = new GuessTheNumberEngine(Integer.parseInt(intent.getStringExtra(GuessTheNumberConfigActivity.EXTRA_MESSAGE)));
-        headLineText.append(" " + Integer.toString(game.getMaxValue()));
+        guessRequestText.append(" " + Integer.toString(game.getMaxValue()));
     }
 
     private void checkGuess() {
@@ -106,7 +111,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
 
             switch(result){
                 case GOOD:
-                    outputText.setText("You guessed right! Well done!");
+                    showWinnerDialog();
                     break;
                 case TOO_HIGH:
                     outputText.setText("Try a lower number..");
@@ -125,6 +130,11 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
         } catch (NumberFormatException ex) {
             outputText.setText("Invalid input");
         }
+    }
+
+    private void showWinnerDialog() {
+        WinnerDialogFragment winnerDialogFragment = new WinnerDialogFragment();
+        winnerDialogFragment.show(fm, "WinnerDialogFragment");
     }
 
     @Override
@@ -246,31 +256,31 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     public void onPoorSignalReceived(ESignalVolume signalVolume) {
         final ESignalVolume newSignalVolume = signalVolume;
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                switch (newSignalVolume){
-                    case HEAD_SET_NOT_COVERED:
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                switch (newSignalVolume){
+//                    case HEAD_SET_NOT_COVERED:
 //                        m_ConnectivityIconImageV.setImageResource(R.drawable.bad);
 //                        break;
-                    case POOR_SIGNAL_HIGH:
-                    case POOR_SIGNAL_LOW:
-                        m_ConnectivityIconImageV.setImageResource(R.drawable.medium);
-                        break;
-                    case GOOD_SIGNAL:
-                        m_ConnectivityIconImageV.setImageResource(R.drawable.good);
-                        break;
-                }
-            }
-        });
-
-        if (newSignalVolume == ESignalVolume.HEAD_SET_NOT_COVERED){
-            Context context = getApplicationContext();
-            CharSequence text = "The Head set should be on the head... da!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
+//                    case POOR_SIGNAL_HIGH:
+//                    case POOR_SIGNAL_LOW:
+//                        m_ConnectivityIconImageV.setImageResource(R.drawable.medium);
+//                        break;
+//                    case GOOD_SIGNAL:
+//                        m_ConnectivityIconImageV.setImageResource(R.drawable.good);
+//                        break;
+//                }
+//            }
+//        });
+//
+//        if (newSignalVolume == ESignalVolume.HEAD_SET_NOT_COVERED){
+//            Context context = getApplicationContext();
+//            CharSequence text = "The Head set should be on the head... da!";
+//            int duration = Toast.LENGTH_SHORT;
+//
+//            Toast toast = Toast.makeText(context, text, duration);
+//            toast.show();
+//        }
     }
 }
