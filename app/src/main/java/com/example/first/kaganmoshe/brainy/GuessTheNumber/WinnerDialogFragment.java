@@ -3,8 +3,8 @@ package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
 import android.app.Dialog;
 import android.media.MediaPlayer;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
