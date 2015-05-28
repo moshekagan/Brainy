@@ -3,12 +3,11 @@
         <layer-list>
             <item android:bottom="2dp" android:left="2dp">
                 <shape>
-                    <solid android:color="#E08E79"/>
+                    <solid android:color="#ffb4ff82" />
                     <corners android:radius="@dimen/guess_the_number_button_radius" />
                 </shape>
             </item>
-            <item android:drawable="@drawable/game_button"/>
+            <item android:drawable="@drawable/game_button"></item>
         </layer-list>
     </item>
-
 </selector>

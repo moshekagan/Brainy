@@ -3,39 +3,44 @@ package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
+import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 
 import EEG.EConnectionState;
-import EEG.EHeadSetType;
 import EEG.ESignalVolume;
 import EEG.EegHeadSet;
 import EEG.IHeadSetData;
-import EEG.MindWave;
 import Utils.Logs;
 
 
-public class GuessTheNumberGameActivity extends FragmentActivity implements IHeadSetData {
+public class GuessTheNumberGameActivity extends FragmentActivity implements IHeadSetData, WinnerDialogFragment.gameCommunicator {
 
     private static final int MAX_INPUT_DIGITS = 3;
     private final String GUESS_THE_NUMBER_GAME_ACTIVITY = "GuessTheNumberGameActivity";
-    private TextView outputText;
+    private TextSwitcher outputText;
     private TextView inputText;
     private TextView headLineText;
     private TextView guessRequestText;
     private Button approveGuessButton;
     private Button backspaceButton;
     private GuessTheNumberEngine game;
+    private MediaPlayer buttonClickSound;
+    private MediaPlayer wrongAnswerSound;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
 
     // Activity components
@@ -53,16 +58,16 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
         setContentView(R.layout.activity_guess_the_number_game);
 
         guessRequestText = (TextView) findViewById(R.id.guessNumberRequest);
-        outputText = (TextView) findViewById(R.id.outputText);
+        outputText = (TextSwitcher) findViewById(R.id.outputText);
         headLineText = (TextView) findViewById(R.id.guessNumberTitle);
         approveGuessButton = (Button) findViewById(R.id.approveGuessButton);
         backspaceButton = (Button) findViewById(R.id.backspaceButton);
         inputText = (TextView) findViewById(R.id.guessInput);
 
-        //changing title font
-        String fontPath = "fonts/Kidsn.ttf";
-        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
-        headLineText.setTypeface(tf);
+        buttonClickSound = MediaPlayer.create(this, R.raw.button_click_sound);
+        wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
+
+        initTextLines();
 
         if (savedInstanceState == null) {
             initialize();
@@ -71,6 +76,24 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
         }
 
         initializationActivity();
+    }
+
+    private void initTextLines() {
+        outputText.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView textView = new TextView(GuessTheNumberGameActivity.this);
+                textView.setTextAppearance(GuessTheNumberGameActivity.this, R.style.gameOutputText);
+                Utils.changeFont(getAssets(), textView);
+                return textView;
+            }
+        });
+
+        outputText.setInAnimation(this, android.R.anim.fade_in);
+        outputText.setOutAnimation(this, android.R.anim.fade_out);
+
+        //changing title font
+        Utils.changeFont(getAssets(), headLineText);
     }
 
     private void initializationActivity() {
@@ -109,7 +132,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
         try {
             GuessTheNumberEngine.GuessResult result = game.checkGuess(Integer.parseInt(inputText.getText().toString()));
 
-            switch(result){
+            switch (result) {
                 case GOOD:
                     showWinnerDialog();
                     break;
@@ -117,23 +140,26 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
                     outputText.setText("Try a lower number..");
                     break;
                 case NOT_IN_RANGE:
-                    outputText.setText("Your number is not in range..");
+                    outputText.setText("Number not in range..");
                     break;
                 case TOO_LOW:
                     outputText.setText("Try a higher number..");
                     break;
             }
 
-            if(result != GuessTheNumberEngine.GuessResult.GOOD){
+            if (result != GuessTheNumberEngine.GuessResult.GOOD) {
+                wrongAnswerSound.start();
                 inputText.setText("");
             }
         } catch (NumberFormatException ex) {
             outputText.setText("Invalid input");
+            wrongAnswerSound.start();
         }
     }
 
     private void showWinnerDialog() {
         WinnerDialogFragment winnerDialogFragment = new WinnerDialogFragment();
+        winnerDialogFragment.setGameScreen(this);
         winnerDialogFragment.show(fm, "WinnerDialogFragment");
     }
 
@@ -162,11 +188,13 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     public void gameButtonClicked(View view) {
         if (view.getId() == approveGuessButton.getId()) {
             checkGuess();
-        } else{
+        } else {
+            buttonClickSound.start();
+
             if (view.getId() == backspaceButton.getId()) {
                 removeLastLetterFromInput();
             } else {
-                addLetterToInput(((Button)view).getText().toString());
+                addLetterToInput(((Button) view).getText().toString());
             }
 
             outputText.setText("");
@@ -174,16 +202,14 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     }
 
     private void removeLastLetterFromInput() {
-        //int inputLength = inputText.length();
-
-        if(inputText.length() > 0){
+        if (inputText.length() > 0) {
             CharSequence newText = inputText.getText().subSequence(0, inputText.length() - 1);
             inputText.setText(newText);
         }
     }
 
     private void addLetterToInput(String text) {
-        if(inputText.length() < MAX_INPUT_DIGITS){
+        if (inputText.length() < MAX_INPUT_DIGITS) {
             inputText.append(text);
         }
     }
@@ -192,7 +218,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     public void onAttentionReceived(int attValue) {
         Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, "Got Attention! " + EegHeadSet.ATTENTION_STR + ": " + attValue);
 
-        if (attValue != Integer.parseInt(m_AttentionTextV.getText().toString())){
+        if (attValue != Integer.parseInt(m_AttentionTextV.getText().toString())) {
             final String newAttValue = Integer.toString(attValue);
             final int att = attValue;
 
@@ -226,7 +252,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
         String message = "";
 
-        switch (connectionState){
+        switch (connectionState) {
             case DEVICE_CONNECTED:
                 message = "Connection established :)";
                 break;
@@ -282,5 +308,22 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
 //            Toast toast = Toast.makeText(context, text, duration);
 //            toast.show();
 //        }
+    }
+
+    @Override
+    public void back() {
+        //not good. backstack is messed up this way
+        startActivity(new Intent(GuessTheNumberGameActivity.this, MenuActivity.class));
+        finish();
+    }
+
+    @Override
+    public void playAgain(){
+        finish();
+    }
+
+    @Override
+    public void feedback(){
+
     }
 }

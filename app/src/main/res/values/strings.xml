@@ -10,7 +10,6 @@
     <string name="title_activity_game">GameActivity</string>
     <string name="guess_number_headline">Guess a number between 0 to</string>
     <string name="guess_request">Your Guess:</string>
-    <string name="approve_guess">Go!</string>
     <string name="guess_number_done">Done</string>
     <string name="guess_number_title">Guess the Number</string>
     <string name="connect">Connect</string>
@@ -24,5 +23,9 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="winner_dialog_feedback">Feedback</string>
+    <string name="winner_dialog_play_again">Play again</string>
+    <string name="winner_dialog_back">Back</string>
+    <string name="approve_button">Guess</string>
 
 </resources>

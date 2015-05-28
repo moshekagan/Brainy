@@ -3,6 +3,8 @@ package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,6 +66,24 @@ public class GuessTheNumberConfigActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("START", "START");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("RESTART", "RESTART");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("RESUME", "RESUME");
+    }
+
     private void onStartGameClick(){
         Intent intent = new Intent(this, GuessTheNumberGameActivity.class);
         String rangeValue = rangeValueText.getText().toString();
@@ -74,6 +94,29 @@ public class GuessTheNumberConfigActivity extends Activity {
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putInt(CURRENT_RANGE_VALUE, currentRangeValue);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("Pause","Pause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("STOP", "STOP");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("DESTROY", "DESTROY");
     }
 
 

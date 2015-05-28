@@ -1,16 +1,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <layer-list>
-            <item android:drawable="@drawable/game_button"></item>
             <item android:bottom="2dp" android:left="2dp">
                 <shape>
-                    <solid android:color="#ff61bce7"/>
-                    <stroke android:color="#ff545454" android:width="1dp"/>
-                    <corners android:radius="10dp" />
-                    <padding android:bottom="10dp" android:left="10dp"
-                        android:right="10dp" android:top="10dp" />
+                    <solid android:color="#E08E79" />
+                    <corners android:radius="@dimen/guess_the_number_button_radius" />
                 </shape>
             </item>
+            <item android:drawable="@drawable/game_button"></item>
         </layer-list>
     </item>
 

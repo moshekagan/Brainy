@@ -1,68 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:weightSum="4"
-    style="@style/winnerDialog">
+    tools:context=".WinnerDialogFragment">
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:src="@drawable/winner_background"
+        android:scaleType="fitXY"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/winner_dialog_title"
-        android:textSize="20sp"
-        android:gravity="center" />
-
+        android:layout_alignTop="@+id/dialog_layout_main"
+        android:layout_alignBottom="@id/dialog_layout_main"
+        android:layout_alignLeft="@id/dialog_layout_main"
+        android:layout_alignRight="@id/dialog_layout_main" />
 
     <LinearLayout
+        android:id="@+id/dialog_layout_main"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal"
-        android:weightSum="7">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="4">
 
-        <android.widget.Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <ImageView
-            android:layout_weight="5"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/brainy_thumbup"
-            android:adjustViewBounds="true" />
+        <TextView
+            style="@style/winnerDialogTitle"
+            android:id="@+id/winnerDialogTitle"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/winner_dialog_title"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <android.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/brainy_thumbup"
+                android:adjustViewBounds="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="12">
+
+            <Button
+                android:id="@+id/playAgainButton"
+                android:stateListAnimator="@null"
+                android:background="@drawable/winner_dialog_button"
+                style="@style/dialogButtonText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/winner_dialog_play_again"/>
+
+            <Button
+                android:id="@+id/feedbackButton"
+                android:stateListAnimator="@null"
+                android:background="@drawable/winner_dialog_button"
+                style="@style/dialogButtonText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/winner_dialog_feedback"/>
+
+            <Button
+                android:id="@+id/backButton"
+                android:stateListAnimator="@null"
+                android:background="@drawable/winner_dialog_button"
+                style="@style/dialogButtonText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="@string/winner_dialog_back"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="12">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="1" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="2" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="3" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
