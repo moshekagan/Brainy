@@ -312,9 +312,9 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
 
     @Override
     public void back() {
-        //not good. backstack is messed up this way
-        startActivity(new Intent(GuessTheNumberGameActivity.this, MenuActivity.class));
-        finish();
+        Intent intent = new Intent(this, MenuActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override
