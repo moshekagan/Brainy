@@ -12,7 +12,7 @@ import Utils.Logs;
 /**
  * Created by kaganmoshe on 5/9/15.
  */
-public class MindWave extends EegHeadSet {
+public class  MindWave extends EegHeadSet {
 
     // Final Members
     final boolean RAW_ENABLED = false;
@@ -58,12 +58,24 @@ public class MindWave extends EegHeadSet {
     };
 
     // C'tor
-    private MindWave(){
+    public MindWave(){
         m_ConnectState = EConnectionState.DEVICE_NOT_CONNECTED;
         m_BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         m_TgDevice = new TGDevice(m_BluetoothAdapter, m_TgDeviceHandler);
     }
+
+//    public static EegHeadSet getInstance(EHeadSetType headSetType) throws Exception {
+//        if (headSetType == EHeadSetType.MindWave){
+//            if (m_MindWave == null){
+//                m_MindWave = new MindWave();
+//            }
+//        } else {
+//            throw new Exception("Some Wird ERROR Happend Because There is no other type excepted 'MindWave' - WE ARE IN : EegHeadSet.getInstance()");
+//        }
+//
+//        return m_MindWave;
+//    }
 
     // Methods
     @Override
@@ -72,6 +84,7 @@ public class MindWave extends EegHeadSet {
             m_ConnectState = EConnectionState.BLUETOOTH_NOT_AVAILABLE;
         } else if (!IsConnected()) {
             m_TgDevice.connect(RAW_ENABLED);
+            Logs.info(MIND_WAVE, "Try to connect to 'MindWave'...");
         }
 
         return m_ConnectState;
@@ -172,17 +185,5 @@ public class MindWave extends EegHeadSet {
         Logs.info(MIND_WAVE, "*** Low Beta: " + tgEegPower.lowBeta);
         Logs.info(MIND_WAVE, "*** Mid Gamma: " + tgEegPower.midGamma);
         Logs.info(MIND_WAVE, "*** Low Gamma: " + tgEegPower.lowGamma);
-    }
-
-    public static EegHeadSet getInstance(EHeadSetType headSetType) throws Exception {
-        if (headSetType == EHeadSetType.MindWave){
-            if (m_MindWave == null){
-                m_MindWave = new MindWave();
-            }
-        } else {
-            throw new Exception("Some Wird ERROR Happend Because There is no other type excepted 'MindWave' - WE ARE IN : EegHeadSet.getInstance()");
-        }
-
-        return m_MindWave;
     }
 }

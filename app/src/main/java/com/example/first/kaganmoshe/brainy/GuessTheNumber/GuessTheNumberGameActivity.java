@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.first.kaganmoshe.brainy.AppManager;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 
@@ -114,7 +115,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
 
         // Get HeadSet - ic_mind_wave_mobile
 //        try{
-//            m_HeadSet = MindWave.getInstance(EHeadSetType.MindWave);
+//            m_HeadSet = AppManager.getInstance().getHeadSet();
 //            m_HeadSet.registerListener(this);
 //            Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, Logs.SEPARATOR_LINE + "Just created MindWave HeadSet" + Logs.SEPARATOR_LINE);
 //        } catch (Exception e){

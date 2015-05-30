@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
@@ -79,7 +80,7 @@ public class GraphFragment extends Fragment implements IHeadSetData {
 
         // Get HeadSet - ic_mind_wave_mobile and register
         try{
-            EegHeadSet headSet = MindWave.getInstance(EHeadSetType.MindWave);
+            EegHeadSet headSet = AppManager.getInstance().getHeadSet();
             headSet.registerListener(this);
         } catch (Exception e) {
             // TODO - Not need to go hear never!!!!

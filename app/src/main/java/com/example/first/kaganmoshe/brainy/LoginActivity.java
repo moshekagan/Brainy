@@ -8,9 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import Utils.Logs;
+
 
 public class LoginActivity extends Activity {
-
+    private static final String LOGIN_ACTIVITY = "LoginActivity";
     private Button m_ConnectBtn;
 
     @Override
@@ -28,6 +30,9 @@ public class LoginActivity extends Activity {
                 onConnectClick();
             }
         });
+
+        Logs.info(LOGIN_ACTIVITY, " geting the first instace of AppManager");
+        AppManager.getInstance(); // Create the appManager
     }
 
     @Override
@@ -54,7 +59,7 @@ public class LoginActivity extends Activity {
 
     private void onConnectClick(){
         Intent intent = new Intent(this, SettingsActivity.class);
-        intent.putExtra("Message","");
+        intent.putExtra("Message", "");
         startActivity(intent);
     }
 }
