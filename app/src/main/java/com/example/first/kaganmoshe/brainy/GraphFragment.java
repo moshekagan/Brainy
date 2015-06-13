@@ -121,7 +121,6 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         super.onDestroy();
     }
 
-
     @Override
     public void onAttentionReceived(int attValue) {
         Logs.info(GRAPH_FRAGMENT, "Got Attention! " + EegHeadSet.ATTENTION_STR + ": " + attValue);
