@@ -27,5 +27,6 @@
     <string name="winner_dialog_play_again">Play again</string>
     <string name="winner_dialog_back">Back</string>
     <string name="approve_button">Guess</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
 
 </resources>

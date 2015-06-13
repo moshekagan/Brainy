@@ -1,8 +1,8 @@
 package com.example.first.kaganmoshe.brainy;
 
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,6 +120,7 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         Logs.info(GRAPH_FRAGMENT, Logs.SEPARATOR_LINE + "HeadSet Connection closed!" + Logs.SEPARATOR_LINE);
         super.onDestroy();
     }
+
 
     @Override
     public void onAttentionReceived(int attValue) {

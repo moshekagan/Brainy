@@ -1,14 +1,10 @@
 package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.example.first.kaganmoshe.brainy.AppManager;
+import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
+import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 
@@ -43,6 +40,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     private MediaPlayer buttonClickSound;
     private MediaPlayer wrongAnswerSound;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+    private FeedbackClass feedback;
 
     // Activity components
 //    private ImageView m_ConnectivityIconImageV;
@@ -67,6 +65,9 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
 
         buttonClickSound = MediaPlayer.create(this, R.raw.button_click_sound);
         wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
+
+        feedback = new GTNFeedback();
+        feedback.startTimer();
 
         initTextLines();
 
@@ -149,6 +150,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
             }
 
             if (result != GuessTheNumberEngine.GuessResult.GOOD) {
+                feedback.stopTimer();
                 wrongAnswerSound.start();
                 inputText.setText("");
             }
@@ -325,6 +327,9 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
 
     @Override
     public void feedback(){
+        Intent intent = new Intent(this, FeedbackActivity.class);
 
+        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
+        startActivity(intent);
     }
 }
