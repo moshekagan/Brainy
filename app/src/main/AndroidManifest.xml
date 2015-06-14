@@ -38,6 +38,10 @@
             android:name=".Feedback.FeedbackActivity"
             android:label="@string/title_activity_feedback" >
         </activity>
+        <activity
+            android:name=".HotAirBallon.HotAirBalloonActivity"
+            android:label="@string/title_activity_hot_air_ballon" >
+        </activity>
     </application>
 
 </manifest>
