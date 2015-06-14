@@ -30,5 +30,7 @@
     <string name="title_activity_feedback">FeedbackActivity</string>
     <string name="feedback_activity_title">Feedback</string>
     <string name="winner_dialog_continue">Continue</string>
+    <string name="feedbackScoreView">Score:</string>
+    <string name="feedbackTimeView">Time:</string>
 
 </resources>

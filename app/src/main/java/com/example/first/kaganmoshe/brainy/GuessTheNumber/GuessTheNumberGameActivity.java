@@ -16,7 +16,6 @@ import android.widget.ViewSwitcher;
 
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
-import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 
 import EEG.EConnectionState;
@@ -41,6 +40,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     private MediaPlayer wrongAnswerSound;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     private FeedbackClass feedback;
+
 
     // Activity components
 //    private ImageView m_ConnectivityIconImageV;
@@ -136,6 +136,7 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
 
             switch (result) {
                 case GOOD:
+                    feedback.stopTimer();
                     showWinnerDialog();
                     break;
                 case TOO_HIGH:
@@ -150,7 +151,6 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
             }
 
             if (result != GuessTheNumberEngine.GuessResult.GOOD) {
-                feedback.stopTimer();
                 wrongAnswerSound.start();
                 inputText.setText("");
             }
@@ -318,11 +318,13 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
         Intent intent = new Intent(this, FeedbackActivity.class);
 
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
+        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
+        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
         startActivity(intent);
     }
 
     @Override
     public void backKeyPressed() {
-        Utils.onBackKeyPressed(this);
+        Utils.startNewActivity(this, GuessTheNumberConfigActivity.class);
     }
 }

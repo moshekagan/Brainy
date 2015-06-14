@@ -118,6 +118,7 @@ public class GraphFragment extends Fragment implements IHeadSetData {
     @Override
     public void onDestroy() {
         Logs.info(GRAPH_FRAGMENT, Logs.SEPARATOR_LINE + "HeadSet Connection closed!" + Logs.SEPARATOR_LINE);
+        AppManager.getInstance().getHeadSet().removeListener(this);
         super.onDestroy();
     }
 

@@ -30,7 +30,6 @@ public class WinnerDialogFragment extends DialogFragment {
 
     public interface gameCommunicator {
         public void continueNextScreen();
-
         public void backKeyPressed();
     }
 

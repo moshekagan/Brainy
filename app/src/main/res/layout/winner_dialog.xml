@@ -72,7 +72,7 @@
             <android.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="4" />
+                android:layout_weight="3" />
 
             <Button
                 android:id="@+id/continueButton"
@@ -81,7 +81,7 @@
                 style="@style/dialogButtonText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_weight="5"
                 android:layout_margin="10dp"
                 android:text="@string/winner_dialog_continue"/>
 

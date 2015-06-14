@@ -50,7 +50,11 @@ public class FeedbackClass implements IHeadSetData {
         sessionTimeStop = Calendar.getInstance().getTimeInMillis();
     }
 
-    public long getSessionTime(){
+    public long getSessionTimeInSeconds(){
+        return (sessionTimeStop - sessionTimeStart) / DateUtils.SECOND_IN_MILLIS;
+    }
+
+    public long getSessionTimeInMinutes(){
         return (sessionTimeStop - sessionTimeStart) / DateUtils.MINUTE_IN_MILLIS;
     }
 

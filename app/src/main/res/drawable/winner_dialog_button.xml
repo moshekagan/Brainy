@@ -3,7 +3,7 @@
         <layer-list>
             <item android:bottom="2dp" android:left="2dp">
                 <shape>
-                    <solid android:color="#ffb4ff82" />
+                    <solid android:color="#ffbbecff" />
                     <corners android:radius="@dimen/guess_the_number_button_radius" />
                 </shape>
             </item>

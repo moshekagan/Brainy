@@ -31,6 +31,10 @@ public abstract class EegHeadSet {
         m_HeadSetData.add(headSetDate);
     }
 
+    public void removeListener(IHeadSetData headSetData){
+        m_HeadSetData.remove(headSetData);
+    }
+
     public void raiseOnAttention(int attValue){
         Logs.info(EEGHEADSET_STR, ATTENTION_STR + ": " + attValue);
 

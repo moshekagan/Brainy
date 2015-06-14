@@ -20,8 +20,8 @@ public class Utils {
         view.setTypeface(tf);
     }
 
-    public static void onBackKeyPressed(Activity activity){
-        Intent intent = new Intent(activity, MenuActivity.class);
+    public static void startNewActivity(Activity activity, Class cls){
+        Intent intent = new Intent(activity, cls);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }

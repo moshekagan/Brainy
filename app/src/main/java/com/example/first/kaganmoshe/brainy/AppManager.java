@@ -8,6 +8,7 @@ import EEG.ESignalVolume;
 import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 import EEG.MindWave;
+import EEG.MockerHeadSet;
 import Utils.Logs;
 
 /**
@@ -23,10 +24,17 @@ public class AppManager implements IHeadSetData {
     // C'tor
     private AppManager(){
         m_AppSettings = new AppSettings();
+        Logs.info("APP_MANAGER", "APP_MANAGER");
 
         if (m_AppSettings.isUsingHeadSet()){
-            if (m_AppSettings.getHeadSetType() == EHeadSetType.MindWave){
-                m_HeadSet = new MindWave();
+//            if (m_AppSettings.getHeadSetType() == EHeadSetType.MindWave){
+//                m_HeadSet = new MindWave();
+//            }
+
+            //Mocker
+            if(m_HeadSet == null){
+                Logs.info("MOCKER", "MOCKER");
+                m_HeadSet = new MockerHeadSet();
             }
         }
 
@@ -53,6 +61,10 @@ public class AppManager implements IHeadSetData {
         if (m_AppSettings.isUsingHeadSet() && m_HeadSet != null){
             m_HeadSet.connect();
             Logs.info(APP_MANAGER, "Try to connect to MindWave");
+        }
+        //mocker
+        else{
+            m_HeadSet.connect();
         }
     }
 
