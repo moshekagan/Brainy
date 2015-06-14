@@ -314,22 +314,15 @@ public class GuessTheNumberGameActivity extends FragmentActivity implements IHea
     }
 
     @Override
-    public void back() {
-        Intent intent = new Intent(this, MenuActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
-    @Override
-    public void playAgain(){
-        finish();
-    }
-
-    @Override
-    public void feedback(){
+    public void continueNextScreen() {
         Intent intent = new Intent(this, FeedbackActivity.class);
 
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
         startActivity(intent);
+    }
+
+    @Override
+    public void backKeyPressed() {
+        Utils.onBackKeyPressed(this);
     }
 }

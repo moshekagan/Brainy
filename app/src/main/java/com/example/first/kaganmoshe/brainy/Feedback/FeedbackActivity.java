@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.first.kaganmoshe.brainy.GuessTheNumber.Utils;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -25,6 +27,11 @@ public class FeedbackActivity extends Activity {
         initGraph();
     }
 
+    @Override
+    public void onBackPressed() {
+        Utils.onBackKeyPressed(this);
+    }
+
     private void initGraph(){
         ArrayList<ParcelableDataPoint> concentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
 
@@ -34,6 +41,13 @@ public class FeedbackActivity extends Activity {
 
         graphView = (GraphView) findViewById(R.id.graph);
         graphView.addSeries(concentrationPoints);
+
+        Viewport viewport = graphView.getViewport();
+        viewport.setYAxisBoundsManual(true);
+        viewport.setMinY(0);
+        viewport.setMaxY(100);
+        viewport.setMinX(10);
+        viewport.setScrollable(true);
     }
 
     @Override
