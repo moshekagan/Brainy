@@ -5,7 +5,25 @@ package EEG;
  */
 public enum EHeadSetType {
     MindWave
+    , Moker;
 //    ,Emotive
 //    ,OpenBCI
 //    ,Muse
+
+
+    @Override
+    public String toString() {
+        String res = "";
+
+        switch (this){
+            case MindWave:
+                res = "MindWave";
+                break;
+            case Moker:
+                res = "Moker";
+                break;
+        }
+
+        return res;
+    }
 }

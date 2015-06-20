@@ -28,13 +28,14 @@
     <string name="winner_dialog_back">Back</string>
     <string name="approve_button">Guess</string>
     <string name="title_activity_feedback">FeedbackActivity</string>
-<<<<<<< Updated upstream
     <string name="feedback_activity_title">Feedback</string>
     <string name="winner_dialog_continue">Continue</string>
     <string name="feedbackScoreView">Score:</string>
     <string name="feedbackTimeView">Time:</string>
-=======
     <string name="title_activity_hot_air_ballon">HotAirBallonActivity</string>
->>>>>>> Stashed changes
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

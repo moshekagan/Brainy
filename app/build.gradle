@@ -21,7 +21,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.1'
     compile files('src/main/java/libs/ThinkGear.jar')
     compile files('src/main/java/libs/GraphView-4.0.1.jar')
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:support-v4:22.1.1'
 }

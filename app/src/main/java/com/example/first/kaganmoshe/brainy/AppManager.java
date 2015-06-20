@@ -2,6 +2,8 @@ package com.example.first.kaganmoshe.brainy;
 
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
 
+import java.security.PublicKey;
+
 import EEG.EConnectionState;
 import EEG.EHeadSetType;
 import EEG.ESignalVolume;
@@ -26,19 +28,7 @@ public class AppManager implements IHeadSetData {
         m_AppSettings = new AppSettings();
         Logs.info("APP_MANAGER", "APP_MANAGER");
 
-        if (m_AppSettings.isUsingHeadSet()){
-//            if (m_AppSettings.getHeadSetType() == EHeadSetType.MindWave){
-//                m_HeadSet = new MindWave();
-//            }
-
-            //Mocker
-            if(m_HeadSet == null){
-                Logs.info("MOCKER", "MOCKER");
-                m_HeadSet = new MockerHeadSet();
-            }
-        }
-
-        connectToHeadSet();
+//        configureAndConnectHeadSet();
     }
 
     public static AppManager getInstance(){
@@ -56,6 +46,23 @@ public class AppManager implements IHeadSetData {
     }
 
     public AppSettings getAppSettings() { return m_AppSettings; }
+
+    public void configureAndConnectHeadSet(){
+        EHeadSetType type = getAppSettings().getHeadSetType();
+        if (m_AppSettings.isUsingHeadSet() && m_HeadSet == null){
+            switch (type){
+                case MindWave:
+                    m_HeadSet = new MindWave();
+                    break;
+                case Moker:
+                    Logs.info(APP_MANAGER, "Connected to: MOCKER");
+                    m_HeadSet = new MockerHeadSet();
+                    break;
+            }
+        }
+
+        connectToHeadSet();
+    }
 
     public void connectToHeadSet(){
         if (m_AppSettings.isUsingHeadSet() && m_HeadSet != null){
