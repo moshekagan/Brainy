@@ -3,13 +3,17 @@ package com.example.first.kaganmoshe.brainy.HotAirBallon;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
@@ -38,6 +42,17 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
     private int i = 1;
     private boolean listenToHeadSet = false;
     private boolean displayMessage = true;
+    private MediaPlayer hotAirBalloonSoundAffect;
+    private int oldAtt = 0;
+
+    // Data Members For Timer
+    long timeInMilliseconds = 0L;
+    long timeSwapBuff = 0L;
+    long updatedTime = 0L;
+    private long timerValueInMilliseconds = 60000l; //
+    private long startTime = 0L;
+    private TextView timerValue;
+    private Handler customHandler = new Handler();
 
     // Methods
     @Override
@@ -46,6 +61,8 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
         setContentView(R.layout.activity_hot_air_balloon);
 
         imageView = (ImageView) findViewById(R.id.balloonImageView);
+        timerValue = (TextView) findViewById(R.id.timerValue);
+        hotAirBalloonSoundAffect = MediaPlayer.create(this, R.raw.hot_air_balloon_sound_affect);
 
         setAttentionValues();
 
@@ -64,19 +81,24 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
 
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
+                        startTimerGame(60000L);
                     } else if (AppManager.getInstance().getAppSettings().getHeadSetType() == EHeadSetType.MindWave){
                         listenToHeadSet = true;
+                        startTimerGame(90000L);
                     }
                 }
                 int attVal = attValues.get(i);
-                float attPrecent = getAttentionAsFraction(attVal);
+                float attPresent = getAttentionAsFraction(attVal);
                 i++;
                 if (i == attValues.size()){
                     i = 0;
                 }
 
-                float destination = getDestination(attPrecent);
-
+                float destination = getDestination(attPresent);
+                if (oldAtt < attValues.get(i))
+                    hotAirBalloonSoundAffect.start();
+//                else hotAirBalloonSoundAffect.stop();
+                oldAtt = attValues.get(i);
 //                Log.e(HOT_AIR_BALLOON_ACTIVITY, "# ATT = " + attVal);
 //                Log.e(HOT_AIR_BALLOON_ACTIVITY, "++++++ destination = " + destination);
 
@@ -91,6 +113,12 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
         } catch (Exception e) {
             // TODO - Not need to go hear never!!!!
         }
+    }
+
+    private void startTimerGame(long value) {
+        timerValueInMilliseconds = value;
+        startTime = SystemClock.uptimeMillis();
+        customHandler.postDelayed(updateTimerThread, 0);
     }
 
     private float getAttentionAsFraction(int attVal) {
@@ -151,10 +179,14 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
         if (listenToHeadSet) {
             // Raised the balloon
             Logs.warn(HOT_AIR_BALLOON_ACTIVITY, "Got Attention: " + attValue);
-            float attPrecent = getAttentionAsFraction(attValue);
-            float destination = getDestination(attPrecent);
+            float attPresent = getAttentionAsFraction(attValue);
+            float destination = getDestination(attPresent);
             Logs.warn(HOT_AIR_BALLOON_ACTIVITY, "New Destination: " + destination);
             raisedTheAirBalloon(destination);
+            if (oldAtt < attValue)
+                hotAirBalloonSoundAffect.start();
+//            else hotAirBalloonSoundAffect.stop();
+            oldAtt = attValue;
         }
     }
     @Override
@@ -171,4 +203,32 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
     public void onPoorSignalReceived(ESignalVolume signalVolume) {
         // Do Nothing
     }
+
+    private Runnable updateTimerThread = new Runnable() {
+        public void run() {
+            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+            timeInMilliseconds = timerValueInMilliseconds - timeInMilliseconds;
+
+            if (timeInMilliseconds > 0L) {
+                updatedTime = timeSwapBuff + timeInMilliseconds;
+
+
+                int secs = (int) (updatedTime / 1000);
+                int mins = secs / 60;
+                secs = secs % 60;
+//                int milliseconds = (int) (updatedTime % 1000);
+                timerValue.setText("" + mins + ":"
+                        + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
+                customHandler.postDelayed(this, 0);
+            } else {
+                finishTimerGame();
+            }
+        }
+    };
+
+    private void finishTimerGame() {
+        timeSwapBuff += timeInMilliseconds;
+        customHandler.removeCallbacks(updateTimerThread);
+    }
+
 }
