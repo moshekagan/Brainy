@@ -31,6 +31,12 @@ public abstract class EegHeadSet {
         m_HeadSetData.add(headSetDate);
     }
 
+    public void unregisterListener(IHeadSetData headSetDate){
+        if (m_HeadSetData.contains(headSetDate))
+            m_HeadSetData.remove(headSetDate);
+    }
+
+
     public void removeListener(IHeadSetData headSetData){
         m_HeadSetData.remove(headSetData);
     }
