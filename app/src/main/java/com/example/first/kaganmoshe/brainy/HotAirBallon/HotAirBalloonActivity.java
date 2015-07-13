@@ -3,10 +3,12 @@ package com.example.first.kaganmoshe.brainy.HotAirBallon;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
+import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
+import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
+import com.example.first.kaganmoshe.brainy.GenericDialogFragment;
+import com.example.first.kaganmoshe.brainy.GuessTheNumber.GTNFeedback;
+import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
+import com.example.first.kaganmoshe.brainy.GuessTheNumber.Utils;
+import com.example.first.kaganmoshe.brainy.GuessTheNumber.WinnerDialogFragment;
 import com.example.first.kaganmoshe.brainy.R;
 
 import java.util.LinkedList;
@@ -29,7 +38,7 @@ import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 import Utils.Logs;
 
-public class HotAirBalloonActivity extends Activity implements IHeadSetData {
+public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetData, GenericDialogFragment.gameCommunicator {
 
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
@@ -44,6 +53,8 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
     private boolean displayMessage = true;
     private MediaPlayer hotAirBalloonSoundAffect;
     private int oldAtt = 0;
+    private FeedbackClass feedback;
+    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
 
     // Data Members For Timer
     long timeInMilliseconds = 0L;
@@ -60,6 +71,7 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hot_air_balloon);
 
+        feedback = new FeedbackClass();
         imageView = (ImageView) findViewById(R.id.balloonImageView);
         timerValue = (TextView) findViewById(R.id.timerValue);
         hotAirBalloonSoundAffect = MediaPlayer.create(this, R.raw.hot_air_balloon_sound_affect);
@@ -118,6 +130,7 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
     private void startTimerGame(long value) {
         timerValueInMilliseconds = value;
         startTime = SystemClock.uptimeMillis();
+        feedback.startTimer();
         customHandler.postDelayed(updateTimerThread, 0);
     }
 
@@ -229,6 +242,30 @@ public class HotAirBalloonActivity extends Activity implements IHeadSetData {
     private void finishTimerGame() {
         timeSwapBuff += timeInMilliseconds;
         customHandler.removeCallbacks(updateTimerThread);
+        feedback.stopTimer();
+        showFinishGameDialog();
     }
 
+    private void showFinishGameDialog() {
+        GenericDialogFragment finishDialogFragment = new GenericDialogFragment();
+        finishDialogFragment.setGameScreen(this);
+        finishDialogFragment.setTitleText("End Of Time, Good Work!");
+        finishDialogFragment.setContinueButtonText("Show Results");
+        finishDialogFragment.show(fm, "FinishDialogFragment");
+    }
+
+    @Override
+    public void continueNextScreen() {
+        Intent intent = new Intent(this, FeedbackActivity.class);
+
+        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
+        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
+        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
+        startActivity(intent);
+    }
+
+    @Override
+    public void backKeyPressed() {
+        Utils.startNewActivity(this, GuessTheNumberConfigActivity.class);
+    }
 }
