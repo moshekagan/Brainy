@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.R;
+import com.example.first.kaganmoshe.brainy.Utils;
 
 /**
  * A simple {@link Fragment} subclass.

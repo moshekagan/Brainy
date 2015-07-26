@@ -1,9 +1,7 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.Utils;
+import com.example.first.kaganmoshe.brainy.Utils;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;

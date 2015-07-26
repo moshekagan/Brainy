@@ -32,5 +32,13 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#000</item>
     </style>
+    <style name="crazyCubeActivityTitle">
+        <item name="android:textSize">35sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffd58b1f</item>
+    </style>
+    <style name="ccubeTable">
+        <item name="android:background">#ffedfdcd</item>
+    </style>
 
 </resources>

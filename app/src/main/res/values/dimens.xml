@@ -7,4 +7,5 @@
     <dimen name="end_margin_layout">40dp</dimen>
     <dimen name="start_margin_feedback_layout">20dp</dimen>
     <dimen name="end_margin_feedback_layout">20dp</dimen>
+    <dimen name="ccube_score_time_text_size">30sp</dimen>
 </resources>

@@ -38,6 +38,10 @@
             android:name=".Feedback.FeedbackActivity"
             android:label="@string/title_activity_feedback" >
         </activity>
+        <activity
+            android:name=".CrazyCube.CrazyCubeActivity"
+            android:label="@string/title_activity_crazy_cube" >
+        </activity>
     </application>
 
 </manifest>

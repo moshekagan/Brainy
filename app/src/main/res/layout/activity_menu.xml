@@ -16,9 +16,17 @@
         android:layout_height="wrap_content"
         android:text="Guess The Number"
         android:id="@+id/guessTheNumberBtn"
-        android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true"
         android:layout_marginTop="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crazy Cube"
+        android:id="@+id/CrazyCubeBtn"
+        android:layout_below="@+id/guessTheNumberBtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

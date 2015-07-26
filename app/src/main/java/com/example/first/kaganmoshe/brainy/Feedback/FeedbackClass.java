@@ -6,6 +6,7 @@ import com.example.first.kaganmoshe.brainy.AppManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
@@ -62,6 +63,10 @@ public class FeedbackClass implements IHeadSetData {
         return concentrationPoints;
     }
 
+    public List<ParcelableDataPoint> getConcentrationPoints(int index){
+        return concentrationPoints.subList(index, concentrationPoints.size());
+    }
+
     //    private void addEntry(int value) {
 //        concentrationPoints.appendData(new DataPoint(lastX++, value), true, 20);
 //    }
@@ -91,5 +96,9 @@ public class FeedbackClass implements IHeadSetData {
     @Override
     public void onPoorSignalReceived(ESignalVolume signalVolume) {
 
+    }
+
+    public int getLastX() {
+        return lastX;
     }
 }

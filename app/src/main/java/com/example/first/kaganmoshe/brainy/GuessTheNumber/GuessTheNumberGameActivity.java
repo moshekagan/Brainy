@@ -17,6 +17,7 @@ import android.widget.ViewSwitcher;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.R;
+import com.example.first.kaganmoshe.brainy.Utils;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;

@@ -9,11 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 
 
 public class MenuActivity extends Activity {
 
+    private Button m_CrazyCubeBtn;
     private Button m_GuessTheNumberBtn;
     private Button m_SettingsBtn;
     @Override
@@ -25,6 +27,13 @@ public class MenuActivity extends Activity {
     }
 
     private void initViewActivity() {
+        m_CrazyCubeBtn = (Button) findViewById(R.id.CrazyCubeBtn);
+        m_CrazyCubeBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                onCrazyCubeClick();
+            }
+        });
+
         m_GuessTheNumberBtn = (Button) findViewById(R.id.guessTheNumberBtn);
         m_GuessTheNumberBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -38,6 +47,13 @@ public class MenuActivity extends Activity {
                 onSettingsClick();
             }
         });
+    }
+
+    private void onCrazyCubeClick() {
+        //TODO - make code reusable for every click
+        Intent intent = new Intent(this, CrazyCubeActivity.class);
+        intent.putExtra("Message", "");
+        startActivity(intent);
     }
 
     private void onSettingsClick() {
