@@ -24,7 +24,7 @@ import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GenericDialogFragment;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GTNFeedback;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.Utils;
+import com.example.first.kaganmoshe.brainy.Utils;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.WinnerDialogFragment;
 import com.example.first.kaganmoshe.brainy.R;
 

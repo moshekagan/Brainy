@@ -24,9 +24,8 @@
         android:layout_height="wrap_content"
         android:text="Crazy Cube"
         android:id="@+id/CrazyCubeBtn"
-        android:layout_below="@+id/guessTheNumberBtn"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        android:layout_below="@+id/hotAirBalloonBtn"
+        android:layout_alignParentStart="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
