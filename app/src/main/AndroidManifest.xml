@@ -11,7 +11,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name" >
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,23 +22,39 @@
         </activity>
         <activity
             android:name=".GuessTheNumber.GuessTheNumberConfigActivity"
-            android:label="@string/title_activity_main" >
+            android:configChanges="orientation"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".GuessTheNumber.GuessTheNumberGameActivity"
-            android:label="@string/title_activity_game" >
+            android:configChanges="orientation"
+            android:label="@string/title_activity_game"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_setting" >
+            android:configChanges="orientation"
+            android:label="@string/title_activity_setting"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu" >
+            android:configChanges="orientation"
+            android:label="@string/title_activity_menu"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Feedback.FeedbackActivity"
-            android:label="@string/title_activity_feedback" >
+            android:configChanges="orientation"
+            android:label="@string/title_activity_feedback"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".HotAirBallon.HotAirBalloonActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_hot_air_ballon"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".CrazyCube.CrazyCubeActivity"

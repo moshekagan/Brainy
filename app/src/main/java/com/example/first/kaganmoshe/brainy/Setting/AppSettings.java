@@ -27,6 +27,10 @@ public class AppSettings {
         m_UseingHeadSet = usingHeadSetVal;
     }
 
+    public void setHeadSetType(EHeadSetType type){
+        m_HeadSetType = type;
+    }
+
     public EHeadSetType getHeadSetType(){
         return m_HeadSetType;
     }

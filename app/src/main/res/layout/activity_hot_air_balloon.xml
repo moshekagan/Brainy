@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:weightSum="3"
+    tools:context="com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity"
+    android:id="@+id/mainFrameLayout"
+    android:background="@drawable/blue_sky_and_green_grass_new">
+
+    <ImageView
+        android:layout_width="135dp"
+        android:layout_height="160dp"
+        android:id="@+id/balloonImageView"
+        android:layout_gravity="center_horizontal|bottom"
+        android:src="@drawable/hot_air_balloon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:text="Animate"
+        android:layout_weight="1"
+        android:id="@+id/button"
+        android:layout_gravity="right|bottom" />
+
+    <TextView
+        android:id="@+id/timerValue"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:textColor="#282828"
+        android:layout_gravity="left|top"
+        android:text="@string/timerVal" />
+
+</FrameLayout>
