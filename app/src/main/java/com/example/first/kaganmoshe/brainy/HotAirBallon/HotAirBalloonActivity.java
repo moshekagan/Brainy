@@ -1,7 +1,6 @@
 package com.example.first.kaganmoshe.brainy.HotAirBallon;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -9,10 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,10 +21,8 @@ import com.example.first.kaganmoshe.brainy.AppManager;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GenericDialogFragment;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.GTNFeedback;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
-import com.example.first.kaganmoshe.brainy.Utils;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.WinnerDialogFragment;
+
 import com.example.first.kaganmoshe.brainy.R;
 
 import java.util.LinkedList;
@@ -38,8 +35,7 @@ import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 import Utils.Logs;
 
-public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetData, GenericDialogFragment.gameCommunicator {
-
+public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetData, GenericDialogFragment.gameCommunicator, StartGameDialogFragment.gameCommunicator {
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
     private final int distanceFromTopActivity = 15;
@@ -55,6 +51,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
     private int oldAtt = 0;
     private FeedbackClass feedback;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+    StartGameDialogFragment startGameDialogFragment;
 
     // Data Members For Timer
     long timeInMilliseconds = 0L;
@@ -125,6 +122,20 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
         } catch (Exception e) {
             // TODO - Not need to go hear never!!!!
         }
+
+        showStartGameDialogFragment();
+    }
+
+    private void showStartGameDialogFragment() {
+        startGameDialogFragment = new StartGameDialogFragment();
+        startGameDialogFragment.setGameScreen(this);
+        startGameDialogFragment.show(fm, "StartGameDialogFragment");
+        changeActivityDarkerOrLighter(0.7f);
+    }
+
+    private void changeActivityDarkerOrLighter(float val){
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        lp.dimAmount = val;
     }
 
     private void startTimerGame(long value) {
@@ -145,8 +156,8 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
         animation.start();
     }
 
-    private float getDestination(float attPrecent) {
-        return (balloonRange * (1 - attPrecent)) + distanceFromTopActivity;
+    private float getDestination(float attPresent) {
+        return (balloonRange * (1 - attPresent)) + distanceFromTopActivity;
     }
 
     private void setAttentionValues() {
@@ -262,6 +273,13 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
         startActivity(intent);
+    }
+
+    @Override
+    public void startGameScreen() {
+        startGameDialogFragment.onStop();
+        changeActivityDarkerOrLighter(0.0f);
+        btn.callOnClick();
     }
 
     @Override

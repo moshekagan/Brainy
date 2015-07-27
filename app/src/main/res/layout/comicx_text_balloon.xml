@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/imageView3"
+        android:src="@drawable/text_balloon" />
+
+    <TextView
+        style="@style/winnerDialogTitle"
+        android:id="@+id/winnerDialogTitle"
+        android:layout_marginTop="27dp"
+        android:layout_width="match_parent"
+        android:layout_height="143dp"
+        android:layout_weight="1"
+        android:text="Try to be fucus to \n raised the balloon"
+        android:gravity="center_horizontal" />
+
+</FrameLayout>
