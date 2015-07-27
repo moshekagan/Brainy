@@ -14,8 +14,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import com.example.first.kaganmoshe.brainy.Utils;
+import com.example.first.kaganmoshe.brainy.GuessTheNumber.WinnerDialogFragment;
 
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.Utils;
 import com.example.first.kaganmoshe.brainy.R;
 
 /**
