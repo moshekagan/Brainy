@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_row_selector"
+    android:padding="8dp" >
+
+    <!-- Thumbnail Image -->
+    <ImageView
+        android:id="@+id/menu_listrow_thumbnail"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="8dp" />
+
+    <!-- Game name -->
+    <TextView
+        android:id="@+id/menu_listrow_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/menu_listrow_thumbnail"
+        android:layout_toEndOf="@+id/menu_listrow_thumbnail"
+        android:textSize="@dimen/menu_listrow_game_name"
+        android:textStyle="bold" />
+
+    <!-- Review -->
+    <TextView
+        android:id="@+id/menu_listrow_review"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menu_listrow_title"
+        android:layout_marginTop="1dip"
+        android:layout_toEndOf="@+id/menu_listrow_thumbnail"
+        android:textSize="@dimen/menu_listrow_game_review" />
+
+
+</RelativeLayout>

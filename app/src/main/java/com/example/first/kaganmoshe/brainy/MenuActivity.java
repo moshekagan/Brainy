@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
@@ -15,49 +19,110 @@ import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity;
 
 public class MenuActivity extends Activity {
 
-    private Button m_CrazyCubeBtn;
-    private Button m_GuessTheNumberBtn;
-    private Button m_SettingsBtn;
-    private Button m_HotAirBalloonBtn;
+    private TextView toolbarText;
+
+    private static final String MENU_TOOLBAR_TEXT = "Menu";
+
+    private ListView list;
+    private String[] titles = {
+            "Guess the Number",
+            "HotAir Balloon",
+            "Crazy Cube"
+    };
+    private Integer[] imageId = {
+            R.drawable.hot_air_balloon,
+            R.drawable.hot_air_balloon,
+            R.drawable.hot_air_balloon
+    };
+    private String[] reviews = {
+            "bla",
+            "bla",
+            "bla"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        initViewActivity();
+        toolbarText = (TextView) findViewById(R.id.toolbarText);
+        toolbarText.setText(MENU_TOOLBAR_TEXT);
+
+        MenuCustomList adapter = new
+                MenuCustomList(MenuActivity.this, titles, imageId, reviews);
+        list = (ListView) findViewById(R.id.list);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                switch(titles[+position]){
+                    case "Guess the Number":
+                        onGuessTheNumberClick();
+                        break;
+                    case "HotAir Balloon":
+                        onHotAirBalloonClick();
+                        break;
+                    case "Crazy Cube":
+                        onCrazyCubeClick();
+                        break;
+                }
+            }
+        });
+
     }
 
-    private void initViewActivity() {
-        m_CrazyCubeBtn = (Button) findViewById(R.id.CrazyCubeBtn);
-        m_CrazyCubeBtn.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                onCrazyCubeClick();
-            }
-        });
 
-        m_GuessTheNumberBtn = (Button) findViewById(R.id.guessTheNumberBtn);
-        m_GuessTheNumberBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onGuessTheNumberClick();
-            }
-        });
-
-        m_SettingsBtn = (Button) findViewById(R.id.settingsBtn);
-        m_SettingsBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onSettingsClick();
-            }
-        });
-
-        m_HotAirBalloonBtn = (Button) findViewById(R.id.hotAirBalloonBtn);
-        m_HotAirBalloonBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                onHotAirBalloonClick();
-            }
-        });
-    }
-
+//    private Button m_CrazyCubeBtn;
+//    private Button m_GuessTheNumberBtn;
+//    private Button m_SettingsBtn;
+//    private Button m_HotAirBalloonBtn;
+//    private TextView toolbarText;
+//
+//    private static final String MENU_TOOLBAR_TEXT = "Menu";
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_menu);
+//
+//        initViewActivity();
+//    }
+//
+//    private void initViewActivity() {
+//        toolbarText = (TextView) findViewById(R.id.toolbarText);
+//        toolbarText.setText(MENU_TOOLBAR_TEXT);
+//
+//        m_CrazyCubeBtn = (Button) findViewById(R.id.CrazyCubeBtn);
+//        m_CrazyCubeBtn.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View v){
+//                onCrazyCubeClick();
+//            }
+//        });
+//
+//        m_GuessTheNumberBtn = (Button) findViewById(R.id.guessTheNumberBtn);
+//        m_GuessTheNumberBtn.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                onGuessTheNumberClick();
+//            }
+//        });
+//
+//        m_SettingsBtn = (Button) findViewById(R.id.settingsBtn);
+//        m_SettingsBtn.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                onSettingsClick();
+//            }
+//        });
+//
+//        m_HotAirBalloonBtn = (Button) findViewById(R.id.hotAirBalloonBtn);
+//        m_HotAirBalloonBtn.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                onHotAirBalloonClick();
+//            }
+//        });
+//    }
+//
     private void onHotAirBalloonClick() {
         Intent intent = new Intent(this, HotAirBalloonActivity.class);
         intent.putExtra("Message", "");

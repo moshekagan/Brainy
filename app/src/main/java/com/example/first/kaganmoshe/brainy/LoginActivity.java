@@ -7,13 +7,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import Utils.Logs;
 
 
 public class LoginActivity extends Activity {
+    private static final String LOGIN_TOOLBAR_TEXT = "Login";
     private static final String LOGIN_ACTIVITY = "LoginActivity";
     private Button m_ConnectBtn;
+    private TextView toolbarText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class LoginActivity extends Activity {
     }
 
     private void initViewActivity() {
+        toolbarText = (TextView) findViewById(R.id.toolbarText);
+        toolbarText.setText(LOGIN_TOOLBAR_TEXT);
         m_ConnectBtn = (Button) findViewById(R.id.connectBtn);
         m_ConnectBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
