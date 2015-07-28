@@ -13,13 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity;
 
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends CustomActivity {
 
-    private TextView toolbarText;
+//    private TextView toolbarText;
 
     private static final String MENU_TOOLBAR_TEXT = "Menu";
 
@@ -45,8 +46,8 @@ public class MenuActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        toolbarText = (TextView) findViewById(R.id.toolbarText);
-        toolbarText.setText(MENU_TOOLBAR_TEXT);
+//        toolbarText = (TextView) findViewById(R.id.toolbarText);
+//        toolbarText.setText(MENU_TOOLBAR_TEXT);
 
         MenuCustomList adapter = new
                 MenuCustomList(MenuActivity.this, titles, imageId, reviews);

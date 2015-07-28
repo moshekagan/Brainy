@@ -5,43 +5,6 @@
     android:orientation="vertical"
     tools:context="com.example.first.kaganmoshe.brainy.MenuActivity">
 
-    <include layout="@layout/app_toolbar" />
-
-    <!--<TextView android:text="@string/menu" android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:textSize="24dp"-->
-    <!--android:id="@+id/textView5" />-->
-
-    <!--<ListView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<Button-->
-            <!--android:id="@+id/guessTheNumberBtn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Guess The Number" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/CrazyCubeBtn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="Crazy Cube" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/settingsBtn"-->
-            <!--style="?android:attr/buttonStyleSmall"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="Settings" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/hotAirBalloonBtn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="Hot Air Balloon" />-->
-    <!--</ListView>-->
-
     <ListView
         android:id="@+id/list"
         android:layout_width="fill_parent"

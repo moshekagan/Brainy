@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_sky_and_green_grass_new"
-    tools:context=".LoginActivity" >
+    android:background="@color/white"
+    tools:context="com.chatt.Login" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,31 +17,42 @@
         android:paddingTop="@dimen/pad_20dp" >
 
         <ImageView
-            android:id="@+id/logoImage"
+            android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/brainy_logo"
-            android:layout_marginBottom="@dimen/pad_20dp" />
+            android:layout_marginBottom="@dimen/pad_20dp"
+            android:src="@drawable/brainy_logo" />
+
+        <EditText
+            android:id="@+id/email"
+            style="@style/editext_graybg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_username"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" >
+
+            <requestFocus />
+        </EditText>
 
         <EditText
             android:id="@+id/user"
             style="@style/editext_graybg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_username"
+            android:layout_marginTop="@dimen/pad_5dp"
+            android:drawableLeft="@drawable/ic_username"
             android:hint="@string/username" >
-
-            <requestFocus />
         </EditText>
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/pwd"
             style="@style/editext_graybg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/pad_20dp"
             android:layout_marginTop="@dimen/pad_5dp"
-            android:drawableStart="@drawable/ic_pwd"
+            android:drawableLeft="@drawable/ic_pwd"
             android:hint="@string/password"
             android:inputType="textPassword" >
         </EditText>
@@ -50,26 +61,16 @@
             android:id="@+id/main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/btnReg"
                 style="@style/btn_white_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pad_10dp"
                 android:layout_weight="1"
-                android:text="@string/log_in"
-                android:layout_marginStart="@dimen/pad_30dp"/>
-
-            <Button
-                android:id="@+id/RegisterButton"
-                style="@style/btn_white_large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/register"
-                android:layout_marginStart="@dimen/pad_10dp"
-                android:layout_marginEnd="@dimen/pad_30dp"/>
+                android:text="@string/register" />
         </LinearLayout>
     </LinearLayout>
 
