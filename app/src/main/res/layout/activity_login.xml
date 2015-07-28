@@ -12,8 +12,6 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="@dimen/pad_20dp"
-        android:paddingLeft="@dimen/pad_15dp"
-        android:paddingRight="@dimen/pad_15dp"
         android:paddingTop="@dimen/pad_20dp" >
 
         <ImageView

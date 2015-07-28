@@ -23,7 +23,7 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
 
     private ActionBar actionBar;
 
-    public class TouchEffect implements View.OnTouchListener {
+    public static class TouchEffect implements View.OnTouchListener {
 
         /* (non-Javadoc)
          * @see android.view.View.OnTouchListener#onTouch(android.view.View, android.view.MotionEvent)
@@ -51,7 +51,7 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
      * Apply this Constant as touch listener for views to provide alpha touch
      * effect. The view must have a Non-Transparent background.
      */
-    public final TouchEffect TOUCH = new TouchEffect();
+    public static final TouchEffect TOUCH = new TouchEffect();
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
