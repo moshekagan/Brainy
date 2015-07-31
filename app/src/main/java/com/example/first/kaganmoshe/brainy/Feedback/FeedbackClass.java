@@ -49,6 +49,8 @@ public class FeedbackClass implements IHeadSetData {
 
     public void stopTimer(){
         sessionTimeStop = Calendar.getInstance().getTimeInMillis();
+        EegHeadSet headSet = AppManager.getInstance().getHeadSet();
+        headSet.unregisterListener(this);
     }
 
     public long getSessionTimeInSeconds(){

@@ -232,11 +232,6 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/start_margin_layout"
-        android:layout_marginStart="@dimen/start_margin_layout"
-        android:layout_marginEnd="@dimen/end_margin_layout"
-        android:layout_marginRight="@dimen/end_margin_layout"
         android:name="com.example.first.kaganmoshe.brainy.GraphFragment"
-        android:id="@+id/fragment"
-        android:layout_weight="3"/>
+        android:id="@+id/fragment"/>
 </LinearLayout>

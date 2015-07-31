@@ -66,7 +66,7 @@ public class SettingsActivity extends CustomActivity {
         setTouchNClick(R.id.headset_list);
         setTouchNClick(R.id.connectButton);
         setTouchNClick(R.id.skipButton);
-        
+
         initViewActivity();
     }
 

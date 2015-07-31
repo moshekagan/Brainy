@@ -1,7 +1,7 @@
 package com.example.first.kaganmoshe.brainy;
 
-
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+//import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -112,6 +113,13 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         viewport.setMaxY(100);
         viewport.setScrollable(true);
 
+        GridLabelRenderer gridLabelRenderer = m_GraphView.getGridLabelRenderer();
+        gridLabelRenderer.setNumVerticalLabels(3);
+        gridLabelRenderer.setNumHorizontalLabels(2);
+        gridLabelRenderer.setHorizontalLabelsVisible(false);
+
+//        gridLabelRenderer.setGridStyle(GridLabelRenderer.GridStyle.);
+
         return view;
     }
 
@@ -130,12 +138,12 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         final int att = attValue;
 
         getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    addEntry(att);
-                    Logs.debug(GRAPH_FRAGMENT, "Append to graph happen with value : " + att);
-                }
-            });
+            @Override
+            public void run() {
+                addEntry(att);
+                Logs.debug(GRAPH_FRAGMENT, "Append to graph happen with value : " + att);
+            }
+        });
     }
 
     @Override
@@ -214,5 +222,10 @@ public class GraphFragment extends Fragment implements IHeadSetData {
     private void addEntry(int value){
         // TODO - Here , we choose to display max 10 points on the viewport and we scroll to end
         series.appendData(new DataPoint(lastX++, value), true, 20);
+    }
+
+    public void stopRecievingData(){
+        EegHeadSet headSet = AppManager.getInstance().getHeadSet();
+        headSet.unregisterListener(this);
     }
 }

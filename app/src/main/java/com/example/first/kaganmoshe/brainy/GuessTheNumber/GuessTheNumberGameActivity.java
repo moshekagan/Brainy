@@ -3,9 +3,8 @@ package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.widget.ViewSwitcher;
 import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
+import com.example.first.kaganmoshe.brainy.GraphFragment;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
@@ -50,6 +50,7 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
     private TextView m_AttentionTextV;
     private TextView m_MeditationTextV;
 //    private Button m_ConnectBtn;
+    private GraphFragment graphFragment;
 
     // Data Members
     private EegHeadSet m_HeadSet;
@@ -71,6 +72,8 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
 
         feedback = new GTNFeedback();
         feedback.startTimer();
+
+        graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
 
         initTextLines();
 
@@ -140,6 +143,7 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
             switch (result) {
                 case GOOD:
                     feedback.stopTimer();
+                    graphFragment.stopRecievingData();
                     showWinnerDialog();
                     break;
                 case TOO_HIGH:
