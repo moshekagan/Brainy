@@ -2,7 +2,9 @@ package com.example.first.kaganmoshe.brainy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -27,11 +29,12 @@ public class SettingsActivity extends CustomActivity {
     private RadioGroup m_HeadSetRadioGroup;
     private RadioGroup m_LenguageRadioGroup;
 
-    private Button m_DoneBtn;
+    private Button m_Skip;
+    private Button m_Connect;
     private BetterSpinner headsetSpinner;
     EHeadSetType headSetType = EHeadSetType.Moker; // Default is Moker
 
-    private static final String[] HEADSETS = new String[] {
+    private static final String[] HEADSETS = new String[]{
             "MindWave", "Emotiv", "Demo"
     };
 
@@ -45,23 +48,31 @@ public class SettingsActivity extends CustomActivity {
                 android.R.layout.simple_dropdown_item_1line, HEADSETS);
 
         headsetSpinner = (BetterSpinner) findViewById(R.id.headset_list);
-        headsetSpinner.setAdapter(adapter);
-        headsetSpinner.setOnClickListener(new View.OnClickListener() {
+        m_Connect = (Button) findViewById(R.id.connectButton);
+        m_Skip = (Button) findViewById(R.id.skipButton);
+
+        headsetSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                headSetType = ((v.toString()).equals("MindWave")) ? EHeadSetType.MindWave : EHeadSetType.Moker;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String headSetSelection = parent.getItemAtPosition(position).toString();
+                headSetType = (headSetSelection.equals("MindWave")) ? EHeadSetType.MindWave : EHeadSetType.Moker;
+                Log.d("HEADSET_TYPE", headSetSelection);
+                headsetSpinner.onItemClick(parent, view, position, id);
+
             }
         });
+        headsetSpinner.setAdapter(adapter);
 
         setTouchNClick(R.id.headset_list);
+        setTouchNClick(R.id.connectButton);
+        setTouchNClick(R.id.skipButton);
+        
         initViewActivity();
     }
 
 
-
     private void initViewActivity() {
-        m_DoneBtn = (Button) findViewById(R.id.doneBtn);
-        m_DoneBtn.setOnClickListener(new View.OnClickListener() {
+        m_Connect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onDoneClick();
             }
@@ -123,7 +134,7 @@ public class SettingsActivity extends CustomActivity {
 //        }
     }
 
-    private  void updateHeadSetType(){
+    private void updateHeadSetType() {
 //        if (m_MindWaveRadionBtn.isChecked()){
 //            headSetType = EHeadSetType.MindWave;
 //        } else if (m_DemoRadionBtn.isChecked()){
@@ -135,6 +146,7 @@ public class SettingsActivity extends CustomActivity {
         Logs.info(SETTINGS_ACTIVITY, "Set Headset to: " + headSetType.toString());
         AppManager.getInstance().getAppSettings().setHeadSetType(headSetType);
     }
+
     private void onDoneClick() {
         updateHeadSetType();
         AppManager.getInstance().configureAndConnectHeadSet();

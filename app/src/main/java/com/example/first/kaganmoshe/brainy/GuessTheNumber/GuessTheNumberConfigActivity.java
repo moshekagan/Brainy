@@ -12,10 +12,11 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.R;
 
 
-public class GuessTheNumberConfigActivity extends Activity {
+public class GuessTheNumberConfigActivity extends CustomActivity {
     private static final String CURRENT_RANGE_VALUE = "CURRENT_RANGE_VALUE";
     public final static String EXTRA_MESSAGE = "MESSAGE";
     private int currentRangeValue;

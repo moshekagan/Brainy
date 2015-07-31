@@ -16,6 +16,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.Feedback.ParcelableDataPoint;
@@ -28,7 +29,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
 import java.util.List;
 import java.util.Random;
 
-public class CrazyCubeActivity extends FragmentActivity implements WinnerDialogFragment.gameCommunicator {
+public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFragment.gameCommunicator {
 
     private TableLayout gameTable;
     private Context context;

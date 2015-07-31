@@ -4,71 +4,89 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/blue_sky_and_green_grass_new"
-    tools:context=".LoginActivity" >
+    tools:context=".LoginActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/pad_20dp"
-        android:paddingTop="@dimen/pad_20dp" >
-
-        <ImageView
-            android:id="@+id/logoImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/brainy_logo"
-            android:layout_marginBottom="@dimen/pad_20dp" />
-
-        <EditText
-            android:id="@+id/user"
-            style="@style/editext_graybg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_username"
-            android:hint="@string/username" >
-
-            <requestFocus />
-        </EditText>
-
-        <EditText
-            android:id="@+id/password"
-            style="@style/editext_graybg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pad_20dp"
-            android:layout_marginTop="@dimen/pad_5dp"
-            android:drawableStart="@drawable/ic_pwd"
-            android:hint="@string/password"
-            android:inputType="textPassword" >
-        </EditText>
+        android:padding="@dimen/pad_30dp">
 
         <LinearLayout
-            android:id="@+id/main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/loginFields">
 
-            <Button
-                android:id="@+id/loginButton"
-                style="@style/btn_white_large"
+            <ImageView
+                android:id="@+id/logoImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/log_in"
-                android:layout_marginStart="@dimen/pad_30dp"/>
+                android:layout_marginBottom="@dimen/pad_5dp"
+                android:src="@drawable/brainy_logo"
+                android:layout_gravity="center_horizontal"/>
 
-            <Button
-                android:id="@+id/RegisterButton"
-                style="@style/btn_white_large"
+            <TextView
+                android:id="@+id/loginTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/register"
-                android:layout_marginStart="@dimen/pad_10dp"
-                android:layout_marginEnd="@dimen/pad_30dp"/>
+                android:text="Brainy"
+                android:textSize="50sp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/pad_20dp"/>
+
+            <EditText
+                android:id="@+id/user"
+                style="@style/editext_graybg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_username"
+                android:hint="@string/username">
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/password"
+                style="@style/editext_graybg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pad_20dp"
+                android:layout_marginTop="@dimen/pad_5dp"
+                android:drawableStart="@drawable/ic_pwd"
+                android:hint="@string/password"
+                android:inputType="textPassword"/>
+
+            <LinearLayout
+                android:id="@+id/main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/RegisterButton"
+                    style="@style/btn_white_large"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/register"
+                    android:layout_marginEnd="@dimen/pad_10dp"/>
+
+                <Button
+                    android:id="@+id/loginButton"
+                    style="@style/btn_white_large"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="78dp"
+                    android:layout_weight="1"
+                    android:text="@string/log_in" />
+
+            </LinearLayout>
+
         </LinearLayout>
-    </LinearLayout>
+
+
+    </RelativeLayout>
 
 </ScrollView>

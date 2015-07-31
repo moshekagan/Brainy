@@ -14,36 +14,57 @@
         android:id="@+id/logoImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/brainy_logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/pad_30dp"/>
+        android:layout_marginBottom="@dimen/pad_30dp"
+        android:src="@drawable/brainy_logo" />
 
     <com.weiwangcn.betterspinner.library.BetterSpinner
         android:id="@+id/headset_list"
         style="@style/choose_headset_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/choose_headset"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/logoImage"
         android:layout_marginEnd="@dimen/pad_30dp"
         android:layout_marginStart="@dimen/pad_30dp"
-        android:layout_alignParentStart="true" />
+        android:hint="@string/choose_headset" />
 
     <!--<TextView android:text="@string/settings" android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:id="@+id/TitleTextView"-->
     <!--android:textSize="24dp" />-->
 
-    <Button
-        android:id="@+id/doneBtn"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_connect"
-        android:layout_marginTop="31dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@+id/headset_list"
         android:layout_below="@+id/headset_list"
-        android:layout_alignEnd="@+id/headset_list" />
+        android:orientation="horizontal"
+        android:layout_alignEnd="@+id/headset_list"
+        android:layout_marginTop="@dimen/pad_10dp">
+
+        <Button
+            android:id="@+id/skipButton"
+            style="@style/btn_white_large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/settings_skip"
+            android:layout_marginEnd="@dimen/pad_10dp"/>
+
+        <Button
+            android:id="@+id/connectButton"
+            style="@style/btn_white_large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/settings_connect"
+            android:layout_marginStart="@dimen/pad_10dp"/>
+
+
+    </LinearLayout>
+
 
     <!--<LinearLayout-->
     <!--android:orientation="vertical"-->

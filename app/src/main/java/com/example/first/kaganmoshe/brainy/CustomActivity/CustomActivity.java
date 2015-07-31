@@ -44,7 +44,6 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
             }
             return false;
         }
-
     }
 
     /**
@@ -75,7 +74,7 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
         actionBar.setDisplayShowTitleEnabled(false);
 //        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setLogo(getResources().getDrawable(R.drawable.brainy));
+        actionBar.setLogo(getResources().getDrawable(R.drawable.pause_icon5));
 //        actionBar.setBackgroundDrawable();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);

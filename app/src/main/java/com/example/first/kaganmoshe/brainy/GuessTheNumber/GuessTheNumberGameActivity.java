@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.R;
@@ -27,7 +28,7 @@ import EEG.IHeadSetData;
 import Utils.Logs;
 
 
-public class GuessTheNumberGameActivity extends FragmentActivity implements IHeadSetData, WinnerDialogFragment.gameCommunicator {
+public class GuessTheNumberGameActivity extends CustomActivity implements IHeadSetData, WinnerDialogFragment.gameCommunicator {
 
     private static final int MAX_INPUT_DIGITS = 3;
     private final String GUESS_THE_NUMBER_GAME_ACTIVITY = "GuessTheNumberGameActivity";

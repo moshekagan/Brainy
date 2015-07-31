@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
@@ -19,7 +20,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 
-public class FeedbackActivity extends Activity {
+public class FeedbackActivity extends CustomActivity {
     public static final String CURR_GAME_CONCENTRATION_POINTS = "currGameConcentrationPoints";
     public static final String CURR_GAME_TIME_MINUTES = "currGameTimeMinutes";
     public static final String CURR_GAME_TIME_SECONDS = "currGameTimeSeconds";

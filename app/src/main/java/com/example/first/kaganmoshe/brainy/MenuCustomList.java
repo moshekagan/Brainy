@@ -2,7 +2,9 @@ package com.example.first.kaganmoshe.brainy;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -35,12 +37,13 @@ public class MenuCustomList extends ArrayAdapter<String>{
             LayoutInflater inflater = context.getLayoutInflater();
             view = inflater.inflate(R.layout.menu_list_row, null, true);
 
-            int alpha = 128; //50% transparency
-            int color = Color.WHITE; //Your color value
-            int bgColor = Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
-
-            view.setBackgroundColor(bgColor);
-            //view.setOnTouchListener(CustomActivity.TOUCH);
+//            int alpha = 128; //50% transparency
+//            int color = Color.WHITE; //Your color value
+//            int bgColor = Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
+//
+//            view.setBackgroundColor(bgColor);
+//            Log.d("COLOR", Integer.toString(bgColor));
+//            view.setOnTouchListener(CustomActivity.TOUCH);
         } else {
         /* Fetch data already in the row layout,
          *    primarily you only use this to get a copy of the ViewHolder */

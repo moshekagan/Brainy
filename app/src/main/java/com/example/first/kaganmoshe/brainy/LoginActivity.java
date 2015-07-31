@@ -18,7 +18,7 @@ public class LoginActivity extends CustomActivity {
 //    private static final String LOGIN_TOOLBAR_TEXT = "Login";
     private static final String LOGIN_ACTIVITY = "LoginActivity";
 //    private Button m_loginButton;
-//    private TextView toolbarText;
+    private TextView loginTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,9 @@ public class LoginActivity extends CustomActivity {
 //        toolbarText.setText(LOGIN_TOOLBAR_TEXT);
         setTouchNClick(R.id.RegisterButton);
         setTouchNClick(R.id.loginButton);
+
+        loginTitle = (TextView) findViewById(R.id.loginTitle);
+        Utils.changeFont(getAssets(), loginTitle);
 
         Logs.info(LOGIN_ACTIVITY, " geting the first instace of AppManager");
         AppManager.getInstance(); // Create the appManager

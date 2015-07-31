@@ -14,6 +14,7 @@ import com.example.first.kaganmoshe.brainy.MenuActivity;
 public class Utils {
 
     public static String GUESS_NUMBER_TITLE_FONT = "fonts/Kidsn.ttf";
+    //TODO - make this generic
 
     public static void changeFont(AssetManager am, TextView view){
         Typeface tf = Typeface.createFromAsset(am, GUESS_NUMBER_TITLE_FONT);
