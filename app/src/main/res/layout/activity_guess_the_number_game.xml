@@ -1,23 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
     android:background="@drawable/background"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:weightSum="20"
+    android:weightSum="60"
     tools:context=".GuessTheNumberGameActivity">
 
-    <TextView
-        android:text="@string/guess_number_title"
-        android:id="@+id/guessNumberTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="@dimen/start_margin_layout"
-        android:layout_marginStart="@dimen/start_margin_layout"
-        style="@style/guessTheNumberTitle"
-        android:layout_weight="0" />
+    <!--<TextView-->
+        <!--android:text="@string/guess_number_title"-->
+        <!--android:id="@+id/guessNumberTitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginLeft="@dimen/start_margin_layout"-->
+        <!--android:layout_marginStart="@dimen/start_margin_layout"-->
+        <!--style="@style/guessTheNumberTitle"-->
+        <!--android:layout_weight="0" />-->
 
     <TextView
         android:id="@+id/guessNumberRequest"
@@ -25,11 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/start_margin_layout"
         android:layout_marginStart="@dimen/start_margin_layout"
-        android:layout_marginTop="20dp"
         android:text="@string/guess_number_headline"
+        android:gravity="bottom"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_weight="0" />
+        android:layout_weight="5" />
 
     <LinearLayout
         android:background="@drawable/input_field"
@@ -41,7 +42,7 @@
         android:layout_marginRight="@dimen/end_margin_layout"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_weight="2"
+        android:layout_weight="5"
         android:orientation="horizontal"
         android:weightSum="5">
 
@@ -68,20 +69,18 @@
         android:id="@+id/outputText"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="5"
         android:layout_marginStart="@dimen/start_margin_layout"
-        android:layout_marginLeft="@dimen/start_margin_layout"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginLeft="@dimen/start_margin_layout"/>
+        <!--android:layout_marginBottom="10dp"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="@dimen/start_margin_layout"
+        android:layout_marginBottom="@dimen/pad_10dp"
         android:layout_marginStart="@dimen/start_margin_layout"
         android:layout_marginEnd="@dimen/end_margin_layout"
-        android:layout_marginRight="@dimen/end_margin_layout"
-        android:layout_weight="13"
+        android:layout_weight="30"
         android:orientation="vertical">
 
         <LinearLayout

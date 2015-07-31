@@ -34,7 +34,7 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
     private final String GUESS_THE_NUMBER_GAME_ACTIVITY = "GuessTheNumberGameActivity";
     private TextSwitcher outputText;
     private TextView inputText;
-    private TextView headLineText;
+//    private TextView headLineText;
     private TextView guessRequestText;
     private Button approveGuessButton;
     private Button backspaceButton;
@@ -62,7 +62,7 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
 
         guessRequestText = (TextView) findViewById(R.id.guessNumberRequest);
         outputText = (TextSwitcher) findViewById(R.id.outputText);
-        headLineText = (TextView) findViewById(R.id.guessNumberTitle);
+//        headLineText = (TextView) findViewById(R.id.guessNumberTitle);
         approveGuessButton = (Button) findViewById(R.id.approveGuessButton);
         backspaceButton = (Button) findViewById(R.id.backspaceButton);
         inputText = (TextView) findViewById(R.id.guessInput);
@@ -101,7 +101,7 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
         outputText.setOutAnimation(this, android.R.anim.fade_out);
 
         //changing title font
-        Utils.changeFont(getAssets(), headLineText);
+//        Utils.changeFont(getAssets(), headLineText);
     }
 
     private void initializationActivity() {

@@ -1,31 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ccubeTable"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="60"
     android:orientation="vertical"
-    tools:context="com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity"
-    style="@style/ccubeTable">
+    android:padding="16dp"
+    android:weightSum="60"
+    android:background="@drawable/background"
+    tools:context="com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity">
 
-    <TextView
-        android:id="@+id/CrazyCubeHeadline"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/CrazyCubeActivityTitle"
-        style="@style/crazyCubeActivityTitle"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="5"/>
+    <!--<TextView-->
+    <!--android:id="@+id/CrazyCubeHeadline"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:text="@string/CrazyCubeActivityTitle"-->
+    <!--style="@style/crazyCubeActivityTitle"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_weight="5"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/pad_10dp"
+        android:layout_marginTop="@dimen/pad_10dp"
+        android:layout_weight="6"
         android:orientation="horizontal"
         android:weightSum="3">
 
@@ -41,7 +40,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text=""
-            android:textSize="@dimen/ccube_score_time_text_size"/>
+            android:textSize="@dimen/ccube_score_time_text_size" />
 
         <TextView
             android:id="@+id/CCubeScoreTextView"
@@ -50,17 +49,19 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text=""
-            android:textSize="@dimen/ccube_score_time_text_size"/>
+            android:textSize="@dimen/ccube_score_time_text_size" />
 
     </LinearLayout>
+
     <TableLayout
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="36"
         android:layout_marginBottom="10dp"
-        android:weightSum="36"
-        android:background="@drawable/ccube_table">
+        android:layout_weight="36"
+        android:background="@drawable/ccube_table"
+        android:padding="@dimen/pad_15dp"
+        android:weightSum="36">
 
     </TableLayout>
 
@@ -68,7 +69,6 @@
         android:id="@+id/graph"
         android:name="com.example.first.kaganmoshe.brainy.GraphFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

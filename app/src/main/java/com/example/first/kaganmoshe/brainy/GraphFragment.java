@@ -37,6 +37,8 @@ public class GraphFragment extends Fragment implements IHeadSetData {
     private static final String ARG_PARAM2 = "param2";
     private final String GRAPH_FRAGMENT = "Graph_Fragment";
 
+    private int lastAttributeRecieved = 0;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;

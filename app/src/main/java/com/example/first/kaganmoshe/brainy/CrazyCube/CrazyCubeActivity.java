@@ -37,7 +37,7 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
     private int currBoardSize = INIT_BOARD_SIZE - 1;
     private int currColor;
     private int currSpecialCellFactor = MAX_SPECIAL_CELL_FACTOR - 10;
-    private TextView headlineText;
+//    private TextView headlineText;
     private TextView scoreTextView;
     private TextView timeTextView;
     private Handler handler = new Handler();
@@ -66,13 +66,13 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crazy_cube);
         gameTable = (TableLayout) findViewById(R.id.table);
-        headlineText = (TextView) findViewById(R.id.CrazyCubeHeadline);
+//        headlineText = (TextView) findViewById(R.id.CrazyCubeHeadline);
         scoreTextView = (TextView) findViewById(R.id.CCubeScoreTextView);
         timeTextView = (TextView) findViewById(R.id.CCubeTimeTextView);
         context = getApplicationContext();
         feedback = new CCubeFeedback();
 
-        Utils.changeFont(getAssets(), headlineText);
+        //Utils.changeFont(getAssets(), headlineText);
         setScore(currScore);
         timer.run();
         feedback.startTimer();
