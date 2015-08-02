@@ -230,4 +230,9 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         EegHeadSet headSet = AppManager.getInstance().getHeadSet();
         headSet.unregisterListener(this);
     }
+
+    public void resumeRecievingData(){
+        EegHeadSet headSet = AppManager.getInstance().getHeadSet();
+        headSet.registerListener(this);
+    }
 }

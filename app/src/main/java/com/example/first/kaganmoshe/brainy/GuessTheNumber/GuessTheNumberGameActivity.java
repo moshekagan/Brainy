@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GraphFragment;
+import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
@@ -44,7 +44,6 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     private FeedbackClass feedback;
 
-
     // Activity components
 //    private ImageView m_ConnectivityIconImageV;
     private TextView m_AttentionTextV;
@@ -62,7 +61,6 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
 
         guessRequestText = (TextView) findViewById(R.id.guessNumberRequest);
         outputText = (TextSwitcher) findViewById(R.id.outputText);
-//        headLineText = (TextView) findViewById(R.id.guessNumberTitle);
         approveGuessButton = (Button) findViewById(R.id.approveGuessButton);
         backspaceButton = (Button) findViewById(R.id.backspaceButton);
         inputText = (TextView) findViewById(R.id.guessInput);
@@ -72,6 +70,8 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
 
         feedback = new GTNFeedback();
         feedback.startTimer();
+
+        this.setOnBackPressedActivity(MenuActivity.class);
 
         graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
 
@@ -84,6 +84,25 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
         }
 
         initializationActivity();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        graphFragment.resumeRecievingData();
+        feedback.resumeRecievingData();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        graphFragment.stopRecievingData();
+        feedback.stopTimerAndRecievingData();
     }
 
     private void initTextLines() {
@@ -142,7 +161,7 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
 
             switch (result) {
                 case GOOD:
-                    feedback.stopTimer();
+                    feedback.stopTimerAndRecievingData();
                     graphFragment.stopRecievingData();
                     showWinnerDialog();
                     break;
@@ -328,10 +347,5 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
         startActivity(intent);
-    }
-
-    @Override
-    public void backKeyPressed() {
-        Utils.startNewActivity(this, GuessTheNumberConfigActivity.class);
     }
 }

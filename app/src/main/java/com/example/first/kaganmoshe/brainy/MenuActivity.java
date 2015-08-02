@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
+import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberGameActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity;
 
 import java.util.Collections;
@@ -49,6 +50,8 @@ public class MenuActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        this.setOnBackPressedActivity(SettingsActivity.class);
+
         MenuCustomList adapter = new
                 MenuCustomList(MenuActivity.this, titles, imageId, reviews);
         list = (ListView) findViewById(R.id.list);
@@ -58,17 +61,24 @@ public class MenuActivity extends CustomActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                Class cls = null;
+
                 switch (titles[+position]) {
                     case "Guess the Number":
-                        onGuessTheNumberClick();
+                        cls = GuessTheNumberConfigActivity.class;
+//                        onGuessTheNumberClick();
                         break;
                     case "HotAir Balloon":
-                        onHotAirBalloonClick();
+                        cls = HotAirBalloonActivity.class;
+//                        onHotAirBalloonClick();
                         break;
                     case "Crazy Cube":
-                        onCrazyCubeClick();
+                        cls = CrazyCubeActivity.class;
+//                        onCrazyCubeClick();
                         break;
                 }
+
+                Utils.startNewActivity((Activity)view.getContext(), cls);
             }
         });
     }

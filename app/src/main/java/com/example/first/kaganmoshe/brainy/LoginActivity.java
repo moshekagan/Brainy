@@ -74,9 +74,11 @@ public class LoginActivity extends CustomActivity {
         super.onClick(v);
         if (v.getId() == R.id.loginButton)
         {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            intent.putExtra("Message", "");
-            startActivity(intent);
+            Utils.startNewActivity(this, SettingsActivity.class);
+//            Intent intent = new Intent(this, SettingsActivity.class);
+//            intent.putExtra("Message", "");
+//            startActivity(intent);
+//            overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
         }
     }
 

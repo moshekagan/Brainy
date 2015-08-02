@@ -256,7 +256,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
     private void finishTimerGame() {
         timeSwapBuff += timeInMilliseconds;
         customHandler.removeCallbacks(updateTimerThread);
-        feedback.stopTimer();
+        feedback.stopTimerAndRecievingData();
         showFinishGameDialog();
     }
 

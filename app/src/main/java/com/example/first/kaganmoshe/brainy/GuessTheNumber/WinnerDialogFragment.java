@@ -31,7 +31,7 @@ public class WinnerDialogFragment extends DialogFragment {
 
     public interface gameCommunicator {
         public void continueNextScreen();
-        public void backKeyPressed();
+        public void onBackPressed();
     }
 
     public void setGameScreen(gameCommunicator gameScreen) {
@@ -81,7 +81,7 @@ public class WinnerDialogFragment extends DialogFragment {
                                          @Override
                                          public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
                                              if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-                                                 gameScreen.backKeyPressed();
+                                                 gameScreen.onBackPressed();
                                                  return true;
                                              } else {
                                                  return false;

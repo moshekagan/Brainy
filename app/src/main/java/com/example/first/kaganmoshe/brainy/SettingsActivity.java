@@ -43,6 +43,7 @@ public class SettingsActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        this.setOnBackPressedActivity(LoginActivity.class);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, HEADSETS);
@@ -152,9 +153,10 @@ public class SettingsActivity extends CustomActivity {
         AppManager.getInstance().configureAndConnectHeadSet();
 
         //TODO - Update settings
-        Intent intent = new Intent(this, MenuActivity.class);
-        intent.putExtra("Message", "");
-        startActivity(intent);
+//        Intent intent = new Intent(this, MenuActivity.class);
+//        intent.putExtra("Message", "");
+//        startActivity(intent);
+        Utils.startNewActivity(this, MenuActivity.class);
     }
 
 //    @Override

@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.R;
+import com.example.first.kaganmoshe.brainy.Utils;
 
 /**
  * Created by tamirkash on 7/28/15.
@@ -22,6 +24,7 @@ import com.example.first.kaganmoshe.brainy.R;
 public class CustomActivity extends FragmentActivity implements View.OnClickListener {
 
     private ActionBar actionBar;
+    private Class onBackPressedActivity = null;
 
     public static class TouchEffect implements View.OnTouchListener {
 
@@ -44,6 +47,18 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
             }
             return false;
         }
+    }
+
+    public void setOnBackPressedActivity(Class onBackPressedActivity) {
+        this.onBackPressedActivity = onBackPressedActivity;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (onBackPressedActivity == null)
+            super.onBackPressed();
+        else
+            Utils.startNewActivity(this, onBackPressedActivity);
     }
 
     /**
@@ -74,7 +89,7 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
         actionBar.setDisplayShowTitleEnabled(false);
 //        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setLogo(getResources().getDrawable(R.drawable.pause_icon5));
+//        actionBar.setLogo(getResources().getDrawable(R.drawable.pause_icon5));
 //        actionBar.setBackgroundDrawable();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);

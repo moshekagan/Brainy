@@ -13,7 +13,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
+import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
+import com.example.first.kaganmoshe.brainy.Utils;
 
 
 public class GuessTheNumberConfigActivity extends CustomActivity {
@@ -38,6 +40,7 @@ public class GuessTheNumberConfigActivity extends CustomActivity {
         rangeValueText = (TextView) findViewById(R.id.rangeValueText);
         rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
         startButton = (Button) findViewById(R.id.startButton);
+        this.setOnBackPressedActivity(MenuActivity.class);
 
         rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -89,7 +92,7 @@ public class GuessTheNumberConfigActivity extends CustomActivity {
         Intent intent = new Intent(this, GuessTheNumberGameActivity.class);
         String rangeValue = rangeValueText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, rangeValue);
-        startActivity(intent);
+        Utils.startNewActivity(this, intent);
     }
 
     protected void onSaveInstanceState(Bundle outState){

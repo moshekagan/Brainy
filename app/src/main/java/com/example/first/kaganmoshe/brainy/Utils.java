@@ -23,7 +23,13 @@ public class Utils {
 
     public static void startNewActivity(Activity activity, Class cls){
         Intent intent = new Intent(activity, cls);
+        startNewActivity(activity, intent);
+    }
+
+    public static void startNewActivity(Activity activity, Intent intent){
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
+        activity.finish();
     }
 }

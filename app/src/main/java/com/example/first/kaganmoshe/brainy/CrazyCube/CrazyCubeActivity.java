@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +19,10 @@ import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.Feedback.ParcelableDataPoint;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.GTNFeedback;
+import com.example.first.kaganmoshe.brainy.GraphFragment;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.WinnerDialogFragment;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
-import com.example.first.kaganmoshe.brainy.Utils;
 
 import java.util.List;
 import java.util.Random;
@@ -46,9 +44,11 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
     private Runnable timer = new Runnable() {
         @Override
         public void run() {
-            updateTimeTextView();
+            if(timerOn)
+                updateTimeTextView();
         }
     };
+    private boolean timerOn = true;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     private FeedbackClass feedback;
     private double lastConcentrationAverage = 0;
@@ -61,9 +61,13 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
     private static final int MAX_BOARD_SIZE = 8;
     private static final int TIME_FOR_GAME = 60;
 
+    private GraphFragment graphFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.setOnBackPressedActivity(MenuActivity.class);
         setContentView(R.layout.activity_crazy_cube);
         gameTable = (TableLayout) findViewById(R.id.table);
 //        headlineText = (TextView) findViewById(R.id.CrazyCubeHeadline);
@@ -72,12 +76,48 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
         context = getApplicationContext();
         feedback = new CCubeFeedback();
 
+        graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
+
         //Utils.changeFont(getAssets(), headlineText);
         setScore(currScore);
-        timer.run();
+//        timer.run();
         feedback.startTimer();
 
         BuildTable(++currBoardSize);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+//        graphFragment.resumeRecievingData();
+//        feedback.resumeRecievingData();
+//        timer.run();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        graphFragment.stopRecievingData();
+//        feedback.stopTimerAndRecievingData();
+//        handler.removeCallbacks(timer);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        graphFragment.stopRecievingData();
+        feedback.stopTimerAndRecievingData();
+        handler.removeCallbacks(timer);
+        timerOn = false;
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        graphFragment.resumeRecievingData();
+        feedback.resumeRecievingData();
+        timer.run();
+        timerOn = true;
     }
 
     private void updateTimeTextView() {
@@ -89,7 +129,7 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
     }
 
     private void finishGame() {
-        feedback.stopTimer();
+        feedback.stopTimerAndRecievingData();
         WinnerDialogFragment winnerDialogFragment = new WinnerDialogFragment();
         winnerDialogFragment.setGameScreen(this);
         winnerDialogFragment.show(fm, "WinnerDialogFragment");
@@ -221,10 +261,5 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
         startActivity(intent);
-    }
-
-    @Override
-    public void backKeyPressed() {
-        Utils.startNewActivity(this, MenuActivity.class);
     }
 }
