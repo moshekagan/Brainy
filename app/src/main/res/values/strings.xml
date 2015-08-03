@@ -53,4 +53,12 @@
     <string name="choose_headset">Choose headset</string>
     <string name="settings_connect">Connect</string>
     <string name="settings_skip">Skip</string>
+    <string name="action_games">Games</string>
+    <string name="action_quit">Quit</string>
+
+    <string-array name="action_list">
+        <item>Games</item>
+        <item>Settings</item>
+        <item>Quit</item>
+    </string-array>
 </resources>

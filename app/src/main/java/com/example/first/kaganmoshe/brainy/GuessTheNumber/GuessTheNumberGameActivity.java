@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextSwitcher;
@@ -13,43 +11,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
-import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
-import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
-import com.example.first.kaganmoshe.brainy.GraphFragment;
-import com.example.first.kaganmoshe.brainy.MenuActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
 import EEG.EegHeadSet;
-import EEG.IHeadSetData;
 import Utils.Logs;
 
 
-public class GuessTheNumberGameActivity extends CustomActivity implements IHeadSetData, WinnerDialogFragment.gameCommunicator {
+public class GuessTheNumberGameActivity extends GameActivity {
 
     private static final int MAX_INPUT_DIGITS = 3;
     private final String GUESS_THE_NUMBER_GAME_ACTIVITY = "GuessTheNumberGameActivity";
     private TextSwitcher outputText;
     private TextView inputText;
-//    private TextView headLineText;
+    //    private TextView headLineText;
     private TextView guessRequestText;
     private Button approveGuessButton;
     private Button backspaceButton;
     private GuessTheNumberEngine game;
     private MediaPlayer buttonClickSound;
     private MediaPlayer wrongAnswerSound;
-    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-    private FeedbackClass feedback;
+//    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+//    private FeedbackClass feedback;
 
     // Activity components
 //    private ImageView m_ConnectivityIconImageV;
     private TextView m_AttentionTextV;
     private TextView m_MeditationTextV;
-//    private Button m_ConnectBtn;
-    private GraphFragment graphFragment;
+    //    private Button m_ConnectBtn;
+//    private GraphFragment graphFragment;
 
     // Data Members
     private EegHeadSet m_HeadSet;
@@ -68,12 +61,7 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
         buttonClickSound = MediaPlayer.create(this, R.raw.button_click_sound);
         wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
 
-        feedback = new GTNFeedback();
-        feedback.startTimer();
-
-        this.setOnBackPressedActivity(MenuActivity.class);
-
-        graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
+        startFeedbackSession();
 
         initTextLines();
 
@@ -84,25 +72,6 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
         }
 
         initializationActivity();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        graphFragment.resumeRecievingData();
-        feedback.resumeRecievingData();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        graphFragment.stopRecievingData();
-        feedback.stopTimerAndRecievingData();
     }
 
     private void initTextLines() {
@@ -161,9 +130,7 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
 
             switch (result) {
                 case GOOD:
-                    feedback.stopTimerAndRecievingData();
-                    graphFragment.stopRecievingData();
-                    showWinnerDialog();
+                    showFinishDialog();
                     break;
                 case TOO_HIGH:
                     outputText.setText("Try a lower number..");
@@ -184,34 +151,6 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
             outputText.setText("Invalid input");
             wrongAnswerSound.start();
         }
-    }
-
-    private void showWinnerDialog() {
-        WinnerDialogFragment winnerDialogFragment = new WinnerDialogFragment();
-        winnerDialogFragment.setGameScreen(this);
-        winnerDialogFragment.show(fm, "WinnerDialogFragment");
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void gameButtonClicked(View view) {
@@ -340,12 +279,8 @@ public class GuessTheNumberGameActivity extends CustomActivity implements IHeadS
     }
 
     @Override
-    public void continueNextScreen() {
-        Intent intent = new Intent(this, FeedbackActivity.class);
-
-        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
-        startActivity(intent);
+    protected void startFeedbackSession() {
+        feedback = new GTNFeedback();
+        feedback.startTimer();
     }
 }

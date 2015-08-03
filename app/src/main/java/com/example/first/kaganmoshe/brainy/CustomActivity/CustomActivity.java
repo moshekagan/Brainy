@@ -1,30 +1,53 @@
 package com.example.first.kaganmoshe.brainy.CustomActivity;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListPopupWindow;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.R;
+import com.example.first.kaganmoshe.brainy.SettingsActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
+import com.weiwangcn.betterspinner.library.BetterSpinner;
+
+import EEG.EHeadSetType;
 
 /**
  * Created by tamirkash on 7/28/15.
  */
 public class CustomActivity extends FragmentActivity implements View.OnClickListener {
 
-    private ActionBar actionBar;
-    private Class onBackPressedActivity = null;
+//    String[] actionsStrings = getResources().getStringArray(R.array.action_list);
+    private final static String[] STRINGS = {"Games", "Settings", "Quit"};
+    protected ActionBar actionBar;
+    protected Class onBackPressedActivity = null;
+    ArrayAdapter actionsList;
 
     public static class TouchEffect implements View.OnTouchListener {
 
@@ -86,13 +109,30 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
         actionBar = getActionBar();
         if (actionBar == null)
             return;
+
         actionBar.setDisplayShowTitleEnabled(false);
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayUseLogoEnabled(true);
 //        actionBar.setLogo(getResources().getDrawable(R.drawable.pause_icon5));
 //        actionBar.setBackgroundDrawable();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(false);
+
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_dropdown_item_1line, MENU);
+//
+//        BetterSpinner spinner = new BetterSpinner(actionBar.getThemedContext());
+//
+//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//            }
+//        });
+//        spinner.setAdapter(adapter);
+//        //TODO attach to an adapter of some sort
+//        actionBar.setCustomView(spinner);
     }
 
     /**
@@ -134,12 +174,12 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_connection, menu);
+//        getMenuInflater().inflate(R.menu.menu_overflow_button, menu);
 //        return true;
 
 //        MenuInflater inflater = getSupportMenuInflater();
 //        inflater.inflate(R.menu.activity_main, menu);
-        menu.add("Refresh").setIcon(R.drawable.bad)
+        menu.add("Connection").setIcon(R.drawable.bad)
                 .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 
                     @Override
@@ -148,6 +188,35 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
                         return false;
                     }
                 }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            showPopup();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showPopup() {
+        ListPopupWindow popup = new ListPopupWindow(this);
+        actionsList = ArrayAdapter.createFromResource(this,
+                R.array.action_list, android.R.layout.simple_dropdown_item_1line);
+//        popup.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, STRINGS));
+        popup.setAdapter(actionsList);
+        popup.setAnchorView(findViewById(android.R.id.home));
+//        popup.setWidth(ListPopupWindow.WRAP_CONTENT);
+        popup.setContentWidth(400);
+        popup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getApplicationContext(), "Clicked item " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        popup.show();
     }
 }

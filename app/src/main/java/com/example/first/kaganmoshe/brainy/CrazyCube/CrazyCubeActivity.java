@@ -1,33 +1,29 @@
 package com.example.first.kaganmoshe.brainy.CrazyCube;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
-import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
-import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
-import com.example.first.kaganmoshe.brainy.Feedback.ParcelableDataPoint;
-import com.example.first.kaganmoshe.brainy.GraphFragment;
+import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.WinnerDialogFragment;
-import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
+import com.jjoe64.graphview.series.DataPoint;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFragment.gameCommunicator {
+import EEG.EConnectionState;
+import EEG.ESignalVolume;
+
+public class CrazyCubeActivity extends GameActivity {
 
     private TableLayout gameTable;
     private Context context;
@@ -35,24 +31,16 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
     private int currBoardSize = INIT_BOARD_SIZE - 1;
     private int currColor;
     private int currSpecialCellFactor = MAX_SPECIAL_CELL_FACTOR - 10;
-//    private TextView headlineText;
     private TextView scoreTextView;
     private TextView timeTextView;
     private Handler handler = new Handler();
     private int currTime = TIME_FOR_GAME;
     private int currScore = 0;
-    private Runnable timer = new Runnable() {
-        @Override
-        public void run() {
-            if(timerOn)
-                updateTimeTextView();
-        }
-    };
+    private Runnable timer;
     private boolean timerOn = true;
-    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-    private FeedbackClass feedback;
     private double lastConcentrationAverage = 0;
-    private int currConcentrationPointsListIndex = 0;
+    private int currConcentrationListIndex = 0;
+    private ArrayList<DataPoint> concentrationList = new ArrayList<>();
 
     private static final int MIN_SPECIAL_CELL_FACTOR = -5;
     private static final int MAX_SPECIAL_CELL_FACTOR = -40;
@@ -61,78 +49,56 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
     private static final int MAX_BOARD_SIZE = 8;
     private static final int TIME_FOR_GAME = 60;
 
-    private GraphFragment graphFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.setOnBackPressedActivity(MenuActivity.class);
         setContentView(R.layout.activity_crazy_cube);
+
         gameTable = (TableLayout) findViewById(R.id.table);
-//        headlineText = (TextView) findViewById(R.id.CrazyCubeHeadline);
         scoreTextView = (TextView) findViewById(R.id.CCubeScoreTextView);
         timeTextView = (TextView) findViewById(R.id.CCubeTimeTextView);
         context = getApplicationContext();
-        feedback = new CCubeFeedback();
 
-        graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
-
-        //Utils.changeFont(getAssets(), headlineText);
         setScore(currScore);
-//        timer.run();
-        feedback.startTimer();
 
+        timer = new Runnable() {
+            @Override
+            public void run() {
+                updateTimeTextView();
+            }
+        };
+
+        startFeedbackSession();
         BuildTable(++currBoardSize);
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-//        graphFragment.resumeRecievingData();
-//        feedback.resumeRecievingData();
-//        timer.run();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        graphFragment.stopRecievingData();
-//        feedback.stopTimerAndRecievingData();
-//        handler.removeCallbacks(timer);
-    }
-
-    @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
-        graphFragment.stopRecievingData();
-        feedback.stopTimerAndRecievingData();
         handler.removeCallbacks(timer);
         timerOn = false;
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        graphFragment.resumeRecievingData();
-        feedback.resumeRecievingData();
-        timer.run();
         timerOn = true;
+        handler.postDelayed(timer, 1000);
     }
 
     private void updateTimeTextView() {
-        timeTextView.setText(Integer.toString(currTime--));
-        if(currTime != 0)
-            handler.postDelayed(timer, 1000);
-        else
-            finishGame();
+        if (timerOn) {
+            timeTextView.setText(Integer.toString(currTime--));
+
+            if (currTime != 0)
+                handler.postDelayed(timer, 1000);
+            else
+                finishGame();
+        }
     }
 
     private void finishGame() {
-        feedback.stopTimerAndRecievingData();
-        WinnerDialogFragment winnerDialogFragment = new WinnerDialogFragment();
-        winnerDialogFragment.setGameScreen(this);
-        winnerDialogFragment.show(fm, "WinnerDialogFragment");
+        showFinishDialog();
     }
 
     private void setScore(int score) {
@@ -183,12 +149,10 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
 
         TableRow tableRow = (TableRow) gameTable.getChildAt(row);
 
-        if(currSpecialCellFactor < MAX_SPECIAL_CELL_FACTOR)
+        if (currSpecialCellFactor < MAX_SPECIAL_CELL_FACTOR)
             currSpecialCellFactor += FACTOR_DELTA_JUMP;
         else
             updateCellFactor();
-
-//        currSpecialCellFactor = -10;
 
         (tableRow.getChildAt(column)).setBackgroundColor(currColor + currSpecialCellFactor);
         (tableRow.getChildAt(column)).setOnClickListener(new View.OnClickListener() {
@@ -203,63 +167,85 @@ public class CrazyCubeActivity extends CustomActivity implements WinnerDialogFra
     }
 
     private void updateCellFactor() {
-        List<ParcelableDataPoint> concentrationPointsList = feedback.getConcentrationPoints(currConcentrationPointsListIndex);
-        double average = getAverageConcentration(concentrationPointsList);
+        double average = getAverageConcentration();
 
-        if(average > lastConcentrationAverage && currSpecialCellFactor > MAX_SPECIAL_CELL_FACTOR)
+        if (average > lastConcentrationAverage && currSpecialCellFactor > MAX_SPECIAL_CELL_FACTOR)
             currSpecialCellFactor -= FACTOR_DELTA_JUMP;
-        else if(average < lastConcentrationAverage && currSpecialCellFactor < MIN_SPECIAL_CELL_FACTOR)
+        else if (average < lastConcentrationAverage && currSpecialCellFactor < MIN_SPECIAL_CELL_FACTOR)
             currSpecialCellFactor += FACTOR_DELTA_JUMP;
 
-        currConcentrationPointsListIndex += concentrationPointsList.size();
         lastConcentrationAverage = average;
 
         Log.d("CCUBE_ACTIVITY", Double.toString(average));
         Log.d("CCUBE_ACTIVITY", Integer.toString(currSpecialCellFactor));
     }
 
-    private double getAverageConcentration(List<ParcelableDataPoint> concentrationPointsList) {
-        //TODO fix 0 bug
-        double average = 0;
+    private double getAverageConcentration() {
+        double sum = 0;
+        int size = concentrationList.size() - currConcentrationListIndex;
 
-        for(ParcelableDataPoint point : concentrationPointsList){
-            average += point.getY();
+        for(; currConcentrationListIndex < size; currConcentrationListIndex++){
+            sum += concentrationList.get(currConcentrationListIndex).getY();
         }
 
-        average = average / concentrationPointsList.size();
+        return (size > 0) ? (sum / size) : lastConcentrationAverage;
+    }
 
-        return average;
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_crazy_cube, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+//
+//    @Override
+//    public void continueNextScreen() {
+//        Intent intent = new Intent(this, FeedbackActivity.class);
+//
+//        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
+//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
+//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
+//        startActivity(intent);
+//    }
+
+    @Override
+    protected void startFeedbackSession() {
+        feedback = new CCubeFeedback();
+        feedback.startTimer();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_crazy_cube, menu);
-        return true;
+    public void onAttentionReceived(int attValue) {
+        concentrationList.add(new DataPoint(concentrationList.size(), attValue));
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onMeditationReceived(int medValue) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void continueNextScreen() {
-        Intent intent = new Intent(this, FeedbackActivity.class);
+    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
 
-        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
-        startActivity(intent);
+    }
+
+    @Override
+    public void onPoorSignalReceived(ESignalVolume signalVolume) {
+
     }
 }

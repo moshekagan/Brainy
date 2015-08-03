@@ -37,8 +37,6 @@ public class GraphFragment extends Fragment implements IHeadSetData {
     private static final String ARG_PARAM2 = "param2";
     private final String GRAPH_FRAGMENT = "Graph_Fragment";
 
-    private int lastAttributeRecieved = 0;
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -106,7 +104,7 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         Logs.error("TEST", "Finish:: ---GraphView graph = (GraphView) getView().findViewById(R.id.graph)");
 
         // data
-        series = new LineGraphSeries<DataPoint>();
+        series = new LineGraphSeries<>();
         m_GraphView.addSeries(series);
         // customize a little bit viewport
         Viewport viewport = m_GraphView.getViewport();
@@ -114,11 +112,15 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         viewport.setMinY(0);
         viewport.setMaxY(100);
         viewport.setScrollable(true);
+//        viewport.setXAxisBoundsManual(true);
 
         GridLabelRenderer gridLabelRenderer = m_GraphView.getGridLabelRenderer();
         gridLabelRenderer.setNumVerticalLabels(3);
         gridLabelRenderer.setNumHorizontalLabels(2);
         gridLabelRenderer.setHorizontalLabelsVisible(false);
+//        gridLabelRenderer.setLabelsSpace(20);
+        gridLabelRenderer.setTextSize(9);
+//        gridLabelRenderer.setPadding(5);
 
 //        gridLabelRenderer.setGridStyle(GridLabelRenderer.GridStyle.);
 

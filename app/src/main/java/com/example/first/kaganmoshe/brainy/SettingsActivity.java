@@ -45,7 +45,7 @@ public class SettingsActivity extends CustomActivity {
 
         this.setOnBackPressedActivity(LoginActivity.class);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, HEADSETS);
 
         headsetSpinner = (BetterSpinner) findViewById(R.id.headset_list);
