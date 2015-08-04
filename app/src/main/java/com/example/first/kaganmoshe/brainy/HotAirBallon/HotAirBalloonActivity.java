@@ -45,7 +45,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
     private final int startLocationOnActivity = 1200;
     private float balloonRange = startLocationOnActivity - distanceFromTopActivity;
     private Button btn;
-    private ImageView imageView;
+    private ImageView hotAirBalloonImageView;
     private List<Integer> attValues = new LinkedList<>();
     private int i = 1;
     private boolean listenToHeadSet = false;
@@ -72,7 +72,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
         setContentView(R.layout.activity_hot_air_balloon);
 
         feedback = new FeedbackClass();
-        imageView = (ImageView) findViewById(R.id.balloonImageView);
+        hotAirBalloonImageView = (ImageView) findViewById(R.id.balloonImageView);
         timerValue = (TextView) findViewById(R.id.timerValue);
         hotAirBalloonSoundAffect = MediaPlayer.create(this, R.raw.hot_air_balloon_sound_affect);
 
@@ -96,7 +96,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
                         startTimerGame(60000L);
                     } else if (AppManager.getInstance().getAppSettings().getHeadSetType() == EHeadSetType.MindWave){
                         listenToHeadSet = true;
-                        startTimerGame(90000L);
+                        startTimerGame(60000L);
                     }
                 }
                 int attVal = attValues.get(i);
@@ -133,7 +133,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
         startGameDialogFragment = new StartGameDialogFragment();
         startGameDialogFragment.setGameScreen(this);
         startGameDialogFragment.show(fm, "StartGameDialogFragment");
-        changeActivityDarkerOrLighter(0.7f);
+        changeActivityDarkerOrLighter(1f);
     }
 
     private void changeActivityDarkerOrLighter(float val){
@@ -153,7 +153,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
     }
 
     private void raisedTheAirBalloon(float newDestination){
-        ObjectAnimator animation = ObjectAnimator.ofFloat(imageView,
+        ObjectAnimator animation = ObjectAnimator.ofFloat(hotAirBalloonImageView,
                 "y", newDestination);
         animation.setDuration(1000);
         animation.start();
@@ -216,6 +216,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
             oldAtt = attValue;
         }
     }
+
     @Override
     public void onMeditationReceived(int medValue) {
         // Do Nothing
