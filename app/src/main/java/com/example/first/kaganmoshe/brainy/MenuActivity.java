@@ -53,7 +53,7 @@ public class MenuActivity extends CustomActivity {
         this.setOnBackPressedActivity(SettingsActivity.class);
 
         MenuCustomList adapter = new
-                MenuCustomList(MenuActivity.this, titles, imageId, reviews);
+                MenuCustomList(MenuActivity.this, titles, imageId, reviews, R.layout.menu_list_row);
         list = (ListView) findViewById(R.id.list);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

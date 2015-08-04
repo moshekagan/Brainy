@@ -33,5 +33,4 @@
         android:layout_toEndOf="@+id/menu_listrow_thumbnail"
         android:textSize="@dimen/menu_listrow_game_review" />
 
-
 </RelativeLayout>

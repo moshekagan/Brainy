@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:background="@android:drawable/list_selector_background"
-    android:orientation="vertical"
-    android:padding="3dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#b3575959"
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/ItemA"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="3dp"
-        android:text="Games"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:ignore="HardcodedText" />
+    <!-- Thumbnail Image -->
+    <ImageView
+        android:id="@+id/menu_listrow_thumbnail"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="8dp" />
 
+    <!-- Game name -->
     <TextView
-        android:id="@+id/ItemB"
-        android:layout_width="match_parent"
+        android:id="@+id/menu_listrow_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:text="Settings"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:ignore="HardcodedText" />
-    <TextView
-        android:id="@+id/ItemC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:text="Quit"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:ignore="HardcodedText" />
+        android:layout_alignTop="@+id/menu_listrow_thumbnail"
+        android:layout_toEndOf="@+id/menu_listrow_thumbnail"
+        android:textSize="@dimen/menu_listrow_game_name"
+        android:textStyle="bold"
+        android:textColor="#ffffff"/>
 
-</LinearLayout>
+    <!-- Review -->
+    <TextView
+        android:id="@+id/menu_listrow_review"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menu_listrow_title"
+        android:layout_marginTop="1dip"
+        android:layout_toEndOf="@+id/menu_listrow_thumbnail"
+        android:textSize="@dimen/menu_listrow_game_review" />
+
+</RelativeLayout>
+

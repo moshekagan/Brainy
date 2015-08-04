@@ -16,26 +16,29 @@ import com.example.first.kaganmoshe.brainy.CustomActivity.*;
  * Created by tamirkash on 7/27/15.
  */
 public class MenuCustomList extends ArrayAdapter<String>{
+    //TODO - make this generic !!
 
     private final Activity context;
     private final String[] titles;
     private final String[] reviews;
     private final Integer[] imageId;
+    private final int layoutResource;
 
     public MenuCustomList(Activity context,
-                          String[] titles, Integer[] imageId, String[] reviews) {
-        super(context, R.layout.menu_list_row, titles);
+                          String[] titles, Integer[] imageId, String[] reviews, int layoutResource) {
+        super(context, layoutResource, titles);
         this.reviews = reviews;
         this.context = context;
         this.titles = titles;
         this.imageId = imageId;
+        this.layoutResource = layoutResource;
     }
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null) {
             LayoutInflater inflater = context.getLayoutInflater();
-            view = inflater.inflate(R.layout.menu_list_row, null, true);
+            view = inflater.inflate(layoutResource, null, true);
 
 //            int alpha = 128; //50% transparency
 //            int color = Color.WHITE; //Your color value
@@ -52,6 +55,7 @@ public class MenuCustomList extends ArrayAdapter<String>{
         TextView txtTitle = (TextView) view.findViewById(R.id.menu_listrow_title);
         ImageView imageView = (ImageView) view.findViewById(R.id.menu_listrow_thumbnail);
         txtTitle.setText(titles[position]);
+        Utils.changeFont(context.getAssets(), txtTitle);
         imageView.setImageResource(imageId[position]);
 
         return view;

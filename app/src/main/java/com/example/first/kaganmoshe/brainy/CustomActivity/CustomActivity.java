@@ -1,6 +1,7 @@
 package com.example.first.kaganmoshe.brainy.CustomActivity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,7 +32,12 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
+import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity;
+import com.example.first.kaganmoshe.brainy.LoginActivity;
+import com.example.first.kaganmoshe.brainy.MenuActivity;
+import com.example.first.kaganmoshe.brainy.MenuCustomList;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.SettingsActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
@@ -43,11 +50,26 @@ import EEG.EHeadSetType;
  */
 public class CustomActivity extends FragmentActivity implements View.OnClickListener {
 
-//    String[] actionsStrings = getResources().getStringArray(R.array.action_list);
+    //    String[] actionsStrings = getResources().getStringArray(R.array.action_list);
+    //TODO - make the titles generic
     private final static String[] STRINGS = {"Games", "Settings", "Quit"};
     protected ActionBar actionBar;
     protected Class onBackPressedActivity = null;
     ArrayAdapter actionsList;
+
+    private Integer[] imageId = {
+            R.drawable.hot_air_balloon,
+            R.drawable.hot_air_balloon,
+            R.drawable.hot_air_balloon
+    };
+    private String[] reviews = {
+            "bla",
+            "bla",
+            "bla"
+    };
+
+    private ListPopupWindow homeButtonPopup;
+    private ViewGroup mMeasureParent;
 
     public static class TouchEffect implements View.OnTouchListener {
 
@@ -97,6 +119,7 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         setupActionBar();
+        homeButtonPopup = new ListPopupWindow(this);
     }
 
     /**
@@ -179,44 +202,80 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
 
 //        MenuInflater inflater = getSupportMenuInflater();
 //        inflater.inflate(R.menu.activity_main, menu);
-        menu.add("Connection").setIcon(R.drawable.bad)
-                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-//                        doStuff();
-                        return false;
-                    }
-                }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add("Connection").setIcon(R.drawable.bad).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home && !homeButtonPopup.isShowing()) {
             showPopup();
-            return true;
+        } else if(homeButtonPopup.isShowing()) {
+            homeButtonPopup.dismiss();
         }
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 
     private void showPopup() {
-        ListPopupWindow popup = new ListPopupWindow(this);
-        actionsList = ArrayAdapter.createFromResource(this,
-                R.array.action_list, android.R.layout.simple_dropdown_item_1line);
+        //TODO - take care of things not happening twice!
+//        actionsList = ArrayAdapter.createFromResource(this,
+//                R.array.action_list, android.R.layout.simple_dropdown_item_1line);
 //        popup.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, STRINGS));
-        popup.setAdapter(actionsList);
-        popup.setAnchorView(findViewById(android.R.id.home));
-//        popup.setWidth(ListPopupWindow.WRAP_CONTENT);
-        popup.setContentWidth(400);
-        popup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        MenuCustomList adapter = new
+                MenuCustomList(this, STRINGS, imageId, reviews, R.layout.overflow_menu_popup_row);
+        homeButtonPopup.setAdapter(adapter);
+        homeButtonPopup.setAnchorView(findViewById(android.R.id.home));
+        int width = measureContentWidth(adapter);
+        homeButtonPopup.setContentWidth(width);
+        homeButtonPopup.setAnimationStyle(R.style.animation_menu_button_popup);
 
+        homeButtonPopup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getApplicationContext(), "Clicked item " + position, Toast.LENGTH_SHORT).show();
+                Class cls = null;
+
+                homeButtonPopup.dismiss();
+
+                switch (STRINGS[+position]) {
+                    case "Settings":
+                        cls = SettingsActivity.class;
+                        break;
+                    case "Games":
+                        cls = MenuActivity.class;
+                        break;
+                    case "Quit":
+                        cls = LoginActivity.class;
+                        break;
+                }
+
+                Utils.startNewActivity((Activity)view.getContext(), cls);
             }
         });
-        popup.show();
+        homeButtonPopup.show();
+    }
+
+    private int measureContentWidth(ArrayAdapter adapter) {
+        int width = 0;
+        View itemView = null;
+        int itemType = 0;
+        final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        final int count = adapter.getCount();
+        for (int i = 0; i < count; i++) {
+            final int positionType = adapter.getItemViewType(i);
+            if (positionType != itemType) {
+                itemType = positionType;
+                itemView = null;
+            }
+            if (mMeasureParent == null) {
+                mMeasureParent = new FrameLayout(getApplicationContext());
+            }
+            itemView = adapter.getView(i, itemView, mMeasureParent);
+            itemView.measure(widthMeasureSpec, heightMeasureSpec);
+            width = Math.max(width, itemView.getMeasuredWidth());
+        }
+        return width + 50;
     }
 }

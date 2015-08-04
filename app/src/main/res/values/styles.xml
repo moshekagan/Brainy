@@ -159,5 +159,9 @@
         <item name="android:paddingStart">@dimen/pad_10dp</item>
         <item name="android:textColorHint">@color/white</item>
     </style>
+    <style name="animation_menu_button_popup">
+        <item name="android:windowEnterAnimation">@anim/abc_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/abc_fade_out</item>
+    </style>
 
 </resources>
