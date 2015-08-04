@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/winnerDialogLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".QuitGameDialog">
+
+    <!--<ImageView-->
+    <!--android:src="@drawable/winner_background"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_alignTop="@+id/dialog_layout_main"-->
+    <!--android:layout_alignBottom="@id/dialog_layout_main"-->
+    <!--android:layout_alignLeft="@id/dialog_layout_main"-->
+    <!--android:layout_alignRight="@id/dialog_layout_main" />-->
+
+
+    <TextView
+        android:id="@+id/quitGameDialogTitle"
+        style="@style/winnerDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/game_quit_dialog_title" />
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="2"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:weightSum="5">-->
+
+        <!--<android.widget.Space-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1" />-->
+        <!--<ImageView-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:layout_marginBottom="25dp"-->
+        <!--android:layout_weight="3"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/brainy_thumbup"-->
+        <!--android:adjustViewBounds="true" />-->
+
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="12"
+        android:layout_marginTop="@dimen/pad_20dp">
+
+        <android.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4" />
+
+        <Button
+            android:id="@+id/continueButton"
+            style="@style/dialogButtonText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/winner_dialog_button"
+            android:stateListAnimator="@null"
+            android:text="@string/winner_dialog_continue" />
+
+        <Button
+            android:id="@+id/quitButton"
+            style="@style/dialogButtonText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/winner_dialog_button"
+            android:stateListAnimator="@null"
+            android:text="@string/winner_dialog_quit" />
+
+    </LinearLayout>
+
+</LinearLayout>

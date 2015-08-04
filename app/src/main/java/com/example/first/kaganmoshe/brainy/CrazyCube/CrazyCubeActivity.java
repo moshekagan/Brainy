@@ -6,14 +6,15 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.WinnerDialogFragment;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.series.DataPoint;
 
@@ -72,18 +73,26 @@ public class CrazyCubeActivity extends GameActivity {
         BuildTable(++currBoardSize);
     }
 
+    private void stopClock(){
+        handler.removeCallbacks(timer);
+        timerOn = false;
+    }
+
+    private void resumeClock(){
+        timerOn = true;
+        handler.postDelayed(timer, 1000);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        handler.removeCallbacks(timer);
-        timerOn = false;
+        stopClock();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        timerOn = true;
-        handler.postDelayed(timer, 1000);
+        resumeClock();
     }
 
     private void updateTimeTextView() {
@@ -93,12 +102,8 @@ public class CrazyCubeActivity extends GameActivity {
             if (currTime != 0)
                 handler.postDelayed(timer, 1000);
             else
-                finishGame();
+                showFinishDialog();
         }
-    }
-
-    private void finishGame() {
-        showFinishDialog();
     }
 
     private void setScore(int score) {
@@ -214,7 +219,7 @@ public class CrazyCubeActivity extends GameActivity {
 //    }
 //
 //    @Override
-//    public void continueNextScreen() {
+//    public void onDialogConfirmed() {
 //        Intent intent = new Intent(this, FeedbackActivity.class);
 //
 //        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
@@ -247,5 +252,27 @@ public class CrazyCubeActivity extends GameActivity {
     @Override
     public void onPoorSignalReceived(ESignalVolume signalVolume) {
 
+    }
+
+    @Override
+    public void onPopupDialogCanceled() {
+        resumeClock();
+        super.onPopupDialogCanceled();
+    }
+
+    @Override
+    public void onDialogShow(){
+        stopClock();
+        super.onDialogShow();
+    }
+
+    @Override
+    protected void onMenuPopupShow() {
+        stopClock();
+    }
+
+    @Override
+    protected void onMenuPopupDismiss() {
+        resumeClock();
     }
 }

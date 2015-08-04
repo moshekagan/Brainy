@@ -55,6 +55,8 @@
     <string name="settings_skip">Skip</string>
     <string name="action_games">Games</string>
     <string name="action_quit">Quit</string>
+    <string name="game_quit_dialog_title">Are you sure you want to leave?</string>
+    <string name="winner_dialog_quit">Leave</string>
 
     <string-array name="action_list">
         <item>Games</item>

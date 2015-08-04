@@ -27,25 +27,14 @@ public class GuessTheNumberGameActivity extends GameActivity {
     private final String GUESS_THE_NUMBER_GAME_ACTIVITY = "GuessTheNumberGameActivity";
     private TextSwitcher outputText;
     private TextView inputText;
-    //    private TextView headLineText;
     private TextView guessRequestText;
     private Button approveGuessButton;
     private Button backspaceButton;
     private GuessTheNumberEngine game;
     private MediaPlayer buttonClickSound;
     private MediaPlayer wrongAnswerSound;
-//    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-//    private FeedbackClass feedback;
-
-    // Activity components
-//    private ImageView m_ConnectivityIconImageV;
     private TextView m_AttentionTextV;
     private TextView m_MeditationTextV;
-    //    private Button m_ConnectBtn;
-//    private GraphFragment graphFragment;
-
-    // Data Members
-    private EegHeadSet m_HeadSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,5 +271,15 @@ public class GuessTheNumberGameActivity extends GameActivity {
     protected void startFeedbackSession() {
         feedback = new GTNFeedback();
         feedback.startTimer();
+    }
+
+    @Override
+    protected void onMenuPopupShow() {
+
+    }
+
+    @Override
+    protected void onMenuPopupDismiss() {
+
     }
 }

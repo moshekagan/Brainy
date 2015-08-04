@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
@@ -14,8 +13,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import com.example.first.kaganmoshe.brainy.Utils;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.WinnerDialogFragment;
 
 import com.example.first.kaganmoshe.brainy.R;
 
@@ -32,8 +29,8 @@ public class StartGameDialogFragment extends DialogFragment {
     private String continueButtonText = "Continue";
 
     public interface gameCommunicator {
-        public void startGameScreen();
-        public void backKeyPressed();
+        void startGameScreen();
+        void backKeyPressed();
     }
 
     public void setGameScreen(gameCommunicator gameScreen) {

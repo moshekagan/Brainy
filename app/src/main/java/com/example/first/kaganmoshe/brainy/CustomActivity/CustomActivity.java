@@ -3,47 +3,24 @@ package com.example.first.kaganmoshe.brainy.CustomActivity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListPopupWindow;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
-import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity;
 import com.example.first.kaganmoshe.brainy.LoginActivity;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.MenuCustomList;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.SettingsActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
-import com.weiwangcn.betterspinner.library.BetterSpinner;
-
-import EEG.EHeadSetType;
 
 /**
  * Created by tamirkash on 7/28/15.
@@ -52,7 +29,7 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
 
     //    String[] actionsStrings = getResources().getStringArray(R.array.action_list);
     //TODO - make the titles generic
-    private final static String[] STRINGS = {"Games", "Settings", "Quit"};
+    private final static String[] POPUP_MENU_TITLES = {"Games", "Settings", "Quit"};
     protected ActionBar actionBar;
     protected Class onBackPressedActivity = null;
     ArrayAdapter actionsList;
@@ -68,8 +45,11 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
             "bla"
     };
 
-    private ListPopupWindow homeButtonPopup;
-    private ViewGroup mMeasureParent;
+    protected ListPopupWindow homeButtonPopup;
+    protected ViewGroup mMeasureParent;
+
+    private static final int POPUP_MENU_ROW_PADDING = 50;
+    private static int popupMenuRowWidth = 0;
 
     public static class TouchEffect implements View.OnTouchListener {
 
@@ -120,6 +100,45 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
         super.setContentView(layoutResID);
         setupActionBar();
         homeButtonPopup = new ListPopupWindow(this);
+
+        MenuCustomList adapter = new
+                MenuCustomList(this, POPUP_MENU_TITLES, imageId, reviews, R.layout.overflow_menu_popup_row);
+        homeButtonPopup.setAdapter(adapter);
+        homeButtonPopup.setAnchorView(findViewById(android.R.id.home));
+
+        if (popupMenuRowWidth == 0) {
+            popupMenuRowWidth = measureContentWidth(adapter, getApplicationContext(), mMeasureParent);
+        }
+        homeButtonPopup.setContentWidth(popupMenuRowWidth);
+        homeButtonPopup.setAnimationStyle(R.style.animation_menu_button_popup);
+
+        //TODO - need to change if user picks settings or someplace that doest switch context
+        homeButtonPopup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Class cls = null;
+
+                homeButtonPopup.dismiss();
+
+                switch (POPUP_MENU_TITLES[+position]) {
+                    case "Settings":
+                        cls = SettingsActivity.class;
+                        break;
+                    case "Games":
+                        cls = MenuActivity.class;
+                        break;
+                    case "Quit":
+                        cls = LoginActivity.class;
+                        break;
+                }
+
+                onPopupMenuOptionSelected(cls);
+            }
+        });
+    }
+
+    protected void onPopupMenuOptionSelected(Class cls) {
+        Utils.startNewActivity(this, cls);
     }
 
     /**
@@ -211,7 +230,7 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home && !homeButtonPopup.isShowing()) {
             showPopup();
-        } else if(homeButtonPopup.isShowing()) {
+        } else if (homeButtonPopup.isShowing()) {
             homeButtonPopup.dismiss();
         }
 
@@ -222,47 +241,20 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
         //TODO - take care of things not happening twice!
 //        actionsList = ArrayAdapter.createFromResource(this,
 //                R.array.action_list, android.R.layout.simple_dropdown_item_1line);
-//        popup.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, STRINGS));
-        MenuCustomList adapter = new
-                MenuCustomList(this, STRINGS, imageId, reviews, R.layout.overflow_menu_popup_row);
-        homeButtonPopup.setAdapter(adapter);
-        homeButtonPopup.setAnchorView(findViewById(android.R.id.home));
-        int width = measureContentWidth(adapter);
-        homeButtonPopup.setContentWidth(width);
-        homeButtonPopup.setAnimationStyle(R.style.animation_menu_button_popup);
+//        popup.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, POPUP_MENU_TITLES));
 
-        homeButtonPopup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Class cls = null;
-
-                homeButtonPopup.dismiss();
-
-                switch (STRINGS[+position]) {
-                    case "Settings":
-                        cls = SettingsActivity.class;
-                        break;
-                    case "Games":
-                        cls = MenuActivity.class;
-                        break;
-                    case "Quit":
-                        cls = LoginActivity.class;
-                        break;
-                }
-
-                Utils.startNewActivity((Activity)view.getContext(), cls);
-            }
-        });
         homeButtonPopup.show();
     }
 
-    private int measureContentWidth(ArrayAdapter adapter) {
+    //TODO - should be static
+    private static int measureContentWidth(ArrayAdapter adapter, Context context, ViewGroup mMeasureParent) {
         int width = 0;
         View itemView = null;
         int itemType = 0;
         final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int count = adapter.getCount();
+
         for (int i = 0; i < count; i++) {
             final int positionType = adapter.getItemViewType(i);
             if (positionType != itemType) {
@@ -270,12 +262,13 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
                 itemView = null;
             }
             if (mMeasureParent == null) {
-                mMeasureParent = new FrameLayout(getApplicationContext());
+                mMeasureParent = new FrameLayout(context);
             }
             itemView = adapter.getView(i, itemView, mMeasureParent);
             itemView.measure(widthMeasureSpec, heightMeasureSpec);
             width = Math.max(width, itemView.getMeasuredWidth());
         }
-        return width + 50;
+        //TODO - const
+        return width + POPUP_MENU_ROW_PADDING;
     }
 }

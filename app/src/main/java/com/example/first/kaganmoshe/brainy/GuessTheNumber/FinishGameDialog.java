@@ -5,46 +5,28 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.GameDialog;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WinnerDialogFragment extends DialogFragment {
+public class FinishGameDialog extends GameDialog {
 
     private MediaPlayer winnerSound;
     private TextView title;
     private Button continueButton;
-    private gameCommunicator gameScreen;
 
-    public interface gameCommunicator {
-        public void continueNextScreen();
-        public void onBackPressed();
-    }
-
-    public void setGameScreen(gameCommunicator gameScreen) {
-        this.gameScreen = gameScreen;
-    }
-
-    public WinnerDialogFragment() {
+    public FinishGameDialog() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void show(FragmentManager manager, String tag) {
-        super.show(manager, tag);
     }
 
     @Override
@@ -53,10 +35,23 @@ public class WinnerDialogFragment extends DialogFragment {
         winnerSound.stop();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+//                                         @Override
+//                                         public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+//                                             if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+//                                                 gameScreen.onBackPressed();
+//                                                 return true;
+//                                             } else {
+//                                                 return false;
+//                                             }
+//                                         }
+//                                     }
+//        );
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,33 +64,16 @@ public class WinnerDialogFragment extends DialogFragment {
 
         Utils.changeFont(getActivity().getAssets(), title);
         initButtons();
+//        gameScreen.onDialogShow();
 
         return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
-                                         @Override
-                                         public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                                             if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-                                                 gameScreen.onBackPressed();
-                                                 return true;
-                                             } else {
-                                                 return false;
-                                             }
-                                         }
-                                     }
-        );
     }
 
     private void initButtons() {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameScreen.continueNextScreen();
+                gameScreen.onFinishDialogConfirmed();
             }
         });
     }
@@ -106,13 +84,13 @@ public class WinnerDialogFragment extends DialogFragment {
 
         playWinnerSound();
 
-        // request a window without the title
-        dialog.getWindow().
-
-                requestFeature(Window.FEATURE_NO_TITLE);
-
         return dialog;
     }
+
+//    @Override
+//    public void onDismiss(DialogInterface dialog) {
+//        super.onDismiss(dialog);
+//    }
 
     @Override
     public void onStop() {

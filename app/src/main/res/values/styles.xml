@@ -62,7 +62,7 @@
         <item name="android:textSize">20sp</item>
     </style>
     <style name="dialogButtonText">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
     <style name="winnerDialogTitle">
         <item name="android:textSize">25sp</item>
