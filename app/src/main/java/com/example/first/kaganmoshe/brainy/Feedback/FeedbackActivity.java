@@ -1,14 +1,11 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
@@ -20,17 +17,18 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 
-public class FeedbackActivity extends CustomActivity {
+public class FeedbackActivity extends AppActivity {
     public static final String CURR_GAME_CONCENTRATION_POINTS = "currGameConcentrationPoints";
     public static final String CURR_GAME_TIME_MINUTES = "currGameTimeMinutes";
     public static final String CURR_GAME_TIME_SECONDS = "currGameTimeSeconds";
     public static final String CURR_GAME_SCORE = "currGameScore";
-    private GraphView graphView;
-    private LineGraphSeries<DataPoint> concentrationPoints = new LineGraphSeries<>();
-    private TextView feedbackTitle;
-    private TextView timeView;
-    private Button backButton;
-    private Button playAgainButton;
+
+    protected GraphView graphView;
+    protected LineGraphSeries<DataPoint> concentrationPoints = new LineGraphSeries<>();
+    protected TextView feedbackTitle;
+    protected TextView timeView;
+    protected Button backButton;
+    protected Button playAgainButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class FeedbackActivity extends CustomActivity {
     private void initInfo() {
         long sessionTimeMin = getIntent().getLongExtra(CURR_GAME_TIME_MINUTES, 0);
         long sessionTimeSec = getIntent().getLongExtra(CURR_GAME_TIME_SECONDS, 0);
-        timeView = (TextView) findViewById(R.id.feedbackTimeView);
+        timeView = (TextView) findViewById(R.id.feedbackTimeViewText);
 
         timeView.append(" " + Long.toString(sessionTimeMin) + ":" + Long.toString(sessionTimeSec));
     }
@@ -104,27 +102,5 @@ public class FeedbackActivity extends CustomActivity {
     private void initTitle() {
         feedbackTitle = (TextView) findViewById(R.id.feedbackTitle);
         Utils.changeFont(getAssets(), feedbackTitle);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_feedback, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

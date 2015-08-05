@@ -1,6 +1,5 @@
 package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -12,13 +11,14 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.GameConfigActivity;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
 
-public class GuessTheNumberConfigActivity extends CustomActivity {
+public class GuessTheNumberConfigActivity extends GameConfigActivity {
     private static final String CURRENT_RANGE_VALUE = "CURRENT_RANGE_VALUE";
     public final static String EXTRA_MESSAGE = "MESSAGE";
     private int currentRangeValue;
@@ -40,7 +40,7 @@ public class GuessTheNumberConfigActivity extends CustomActivity {
         rangeValueText = (TextView) findViewById(R.id.rangeValueText);
         rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
         startButton = (Button) findViewById(R.id.startButton);
-        this.setOnBackPressedActivity(MenuActivity.class);
+//        this.setOnBackPressedActivity(MenuActivity.class);
 
         rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -70,23 +70,23 @@ public class GuessTheNumberConfigActivity extends CustomActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i("START", "START");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i("RESTART", "RESTART");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i("RESUME", "RESUME");
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        Log.i("START", "START");
+//    }
+//
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        Log.i("RESTART", "RESTART");
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Log.i("RESUME", "RESUME");
+//    }
 
     private void onStartGameClick(){
         Intent intent = new Intent(this, GuessTheNumberGameActivity.class);
@@ -100,49 +100,26 @@ public class GuessTheNumberConfigActivity extends CustomActivity {
         outState.putInt(CURRENT_RANGE_VALUE, currentRangeValue);
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i("Pause","Pause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("STOP", "STOP");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i("DESTROY", "DESTROY");
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+//        super.onSaveInstanceState(outState, outPersistentState);
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        Log.i("Pause","Pause");
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        Log.i("STOP", "STOP");
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        Log.i("DESTROY", "DESTROY");
+//    }
 }

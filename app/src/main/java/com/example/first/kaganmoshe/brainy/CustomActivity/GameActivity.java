@@ -10,7 +10,7 @@ import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GraphFragment;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.FinishGameDialog;
-import com.example.first.kaganmoshe.brainy.MenuActivity;
+import com.example.first.kaganmoshe.brainy.LoginActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
@@ -19,14 +19,15 @@ import EEG.IHeadSetData;
 /**
  * Created by tamirkash on 8/3/15.
  */
-public abstract class GameActivity extends CustomActivity implements IHeadSetData, GameDialog.GameDialogCommunicator {
+public abstract class GameActivity extends AppActivity implements IHeadSetData, GameDialog.GameDialogCommunicator {
     protected android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     protected FeedbackClass feedback;
     protected GraphFragment graphFragment;
     protected QuitGameDialog quitGameDialog = new QuitGameDialog();
     protected FinishGameDialog finishGameDialog = new FinishGameDialog();
+    protected Class onBackPressedActivityTarget = null;
 
-    private Class targetActivity;
+    private Class targetActivity = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,17 @@ public abstract class GameActivity extends CustomActivity implements IHeadSetDat
 
         quitGameDialog.setGameScreen(this);
         finishGameDialog.setGameScreen(this);
-        this.setOnBackPressedActivity(MenuActivity.class);
+        try {
+            onBackPressedActivityTarget = Class.forName(getIntent().getStringExtra(Utils.CALLING_CLASS));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        Utils.startNewActivity(this, MenuActivity.class);
+//    }
 
     @Override
     protected void onResume() {
@@ -101,21 +111,24 @@ public abstract class GameActivity extends CustomActivity implements IHeadSetDat
 //    }
 
     @Override
-    public void onPopupDialogLeave() {
-        Utils.startNewActivity(this, targetActivity);
+    public void onPopupDialogLeaveClicked() {
+        if (targetActivity == null) {
+            Utils.startNewActivity(this, onBackPressedActivityTarget);
+        } else {
+            Utils.startNewActivity(this, targetActivity);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        if (quitGameDialog.isVisible()) {
-
-        } else {
+        if (!quitGameDialog.isVisible()) {
             quitGameDialog.show(fm, "QuitGameDialog");
         }
     }
 
     @Override
     public void onPopupDialogCanceled() {
+        targetActivity = null;
         resumeFeedbackAndGraph();
     }
 
@@ -147,7 +160,7 @@ public abstract class GameActivity extends CustomActivity implements IHeadSetDat
     protected abstract void onMenuPopupDismiss();
 
     @Override
-    protected void onPopupMenuOptionSelected(Class targetActivity){
+    protected void onPopupMenuOptionSelected(Class targetActivity) {
         this.targetActivity = targetActivity;
         quitGameDialog.show(fm, "QuitGameDialog");
     }

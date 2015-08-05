@@ -1,10 +1,11 @@
 package com.example.first.kaganmoshe.brainy.CustomActivity;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -25,13 +26,12 @@ import com.example.first.kaganmoshe.brainy.Utils;
 /**
  * Created by tamirkash on 7/28/15.
  */
-public class CustomActivity extends FragmentActivity implements View.OnClickListener {
+public class AppActivity extends FragmentActivity implements View.OnClickListener {
 
     //    String[] actionsStrings = getResources().getStringArray(R.array.action_list);
     //TODO - make the titles generic
     private final static String[] POPUP_MENU_TITLES = {"Games", "Settings", "Quit"};
     protected ActionBar actionBar;
-    protected Class onBackPressedActivity = null;
     ArrayAdapter actionsList;
 
     private Integer[] imageId = {
@@ -74,16 +74,29 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
         }
     }
 
-    public void setOnBackPressedActivity(Class onBackPressedActivity) {
-        this.onBackPressedActivity = onBackPressedActivity;
-    }
+//    public void setOnBackPressedActivityTarget(Class onBackPressedActivity) {
+//        this.onBackPressedActivityTarget = onBackPressedActivity;
+//    }
+
+//    @Override
+//    public void onBackPressed() {
+//        if (onBackPressedActivityTarget == null)
+//            super.onBackPressed();
+//        else
+//            Utils.startNewActivity(this, onBackPressedActivityTarget);
+//    }
 
     @Override
-    public void onBackPressed() {
-        if (onBackPressedActivity == null)
-            super.onBackPressed();
-        else
-            Utils.startNewActivity(this, onBackPressedActivity);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+//        Bundle extras = getIntent().getExtras();
+//        String classname=extras.getString("class");
+//        Class<?> clazz = Class.forName(classname);
+//        Intent i = new Intent(Setting.this, clazz);
+//        startActivity(i);
+//        }
+//        onBackPressedActivityTarget = getIntent().getStringExtra("CLASS_NAME");
     }
 
     /**
@@ -132,7 +145,10 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
                         break;
                 }
 
-                onPopupMenuOptionSelected(cls);
+                if(parent.getContext().getClass() != cls) {
+                    Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
+                    onPopupMenuOptionSelected(cls);
+                }
             }
         });
     }
@@ -246,7 +262,6 @@ public class CustomActivity extends FragmentActivity implements View.OnClickList
         homeButtonPopup.show();
     }
 
-    //TODO - should be static
     private static int measureContentWidth(ArrayAdapter adapter, Context context, ViewGroup mMeasureParent) {
         int width = 0;
         View itemView = null;

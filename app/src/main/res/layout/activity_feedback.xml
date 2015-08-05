@@ -1,51 +1,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/feedback_background"
-    android:layout_gravity="center"
     android:orientation="vertical"
+    android:padding="@dimen/padding_feedback_layout"
     android:weightSum="22"
-    android:padding="@dimen/end_margin_feedback_layout"
     tools:context="com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity">
 
     <TextView
-        style="@style/feedbackActivityTitle"
         android:id="@+id/feedbackTitle"
-        android:layout_marginTop="10dp"
+        style="@style/feedbackActivityTitle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:text="@string/feedback_activity_title"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:text="@string/feedback_activity_title" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:id="@+id/feedbackInfoLayout"
-        android:orientation="horizontal"
-        android:weightSum="10">
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/feedbackScoreView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:text="@string/feedbackScoreView"
-            android:gravity="center"
-            style="@style/feedbackActivityTextView"/>
+        <LinearLayout
+            android:id="@+id/feedbackStatsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/feedbackTimeView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="@string/feedbackTimeView"
-            android:gravity="center"
-            style="@style/feedbackActivityTextView"/>
+            <LinearLayout
+                android:layout_width="@dimen/feedbackStatLayoutWidth"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
 
-    </LinearLayout>
+                <TextView
+                    style="@style/feedbackActivityTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/feedbackScoreView"
+                    android:layout_marginEnd="@dimen/pad_5dp"/>
+
+                <TextView
+                    android:id="@+id/feedbackScoreViewText"
+                    style="@style/feedbackActivityTextViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:gravity="bottom"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/feedbackStatLayoutWidth"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    style="@style/feedbackActivityTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/feedbackTimeView"
+                    android:layout_marginEnd="@dimen/pad_5dp"/>
+
+                <TextView
+                    android:id="@+id/feedbackTimeViewText"
+                    style="@style/feedbackActivityTextViewText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:gravity="bottom" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
     <com.jjoe64.graphview.GraphView
 
@@ -53,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="13"
-        android:layout_marginBottom="10dp"/>
+        android:paddingBottom="10dp" />
     <!--android:layout_marginLeft="@dimen/start_margin_feedback_layout"-->
     <!--android:layout_marginStart="@dimen/start_margin_feedback_layout"-->
     <!--android:layout_marginEnd="@dimen/end_margin_feedback_layout"-->
@@ -64,9 +96,10 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="horizontal"
-        android:weightSum="12"
-        android:paddingTop="@dimen/end_margin_feedback_layout"
-        android:layout_marginStart="10dp">
+        android:paddingStart="@dimen/pad_10dp"
+        android:paddingEnd="@dimen/pad_10dp"
+        android:paddingTop="@dimen/padding_feedback_layout"
+        android:weightSum="12">
         <!--android:layout_marginLeft="@dimen/start_margin_feedback_layout"-->
         <!--android:layout_marginStart="@dimen/start_margin_feedback_layout"-->
         <!--android:layout_marginEnd="@dimen/end_margin_feedback_layout"-->

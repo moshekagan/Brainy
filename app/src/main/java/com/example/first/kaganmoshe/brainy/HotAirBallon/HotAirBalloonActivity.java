@@ -23,6 +23,7 @@ import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GenericDialogFragment;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 
+import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 
 import java.util.LinkedList;
@@ -71,7 +72,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hot_air_balloon);
 
-        feedback = new FeedbackClass();
+        feedback = new HotAirBalloonFeedback();
         hotAirBalloonImageView = (ImageView) findViewById(R.id.balloonImageView);
         timerValue = (TextView) findViewById(R.id.timerValue);
         hotAirBalloonSoundAffect = MediaPlayer.create(this, R.raw.hot_air_balloon_sound_affect);
@@ -288,6 +289,6 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
 
     @Override
     public void backKeyPressed() {
-        Utils.startNewActivity(this, GuessTheNumberConfigActivity.class);
+        Utils.startNewActivity(this, MenuActivity.class);
     }
 }

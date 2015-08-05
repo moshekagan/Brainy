@@ -164,4 +164,8 @@
         <item name="android:windowExitAnimation">@anim/abc_fade_out</item>
     </style>
 
+    <style name="feedbackActivityTextViewText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

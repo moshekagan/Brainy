@@ -25,7 +25,7 @@ public abstract class GameDialog extends DialogFragment {
 
     public interface GameDialogCommunicator{
         void onPopupDialogCanceled();
-        void onPopupDialogLeave();
+        void onPopupDialogLeaveClicked();
         void onFinishDialogConfirmed();
         void onBackPressed();
         void onDialogShow();

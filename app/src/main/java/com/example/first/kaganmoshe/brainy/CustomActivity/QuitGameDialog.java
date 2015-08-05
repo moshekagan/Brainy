@@ -17,7 +17,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
 public class QuitGameDialog extends GameDialog {
 
     private Button continueButton;
-    private Button quitButton;
+    private Button leaveButton;
     private TextView title;
 
     @Override
@@ -27,7 +27,7 @@ public class QuitGameDialog extends GameDialog {
                 false);
         continueButton = (Button) rootView.findViewById(R.id.continueButton);
         title = (TextView) rootView.findViewById(R.id.quitGameDialogTitle);
-        quitButton = (Button) rootView.findViewById(R.id.quitButton);
+        leaveButton = (Button) rootView.findViewById(R.id.quitButton);
 
         Utils.changeFont(getActivity().getAssets(), title);
         initButtons();
@@ -62,10 +62,10 @@ public class QuitGameDialog extends GameDialog {
             }
         });
 
-        quitButton.setOnClickListener(new View.OnClickListener() {
+        leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameScreen.onPopupDialogLeave();
+                gameScreen.onPopupDialogLeaveClicked();
             }
         });
     }

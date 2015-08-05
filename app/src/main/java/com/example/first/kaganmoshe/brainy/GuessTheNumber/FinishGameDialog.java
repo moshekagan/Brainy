@@ -35,24 +35,6 @@ public class FinishGameDialog extends GameDialog {
         winnerSound.stop();
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
-//                                         @Override
-//                                         public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-//                                             if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-//                                                 gameScreen.onBackPressed();
-//                                                 return true;
-//                                             } else {
-//                                                 return false;
-//                                             }
-//                                         }
-//                                     }
-//        );
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,7 +46,6 @@ public class FinishGameDialog extends GameDialog {
 
         Utils.changeFont(getActivity().getAssets(), title);
         initButtons();
-//        gameScreen.onDialogShow();
 
         return rootView;
     }
@@ -86,11 +67,6 @@ public class FinishGameDialog extends GameDialog {
 
         return dialog;
     }
-
-//    @Override
-//    public void onDismiss(DialogInterface dialog) {
-//        super.onDismiss(dialog);
-//    }
 
     @Override
     public void onStop() {

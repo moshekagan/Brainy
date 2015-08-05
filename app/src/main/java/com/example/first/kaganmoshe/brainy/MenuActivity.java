@@ -2,27 +2,18 @@ package com.example.first.kaganmoshe.brainy;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
-import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberGameActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity;
 
-import java.util.Collections;
 
-
-public class MenuActivity extends CustomActivity {
+public class MenuActivity extends AppActivity {
 
 //    private TextView toolbarText;
 
@@ -50,7 +41,7 @@ public class MenuActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        this.setOnBackPressedActivity(SettingsActivity.class);
+//        this.setOnBackPressedActivity(SettingsActivity.class);
 
         MenuCustomList adapter = new
                 MenuCustomList(MenuActivity.this, titles, imageId, reviews, R.layout.menu_list_row);
@@ -78,9 +69,14 @@ public class MenuActivity extends CustomActivity {
                         break;
                 }
 
-                Utils.startNewActivity((Activity)view.getContext(), cls);
+                Utils.startNewActivity((Activity) view.getContext(), cls);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        Utils.startNewActivity(this, SettingsActivity.class);
     }
 
 

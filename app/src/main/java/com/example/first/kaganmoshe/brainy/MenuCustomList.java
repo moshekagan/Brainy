@@ -46,7 +46,7 @@ public class MenuCustomList extends ArrayAdapter<String>{
 //
 //            view.setBackgroundColor(bgColor);
 //            Log.d("COLOR", Integer.toString(bgColor));
-//            view.setOnTouchListener(CustomActivity.TOUCH);
+//            view.setOnTouchListener(AppActivity.TOUCH);
         } else {
         /* Fetch data already in the row layout,
          *    primarily you only use this to get a copy of the ViewHolder */

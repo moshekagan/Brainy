@@ -1,6 +1,5 @@
 package com.example.first.kaganmoshe.brainy;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,14 +9,14 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.first.kaganmoshe.brainy.CustomActivity.CustomActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
 
 import EEG.EHeadSetType;
 import Utils.Logs;
 
 
-public class SettingsActivity extends CustomActivity {
+public class SettingsActivity extends AppActivity {
 
     final private String SETTINGS_ACTIVITY = "Settings Activity";
 
@@ -43,7 +42,7 @@ public class SettingsActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        this.setOnBackPressedActivity(LoginActivity.class);
+//        this.setOnBackPressedActivity(LoginActivity.class);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, HEADSETS);
@@ -157,6 +156,11 @@ public class SettingsActivity extends CustomActivity {
 //        intent.putExtra("Message", "");
 //        startActivity(intent);
         Utils.startNewActivity(this, MenuActivity.class);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Utils.startNewActivity(this, LoginActivity.class);
     }
 
 //    @Override
