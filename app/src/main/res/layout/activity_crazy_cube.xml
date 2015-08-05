@@ -3,11 +3,11 @@
     style="@style/ccubeTable"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     android:padding="16dp"
     android:weightSum="60"
-    android:background="@drawable/background"
-    tools:context="com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity">
+    tools:context=".CrazyCubeActivity">
 
     <!--<TextView-->
     <!--android:id="@+id/CrazyCubeHeadline"-->
@@ -66,9 +66,10 @@
     </TableLayout>
 
     <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.first.kaganmoshe.brainy.GraphFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:name="com.example.first.kaganmoshe.brainy.GraphFragment"
+        android:id="@+id/fragment"/>
 
 </LinearLayout>

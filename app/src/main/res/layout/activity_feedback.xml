@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,24 +18,24 @@
         android:gravity="center_horizontal"
         android:text="@string/feedback_activity_title" />
 
-    <ScrollView
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginStart="@dimen/pad_5dp">
 
         <LinearLayout
             android:id="@+id/feedbackStatsLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/feedbackStatLayoutWidth"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="@dimen/feedbackStatLayoutWidth"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/feedbackActivityTextView"
@@ -56,8 +57,7 @@
             <LinearLayout
                 android:layout_width="@dimen/feedbackStatLayoutWidth"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     style="@style/feedbackActivityTextView"
@@ -76,16 +76,16 @@
 
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-
+    </HorizontalScrollView>
 
     <com.jjoe64.graphview.GraphView
 
         android:id="@+id/graph"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="13"
-        android:paddingBottom="10dp" />
+        android:layout_weight="12"
+        android:paddingBottom="10dp"
+        android:layout_gravity="center_vertical"/>
     <!--android:layout_marginLeft="@dimen/start_margin_feedback_layout"-->
     <!--android:layout_marginStart="@dimen/start_margin_feedback_layout"-->
     <!--android:layout_marginEnd="@dimen/end_margin_feedback_layout"-->
@@ -94,7 +94,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:orientation="horizontal"
         android:paddingStart="@dimen/pad_10dp"
         android:paddingEnd="@dimen/pad_10dp"

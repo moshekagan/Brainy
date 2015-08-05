@@ -10,7 +10,6 @@ import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GraphFragment;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.FinishGameDialog;
-import com.example.first.kaganmoshe.brainy.LoginActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
@@ -68,20 +67,20 @@ public abstract class GameActivity extends AppActivity implements IHeadSetData, 
 
     protected void stopFeedbackAndGraph() {
         Log.d("GRAPH_LIFE", "STOPPING_GRAPH");
-        graphFragment.stopRecievingData();
+        graphFragment.stopReceivingData();
         feedback.stopTimerAndRecievingData();
     }
 
     protected void resumeFeedbackAndGraph() {
         Log.d("GRAPH_LIFE", "RESUME_GRAPH");
-        graphFragment.resumeRecievingData();
+        graphFragment.resumeReceivingData();
         feedback.resumeRecievingData();
     }
 
 //    @Override
 //    protected void onStop() {
 //        super.onStop();
-//        graphFragment.stopRecievingData();
+//        graphFragment.stopReceivingData();
 //        feedback.stopTimerAndRecievingData();
 //    }
 

@@ -53,6 +53,7 @@ public class AppManager implements IHeadSetData {
             switch (type){
                 case MindWave:
                     m_HeadSet = new MindWave();
+                    Logs.info(APP_MANAGER, "Connected to: MINDWAVE");
                     break;
                 case Moker:
                     Logs.info(APP_MANAGER, "Connected to: MOCKER");

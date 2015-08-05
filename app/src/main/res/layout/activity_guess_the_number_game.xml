@@ -36,10 +36,8 @@
         android:background="@drawable/input_field"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/start_margin_layout"
         android:layout_marginStart="@dimen/start_margin_layout"
         android:layout_marginEnd="@dimen/end_margin_layout"
-        android:layout_marginRight="@dimen/end_margin_layout"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="5"
@@ -230,7 +228,8 @@
 
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="15"
         android:name="com.example.first.kaganmoshe.brainy.GraphFragment"
         android:id="@+id/fragment"/>
 </LinearLayout>

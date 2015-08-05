@@ -6,7 +6,7 @@
     <dimen name="start_margin_layout">40dp</dimen>
     <dimen name="end_margin_layout">40dp</dimen>
     <dimen name="start_margin_feedback_layout">20dp</dimen>
-    <dimen name="padding_feedback_layout">15dp</dimen>
+    <dimen name="padding_feedback_layout">20dp</dimen>
     <dimen name="ccube_score_time_text_size">30sp</dimen>
     <dimen name="menu_listrow_game_name">17sp</dimen>
     <dimen name="menu_listrow_game_review">15sp</dimen>

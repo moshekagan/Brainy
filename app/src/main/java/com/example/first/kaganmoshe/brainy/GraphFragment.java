@@ -86,6 +86,11 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         } catch (Exception e) {
             // TODO - Not need to go hear never!!!!
         }
+
+//        @Override
+//        protected void onCreate(Bundle savedInstanceState) {
+//            super.onCreate(savedInstanceState);
+//            setContentView(R.layout.activity_feedback);
     }
 
     @Override
@@ -121,6 +126,7 @@ public class GraphFragment extends Fragment implements IHeadSetData {
 //        gridLabelRenderer.setLabelsSpace(20);
         gridLabelRenderer.setTextSize(9);
 //        gridLabelRenderer.setPadding(5);
+//        gridLabelRenderer.setPadding(20);
 
 //        gridLabelRenderer.setGridStyle(GridLabelRenderer.GridStyle.);
 
@@ -192,7 +198,7 @@ public class GraphFragment extends Fragment implements IHeadSetData {
 
     @Override
     public void onPoorSignalReceived(ESignalVolume signalVolume) {
-        // TODO -complite it
+        // TODO -complete it
 //        final ESignalVolume newSignalVolume = signalVolume;
 //
 //        getActivity().runOnUiThread(new Runnable() {
@@ -228,12 +234,12 @@ public class GraphFragment extends Fragment implements IHeadSetData {
         series.appendData(new DataPoint(lastX++, value), true, 20);
     }
 
-    public void stopRecievingData(){
+    public void stopReceivingData(){
         EegHeadSet headSet = AppManager.getInstance().getHeadSet();
         headSet.unregisterListener(this);
     }
 
-    public void resumeRecievingData(){
+    public void resumeReceivingData(){
         EegHeadSet headSet = AppManager.getInstance().getHeadSet();
         headSet.registerListener(this);
     }
