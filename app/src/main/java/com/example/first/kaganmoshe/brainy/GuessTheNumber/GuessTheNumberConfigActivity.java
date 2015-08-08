@@ -40,6 +40,7 @@ public class GuessTheNumberConfigActivity extends GameConfigActivity {
         rangeValueText = (TextView) findViewById(R.id.rangeValueText);
         rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
         startButton = (Button) findViewById(R.id.startButton);
+        setTouchNClick(R.id.startButton);
 //        this.setOnBackPressedActivity(MenuActivity.class);
 
         rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

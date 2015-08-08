@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfingActivity;
 import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
+import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity;
 
 
@@ -60,11 +62,11 @@ public class MenuActivity extends AppActivity {
 //                        onGuessTheNumberClick();
                         break;
                     case "HotAir Balloon":
-                        cls = HotAirBalloonActivity.class;
+                        cls = HABConfigActivity.class;
 //                        onHotAirBalloonClick();
                         break;
                     case "Crazy Cube":
-                        cls = CrazyCubeActivity.class;
+                        cls = CCConfingActivity.class;
 //                        onCrazyCubeClick();
                         break;
                 }

@@ -63,4 +63,6 @@
         <item>Settings</item>
         <item>Quit</item>
     </string-array>
+    <string name="title_activity_habconfig">HABConfigActivity</string>
+    <string name="title_activity_ccconfing">CCConfingActivity</string>
 </resources>

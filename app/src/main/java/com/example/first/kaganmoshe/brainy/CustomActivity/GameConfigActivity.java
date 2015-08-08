@@ -1,5 +1,7 @@
 package com.example.first.kaganmoshe.brainy.CustomActivity;
 
+import android.widget.Button;
+
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
 
@@ -8,7 +10,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
  */
 public abstract class GameConfigActivity extends AppActivity {
 
-
+    protected Button m_StartGameButton;
     @Override
     public final void onBackPressed(){
         Utils.startNewActivity(this, MenuActivity.class);
