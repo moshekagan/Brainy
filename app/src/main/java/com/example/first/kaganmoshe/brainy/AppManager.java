@@ -53,7 +53,7 @@ public class AppManager implements IHeadSetData {
             switch (type){
                 case MindWave:
                     m_HeadSet = new MindWave();
-                    Logs.info(APP_MANAGER, "Connected to: MINDWAVE");
+                    Logs.info(APP_MANAGER, "Connected to: MINDWAVE :)");
                     break;
                 case Moker:
                     Logs.info(APP_MANAGER, "Connected to: MOCKER");
@@ -81,7 +81,6 @@ public class AppManager implements IHeadSetData {
 
     @Override
     public void onMeditationReceived(int medValue) { /* Do Nothing! */ }
-
 
     @Override
     public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {

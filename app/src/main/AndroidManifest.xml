@@ -55,7 +55,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".HotAirBallon.HotAirBalloonActivity"
+            android:name=".HotAirBallon.HotAirBalloonGameActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_hot_air_ballon"
             android:screenOrientation="portrait" >
@@ -74,6 +74,14 @@
         <activity
             android:name=".CrazyCube.CCConfingActivity"
             android:label="@string/title_activity_ccconfing" >
+        </activity>
+        <activity
+            android:name=".MindShooter.MindShooterGameActivity"
+            android:label="@string/title_activity_maind_shooter_game" >
+        </activity>
+        <activity
+            android:name=".MindShooter.MindShooterConfigActivity"
+            android:label="@string/title_activity_mind_shooter_config" >
         </activity>
     </application>
 

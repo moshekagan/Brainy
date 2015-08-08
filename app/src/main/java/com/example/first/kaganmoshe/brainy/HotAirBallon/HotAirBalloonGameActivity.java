@@ -42,7 +42,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
 
 
 
-public class HotAirBalloonActivity extends GameActivity implements IHeadSetData, GenericDialogFragment.gameCommunicator {
+public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetData, GenericDialogFragment.gameCommunicator {
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
     private final int distanceFromTopActivity = 15;

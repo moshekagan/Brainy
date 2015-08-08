@@ -12,27 +12,36 @@ import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
-import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonActivity;
+import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonGameActivity;
+import com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity;
 
 
 public class MenuActivity extends AppActivity {
 
 //    private TextView toolbarText;
 
+
     private static final String MENU_TOOLBAR_TEXT = "Menu";
+    private static final String GUESS_THE_NUMBER_STR = "Guess The Number";
+    private static final String HOT_AIR_BALLOON_STR = "HotAir Balloon";
+    private static final String CRAZY_CUBE_STR = "Crazy Cube";
+    private static final String MIND_SHOOTER_STR = "Mind Shooter";
 
     private ListView list;
     private String[] titles = {
-            "Guess the Number",
-            "HotAir Balloon",
-            "Crazy Cube"
+            GUESS_THE_NUMBER_STR,
+            HOT_AIR_BALLOON_STR,
+            CRAZY_CUBE_STR,
+            MIND_SHOOTER_STR
     };
     private Integer[] imageId = {
+            R.drawable.numbers,
             R.drawable.hot_air_balloon,
-            R.drawable.hot_air_balloon,
-            R.drawable.hot_air_balloon
+            R.drawable.kuku_cube,
+            R.drawable.ic_kavent
     };
     private String[] reviews = {
+            "bla",
             "bla",
             "bla",
             "bla"
@@ -57,16 +66,20 @@ public class MenuActivity extends AppActivity {
                 Class cls = null;
 
                 switch (titles[+position]) {
-                    case "Guess the Number":
+                    case GUESS_THE_NUMBER_STR:
                         cls = GuessTheNumberConfigActivity.class;
 //                        onGuessTheNumberClick();
                         break;
-                    case "HotAir Balloon":
+                    case HOT_AIR_BALLOON_STR:
                         cls = HABConfigActivity.class;
 //                        onHotAirBalloonClick();
                         break;
-                    case "Crazy Cube":
+                    case CRAZY_CUBE_STR:
                         cls = CCConfingActivity.class;
+//                        onCrazyCubeClick();
+                        break;
+                    case MIND_SHOOTER_STR:
+                        cls = MindShooterConfigActivity.class;
 //                        onCrazyCubeClick();
                         break;
                 }
@@ -132,7 +145,7 @@ public class MenuActivity extends AppActivity {
 //    }
 //
     private void onHotAirBalloonClick() {
-        Intent intent = new Intent(this, HotAirBalloonActivity.class);
+        Intent intent = new Intent(this, HotAirBalloonGameActivity.class);
         intent.putExtra("Message", "");
         startActivity(intent);
     }

@@ -1,4 +1,4 @@
-package com.example.first.kaganmoshe.brainy.HotAirBallon;
+package com.example.first.kaganmoshe.brainy.MindShooter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import com.example.first.kaganmoshe.brainy.CustomActivity.GameConfigActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
-public class HABConfigActivity extends GameConfigActivity {
+public class MindShooterConfigActivity extends GameConfigActivity {
 
     // Const Members
     public static final String TIME_TO_PLAY = "Time To Play";
@@ -25,7 +25,7 @@ public class HABConfigActivity extends GameConfigActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_habconfig);
+        setContentView(R.layout.activity_mind_shooter_config);
 
         m_StartGameBtn = (Button) findViewById(R.id.startGameButton);
 
@@ -39,7 +39,7 @@ public class HABConfigActivity extends GameConfigActivity {
     }
 
     private void onStarGameClick() {
-        Intent intent = new Intent(this, HotAirBalloonGameActivity.class);
+        Intent intent = new Intent(this, MindShooterGameActivity.class);
         intent.putExtra(TIME_TO_PLAY, timeToPlayInMilSec);
         Utils.startNewActivity(this, intent);
     }

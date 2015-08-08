@@ -65,4 +65,6 @@
     </string-array>
     <string name="title_activity_habconfig">HABConfigActivity</string>
     <string name="title_activity_ccconfing">CCConfingActivity</string>
+    <string name="title_activity_maind_shooter_game">MaindShooterGameActivity</string>
+    <string name="title_activity_mind_shooter_config">MindShooterConfigActivity</string>
 </resources>

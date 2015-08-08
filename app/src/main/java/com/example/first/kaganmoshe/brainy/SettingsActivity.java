@@ -13,20 +13,18 @@ import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
 
 import EEG.EHeadSetType;
+import EEG.EegHeadSet;
 import Utils.Logs;
 
 
 public class SettingsActivity extends AppActivity {
 
     final private String SETTINGS_ACTIVITY = "Settings Activity";
+    final private static String MINDWAVE_STR = "MindWave";
+    final private static String MOCKER_STR = "Demo";
+    final private static String EMOTIV_SRT = "Emotiv";
 
-    private RadioButton m_MindWaveRadionBtn;
-    private RadioButton m_DemoRadionBtn;
-    private RadioButton m_EmotivRadionBtn;
-    private RadioButton m_EnglishRadionBtn;
-    private RadioButton m_HebrewRadionBtn;
-    private RadioGroup m_HeadSetRadioGroup;
-    private RadioGroup m_LenguageRadioGroup;
+
 
     private Button m_Skip;
     private Button m_Connect;
@@ -34,7 +32,9 @@ public class SettingsActivity extends AppActivity {
     EHeadSetType headSetType = EHeadSetType.Moker; // Default is Moker
 
     private static final String[] HEADSETS = new String[]{
-            "MindWave", "Emotiv", "Demo"
+            MINDWAVE_STR,
+            MOCKER_STR,
+            EMOTIV_SRT
     };
 
     @Override
@@ -55,8 +55,19 @@ public class SettingsActivity extends AppActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String headSetSelection = parent.getItemAtPosition(position).toString();
+                switch (headSetSelection){
+                    case MINDWAVE_STR:
+                        headSetType = EHeadSetType.MindWave;
+                        break;
+                    case EMOTIV_SRT:
+                        Utils.showToastMessage(getApplicationContext(), EMOTIV_SRT + " unsupported yet, choose other option.");
+                    case MOCKER_STR:
+                        headSetType = EHeadSetType.Moker;
+                        break;
+                }
+
                 headSetType = (headSetSelection.equals("MindWave")) ? EHeadSetType.MindWave : EHeadSetType.Moker;
-                Log.d("HEADSET_TYPE", headSetSelection);
+                Logs.debug("HEADSET_TYPE", headSetSelection);
                 headsetSpinner.onItemClick(parent, view, position, id);
 
             }
@@ -70,80 +81,17 @@ public class SettingsActivity extends AppActivity {
         initViewActivity();
     }
 
-
     private void initViewActivity() {
         m_Connect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onDoneClick();
             }
         });
-//
-//        m_DemoRadionBtn = (RadioButton) findViewById(R.id.DemoRadioButton);
-//        m_MindWaveRadionBtn = (RadioButton) findViewById(R.id.MindWaveRadioButton);
-//        m_EmotivRadionBtn = (RadioButton) findViewById(R.id.EmotivRadioButton);
-//
-//        m_EnglishRadionBtn = (RadioButton) findViewById(R.id.englishRadioButton);
-//        m_HebrewRadionBtn = (RadioButton) findViewById(R.id.hebrewRadioButton);
-//
-//        m_HeadSetRadioGroup = (RadioGroup) findViewById(R.id.headSetRadioGroup);
-//        m_LenguageRadioGroup = (RadioGroup) findViewById(R.id.lengugeRadioGroup);
-//
-//        m_DemoRadionBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {onHeadSetRadioButtonsClick(v);}
-//        });
-//        m_MindWaveRadionBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {onHeadSetRadioButtonsClick(v);}
-//        });
-//        m_EmotivRadionBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {onHeadSetRadioButtonsClick(v);}
-//        });
-//
-//        m_MindWaveRadionBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {onLanguageRadioButtonsClick(v);}
-//        });
-//        m_MindWaveRadionBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {onLanguageRadioButtonsClick(v);}
-//        });
     }
 
-    private void onLanguageRadioButtonsClick(View v) {
-        m_LenguageRadioGroup.clearCheck();
-        m_EnglishRadionBtn.setChecked(true);
-        m_HebrewRadionBtn.setChecked(false);
-    }
-
-    private void onHeadSetRadioButtonsClick(View v) {
-//        m_HeadSetRadioGroup.clearCheck();
-//
-//        switch (v.getId()){
-//            case R.id.EmotivRadioButton:
-//                m_DemoRadionBtn.setChecked(true);
-////                m_EmotivRadionBtn.setChecked(false);
-////                m_MindWaveRadionBtn.setChecked(false);
-//                break;
-//            case R.id.DemoRadioButton:
-//                m_DemoRadionBtn.setChecked(true);
-////                m_EmotivRadionBtn.setChecked(false);
-////                m_MindWaveRadionBtn.setChecked(false);
-//                break;
-//            case R.id.MindWaveRadioButton:
-//                m_MindWaveRadionBtn.setChecked(true);
-////                m_DemoRadionBtn.setChecked(false);
-////                m_EmotivRadionBtn.setChecked(false);
-//                break;
-//        }
-    }
 
     private void updateHeadSetType() {
-//        if (m_MindWaveRadionBtn.isChecked()){
-//            headSetType = EHeadSetType.MindWave;
-//        } else if (m_DemoRadionBtn.isChecked()){
-//            headSetType = EHeadSetType.Moker;
-//        } else if (m_EmotivRadionBtn.isChecked()){
-//            headSetType = EHeadSetType.Moker;
-//        }
-
-        Logs.info(SETTINGS_ACTIVITY, "Set Headset to: " + headSetType.toString());
+        Logs.debug(SETTINGS_ACTIVITY, "Set Headset to: " + headSetType.toString());
         AppManager.getInstance().getAppSettings().setHeadSetType(headSetType);
     }
 
@@ -151,10 +99,7 @@ public class SettingsActivity extends AppActivity {
         updateHeadSetType();
         AppManager.getInstance().configureAndConnectHeadSet();
 
-        //TODO - Update settings
-//        Intent intent = new Intent(this, MenuActivity.class);
-//        intent.putExtra("Message", "");
-//        startActivity(intent);
+        // TODO - Update settings
         Utils.startNewActivity(this, MenuActivity.class);
     }
 
@@ -162,26 +107,4 @@ public class SettingsActivity extends AppActivity {
     public void onBackPressed(){
         Utils.startNewActivity(this, LoginActivity.class);
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_setting, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 }
