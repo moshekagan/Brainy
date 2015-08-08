@@ -16,8 +16,8 @@ import com.example.first.kaganmoshe.brainy.Utils;
 public class HABConfigActivity extends GameConfigActivity {
 
     // Const Members
-    private static final String TIME_TO_PLAY = "Time To Play";
-    private static final long ONE_MIN = 60000L;
+    public static final String TIME_TO_PLAY = "Time To Play";
+    public static final long ONE_MIN = 60000L;
 
     // Data Members
     private Button m_StartGameBtn;

@@ -19,6 +19,7 @@ import EEG.IHeadSetData;
  * Created by tamirkash on 8/3/15.
  */
 public abstract class GameActivity extends AppActivity implements IHeadSetData, GameDialog.GameDialogCommunicator {
+    // Data Members
     protected android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     protected FeedbackClass feedback;
     protected GraphFragment graphFragment;
@@ -28,6 +29,12 @@ public abstract class GameActivity extends AppActivity implements IHeadSetData, 
 
     private Class targetActivity = null;
 
+    // Need To Implements
+    protected abstract void startFeedbackSession();
+    protected abstract void onMenuPopupShow();
+    protected abstract void onMenuPopupDismiss();
+
+    // Methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +108,6 @@ public abstract class GameActivity extends AppActivity implements IHeadSetData, 
         Utils.startNewActivity(this, intent);
     }
 
-    protected abstract void startFeedbackSession();
 
 //    @Override
 //    public void onPopupDialogCanceled() {
@@ -153,10 +159,6 @@ public abstract class GameActivity extends AppActivity implements IHeadSetData, 
 
         return value;
     }
-
-    protected abstract void onMenuPopupShow();
-
-    protected abstract void onMenuPopupDismiss();
 
     @Override
     protected void onPopupMenuOptionSelected(Class targetActivity) {
