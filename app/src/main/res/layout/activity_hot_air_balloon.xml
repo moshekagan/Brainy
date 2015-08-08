@@ -39,6 +39,7 @@
         android:textSize="40sp"
         android:textColor="#282828"
         android:layout_gravity="left|top"
-        android:text="@string/timerVal" />
+        android:text="@string/timerVal"
+        android:layout_marginTop="15dp" />
 
 </FrameLayout>

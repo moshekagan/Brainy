@@ -7,16 +7,28 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/imageView3"
-        android:src="@drawable/text_balloon" />
+        android:src="@drawable/text_balloon"
+        android:layout_gravity="center_horizontal|top" />
 
     <TextView
         style="@style/winnerDialogTitle"
         android:id="@+id/winnerDialogTitle"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="143dp"
         android:layout_weight="1"
         android:text="Try to be fucus to \n raised the balloon"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal|top" />
+
+    <ImageView
+        android:layout_gravity="left|top"
+        android:layout_width="148dp"
+        android:layout_height="83dp"
+        android:src="@drawable/brainy_thumbup"
+        android:adjustViewBounds="true"
+        android:id="@+id/imageView"
+        android:layout_marginTop="125dp"
+        android:layout_marginLeft="15dp" />
 
 </FrameLayout>

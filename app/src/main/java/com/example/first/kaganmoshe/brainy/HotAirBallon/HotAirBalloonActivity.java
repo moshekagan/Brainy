@@ -39,7 +39,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
 
 
 
-public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetData, GenericDialogFragment.gameCommunicator, StartGameDialogFragment.gameCommunicator {
+public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetData, GenericDialogFragment.gameCommunicator {
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
     private final int distanceFromTopActivity = 15;
@@ -55,7 +55,7 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
     private int oldAtt = 0;
     private FeedbackClass feedback;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-    StartGameDialogFragment startGameDialogFragment;
+//    StartGameDialogFragment startGameDialogFragment;
 
     // Data Members For Timer
     long timeInMilliseconds = 0L;
@@ -83,42 +83,11 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!listenToHeadSet){
-
-                    if(AppManager.getInstance().getAppSettings().getHeadSetType() == EHeadSetType.Moker && displayMessage){
-                        listenToHeadSet = false;
-                        displayMessage = false;
-                        Context context = getApplicationContext();
-                        CharSequence text = "Unsupported with Moker! click on the button for demo";
-                        int duration = Toast.LENGTH_SHORT;
-
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                        startTimerGame(60000L);
-                    } else if (AppManager.getInstance().getAppSettings().getHeadSetType() == EHeadSetType.MindWave){
-                        listenToHeadSet = true;
-                        startTimerGame(60000L);
-                    }
-                }
-                int attVal = attValues.get(i);
-                float attPresent = getAttentionAsFraction(attVal);
-                i++;
-                if (i == attValues.size()){
-                    i = 0;
-                }
-
-                float destination = getDestination(attPresent);
-                if (oldAtt < attValues.get(i))
-                    hotAirBalloonSoundAffect.start();
-//                else hotAirBalloonSoundAffect.stop();
-                oldAtt = attValues.get(i);
-//                Log.e(HOT_AIR_BALLOON_ACTIVITY, "# ATT = " + attVal);
-//                Log.e(HOT_AIR_BALLOON_ACTIVITY, "++++++ destination = " + destination);
-
-                raisedTheAirBalloon(destination);
+                startGame();
             }
         });
 
+        setBalloonDefaultLocation();
         // Get HeadSet - ic_mind_wave_mobile and register
         try{
             EegHeadSet headSet = AppManager.getInstance().getHeadSet();
@@ -127,20 +96,68 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
             // TODO - Not need to go hear never!!!!
         }
 
-        showStartGameDialogFragment();
+        startGame();
+//        showStartGameDialogFragment();
     }
 
-    private void showStartGameDialogFragment() {
-        startGameDialogFragment = new StartGameDialogFragment();
-        startGameDialogFragment.setGameScreen(this);
-        startGameDialogFragment.show(fm, "StartGameDialogFragment");
-        changeActivityDarkerOrLighter(1f);
+    private void setBalloonDefaultLocation() {
+        int attVal = 0;
+        float attPresent = getAttentionAsFraction(attVal);
+        float destination = getDestination(attPresent);
+
+        ObjectAnimator animation = ObjectAnimator.ofFloat(hotAirBalloonImageView,
+                "y", destination);
+        animation.setDuration(0);
+        animation.start();
     }
 
-    private void changeActivityDarkerOrLighter(float val){
-        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
-        lp.dimAmount = val;
+    private void startGame() {
+        if (!listenToHeadSet){
+
+            if(AppManager.getInstance().getAppSettings().getHeadSetType() == EHeadSetType.Moker && displayMessage){
+                listenToHeadSet = false;
+                displayMessage = false;
+                Context context = getApplicationContext();
+                CharSequence text = "Unsupported with Moker! click on the button for demo";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                startTimerGame(60000L);
+            } else if (AppManager.getInstance().getAppSettings().getHeadSetType() == EHeadSetType.MindWave){
+                listenToHeadSet = true;
+                startTimerGame(60000L);
+            }
+        }
+        int attVal = attValues.get(i);
+        float attPresent = getAttentionAsFraction(attVal);
+        i++;
+        if (i == attValues.size()){
+            i = 0;
+        }
+
+        float destination = getDestination(attPresent);
+        if (oldAtt < attValues.get(i))
+            hotAirBalloonSoundAffect.start();
+//                else hotAirBalloonSoundAffect.stop();
+        oldAtt = attValues.get(i);
+//                Log.e(HOT_AIR_BALLOON_ACTIVITY, "# ATT = " + attVal);
+//                Log.e(HOT_AIR_BALLOON_ACTIVITY, "++++++ destination = " + destination);
+
+        raisedTheAirBalloon(destination);
     }
+
+//    private void showStartGameDialogFragment() {
+//        startGameDialogFragment = new StartGameDialogFragment();
+//        startGameDialogFragment.setGameScreen(this);
+//        startGameDialogFragment.show(fm, "StartGameDialogFragment");
+//        changeActivityDarkerOrLighter(1f);
+//    }
+
+//    private void changeActivityDarkerOrLighter(float val){
+//        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+//        lp.dimAmount = val;
+//    }
 
     private void startTimerGame(long value) {
         timerValueInMilliseconds = value;
@@ -235,25 +252,29 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
-            timeInMilliseconds = timerValueInMilliseconds - timeInMilliseconds;
-
-            if (timeInMilliseconds > 0L) {
-                updatedTime = timeSwapBuff + timeInMilliseconds;
-
-
-                int secs = (int) (updatedTime / 1000);
-                int mins = secs / 60;
-                secs = secs % 60;
-//                int milliseconds = (int) (updatedTime % 1000);
-                timerValue.setText("" + mins + ":"
-                        + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
-                customHandler.postDelayed(this, 0);
-            } else {
-                finishTimerGame();
-            }
+            updatedTimeForThread(this);
         }
     };
+
+    private void updatedTimeForThread(Runnable runnable) {
+        timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+        timeInMilliseconds = timerValueInMilliseconds - timeInMilliseconds;
+
+        if (timeInMilliseconds > 0L) {
+            updatedTime = timeSwapBuff + timeInMilliseconds;
+
+
+            int secs = (int) (updatedTime / 1000);
+            int mins = secs / 60;
+            secs = secs % 60;
+//                int milliseconds = (int) (updatedTime % 1000);
+            timerValue.setText("" + mins + ":"
+                    + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
+            customHandler.postDelayed(runnable, 0);
+        } else {
+            finishTimerGame();
+        }
+    }
 
     private void finishTimerGame() {
         timeSwapBuff += timeInMilliseconds;
@@ -278,13 +299,6 @@ public class HotAirBalloonActivity extends FragmentActivity implements IHeadSetD
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
         startActivity(intent);
-    }
-
-    @Override
-    public void startGameScreen() {
-        startGameDialogFragment.onStop();
-        changeActivityDarkerOrLighter(0.0f);
-        btn.callOnClick();
     }
 
     @Override
