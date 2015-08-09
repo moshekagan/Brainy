@@ -10,22 +10,26 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
+import com.neurosky.thinkgear.TGDevice;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
 
+import EEG.EConnectionState;
 import EEG.EHeadSetType;
+import EEG.ESignalVolume;
 import EEG.EegHeadSet;
+import EEG.IHeadSetData;
 import Utils.Logs;
 
 
 public class SettingsActivity extends AppActivity {
 
+    // Const Members
     final private String SETTINGS_ACTIVITY = "Settings Activity";
     final private static String MINDWAVE_STR = "MindWave";
     final private static String MOCKER_STR = "Demo";
     final private static String EMOTIV_SRT = "Emotiv";
 
-
-
+    // Data Members
     private Button m_Skip;
     private Button m_Connect;
     private BetterSpinner headsetSpinner;

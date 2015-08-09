@@ -166,14 +166,14 @@ public class  MindWave extends EegHeadSet {
         m_PreviousAttentionValue = attValue; // Update the previous value
     }
 
-    private boolean isTheValueChangedToZero(int currentValue, int priviousValue){
-        boolean resulat = false;
+    private boolean isTheValueChangedToZero(int currentValue, int previousValue){
+        boolean result = false;
 
-        if (currentValue == 0 && priviousValue != 0){
-            resulat = true;
+        if (currentValue == 0 && previousValue != 0){
+            result = true;
         }
 
-        return resulat;
+        return result;
     }
 
     private void eegPowerReceived(TGEegPower tgEegPower) {

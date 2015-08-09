@@ -12,6 +12,8 @@ import java.util.TimerTask;
  * Created by tamirkash on 6/14/15.
  */
 public class MockerHeadSet extends EegHeadSet {
+    final String MOCKER = "Mocker";
+
     private EConnectionState state = EConnectionState.DEVICE_CONNECTED;
     public Random rand = new Random();
 
@@ -20,7 +22,7 @@ public class MockerHeadSet extends EegHeadSet {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                int randomNum = rand.nextInt((50) + 1) + 50;
+                int randomNum = rand.nextInt((0) + 1) + 99;
                 // What you want to do goes here
                 for (IHeadSetData headSetData : m_HeadSetData) {
                     if (headSetData != null){
@@ -33,6 +35,7 @@ public class MockerHeadSet extends EegHeadSet {
 
     @Override
     public EConnectionState connect() {
+        raiseOnHeadSetChangedState(MOCKER, EConnectionState.DEVICE_CONNECTING);
         return state;
     }
 

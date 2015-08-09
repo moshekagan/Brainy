@@ -15,8 +15,13 @@ import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonGameActivity;
 import com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity;
 
+import EEG.EConnectionState;
+import EEG.ESignalVolume;
+import EEG.EegHeadSet;
+import EEG.IHeadSetData;
 
-public class MenuActivity extends AppActivity {
+
+public class MenuActivity extends AppActivity implements IHeadSetData{
 
 //    private TextView toolbarText;
 
@@ -46,6 +51,7 @@ public class MenuActivity extends AppActivity {
             "bla",
             "bla"
     };
+    private EConnectionState currnetState = EConnectionState.IDLE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +93,12 @@ public class MenuActivity extends AppActivity {
                 Utils.startNewActivity((Activity) view.getContext(), cls);
             }
         });
+
+        try{
+            EegHeadSet headSet = AppManager.getInstance().getHeadSet();
+            headSet.registerListener(this);
+        } catch (Exception e) { // TODO - Not need to go hear never!!!!
+        }
     }
 
     @Override
@@ -170,6 +182,45 @@ public class MenuActivity extends AppActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onAttentionReceived(int attValue) {
+
+    }
+
+    @Override
+    public void onMeditationReceived(int medValue) {
+
+    }
+
+    @Override
+    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
+        currnetState = connectionState;
+        String msg = headSetName + " ";
+
+        switch (connectionState) {
+            case DEVICE_CONNECTED:
+                msg += "is connected :)";
+                break;
+            case DEVICE_CONNECTING:
+                msg += "is connecting...";
+                break;
+            case BLUETOOTH_NOT_AVAILABLE:
+                msg = "Bluetooth are off or your device is not pair to: " + headSetName;
+                break;
+            case DEVICE_NOT_FOUND:
+                msg += "doesn't found, make sure that the distance in not longer then 10 meters";
+                break;
+            case DEVICE_NOT_CONNECTED:
+                msg += "is not connected :(";
+                break;
+        }
+
+        Utils.showToastMessage(getApplicationContext(), msg);
+    }
+    @Override
+    public void onPoorSignalReceived(ESignalVolume signalVolume) {
+
+    }
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
@@ -191,4 +242,5 @@ public class MenuActivity extends AppActivity {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
 }

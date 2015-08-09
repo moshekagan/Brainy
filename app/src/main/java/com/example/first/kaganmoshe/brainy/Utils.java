@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import EEG.IHeadSetData;
+
 /**
  * Created by tamirkash on 5/28/15.
  */
@@ -47,4 +49,5 @@ public class Utils {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
 }
