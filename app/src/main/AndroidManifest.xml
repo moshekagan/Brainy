@@ -64,24 +64,27 @@
             android:name=".CrazyCube.CrazyCubeActivity"
             android:label="@string/title_activity_crazy_cube"
             android:screenOrientation="portrait" >
-            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".HotAirBallon.HABConfigActivity"
             android:label="@string/title_activity_habconfig"
+            android:configChanges="orientation"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CrazyCube.CCConfingActivity"
-            android:label="@string/title_activity_ccconfing" >
+            android:name=".CrazyCube.CCConfigActivity"
+            android:label="@string/title_activity_ccconfing"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MindShooter.MindShooterGameActivity"
-            android:label="@string/title_activity_maind_shooter_game" >
+            android:label="@string/title_activity_maind_shooter_game"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MindShooter.MindShooterConfigActivity"
-            android:label="@string/title_activity_mind_shooter_config" >
+            android:label="@string/title_activity_mind_shooter_config"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

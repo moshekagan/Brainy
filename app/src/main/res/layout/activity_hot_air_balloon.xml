@@ -10,7 +10,7 @@
     android:weightSum="3"
     tools:context="com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonGameActivity"
     android:id="@+id/mainFrameLayout"
-    android:background="@drawable/blue_sky_and_green_grass_new">
+    android:background="@drawable/background">
 
     <ImageView
         android:layout_width="135dp"

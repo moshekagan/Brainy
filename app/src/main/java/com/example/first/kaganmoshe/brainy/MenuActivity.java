@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfingActivity;
+import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfigActivity;
 import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
@@ -81,7 +81,7 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
 //                        onHotAirBalloonClick();
                         break;
                     case CRAZY_CUBE_STR:
-                        cls = CCConfingActivity.class;
+                        cls = CCConfigActivity.class;
 //                        onCrazyCubeClick();
                         break;
                     case MIND_SHOOTER_STR:

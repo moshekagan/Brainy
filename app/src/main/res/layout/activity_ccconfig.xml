@@ -9,7 +9,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
 android:paddingTop="@dimen/activity_vertical_margin"
 android:orientation="vertical"
 android:weightSum="10"
-tools:context="com.example.first.kaganmoshe.brainy.CrazyCube.CCConfingActivity">
+tools:context="com.example.first.kaganmoshe.brainy.CrazyCube.CCConfigActivity">
 
 <TextView
     android:id="@+id/configTitle"

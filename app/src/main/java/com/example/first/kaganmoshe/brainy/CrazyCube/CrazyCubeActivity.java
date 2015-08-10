@@ -1,6 +1,7 @@
 package com.example.first.kaganmoshe.brainy.CrazyCube;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
+import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
+import com.example.first.kaganmoshe.brainy.Utils;
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
@@ -48,7 +51,8 @@ public class CrazyCubeActivity extends GameActivity {
     private static final int FACTOR_DELTA_JUMP = 5;
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
-    private static final int TIME_FOR_GAME = 60;
+//    private static final int TIME_FOR_GAME = 60;
+private static final int TIME_FOR_GAME = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,5 +278,20 @@ public class CrazyCubeActivity extends GameActivity {
     @Override
     protected void onMenuPopupDismiss() {
         resumeClock();
+    }
+
+    @Override
+    public void onFinishDialogConfirmed() {
+        Intent intent = new Intent(this, FeedbackActivity.class);
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        arrayList.add("TEST:");
+
+        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
+        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
+        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
+        intent.putStringArrayListExtra("EXTRA_STATS", arrayList);
+        intent.putExtra("TEST:", "SUCCESS");
+        Utils.startNewActivity(this, intent);
     }
 }

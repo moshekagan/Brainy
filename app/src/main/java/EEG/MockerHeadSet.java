@@ -22,7 +22,7 @@ public class MockerHeadSet extends EegHeadSet {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                int randomNum = rand.nextInt((0) + 1) + 99;
+                int randomNum = rand.nextInt(51) + 50;
                 // What you want to do goes here
                 for (IHeadSetData headSetData : m_HeadSetData) {
                     if (headSetData != null){

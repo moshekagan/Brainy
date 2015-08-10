@@ -27,5 +27,5 @@
     <dimen name="txt_16sp">16sp</dimen>
     <dimen name="txt_18sp">18sp</dimen>
     <dimen name="txt_20sp">20sp</dimen>
-    <dimen name="feedbackStatLayoutWidth">120dp</dimen>
+    <dimen name="feedbackStatLayoutWidth">500dp</dimen>
 </resources>
