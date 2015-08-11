@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@drawable/background"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:weightSum="60"
     tools:context=".GuessTheNumberGameActivity">
+
+    <!--android:background="@drawable/background"-->
+
 
     <!--<TextView-->
         <!--android:text="@string/guess_number_title"-->

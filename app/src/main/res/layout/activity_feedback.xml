@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/feedback_background"
     android:orientation="vertical"
     android:paddingTop="@dimen/padding_feedback_layout"
     android:paddingBottom="@dimen/padding_feedback_layout"
     android:weightSum="22"
     tools:context="com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity">
+
+    <!--android:background="@drawable/feedback_background"-->
+
 
     <TextView
         android:id="@+id/feedbackTitle"

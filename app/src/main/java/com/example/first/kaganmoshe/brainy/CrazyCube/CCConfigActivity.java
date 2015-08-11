@@ -38,7 +38,7 @@ public class CCConfigActivity extends GameConfigActivity {
     }
 
     private void onStarGameClick() {
-        Intent intent = new Intent(this, CrazyCubeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), CrazyCubeActivity.class);
         intent.putExtra(TIME_TO_PLAY, ONE_MIN);
         Utils.startNewActivity(this, intent);
     }

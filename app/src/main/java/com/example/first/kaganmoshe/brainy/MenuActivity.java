@@ -31,21 +31,22 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
     private static final String HOT_AIR_BALLOON_STR = "HotAir Balloon";
     private static final String CRAZY_CUBE_STR = "Crazy Cube";
     private static final String MIND_SHOOTER_STR = "Mind Shooter";
+    private static MenuCustomList adapter;
 
     private ListView list;
-    private String[] titles = {
+    private static final String[] titles = {
             GUESS_THE_NUMBER_STR,
             HOT_AIR_BALLOON_STR,
             CRAZY_CUBE_STR,
             MIND_SHOOTER_STR
     };
-    private Integer[] imageId = {
+    private static final Integer[] imageId = {
             R.drawable.numbers,
             R.drawable.hot_air_balloon,
             R.drawable.kuku_cube,
             R.drawable.ic_kavent
     };
-    private String[] reviews = {
+    private static final String[] reviews = {
             "bla",
             "bla",
             "bla",
@@ -60,8 +61,11 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
 
 //        this.setOnBackPressedActivity(SettingsActivity.class);
 
-        MenuCustomList adapter = new
-                MenuCustomList(MenuActivity.this, titles, imageId, reviews, R.layout.menu_list_row);
+        if(adapter == null){
+            adapter = new
+                    MenuCustomList(MenuActivity.this, titles, imageId, reviews, R.layout.menu_list_row);
+        }
+
         list = (ListView) findViewById(R.id.list);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,6 +103,13 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
             headSet.registerListener(this);
         } catch (Exception e) { // TODO - Not need to go hear never!!!!
         }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+//        AppManager.getInstance().getHeadSet().unregisterListener(this);
     }
 
     @Override
@@ -157,21 +168,21 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
 //    }
 //
     private void onHotAirBalloonClick() {
-        Intent intent = new Intent(this, HotAirBalloonGameActivity.class);
+        Intent intent = new Intent(getApplicationContext(), HotAirBalloonGameActivity.class);
         intent.putExtra("Message", "");
         startActivity(intent);
     }
 
     private void onCrazyCubeClick() {
         //TODO - make code reusable for every click
-        Intent intent = new Intent(this, CrazyCubeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), CrazyCubeActivity.class);
         intent.putExtra("Message", "");
         startActivity(intent);
     }
 
     private void onSettingsClick() {
         //TODO - Update settings
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         intent.putExtra("Message", "");
         startActivity(intent);
     }

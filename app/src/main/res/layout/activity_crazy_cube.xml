@@ -3,11 +3,12 @@
     style="@style/ccubeTable"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:orientation="vertical"
     android:padding="16dp"
     android:weightSum="60"
     tools:context=".CrazyCubeActivity">
+
+    <!--android:background="@drawable/background"-->
 
     <!--<TextView-->
     <!--android:id="@+id/CrazyCubeHeadline"-->

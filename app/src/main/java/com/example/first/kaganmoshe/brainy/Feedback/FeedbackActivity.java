@@ -3,6 +3,7 @@ package com.example.first.kaganmoshe.brainy.Feedback;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,8 @@ public class FeedbackActivity extends AppActivity {
     public static final String CURR_GAME_TIME_MINUTES = "currGameTimeMinutes";
     public static final String CURR_GAME_TIME_SECONDS = "currGameTimeSeconds";
     public static final String CURR_GAME_SCORE = "currGameScore";
+    public static final String EXTRA_STATS = "EXTRA_STATS";
+    public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
 
     protected GraphView graphView;
     protected LineGraphSeries<DataPoint> concentrationPoints = new LineGraphSeries<>();
@@ -54,58 +57,33 @@ public class FeedbackActivity extends AppActivity {
 
     private void initExtraStats() {
         Intent intent = getIntent();
-        ArrayList<String> stats = intent.getStringArrayListExtra("EXTRA_STATS");
+        ArrayList<String> stats = intent.getStringArrayListExtra(EXTRA_STATS);
 
-        for(String statName : stats){
-            String statValue = intent.getStringExtra(statName);
-            addStat(statName, statValue);
+        if(stats != null){
+            for(String statName : stats){
+                String statValue = intent.getStringExtra(statName);
+                addStat(statName, statValue);
+            }
         }
-
-//        game = new GuessTheNumberEngine(Integer.parseInt(intent.getStringExtra(GuessTheNumberConfigActivity.EXTRA_MESSAGE)));
-//        guessRequestText.append(" " + Integer.toString(game.getMaxValue()));
     }
 
     private void addStat(String statName, String statValue) {
-//        LayoutInflater inflater = (LayoutInflater)this.getSystemService
-//                (Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout newStatLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.layout_feedback_stat, null);
-        TextView statNameText = (TextView) newStatLayout.findViewById(R.id.statNameText);
+        TextView statKeyText = (TextView) newStatLayout.findViewById(R.id.statNameText);
         TextView statValueText = (TextView) newStatLayout.findViewById(R.id.statValueText);
-        statNameText.setText(statName);
-        statValueText.setText(statValue);
 
-//        LinearLayout mainView = (LinearLayout)this.findViewById(R.id.mainLayout);
+        statKeyText.setText(formatStatKey(statName));
+        statValueText.setText(formatStatValue(statValue));
+
         feedbackStatsLayout.addView(newStatLayout);
+    }
 
-//        newStatLayout.setMinimumWidth();
+    private String formatStatValue(String statValue) {
+        return statValue.substring(0, 1).toUpperCase() + statValue.substring(1, statValue.length()).toLowerCase();
+    }
 
-
-//        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-//                LayoutParams.MATCH_PARENT,
-//                LayoutParams.MATCH_PARENT, 1.0f);
-
-
-//        <LinearLayout
-//        android:layout_width="@dimen/feedbackStatLayoutWidth"
-//        android:layout_height="wrap_content"
-//        android:orientation="horizontal">
-//
-//        <TextView
-//                style="@style/feedbackActivityTextView"
-//        android:layout_width="wrap_content"
-//        android:layout_height="match_parent"
-//        android:layout_marginEnd="@dimen/pad_5dp"
-//        android:text="@string/feedbackScoreView" />
-//
-//        <TextView
-//        android:id="@+id/feedbackScoreViewText"
-//        style="@style/feedbackActivityTextViewText"
-//        android:layout_width="wrap_content"
-//        android:layout_height="match_parent"
-//        android:gravity="bottom"
-//        android:text="" />
-//
-//        </LinearLayout>
+    private String formatStatKey(String statName) {
+        return statName.substring(0, 1).toUpperCase() + statName.substring(1, statName.length()).toLowerCase() + ":";
     }
 
     private void initInfo() {
@@ -130,7 +108,17 @@ public class FeedbackActivity extends AppActivity {
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(GuessTheNumberConfigActivity.class);
+                Log.d("PLAY_AGAIN_TARGET", getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET));
+                if(getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET) != null){
+                    try {
+                        startNewActivity(Class.forName(getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET)));
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    startNewActivity(MenuActivity.class);
+                }
             }
         });
     }

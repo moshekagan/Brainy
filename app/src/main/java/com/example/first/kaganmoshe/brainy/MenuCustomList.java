@@ -1,16 +1,12 @@
 package com.example.first.kaganmoshe.brainy;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.first.kaganmoshe.brainy.CustomActivity.*;
 
 /**
  * Created by tamirkash on 7/27/15.
@@ -40,6 +36,13 @@ public class MenuCustomList extends ArrayAdapter<String>{
             LayoutInflater inflater = context.getLayoutInflater();
             view = inflater.inflate(layoutResource, null, true);
 
+            ImageView imageView = (ImageView) view.findViewById(R.id.menu_listrow_thumbnail);
+            imageView.setImageResource(imageId[position]);
+
+            TextView txtTitle = (TextView) view.findViewById(R.id.menu_listrow_title);
+
+            txtTitle.setText(titles[position]);
+            Utils.changeFont(context.getAssets(), txtTitle);
 //            int alpha = 128; //50% transparency
 //            int color = Color.WHITE; //Your color value
 //            int bgColor = Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
@@ -52,11 +55,8 @@ public class MenuCustomList extends ArrayAdapter<String>{
          *    primarily you only use this to get a copy of the ViewHolder */
         }
 
-        TextView txtTitle = (TextView) view.findViewById(R.id.menu_listrow_title);
-        ImageView imageView = (ImageView) view.findViewById(R.id.menu_listrow_thumbnail);
-        txtTitle.setText(titles[position]);
-        Utils.changeFont(context.getAssets(), txtTitle);
-        imageView.setImageResource(imageId[position]);
+
+
 
         return view;
     }

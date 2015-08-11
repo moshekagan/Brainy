@@ -13,6 +13,10 @@ import com.example.first.kaganmoshe.brainy.GuessTheNumber.FinishGameDialog;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 import EEG.IHeadSetData;
 
 /**
@@ -100,14 +104,35 @@ public abstract class GameActivity extends AppActivity implements IHeadSetData, 
 
     @Override
     public void onFinishDialogConfirmed() {
-        Intent intent = new Intent(this, FeedbackActivity.class);
+        Intent intent = makeIntentForFeedback();
+
+        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
+        Utils.startNewActivity(this, intent);
+    }
+
+    private Intent makeIntentForFeedback(){
+        Intent intent = new Intent(getApplicationContext(), FeedbackActivity.class);
 
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
-        Utils.startNewActivity(this, intent);
+        intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, getIntent().getStringExtra(Utils.CALLING_CLASS));
+
+        return intent;
     }
 
+    protected void setNewStatsListAndContinue(LinkedHashMap<String, String> extraStats){
+        ArrayList<String> extraStatKeys = new ArrayList<>();
+        Intent intent = makeIntentForFeedback();
+
+        for(String extraStat : extraStats.keySet()){
+            intent.putExtra(extraStat, extraStats.get(extraStat));
+            extraStatKeys.add(extraStat);
+        }
+
+        intent.putStringArrayListExtra(FeedbackActivity.EXTRA_STATS, extraStatKeys);
+        Utils.startNewActivity(this, intent);
+    }
 
 //    @Override
 //    public void onPopupDialogCanceled() {

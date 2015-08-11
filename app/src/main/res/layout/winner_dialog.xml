@@ -7,15 +7,15 @@
     android:layout_height="wrap_content"
     tools:context=".WinnerDialogFragment">
 
-    <ImageView
-        android:src="@drawable/winner_background"
-        android:scaleType="fitXY"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignTop="@+id/dialog_layout_main"
-        android:layout_alignBottom="@id/dialog_layout_main"
-        android:layout_alignLeft="@id/dialog_layout_main"
-        android:layout_alignRight="@id/dialog_layout_main" />
+    <!--<ImageView-->
+        <!--android:src="@drawable/winner_background"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_alignTop="@+id/dialog_layout_main"-->
+        <!--android:layout_alignBottom="@id/dialog_layout_main"-->
+        <!--android:layout_alignLeft="@id/dialog_layout_main"-->
+        <!--android:layout_alignRight="@id/dialog_layout_main" />-->
 
     <LinearLayout
         android:id="@+id/dialog_layout_main"

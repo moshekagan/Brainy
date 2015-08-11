@@ -39,7 +39,7 @@ public class HABConfigActivity extends GameConfigActivity {
     }
 
     private void onStarGameClick() {
-        Intent intent = new Intent(this, HotAirBalloonGameActivity.class);
+        Intent intent = new Intent(getApplicationContext(), HotAirBalloonGameActivity.class);
         intent.putExtra(TIME_TO_PLAY, timeToPlayInMilSec);
         Utils.startNewActivity(this, intent);
     }

@@ -286,4 +286,33 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
         //TODO - const
         return width + POPUP_MENU_ROW_PADDING;
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        unbindDrawables(findViewById(android.R.id.content) );
+        System.gc();
+    }
+
+    private void unbindDrawables(View view) {
+        if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+            try
+            {
+                ((ViewGroup) view).removeAllViews();
+            }
+            catch(UnsupportedOperationException ignore)
+            {
+                //if can't remove all view (e.g. adapter view) - no problem
+            }
+        }
+    }
 }

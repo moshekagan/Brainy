@@ -22,6 +22,8 @@ import com.example.first.kaganmoshe.brainy.Utils;
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Random;
 
 import EEG.EConnectionState;
@@ -282,16 +284,12 @@ private static final int TIME_FOR_GAME = 10;
 
     @Override
     public void onFinishDialogConfirmed() {
-        Intent intent = new Intent(this, FeedbackActivity.class);
-        ArrayList<String> arrayList = new ArrayList<>();
+        LinkedHashMap<String, String> extraStats = new LinkedHashMap<>();
 
-        arrayList.add("TEST:");
+        extraStats.put("Test", "Success");
+        extraStats.put("Test2", "Success");
+        extraStats.put("Test3", "3:21");
 
-        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
-        intent.putStringArrayListExtra("EXTRA_STATS", arrayList);
-        intent.putExtra("TEST:", "SUCCESS");
-        Utils.startNewActivity(this, intent);
+        setNewStatsListAndContinue(extraStats);
     }
 }

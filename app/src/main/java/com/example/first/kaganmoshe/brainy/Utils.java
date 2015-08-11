@@ -26,7 +26,7 @@ public class Utils {
     }
 
     public static void startNewActivity(Activity activity, Class cls){
-        Intent intent = new Intent(activity, cls);
+        Intent intent = new Intent(activity.getApplicationContext(), cls);
         startNewActivity(activity, intent);
     }
 
@@ -35,6 +35,7 @@ public class Utils {
         intent.putExtra("CALLING_CLASS", activity.getClass().getCanonicalName());
 //        intent.setClass(activity, activity.getClass());
         activity.startActivity(intent);
+//        activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
         activity.finish();
     }

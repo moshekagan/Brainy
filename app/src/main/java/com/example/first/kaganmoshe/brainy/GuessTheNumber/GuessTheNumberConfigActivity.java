@@ -90,7 +90,7 @@ public class GuessTheNumberConfigActivity extends GameConfigActivity {
 //    }
 
     private void onStartGameClick(){
-        Intent intent = new Intent(this, GuessTheNumberGameActivity.class);
+        Intent intent = new Intent(getApplicationContext(), GuessTheNumberGameActivity.class);
         String rangeValue = rangeValueText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, rangeValue);
         Utils.startNewActivity(this, intent);
