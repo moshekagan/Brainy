@@ -18,7 +18,7 @@ public class CCConfigActivity extends GameConfigActivity {
     private static final long ONE_MIN = 60000L;
 
     // Data Members
-    private Button m_StartGameBtn;
+//    private Button m_StartGameBtn;
 
     // Methods
     @Override
@@ -26,18 +26,19 @@ public class CCConfigActivity extends GameConfigActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ccconfig);
 
-        m_StartGameBtn = (Button) findViewById(R.id.startGameButton);
-
-        setTouchNClick(R.id.startGameButton);
-        m_StartGameBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onStarGameClick();
-            }
-        });
+//        m_StartGameBtn = (Button) findViewById(R.id.startGameButton);
+//
+//        setTouchNClick(R.id.startGameButton);
+//        m_StartGameBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onStarGameClick();
+//            }
+//        });
     }
 
-    private void onStarGameClick() {
+    @Override
+    protected void onStartGameClick() {
         Intent intent = new Intent(getApplicationContext(), CrazyCubeActivity.class);
         intent.putExtra(TIME_TO_PLAY, ONE_MIN);
         Utils.startNewActivity(this, intent);

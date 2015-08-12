@@ -141,19 +141,6 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 //            Utils.startNewActivity(this, onBackPressedActivityTarget);
 //    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-//        Bundle extras = getIntent().getExtras();
-//        String classname=extras.getString("class");
-//        Class<?> clazz = Class.forName(classname);
-//        Intent i = new Intent(Setting.this, clazz);
-//        startActivity(i);
-//        }
-//        onBackPressedActivityTarget = getIntent().getStringExtra("CLASS_NAME");
-    }
-
     /**
      * Apply this Constant as touch listener for views to provide alpha touch
      * effect. The view must have a Non-Transparent background.

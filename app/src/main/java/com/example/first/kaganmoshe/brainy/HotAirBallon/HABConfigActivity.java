@@ -18,7 +18,7 @@ public class HABConfigActivity extends GameConfigActivity {
     public static final long ONE_MIN = 60000L;
 
     // Data Members
-    private Button m_StartGameBtn;
+//    private Button m_StartGameBtn;
     private long timeToPlayInMilSec = ONE_MIN;
 
     // Methods
@@ -27,42 +27,27 @@ public class HABConfigActivity extends GameConfigActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habconfig);
 
-        m_StartGameBtn = (Button) findViewById(R.id.startGameButton);
+//        m_StartGameBtn = (Button) findViewById(R.id.startGameButton);
 
-        setTouchNClick(R.id.startGameButton);
-        m_StartGameBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onStarGameClick();
-            }
-        });
+//        setTouchNClick(R.id.startGameButton);
+//        m_StartGameBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onStartGameClick();
+//            }
+//        });
     }
 
-    private void onStarGameClick() {
+    @Override
+    protected void onStart(){
+        super.onStart();
+        setTitle("Hot Air Balloon");
+    }
+
+    @Override
+    protected void onStartGameClick() {
         Intent intent = new Intent(getApplicationContext(), HotAirBalloonGameActivity.class);
         intent.putExtra(TIME_TO_PLAY, timeToPlayInMilSec);
         Utils.startNewActivity(this, intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_habconfig, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

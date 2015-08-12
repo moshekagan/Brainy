@@ -105,11 +105,6 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
-    }
-
-    @Override
     public void onBackPressed(){
         Utils.startNewActivity(this, SettingsActivity.class);
     }

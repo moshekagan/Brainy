@@ -24,23 +24,22 @@ public class GuessTheNumberConfigActivity extends GameConfigActivity {
     private int currentRangeValue;
     private TextView rangeValueText;
     private SeekBar rangeSeekBar;
-    private Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guess_the_number_config);
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             currentRangeValue = 100;
-        } else{
+        } else {
             currentRangeValue = savedInstanceState.getInt(CURRENT_RANGE_VALUE);
         }
 
         rangeValueText = (TextView) findViewById(R.id.rangeValueText);
         rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
-        startButton = (Button) findViewById(R.id.startButton);
-        setTouchNClick(R.id.startButton);
+//        startButton = (Button) findViewById(R.id.startButton);
+//        setTouchNClick(R.id.startButton);
 //        this.setOnBackPressedActivity(MenuActivity.class);
 
         rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -62,16 +61,16 @@ public class GuessTheNumberConfigActivity extends GameConfigActivity {
             }
         });
 
-        startButton.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                onStartGameClick();
-            }
-        });
+//        startButton.setOnClickListener(new Button.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                onStartGameClick();
+//            }
+//        });
     }
 
-//    @Override
+    //    @Override
 //    protected void onStart() {
 //        super.onStart();
 //        Log.i("START", "START");
@@ -88,19 +87,24 @@ public class GuessTheNumberConfigActivity extends GameConfigActivity {
 //        super.onResume();
 //        Log.i("RESUME", "RESUME");
 //    }
-
-    private void onStartGameClick(){
+    @Override
+    protected void onStartGameClick() {
         Intent intent = new Intent(getApplicationContext(), GuessTheNumberGameActivity.class);
         String rangeValue = rangeValueText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, rangeValue);
         Utils.startNewActivity(this, intent);
     }
 
-    protected void onSaveInstanceState(Bundle outState){
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(CURRENT_RANGE_VALUE, currentRangeValue);
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        setTitle("Guess the Number");
+    }
 //    @Override
 //    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
 //        super.onSaveInstanceState(outState, outPersistentState);

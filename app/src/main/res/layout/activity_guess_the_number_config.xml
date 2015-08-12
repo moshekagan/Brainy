@@ -7,77 +7,75 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="10"
+    android:weightSum="16"
     tools:context=".GuessTheNumberConfigActivity">
 
-    <!--android:background="@drawable/blue_sky_and_green_grass_new"-->
-
-
+    <!--android:background="@drawable/background"-->
     <TextView
         android:id="@+id/configTitle"
         style="@style/feedbackActivityTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:text="Guess The Number" />
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal" />
+
+    <include
+        layout="@layout/layout_sessions_amount"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="start"
+        android:layout_weight="5"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/rangeSelectionView"
+            style="@style/configActivityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="15dp"
             android:text="@string/range_selection"
-            android:textSize="25dp" />
+            android:paddingBottom="@dimen/pad_15dp"/>
 
-        <SeekBar
-            android:id="@+id/rangeSeekBar"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/rangeSelectionView"
-            android:layout_toRightOf="@+id/rangeSelectionView"
-            android:max="4"
-            android:progress="0" />
-
-        <TextView
-            android:id="@+id/rangeValueText"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/rangeSeekBar"
-            android:layout_toEndOf="@+id/rangeSeekBar"
-            android:layout_toRightOf="@+id/rangeSeekBar"
-            android:text="@string/default_range_value"
-            android:textSize="25dp" />
+            android:layout_gravity="start"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/rangeSeekBar"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/pad_15dp"
+                android:max="4"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/rangeValueText"
+                style="@style/configActivityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/numberOfSessionsChoiceView" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/pad_30dp"
-        android:layout_marginRight="@dimen/pad_30dp"
-        android:layout_marginTop="@dimen/pad_30dp"
-        android:layout_weight="7" />
+        android:layout_weight="5" />
 
-    <Button
-        android:id="@+id/startButton"
-        style="@style/btn_white_large"
+    <include
+        layout="@layout/layout_play_config_button"
         android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="@dimen/pad_30dp"
-        android:layout_marginRight="@dimen/pad_30dp"
-        android:layout_marginStart="@dimen/pad_30dp"
-        android:layout_marginTop="@dimen/pad_15dp"
-        android:background="@drawable/ic_play_button" />
+        android:layout_height="0dp"
+        android:layout_weight="3" />
 
 </LinearLayout>
+
+

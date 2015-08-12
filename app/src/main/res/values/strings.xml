@@ -67,4 +67,6 @@
     <string name="title_activity_ccconfing">CCConfingActivity</string>
     <string name="title_activity_maind_shooter_game">MaindShooterGameActivity</string>
     <string name="title_activity_mind_shooter_config">MindShooterConfigActivity</string>
+    <string name="numberOfSessionsView">Number of sessions:</string>
+    <string name="numberOfSessionsChoiceView">1</string>
 </resources>

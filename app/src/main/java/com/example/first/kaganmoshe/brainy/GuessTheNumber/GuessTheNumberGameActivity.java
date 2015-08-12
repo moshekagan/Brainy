@@ -171,22 +171,22 @@ public class GuessTheNumberGameActivity extends GameActivity {
         }
     }
 
-    @Override
-    public void onAttentionReceived(int attValue) {
-        Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, "Got Attention! " + EegHeadSet.ATTENTION_STR + ": " + attValue);
-
-        if (attValue != Integer.parseInt(m_AttentionTextV.getText().toString())) {
-            final String newAttValue = Integer.toString(attValue);
-            final int att = attValue;
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    m_AttentionTextV.setText(newAttValue);
-                }
-            });
-        }
-    }
+//    @Override
+//    public void onAttentionReceived(int attValue) {
+//        Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, "Got Attention! " + EegHeadSet.ATTENTION_STR + ": " + attValue);
+//
+//        if (attValue != Integer.parseInt(m_AttentionTextV.getText().toString())) {
+//            final String newAttValue = Integer.toString(attValue);
+//            final int att = attValue;
+//
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    m_AttentionTextV.setText(newAttValue);
+//                }
+//            });
+//        }
+//    }
 
     @Override
     public void onMeditationReceived(int medValue) {

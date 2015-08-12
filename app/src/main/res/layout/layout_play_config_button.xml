@@ -1,0 +1,10 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+<Button
+        android:id="@+id/startGameButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/ic_play_button" />
+
+</merge>
