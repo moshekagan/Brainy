@@ -45,11 +45,18 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
             "bla"
     };
 
+    private static MenuItem connectionMenuItem;
+    private static Drawable good;
+    private static Drawable bad;
+    private static Drawable medium;
+
     protected ListPopupWindow homeButtonPopup;
     protected ViewGroup mMeasureParent;
 
     private static final int POPUP_MENU_ROW_PADDING = 50;
     private static int popupMenuRowWidth = 0;
+//    private static MenuItem connectionMenuIcon;
+    private static ActionBarConnectionItem actionBarConnectionItem;
 
     public static class TouchEffect implements View.OnTouchListener {
 
@@ -237,7 +244,15 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 
 //        MenuInflater inflater = getSupportMenuInflater();
 //        inflater.inflate(R.menu.activity_main, menu);
-        menu.add("Connection").setIcon(R.drawable.bad).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if(actionBarConnectionItem == null){
+            actionBarConnectionItem = new ActionBarConnectionItem(this, menu.add("Connection"),
+                    getResources().getDrawable(R.drawable.good),
+                    getResources().getDrawable(R.drawable.bad),
+                    getResources().getDrawable(R.drawable.medium));
+        }
+
+//        connectionMenuIcon = menu.add("Connection");
+//        connectionMenuIcon.setIcon(R.drawable.bad).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         return super.onCreateOptionsMenu(menu);
     }

@@ -19,6 +19,7 @@ public abstract class EegHeadSet {
     // Data Members
     protected List<IHeadSetData> m_HeadSetData = new LinkedList<>();
     private int m_CurrentPoorSignal = ESignalVolume.HEAD_SET_NOT_COVERED.value();
+    protected EConnectionState m_CurrentState = EConnectionState.IDLE;
 
     // Methods
     public abstract EConnectionState connect();
@@ -87,4 +88,7 @@ public abstract class EegHeadSet {
         m_CurrentPoorSignal = poorSignalValue;
     }
 
+    public EConnectionState getConnctionState(){
+        return m_CurrentState;
+    }
 }

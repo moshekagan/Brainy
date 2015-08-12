@@ -1,31 +1,22 @@
 package com.example.first.kaganmoshe.brainy.CrazyCube;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
-import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
-import com.example.first.kaganmoshe.brainy.Utils;
 import com.jjoe64.graphview.series.DataPoint;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Random;
-
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
 
@@ -54,7 +45,7 @@ public class CrazyCubeActivity extends GameActivity {
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
 //    private static final int TIME_FOR_GAME = 60;
-private static final int TIME_FOR_GAME = 10;
+private static final int TIME_FOR_GAME = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,38 +192,6 @@ private static final int TIME_FOR_GAME = 10;
 
         return (size > 0) ? (sum / size) : lastConcentrationAverage;
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_crazy_cube, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-//
-//    @Override
-//    public void onDialogConfirmed() {
-//        Intent intent = new Intent(this, FeedbackActivity.class);
-//
-//        intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
-//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
-//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
-//        startActivity(intent);
-//    }
 
     @Override
     protected void startFeedbackSession() {

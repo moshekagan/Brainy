@@ -26,7 +26,7 @@ public class  MindWave extends EegHeadSet {
     private BluetoothAdapter m_BluetoothAdapter;
     private TGDevice m_TgDevice;
     private TGEegPower m_TGEegPower;
-    private EConnectionState m_ConnectState;
+//    private EConnectionState m_ConnectState;
 
     private int m_PreviousAttentionValue;
     private int m_PreviousMeditationValue;
@@ -59,7 +59,7 @@ public class  MindWave extends EegHeadSet {
 
     // C'tor
     public MindWave(){
-        m_ConnectState = EConnectionState.DEVICE_NOT_CONNECTED;
+        m_CurrentState = EConnectionState.DEVICE_NOT_CONNECTED;
         m_BluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         m_TgDevice = new TGDevice(m_BluetoothAdapter, m_TgDeviceHandler);
@@ -81,13 +81,13 @@ public class  MindWave extends EegHeadSet {
     @Override
     public EConnectionState connect(){
         if (m_BluetoothAdapter == null){
-            m_ConnectState = EConnectionState.BLUETOOTH_NOT_AVAILABLE;
+            m_CurrentState = EConnectionState.BLUETOOTH_NOT_AVAILABLE;
         } else if (!IsConnected()) {
             m_TgDevice.connect(RAW_ENABLED);
             Logs.info(MIND_WAVE, "Try to connect to 'MindWave'...");
         }
 
-        return m_ConnectState;
+        return m_CurrentState;
     }
 
     @Override
@@ -110,25 +110,30 @@ public class  MindWave extends EegHeadSet {
                 break;
             case TGDevice.STATE_CONNECTING:
                 Logs.info(MIND_WAVE, Logs.SEPARATOR_LINE + "Connecting..." + Logs.SEPARATOR_LINE);
+                m_CurrentState = EConnectionState.DEVICE_CONNECTING;
                 raiseOnHeadSetChangedState(MIND_WAVE, EConnectionState.DEVICE_CONNECTING);
                 break;
             case TGDevice.STATE_CONNECTED:
                 Logs.info(MIND_WAVE, Logs.SEPARATOR_LINE + "Connected! :)" + Logs.SEPARATOR_LINE);
+                m_CurrentState = EConnectionState.DEVICE_CONNECTED;
                 m_IsConnected = true;
                 m_TgDevice.start(); // To start receiving data
                 raiseOnHeadSetChangedState(MIND_WAVE, EConnectionState.DEVICE_CONNECTED);
                 break;
             case TGDevice.STATE_DISCONNECTED:
                 Logs.info(MIND_WAVE, Logs.SEPARATOR_LINE + "Disconnected! :(" + Logs.SEPARATOR_LINE);
+                m_CurrentState = EConnectionState.DEVICE_NOT_CONNECTED;
                 m_IsConnected = false;
                 raiseOnHeadSetChangedState(MIND_WAVE, EConnectionState.DEVICE_NOT_CONNECTED);
                 break;
             case TGDevice.STATE_NOT_FOUND:
                 Logs.info(MIND_WAVE, Logs.SEPARATOR_LINE + "Device not found! :(" + Logs.SEPARATOR_LINE);
+                m_CurrentState = EConnectionState.DEVICE_NOT_CONNECTED;
                 m_IsConnected = false;
                 raiseOnHeadSetChangedState(MIND_WAVE, EConnectionState.DEVICE_NOT_FOUND);
             case TGDevice.STATE_NOT_PAIRED:
                 Logs.info(MIND_WAVE, Logs.SEPARATOR_LINE + "Device not paired! :(" + Logs.SEPARATOR_LINE);
+                m_CurrentState = EConnectionState.BLUETOOTH_NOT_AVAILABLE;
                 m_IsConnected = false;
                 raiseOnHeadSetChangedState(MIND_WAVE, EConnectionState.BLUETOOTH_NOT_AVAILABLE);
             default:

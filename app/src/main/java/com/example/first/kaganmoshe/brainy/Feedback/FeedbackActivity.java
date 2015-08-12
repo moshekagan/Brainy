@@ -1,6 +1,5 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,10 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
-import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberEngine;
 import com.example.first.kaganmoshe.brainy.Utils;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
@@ -30,7 +26,6 @@ public class FeedbackActivity extends AppActivity {
     public static final String CURR_GAME_CONCENTRATION_POINTS = "currGameConcentrationPoints";
     public static final String CURR_GAME_TIME_MINUTES = "currGameTimeMinutes";
     public static final String CURR_GAME_TIME_SECONDS = "currGameTimeSeconds";
-    public static final String CURR_GAME_SCORE = "currGameScore";
     public static final String EXTRA_STATS = "EXTRA_STATS";
     public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
 
@@ -135,6 +130,7 @@ public class FeedbackActivity extends AppActivity {
     private void initGraph(){
         ArrayList<ParcelableDataPoint> concentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
 
+
         for(ParcelableDataPoint p : concentrationPointsList){
             concentrationPoints.appendData(p, false, Integer.MAX_VALUE);
         }
@@ -145,10 +141,6 @@ public class FeedbackActivity extends AppActivity {
         concentrationPoints.setThickness(6);
 
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
-
-//        gridLabelRenderer.setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
-//        gridLabelRenderer.setHighlightZeroLines(true);
-
         gridLabelRenderer.setNumHorizontalLabels(2);
         gridLabelRenderer.setNumVerticalLabels(3);
         gridLabelRenderer.setHorizontalLabelsVisible(false);
@@ -158,7 +150,6 @@ public class FeedbackActivity extends AppActivity {
         viewport.setXAxisBoundsManual(true);
         viewport.setMinY(0);
         viewport.setMaxY(100);
-//        viewport.setMinX(0);
         viewport.setMaxX(concentrationPointsList.get(concentrationPointsList.size() - 1).getX());
         viewport.setScrollable(false);
 

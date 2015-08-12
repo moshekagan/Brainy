@@ -3,12 +3,14 @@ package com.example.first.kaganmoshe.brainy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfigActivity;
 import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.ActionBarConnectionItem;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
@@ -52,12 +54,15 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
             "bla",
             "bla"
     };
+
     private EConnectionState currnetState = EConnectionState.IDLE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+
 
 //        this.setOnBackPressedActivity(SettingsActivity.class);
 
@@ -98,11 +103,11 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
             }
         });
 
-        try{
-            EegHeadSet headSet = AppManager.getInstance().getHeadSet();
-            headSet.registerListener(this);
-        } catch (Exception e) { // TODO - Not need to go hear never!!!!
-        }
+//        try{
+//            EegHeadSet headSet = AppManager.getInstance().getHeadSet();
+//            headSet.registerListener(this);
+//        } catch (Exception e) { // TODO - Not need to go hear never!!!!
+//        }
     }
 
     @Override

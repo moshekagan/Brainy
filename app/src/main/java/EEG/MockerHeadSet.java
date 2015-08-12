@@ -13,7 +13,7 @@ import java.util.TimerTask;
  */
 public class MockerHeadSet extends EegHeadSet {
     final String MOCKER = "Mocker";
-
+    int stam = 0;
     private EConnectionState state = EConnectionState.DEVICE_CONNECTED;
     public Random rand = new Random();
 
@@ -27,6 +27,9 @@ public class MockerHeadSet extends EegHeadSet {
                 for (IHeadSetData headSetData : m_HeadSetData) {
                     if (headSetData != null){
                         headSetData.onAttentionReceived(randomNum);
+                        if (stam++ < 3){
+                            raiseOnHeadSetChangedState(MOCKER, m_CurrentState);
+                        }
                     }
                 }
             }
@@ -35,6 +38,7 @@ public class MockerHeadSet extends EegHeadSet {
 
     @Override
     public EConnectionState connect() {
+        m_CurrentState = EConnectionState.DEVICE_CONNECTING; // TODO - Change it
         raiseOnHeadSetChangedState(MOCKER, EConnectionState.DEVICE_CONNECTING);
         return state;
     }
