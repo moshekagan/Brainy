@@ -78,14 +78,22 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
 
     protected void stopFeedbackAndGraph() {
         Log.d("GRAPH_LIFE", "STOPPING_GRAPH");
-        graphFragment.stopReceivingData();
-        feedback.stopTimerAndRecievingData();
+        if(graphFragment != null){
+            graphFragment.stopReceivingData();
+        }
+        if(feedback != null){
+            feedback.stopTimerAndRecievingData();
+        }
     }
 
     protected void resumeFeedbackAndGraph() {
         Log.d("GRAPH_LIFE", "RESUME_GRAPH");
-        graphFragment.resumeReceivingData();
-        feedback.resumeRecievingData();
+        if(graphFragment != null){
+            graphFragment.resumeReceivingData();
+        }
+        if(feedback != null){
+            feedback.resumeRecievingData();
+        }
     }
 
 //    @Override
