@@ -28,6 +28,7 @@ public class FeedbackActivity extends AppActivity {
     public static final String CURR_GAME_TIME_SECONDS = "currGameTimeSeconds";
     public static final String EXTRA_STATS = "EXTRA_STATS";
     public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
+    private static final int FACTOR = 20;
 
     protected GraphView graphView;
     protected LineGraphSeries<DataPoint> concentrationPoints = new LineGraphSeries<>();
@@ -104,14 +105,13 @@ public class FeedbackActivity extends AppActivity {
             @Override
             public void onClick(View v) {
                 Log.d("PLAY_AGAIN_TARGET", getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET));
-                if(getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET) != null){
+                if (getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET) != null) {
                     try {
                         startNewActivity(Class.forName(getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET)));
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     startNewActivity(MenuActivity.class);
                 }
             }
@@ -130,7 +130,7 @@ public class FeedbackActivity extends AppActivity {
     private void initGraph(){
         ArrayList<ParcelableDataPoint> concentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
 
-
+//        prepareConcentrationPoints();
         for(ParcelableDataPoint p : concentrationPointsList){
             concentrationPoints.appendData(p, false, Integer.MAX_VALUE);
         }
@@ -150,10 +150,27 @@ public class FeedbackActivity extends AppActivity {
         viewport.setXAxisBoundsManual(true);
         viewport.setMinY(0);
         viewport.setMaxY(100);
-        viewport.setMaxX(concentrationPointsList.get(concentrationPointsList.size() - 1).getX());
+        viewport.setMaxX(concentrationPoints.getHighestValueX());
         viewport.setScrollable(false);
 
         graphView.addSeries(concentrationPoints);
+    }
+
+    private void prepareConcentrationPoints() {
+//        ArrayList<ParcelableDataPoint> concentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
+//        double size = concentrationPointsList.size() / FACTOR;
+//        int currX = 0;
+//        int currY = 0;
+//        int currConcentrationListIndex = 0;
+//
+//        for(int i = 0; i < size; i++){
+//            for(int y = 0; y < FACTOR; y++){
+//                currY += concentrationPointsList.get(currX++).getY();
+//            }
+//
+//            concentrationPoints.appendData(new DataPoint(currConcentrationListIndex++, currY / FACTOR), false, Integer.MAX_VALUE);
+//            currY = 0;
+//        }
     }
 
     private void initTitle() {

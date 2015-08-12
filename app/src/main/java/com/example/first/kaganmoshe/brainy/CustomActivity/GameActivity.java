@@ -22,7 +22,7 @@ import EEG.IHeadSetData;
 /**
  * Created by tamirkash on 8/3/15.
  */
-public abstract class GameActivity extends AppActivity implements IHeadSetData, GameDialog.GameDialogCommunicator {
+public abstract class GameActivity extends AppActivity implements GameDialog.GameDialogCommunicator {
     // Data Members
     protected android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     protected FeedbackClass feedback;

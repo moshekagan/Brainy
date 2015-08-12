@@ -17,8 +17,6 @@ import com.jjoe64.graphview.series.DataPoint;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
-import EEG.EConnectionState;
-import EEG.ESignalVolume;
 
 public class CrazyCubeActivity extends GameActivity {
 
@@ -45,7 +43,7 @@ public class CrazyCubeActivity extends GameActivity {
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
 //    private static final int TIME_FOR_GAME = 60;
-private static final int TIME_FOR_GAME = 20;
+private static final int TIME_FOR_GAME = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,20 +202,21 @@ private static final int TIME_FOR_GAME = 20;
         concentrationList.add(new DataPoint(concentrationList.size(), attValue));
     }
 
-    @Override
-    public void onMeditationReceived(int medValue) {
+//    @Override
+//    public void onMeditationReceived(int medValue) {
+//
+//    }
 
-    }
+//    @Override
+//    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
+//        super.onHeadSetChangedState(headSetName, connectionState);
+//
+//    }
 
-    @Override
-    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
-
-    }
-
-    @Override
-    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-
-    }
+//    @Override
+//    public void onPoorSignalReceived(ESignalVolume signalVolume) {
+//
+//    }
 
     @Override
     public void onPopupDialogCanceled() {

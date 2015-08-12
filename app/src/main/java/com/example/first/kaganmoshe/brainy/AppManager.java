@@ -1,8 +1,12 @@
 package com.example.first.kaganmoshe.brainy;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
 
 import java.security.PublicKey;
+import java.util.HashMap;
 
 import EEG.EConnectionState;
 import EEG.EHeadSetType;
@@ -23,13 +27,22 @@ public class AppManager implements IHeadSetData {
     private EegHeadSet m_HeadSet;
     private AppSettings m_AppSettings;
 
+//    private HashMap<Integer, Drawable> m_Drawables;
+//
+//    public static final String MENU_CONNECTION_ICON = "MENU";
+
     // C'tor
     private AppManager(){
         m_AppSettings = new AppSettings();
         Logs.info("APP_MANAGER", "APP_MANAGER");
-
 //        configureAndConnectHeadSet();
     }
+ //
+//    public Drawable getDrawable(int i//d){
+//        if(!m_Drawables.containsKey(id//)){
+//            m_Drawables.put(id, //co)
+//      //  }
+//    }
 
     public static AppManager getInstance(){
         if (m_Instance == null){

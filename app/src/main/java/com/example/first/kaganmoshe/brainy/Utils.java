@@ -33,9 +33,7 @@ public class Utils {
     public static void startNewActivity(Activity activity, Intent intent){
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("CALLING_CLASS", activity.getClass().getCanonicalName());
-//        intent.setClass(activity, activity.getClass());
         activity.startActivity(intent);
-//        activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
         activity.finish();
     }

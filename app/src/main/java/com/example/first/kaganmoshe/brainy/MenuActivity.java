@@ -102,19 +102,11 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
                 Utils.startNewActivity((Activity) view.getContext(), cls);
             }
         });
-
-//        try{
-//            EegHeadSet headSet = AppManager.getInstance().getHeadSet();
-//            headSet.registerListener(this);
-//        } catch (Exception e) { // TODO - Not need to go hear never!!!!
-//        }
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
-
-//        AppManager.getInstance().getHeadSet().unregisterListener(this);
     }
 
     @Override
@@ -122,94 +114,9 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
         Utils.startNewActivity(this, SettingsActivity.class);
     }
 
-
-//    private Button m_CrazyCubeBtn;
-//    private Button m_GuessTheNumberBtn;
-//    private Button m_SettingsBtn;
-//    private Button m_HotAirBalloonBtn;
-//    private TextView toolbarText;
-//
-//    private static final String MENU_TOOLBAR_TEXT = "Menu";
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_menu);
-//
-//        initViewActivity();
-//    }
-//
-//    private void initViewActivity() {
-//        toolbarText = (TextView) findViewById(R.id.toolbarText);
-//        toolbarText.setText(MENU_TOOLBAR_TEXT);
-//
-//        m_CrazyCubeBtn = (Button) findViewById(R.id.CrazyCubeBtn);
-//        m_CrazyCubeBtn.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v){
-//                onCrazyCubeClick();
-//            }
-//        });
-//
-//        m_GuessTheNumberBtn = (Button) findViewById(R.id.guessTheNumberBtn);
-//        m_GuessTheNumberBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                onGuessTheNumberClick();
-//            }
-//        });
-//
-//        m_SettingsBtn = (Button) findViewById(R.id.settingsBtn);
-//        m_SettingsBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                onSettingsClick();
-//            }
-//        });
-//
-//        m_HotAirBalloonBtn = (Button) findViewById(R.id.hotAirBalloonBtn);
-//        m_HotAirBalloonBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                onHotAirBalloonClick();
-//            }
-//        });
-//    }
-//
-    private void onHotAirBalloonClick() {
-        Intent intent = new Intent(getApplicationContext(), HotAirBalloonGameActivity.class);
-        intent.putExtra("Message", "");
-        startActivity(intent);
-    }
-
-    private void onCrazyCubeClick() {
-        //TODO - make code reusable for every click
-        Intent intent = new Intent(getApplicationContext(), CrazyCubeActivity.class);
-        intent.putExtra("Message", "");
-        startActivity(intent);
-    }
-
-    private void onSettingsClick() {
-        //TODO - Update settings
-        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-        intent.putExtra("Message", "");
-        startActivity(intent);
-    }
-
-    private void onGuessTheNumberClick() {
-        Intent intent = new Intent(this, GuessTheNumberConfigActivity.class);
-        intent.putExtra("Message", "");
-        startActivity(intent);
-    }
-
-    @Override
-    public void onAttentionReceived(int attValue) {
-
-    }
-
-    @Override
-    public void onMeditationReceived(int medValue) {
-
-    }
-
     @Override
     public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
+        super.onHeadSetChangedState(headSetName, connectionState);
         currnetState = connectionState;
         String msg = headSetName + " ";
 
@@ -231,8 +138,18 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
                 break;
         }
 
-        Utils.showToastMessage(getApplicationContext(), msg);
+        showConnectionMessage(msg);
     }
+
+    private void showConnectionMessage(final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Utils.showToastMessage(getApplicationContext(), msg);
+            }
+        });
+    }
+
     @Override
     public void onPoorSignalReceived(ESignalVolume signalVolume) {
 

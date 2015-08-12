@@ -207,6 +207,8 @@ public class GuessTheNumberGameActivity extends GameActivity {
 
     @Override
     public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
+        super.onHeadSetChangedState(headSetName, connectionState);
+
         String message = "";
 
         switch (connectionState) {

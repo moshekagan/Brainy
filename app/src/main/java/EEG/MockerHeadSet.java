@@ -1,5 +1,6 @@
 package EEG;
 
+import android.os.Handler;
 import android.util.Log;
 
 import java.util.LinkedList;
@@ -27,13 +28,32 @@ public class MockerHeadSet extends EegHeadSet {
                 for (IHeadSetData headSetData : m_HeadSetData) {
                     if (headSetData != null){
                         headSetData.onAttentionReceived(randomNum);
-                        if (stam++ < 3){
-                            raiseOnHeadSetChangedState(MOCKER, m_CurrentState);
-                        }
+//                        if (stam++ < 3){
+//                            raiseOnHeadSetChangedState(MOCKER, m_CurrentState);
+//                        }
                     }
                 }
             }
         }, 0, 1000);
+
+        Runnable notConnectedTimer = new Runnable() {
+            @Override
+            public void run() {
+                raiseOnHeadSetChangedState(MOCKER, EConnectionState.DEVICE_NOT_CONNECTED);
+            }
+        };
+
+        Handler handler = new Handler();
+        handler.postDelayed(notConnectedTimer, 5000);
+
+        Runnable connectedTimer = new Runnable() {
+            @Override
+            public void run() {
+                raiseOnHeadSetChangedState(MOCKER, EConnectionState.DEVICE_CONNECTED);
+            }
+        };
+
+        handler.postDelayed(connectedTimer, 10000);
     }
 
     @Override

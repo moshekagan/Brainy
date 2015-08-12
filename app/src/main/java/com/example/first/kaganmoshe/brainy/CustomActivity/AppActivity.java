@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListPopupWindow;
 
+import com.example.first.kaganmoshe.brainy.AppManager;
 import com.example.first.kaganmoshe.brainy.LoginActivity;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.MenuCustomList;
@@ -23,10 +24,14 @@ import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.SettingsActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
 
+import EEG.EConnectionState;
+import EEG.ESignalVolume;
+import EEG.IHeadSetData;
+
 /**
  * Created by tamirkash on 7/28/15.
  */
-public class AppActivity extends FragmentActivity implements View.OnClickListener {
+public class AppActivity extends FragmentActivity implements View.OnClickListener, IHeadSetData {
 
     //    String[] actionsStrings = getResources().getStringArray(R.array.action_list);
     //TODO - make the titles generic
@@ -45,18 +50,39 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
             "bla"
     };
 
-    private static MenuItem connectionMenuItem;
-    private static Drawable good;
-    private static Drawable bad;
-    private static Drawable medium;
-
+    private MenuItem connectionMenuItem;
     protected ListPopupWindow homeButtonPopup;
     protected ViewGroup mMeasureParent;
 
     private static final int POPUP_MENU_ROW_PADDING = 50;
     private static int popupMenuRowWidth = 0;
 //    private static MenuItem connectionMenuIcon;
-    private static ActionBarConnectionItem actionBarConnectionItem;
+//    private static ActionBarConnectionItem actionBarConnectionItem;
+
+    @Override
+    public void onAttentionReceived(int attValue) {
+
+    }
+
+    @Override
+    public void onMeditationReceived(int medValue) {
+
+    }
+
+    @Override
+    public void onHeadSetChangedState(String headSetName, final EConnectionState connectionState) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setNewConnectionIconByConnectionState(connectionState);
+            }
+        });
+    }
+
+    @Override
+    public void onPoorSignalReceived(ESignalVolume signalVolume) {
+
+    }
 
     public static class TouchEffect implements View.OnTouchListener {
 
@@ -78,6 +104,28 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
                 v.setBackgroundDrawable(d);
             }
             return false;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(getActionBar() != null && getActionBar().isShowing()) {
+            AppManager.getInstance().getHeadSet().registerListener(this);
+
+            if (connectionMenuItem != null) {
+                setNewConnectionIconByConnectionState(AppManager.getInstance().getHeadSet().getConnctionState());
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(getActionBar() != null && getActionBar().isShowing()){
+            AppManager.getInstance().getHeadSet().unregisterListener(this);
         }
     }
 
@@ -148,11 +196,11 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
                         cls = MenuActivity.class;
                         break;
                     case "Quit":
-                        cls = LoginActivity.class;
-                        break;
+                        finish();
+                        return;
                 }
 
-                if(parent.getContext().getClass() != cls) {
+                if (parent.getContext().getClass() != cls) {
                     Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
                     onPopupMenuOptionSelected(cls);
                 }
@@ -236,20 +284,48 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 
     }
 
+    private void setNewConnectionIconByConnectionState(EConnectionState connectionState) {
+        switch (connectionState) {
+            case DEVICE_CONNECTED:
+                connectionMenuItem.setIcon(R.drawable.good).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                break;
+            case DEVICE_CONNECTING:
+                connectionMenuItem.setIcon(R.drawable.medium).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                break;
+            case DEVICE_NOT_CONNECTED:
+            case DEVICE_NOT_FOUND:
+            case BLUETOOTH_NOT_AVAILABLE:
+            case IDLE:
+                connectionMenuItem.setIcon(R.drawable.bad).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                break;
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_overflow_button, menu);
-//        return true;
+//        if(actionBarConnectionItem == null){
+//            actionBarConnectionItem = new ActionBarConnectionItem(this, menu.add("Connection"),
+//                    getResources().getDrawable(R.drawable.good),
+//                    getResources().getDrawable(R.drawable.bad),
+//                    getResources().getDrawable(R.drawable.medium));
+//        }
 
-//        MenuInflater inflater = getSupportMenuInflater();
-//        inflater.inflate(R.menu.activity_main, menu);
-        if(actionBarConnectionItem == null){
-            actionBarConnectionItem = new ActionBarConnectionItem(this, menu.add("Connection"),
-                    getResources().getDrawable(R.drawable.good),
-                    getResources().getDrawable(R.drawable.bad),
-                    getResources().getDrawable(R.drawable.medium));
+//        this.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+        if (connectionMenuItem == null) {
+            connectionMenuItem = menu.add("Connection");
         }
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setNewConnectionIconByConnectionState(AppManager.getInstance().getHeadSet().getConnctionState());
+            }
+        });
+
+// }
+//        });
 
 //        connectionMenuIcon = menu.add("Connection");
 //        connectionMenuIcon.setIcon(R.drawable.bad).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -303,11 +379,10 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
 
-        unbindDrawables(findViewById(android.R.id.content) );
+        unbindDrawables(findViewById(android.R.id.content));
         System.gc();
     }
 
@@ -320,12 +395,9 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                 unbindDrawables(((ViewGroup) view).getChildAt(i));
             }
-            try
-            {
+            try {
                 ((ViewGroup) view).removeAllViews();
-            }
-            catch(UnsupportedOperationException ignore)
-            {
+            } catch (UnsupportedOperationException ignore) {
                 //if can't remove all view (e.g. adapter view) - no problem
             }
         }
