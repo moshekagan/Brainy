@@ -79,7 +79,7 @@
         <activity
             android:name=".MindShooter.MindShooterGameActivity"
             android:label="@string/title_activity_maind_shooter_game"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".MindShooter.MindShooterConfigActivity"
