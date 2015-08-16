@@ -70,7 +70,7 @@ public class ResumeGameCountDown extends GameDialog {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
         return dialog;
     }
