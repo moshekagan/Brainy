@@ -10,8 +10,12 @@ import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GraphFragment;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.FinishGameDialog;
+import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,21 +26,35 @@ import EEG.IHeadSetData;
 /**
  * Created by tamirkash on 8/3/15.
  */
-public abstract class GameActivity extends AppActivity implements GameDialog.GameDialogCommunicator {
+public abstract class GameActivity extends AppActivity implements ResumeGameCountDown.ResumeGameCommunicator,
+        QuitGameDialog.QuitGameCommunicator, FinishGameDialog.FinishGameCommunicator {
     // Data Members
-    protected android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     protected FeedbackClass feedback;
-    protected GraphFragment graphFragment;
+//    protected GraphFragment graphFragment;
     protected QuitGameDialog quitGameDialog = new QuitGameDialog();
     protected FinishGameDialog finishGameDialog = new FinishGameDialog();
+    protected ResumeGameCountDown resumeGameCountDown = new ResumeGameCountDown();
     protected Class onBackPressedActivityTarget = null;
-
     private Class targetActivity = null;
+
+    protected GameGraph gameGraph = null;
+//    protected GraphView graphView;
+//    protected LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+//    protected int lastXGraphAtt = 0;
 
     // Need To Implements
     protected abstract void startFeedbackSession();
+
     protected abstract void onMenuPopupShow();
-    protected abstract void onMenuPopupDismiss();
+
+//    protected abstract void onMenuPopupDismiss();
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        onPause();
+        quitGameDialog.show(fm, "SHOW QUIT");
+    }
 
     // Methods
     @Override
@@ -45,6 +63,7 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
 
         quitGameDialog.setGameScreen(this);
         finishGameDialog.setGameScreen(this);
+        resumeGameCountDown.setGameScreen(this);
         try {
             onBackPressedActivityTarget = Class.forName(getIntent().getStringExtra(Utils.CALLING_CLASS));
         } catch (ClassNotFoundException e) {
@@ -53,7 +72,7 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
     }
 
 //    @Override
-//    public void onBackPressed() {
+//    public void onGameDialogBackPressed() {
 //        Utils.startNewActivity(this, MenuActivity.class);
 //    }
 
@@ -61,12 +80,22 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
     protected void onResume() {
         super.onResume();
 
-        if (graphFragment == null) {
-            graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
-        } else {
-            Log.d("GRAPH_LIFE", "RESUME_GRAPH_ON_RESUME");
-            resumeFeedbackAndGraph();
+        Log.d("RESUME", "onResume");
+        targetActivity = null;
+
+//        if (graphFragment == null) {
+//            graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
+//            graphFragment.stopReceivingData();
+//        }
+
+        if (!quitGameDialog.isShowing() && !settingsFragment.isShowing() && !homeButtonPopup.isShowing()
+                && !resumeGameCountDown.isShowing()) {
+            resumeGameCountDown.show(fm, "SHOW COUNTDOWN");
         }
+
+//        showResumeCountdown();
+//                Log.d("GRAPH_LIFE", "RESUME_GRAPH_ON_RESUME");
+//                resumeFeedbackAndGraph();
     }
 
     @Override
@@ -78,20 +107,20 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
 
     protected void stopFeedbackAndGraph() {
         Log.d("GRAPH_LIFE", "STOPPING_GRAPH");
-        if(graphFragment != null){
-            graphFragment.stopReceivingData();
+        if (gameGraph != null) {
+            gameGraph.stopReceivingData();
         }
-        if(feedback != null){
+        if (feedback != null) {
             feedback.stopTimerAndRecievingData();
         }
     }
 
     protected void resumeFeedbackAndGraph() {
         Log.d("GRAPH_LIFE", "RESUME_GRAPH");
-        if(graphFragment != null){
-            graphFragment.resumeReceivingData();
+        if (gameGraph != null) {
+            gameGraph.resumeReceivingData();
         }
-        if(feedback != null){
+        if (feedback != null) {
             feedback.resumeRecievingData();
         }
     }
@@ -104,21 +133,27 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
 //    }
 
     protected void showFinishDialog() {
-//        onPause();
+        onPause();
 //        FinishGameDialog finishGameDialog = new FinishGameDialog();
 //        finishGameDialog.setGameScreen(this);
         finishGameDialog.show(fm, "FinishGameDialog");
     }
 
-    @Override
-    public void onFinishDialogConfirmed() {
-        Intent intent = makeIntentForFeedback();
+//    @Override
+//    public void onFinishDialogConfirmed() {
+//        Intent intent = makeIntentForFeedback();
+//
+//        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
+//        Utils.startNewActivity(this, intent);
+//    }
 
-        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
-        Utils.startNewActivity(this, intent);
-    }
+//    @Override
+//    protected void showPopup() {
+//        resumeGameCountDown.show(fm, "Show Resume");
+//        super.showPopup();
+//    }
 
-    private Intent makeIntentForFeedback(){
+        private Intent makeIntentForFeedback() {
         Intent intent = new Intent(getApplicationContext(), FeedbackActivity.class);
 
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
@@ -129,51 +164,17 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
         return intent;
     }
 
-    protected void setNewStatsListAndContinue(LinkedHashMap<String, String> extraStats){
+    protected void setNewStatsListAndContinue(LinkedHashMap<String, String> extraStats) {
         ArrayList<String> extraStatKeys = new ArrayList<>();
         Intent intent = makeIntentForFeedback();
 
-        for(String extraStat : extraStats.keySet()){
+        for (String extraStat : extraStats.keySet()) {
             intent.putExtra(extraStat, extraStats.get(extraStat));
             extraStatKeys.add(extraStat);
         }
 
         intent.putStringArrayListExtra(FeedbackActivity.EXTRA_STATS, extraStatKeys);
         Utils.startNewActivity(this, intent);
-    }
-
-//    @Override
-//    public void onPopupDialogCanceled() {
-//        quitGameDialog.dismiss();
-//        resumeFeedbackAndGraph();
-//    }
-
-    @Override
-    public void onPopupDialogLeaveClicked() {
-        if (targetActivity == null) {
-            Utils.startNewActivity(this, onBackPressedActivityTarget);
-        } else {
-            Utils.startNewActivity(this, targetActivity);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (!quitGameDialog.isVisible()) {
-            quitGameDialog.show(fm, "QuitGameDialog");
-        }
-    }
-
-    @Override
-    public void onPopupDialogCanceled() {
-        targetActivity = null;
-        resumeFeedbackAndGraph();
-    }
-
-    @Override
-    public void onDialogShow() {
-        Log.d("GRAPH_LIFE", "STOPPING_GRAPH_ON_SHOW");
-        stopFeedbackAndGraph();
     }
 
     @Override
@@ -185,8 +186,14 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
         homeButtonPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                resumeFeedbackAndGraph();
-                onMenuPopupDismiss();
+                if (!quitGameDialog.isShowing() && !settingsFragment.isShowing() && !homeButtonPopup.isShowing()) {
+                    onResume();
+//            onResume();
+//            onMenuPopupDismiss();
+                }
+//                resumeFeedbackAndGraph();
+//                onMenuPopupDismiss();
+//                showResumeCountdown();
             }
         });
 
@@ -194,8 +201,105 @@ public abstract class GameActivity extends AppActivity implements GameDialog.Gam
     }
 
     @Override
-    protected void onPopupMenuOptionSelected(Class targetActivity) {
-        this.targetActivity = targetActivity;
+    public void onQuitGameConfirmed() {
+        if (targetActivity == null) {
+            Utils.startNewActivity(this, onBackPressedActivityTarget);
+        } else {
+            Utils.startNewActivity(this, targetActivity);
+        }
+    }
+
+    @Override
+    public void onQuitGameCanceled() {
+        onResume();
+    }
+
+    @Override
+    public void onGameResumed() {
+        resumeFeedbackAndGraph();
+    }
+
+    @Override
+    public void onDialogBackClicked(Class thisClass) {
+        Log.d("Back class", thisClass.toString());
+
+        if (thisClass == FinishGameDialog.class) {
+            onBackClickedFinishGame();
+        } else if (thisClass == QuitGameDialog.class) {
+            onBackClickedQuitGame();
+        } else if (thisClass == ResumeGameCountDown.class) {
+            onBackClickedResumeGame();
+        }
+    }
+
+    protected void onBackClickedResumeGame() {
+//        quitGameDialog.show(fm, "QUIT CONFIRMATION");
+    }
+
+    protected void onBackClickedQuitGame() {
+        onResume();
+    }
+
+    protected void onBackClickedFinishGame() {
+        Utils.startNewActivity(this, MenuActivity.class);
+    }
+
+    @Override
+    public void onDialogShow(Class thisClass) {
+        homeButtonPopup.dismiss();
+
+        if (thisClass == FinishGameDialog.class) {
+            onFinishGameShow();
+        } else if (thisClass == QuitGameDialog.class) {
+            onQuitGameShow();
+        } else if (thisClass == ResumeGameCountDown.class) {
+            onResumeGameShow();
+        }
+    }
+
+    protected void onResumeGameShow() {
+
+    }
+
+    protected void onQuitGameShow() {
+
+    }
+
+    protected void onFinishGameShow() {
+
+    }
+
+    @Override
+    protected void onQuitClicked(){
+        quitGameDialog.show(fm, "QUIT CONFIRMATION");
+    }
+
+    @Override
+    public void onFinishGameContinueClicked() {
+        Intent intent = makeIntentForFeedback();
+
+        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
+        Utils.startNewActivity(this, intent);
+    }
+
+    @Override
+    protected void onPopupMenuOptionSelected() {
+        this.targetActivity = MenuActivity.class;
         quitGameDialog.show(fm, "QuitGameDialog");
     }
+    @Override
+    public void onSettingsShow() {
+//        settingsFragment.show(fm, "SETTINGS SHOW");
+    }
+
+//    @Override
+//    public void onSettingsBackPressed() {
+//        onResume();
+//        onGameDialogBackPressed();
+//    }
+//
+//    @Override
+//    public void onSettingsDonePressed(){
+//        onResume();
+//    }
 }

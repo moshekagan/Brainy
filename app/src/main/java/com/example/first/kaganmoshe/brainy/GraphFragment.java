@@ -14,6 +14,7 @@ import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.List;
 import java.util.Random;
 
 import EEG.EConnectionState;
@@ -45,7 +46,7 @@ public class GraphFragment extends Fragment implements IHeadSetData {
     private static final Random RANDOM = new Random();
     private LineGraphSeries<DataPoint> series;
     private int lastX = 0;
-    private GraphView m_GraphView;
+    private static GraphView m_GraphView;
 
     /**
      * Use this factory method to create a new instance of
@@ -94,44 +95,72 @@ public class GraphFragment extends Fragment implements IHeadSetData {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Logs.error("TEST", "in: GraphFragment.onCreateView()");
+    public void onStart(){
+        super.onStart();
 
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_graph, container, false);
+        if(m_GraphView == null){
+            m_GraphView = new GraphView(this.getActivity().getApplicationContext());
+            Logs.error("TEST", "Finish:: ---GraphView graph = (GraphView) getView().findViewById(R.id.graph)");
 
-        Logs.error("TEST", "GraphView graph = (GraphView) getView().findViewById(R.id.graph)");
-
-        // we get graph view instance
-        m_GraphView = (GraphView) view.findViewById(R.id.graph);
-
-        Logs.error("TEST", "Finish:: ---GraphView graph = (GraphView) getView().findViewById(R.id.graph)");
-
-        // data
-        series = new LineGraphSeries<>();
-        m_GraphView.addSeries(series);
-        // customize a little bit viewport
-        Viewport viewport = m_GraphView.getViewport();
-        viewport.setYAxisBoundsManual(true);
-        viewport.setMinY(0);
-        viewport.setMaxY(100);
-        viewport.setScrollable(true);
+            // data
+            series = new LineGraphSeries<>();
+            m_GraphView.addSeries(series);
+            // customize a little bit viewport
+            Viewport viewport = m_GraphView.getViewport();
+            viewport.setYAxisBoundsManual(true);
+            viewport.setMinY(0);
+            viewport.setMaxY(100);
+            viewport.setScrollable(true);
 //        viewport.setXAxisBoundsManual(true);
 
-        GridLabelRenderer gridLabelRenderer = m_GraphView.getGridLabelRenderer();
-        gridLabelRenderer.setNumVerticalLabels(3);
-        gridLabelRenderer.setNumHorizontalLabels(2);
-        gridLabelRenderer.setHorizontalLabelsVisible(false);
+            GridLabelRenderer gridLabelRenderer = m_GraphView.getGridLabelRenderer();
+            gridLabelRenderer.setNumVerticalLabels(3);
+            gridLabelRenderer.setNumHorizontalLabels(2);
+            gridLabelRenderer.setHorizontalLabelsVisible(false);
 //        gridLabelRenderer.setLabelsSpace(20);
-        gridLabelRenderer.setTextSize(9);
-//        gridLabelRenderer.setPadding(5);
-//        gridLabelRenderer.setPadding(20);
-
-//        gridLabelRenderer.setGridStyle(GridLabelRenderer.GridStyle.);
-
-        return view;
+            gridLabelRenderer.setTextSize(9);
+        }
     }
+
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        Logs.error("TEST", "in: GraphFragment.onCreateView()");
+//
+//        // Inflate the layout for this fragment
+////        View view = inflater.inflate(R.layout.fragment_graph, container, false);
+//
+//        Logs.error("TEST", "GraphView graph = (GraphView) getView().findViewById(R.id.graph)");
+//
+//        // we get graph view instance
+////        m_GraphView = (GraphView) view.findViewById(R.id.graph);
+//        m_GraphView = new GraphView(this.getActivity().getApplicationContext());
+//        Logs.error("TEST", "Finish:: ---GraphView graph = (GraphView) getView().findViewById(R.id.graph)");
+//
+//        // data
+//        series = new LineGraphSeries<>();
+//        m_GraphView.addSeries(series);
+//        // customize a little bit viewport
+//        Viewport viewport = m_GraphView.getViewport();
+//        viewport.setYAxisBoundsManual(true);
+//        viewport.setMinY(0);
+//        viewport.setMaxY(100);
+//        viewport.setScrollable(true);
+////        viewport.setXAxisBoundsManual(true);
+//
+//        GridLabelRenderer gridLabelRenderer = m_GraphView.getGridLabelRenderer();
+//        gridLabelRenderer.setNumVerticalLabels(3);
+//        gridLabelRenderer.setNumHorizontalLabels(2);
+//        gridLabelRenderer.setHorizontalLabelsVisible(false);
+////        gridLabelRenderer.setLabelsSpace(20);
+//        gridLabelRenderer.setTextSize(9);
+////        gridLabelRenderer.setPadding(5);
+////        gridLabelRenderer.setPadding(20);
+//
+////        gridLabelRenderer.setGridStyle(GridLabelRenderer.GridStyle.);
+//
+//        return view;
+//    }
 
     @Override
     public void onDestroy() {
@@ -147,13 +176,14 @@ public class GraphFragment extends Fragment implements IHeadSetData {
 
         final int att = attValue;
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                addEntry(att);
-                Logs.debug(GRAPH_FRAGMENT, "Append to graph happen with value : " + att);
-            }
-        });
+
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                addEntry(att);
+//                Logs.debug(GRAPH_FRAGMENT, "Append to graph happen with value : " + att);
+//            }
+//        });
     }
 
     @Override

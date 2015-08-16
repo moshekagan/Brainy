@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:paddingTop="@dimen/pad_15dp"
+    android:paddingBottom="@dimen/pad_10dp"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:weightSum="60"
@@ -228,10 +229,29 @@
         </LinearLayout>
     </LinearLayout>
 
-    <fragment
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="15"
-        android:name="com.example.first.kaganmoshe.brainy.GraphFragment"
-        android:id="@+id/fragment"/>
+        android:weightSum="20"
+        android:orientation="horizontal">
+
+        <!--<android.widget.Space-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1" />-->
+
+        <com.jjoe64.graphview.GraphView
+
+            android:id="@+id/graph"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="19"/>
+
+        <android.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 </LinearLayout>

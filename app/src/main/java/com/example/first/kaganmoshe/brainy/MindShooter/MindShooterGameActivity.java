@@ -56,10 +56,10 @@ public class MindShooterGameActivity extends GameActivity {
 
     }
 
-    @Override
-    protected void onMenuPopupDismiss() {
-
-    }
+//    @Override
+//    protected void onMenuPopupDismiss() {
+//
+//    }
 
     @Override
     public void onAttentionReceived(int attValue) {

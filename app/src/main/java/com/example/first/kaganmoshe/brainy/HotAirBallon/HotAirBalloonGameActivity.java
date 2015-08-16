@@ -245,10 +245,10 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
     }
 
-    @Override
-    protected void onMenuPopupDismiss() {
-
-    }
+//    @Override
+//    protected void onMenuPopupDismiss() {
+//
+//    }
 
     @Override
     public void onAttentionReceived(int attValue) {

@@ -29,6 +29,16 @@ public class FinishGameDialog extends GameDialog {
         // Required empty public constructor
     }
 
+    public interface FinishGameCommunicator extends GameDialogCommunicator{
+        void onFinishGameContinueClicked();
+    }
+
+//    @Override
+//    protected void fireBackClickedEvent() {
+//        gameScreen.onDialogBackClicked(FinishGameDialog.class);
+//    }
+
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -54,7 +64,8 @@ public class FinishGameDialog extends GameDialog {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameScreen.onFinishDialogConfirmed();
+                isShowing = false;
+                ((FinishGameCommunicator)gameScreen).onFinishGameContinueClicked();
             }
         });
     }

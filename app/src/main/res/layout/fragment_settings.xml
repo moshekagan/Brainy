@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/pad_30dp"
+    android:layout_marginEnd="@dimen/pad_30dp"
+    android:orientation="vertical"
+    tools:context="com.example.first.kaganmoshe.brainy.CustomActivity.SettingsFragment">
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="40sp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:text="Settings"-->
+        <!--android:layout_marginBottom="@dimen/pad_15dp"/>-->
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/pad_15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginEnd="@dimen/pad_15dp"
+            android:text="Volume:"/>
+
+        <Button
+            android:id="@+id/decreaseButton"
+            style="@style/btn_white_large"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:text="-"
+            android:layout_marginEnd="@dimen/pad_10dp"/>
+
+        <Button
+            android:id="@+id/increaseButton"
+            style="@style/btn_white_large"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="@dimen/pad_30dp"
+            android:text="+"/>
+
+        <Button
+            android:id="@+id/muteButton"
+            style="@style/btn_white_large"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:text="Mute"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/btn_white_large"
+        android:text="Done"/>
+
+</LinearLayout>

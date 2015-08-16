@@ -12,7 +12,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
 import com.example.first.kaganmoshe.brainy.R;
+import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -37,13 +39,17 @@ public class CrazyCubeActivity extends GameActivity {
     private int currConcentrationListIndex = 0;
     private ArrayList<DataPoint> concentrationList = new ArrayList<>();
 
+//    private GraphView graphView;
+//    private LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+//    private int lastX = 0;
+
     private static final int MIN_SPECIAL_CELL_FACTOR = -5;
     private static final int MAX_SPECIAL_CELL_FACTOR = -40;
     private static final int FACTOR_DELTA_JUMP = 5;
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
-//    private static final int TIME_FOR_GAME = 60;
-private static final int TIME_FOR_GAME = 40;
+    //    private static final int TIME_FOR_GAME = 60;
+    private static final int TIME_FOR_GAME = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,23 @@ private static final int TIME_FOR_GAME = 40;
         scoreTextView = (TextView) findViewById(R.id.CCubeScoreTextView);
         timeTextView = (TextView) findViewById(R.id.CCubeTimeTextView);
         context = getApplicationContext();
+
+        gameGraph = new GameGraph((GraphView)findViewById(R.id.graph), this);
+//        graphView = (GraphView) findViewById(R.id.graph);
+
+//        series = new LineGraphSeries<>();
+//        graphView.addSeries(series);
+//
+//        GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
+//        gridLabelRenderer.setNumHorizontalLabels(2);
+//        gridLabelRenderer.setNumVerticalLabels(3);
+//        gridLabelRenderer.setHorizontalLabelsVisible(false);
+//
+//        Viewport viewport = graphView.getViewport();
+//        viewport.setYAxisBoundsManual(true);
+//        viewport.setMinY(0);
+//        viewport.setMaxY(100);
+//        viewport.setScrollable(true);
 
         setScore(currScore);
 
@@ -66,14 +89,17 @@ private static final int TIME_FOR_GAME = 40;
 
         startFeedbackSession();
         BuildTable(++currBoardSize);
+
+//        ResumeGameCountDown rgc = new ResumeGameCountDown();
+//        rgc.show(fm, "Countdown");
     }
 
-    private void stopClock(){
+    private void stopClock() {
         handler.removeCallbacks(timer);
         timerOn = false;
     }
 
-    private void resumeClock(){
+    private void resumeClock() {
         timerOn = true;
         handler.postDelayed(timer, 1000);
     }
@@ -87,7 +113,12 @@ private static final int TIME_FOR_GAME = 40;
     @Override
     protected void onResume() {
         super.onResume();
-        resumeClock();
+
+//        if (graphView == null) {
+//            graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
+////            graphFragment.stopReceivingData();
+//      }
+//        resumeClock();
     }
 
     private void updateTimeTextView() {
@@ -184,7 +215,7 @@ private static final int TIME_FOR_GAME = 40;
         double sum = 0;
         int size = concentrationList.size() - currConcentrationListIndex;
 
-        for(; currConcentrationListIndex < size; currConcentrationListIndex++){
+        for (; currConcentrationListIndex < size; currConcentrationListIndex++) {
             sum += concentrationList.get(currConcentrationListIndex).getY();
         }
 
@@ -198,36 +229,14 @@ private static final int TIME_FOR_GAME = 40;
     }
 
     @Override
-    public void onAttentionReceived(int attValue) {
+    public void onAttentionReceived(final int attValue) {
         concentrationList.add(new DataPoint(concentrationList.size(), attValue));
     }
 
-//    @Override
-//    public void onMeditationReceived(int medValue) {
-//
-//    }
-
-//    @Override
-//    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
-//        super.onHeadSetChangedState(headSetName, connectionState);
-//
-//    }
-
-//    @Override
-//    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-//
-//    }
-
     @Override
-    public void onPopupDialogCanceled() {
-        resumeClock();
-        super.onPopupDialogCanceled();
-    }
-
-    @Override
-    public void onDialogShow(){
+    public void onDialogShow(Class thisClass) {
         stopClock();
-        super.onDialogShow();
+        super.onDialogShow(thisClass);
     }
 
     @Override
@@ -236,12 +245,13 @@ private static final int TIME_FOR_GAME = 40;
     }
 
     @Override
-    protected void onMenuPopupDismiss() {
+    public void onGameResumed() {
+        super.onGameResumed();
         resumeClock();
     }
 
     @Override
-    public void onFinishDialogConfirmed() {
+    public void onFinishGameContinueClicked() {
         LinkedHashMap<String, String> extraStats = new LinkedHashMap<>();
 
         extraStats.put("Test", "Success");

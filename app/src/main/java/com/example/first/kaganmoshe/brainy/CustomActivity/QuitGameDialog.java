@@ -20,9 +20,32 @@ public class QuitGameDialog extends GameDialog {
     private Button leaveButton;
     private TextView title;
 
+//    @Override
+//    protected void fireBackClickedEvent() {
+//        gameScreen.onDialogBackClicked(QuitGameDialog.class);
+//    }
+
+//    @Override
+//    protected void fireBackClickedEvent() {
+//        isShowing = false;
+//        super.fireBackClickedEvent();
+//    }
+
+    public interface QuitGameCommunicator extends GameDialogCommunicator{
+        void onQuitGameConfirmed();
+        void onQuitGameCanceled();
+    }
+
+//    @Override
+//    public void setGameScreen(GameDialogCommunicator gameScreen){
+//        this.gameScreen = gameScreen;
+//    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
         View rootView = inflater.inflate(R.layout.game_quit_dialog, container,
                 false);
         continueButton = (Button) rootView.findViewById(R.id.continueButton);
@@ -43,7 +66,7 @@ public class QuitGameDialog extends GameDialog {
 //                                         @Override
 //                                         public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
 //                                             if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-//                                                 gameScreen.onBackPressed();
+//                                                 gameScreen.onGameDialogBackPressed();
 //                                                 return true;
 //                                             } else {
 //                                                 return false;
@@ -57,20 +80,21 @@ public class QuitGameDialog extends GameDialog {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameScreen.onPopupDialogCanceled();
+                isShowing = false;
                 dismiss();
+                ((QuitGameCommunicator)gameScreen).onQuitGameCanceled();
             }
         });
 
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameScreen.onPopupDialogLeaveClicked();
+                ((QuitGameCommunicator)gameScreen).onQuitGameConfirmed();
             }
         });
     }
 
-    public void show(FragmentManager manager, String tag, Class targetActivity){
-
-    }
+//    public void show(FragmentManager manager, String tag, Class targetActivity){
+//
+//    }
 }

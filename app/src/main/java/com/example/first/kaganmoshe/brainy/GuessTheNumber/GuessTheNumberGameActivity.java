@@ -12,8 +12,10 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
+import com.jjoe64.graphview.GraphView;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
@@ -33,8 +35,6 @@ public class GuessTheNumberGameActivity extends GameActivity {
     private GuessTheNumberEngine game;
     private MediaPlayer buttonClickSound;
     private MediaPlayer wrongAnswerSound;
-    private TextView m_AttentionTextV;
-    private TextView m_MeditationTextV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,8 @@ public class GuessTheNumberGameActivity extends GameActivity {
         buttonClickSound = MediaPlayer.create(this, R.raw.button_click_sound);
         wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
 
+        gameGraph = new GameGraph((GraphView)findViewById(R.id.graph), this);
+
         startFeedbackSession();
 
         initTextLines();
@@ -59,8 +61,6 @@ public class GuessTheNumberGameActivity extends GameActivity {
         } else {
 
         }
-
-        initializationActivity();
     }
 
     private void initTextLines() {
@@ -79,32 +79,6 @@ public class GuessTheNumberGameActivity extends GameActivity {
 
         //changing title font
 //        Utils.changeFont(getAssets(), headLineText);
-    }
-
-    private void initializationActivity() {
-//        m_ConnectivityIconImageV = (ImageView) findViewById(R.id.connectivityImageView);
-//        m_ConnectivityIconImageV.setImageResource(R.drawable.bad);
-//
-//        m_AttentionTextV = (TextView) findViewById(R.id.attentionTextView);
-//        m_MeditationTextV = (TextView) findViewById(R.id.meditationTextView);
-//
-//        m_ConnectBtn = (Button) findViewById(R.id.connectBtn);
-//        m_ConnectBtn.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                if (!m_HeadSet.IsConnected()) {
-//                    m_HeadSet.connect();
-//                }
-//            }
-//        });
-
-        // Get HeadSet - ic_mind_wave_mobile
-//        try{
-//            m_HeadSet = AppManager.getInstance().getHeadSet();
-//            m_HeadSet.registerListener(this);
-//            Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, Logs.SEPARATOR_LINE + "Just created MindWave HeadSet" + Logs.SEPARATOR_LINE);
-//        } catch (Exception e){
-//            // TODO - Not need to go hear never!!!!
-//        }
     }
 
     private void initialize() {
@@ -277,11 +251,6 @@ public class GuessTheNumberGameActivity extends GameActivity {
 
     @Override
     protected void onMenuPopupShow() {
-
-    }
-
-    @Override
-    protected void onMenuPopupDismiss() {
 
     }
 }

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -31,7 +32,8 @@ import EEG.IHeadSetData;
 /**
  * Created by tamirkash on 7/28/15.
  */
-public class AppActivity extends FragmentActivity implements View.OnClickListener, IHeadSetData {
+public class AppActivity extends FragmentActivity implements View.OnClickListener, IHeadSetData,
+        SettingsFragment.SettingsCommunicator {
 
     //    String[] actionsStrings = getResources().getStringArray(R.array.action_list);
     //TODO - make the titles generic
@@ -53,7 +55,8 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
     private MenuItem connectionMenuItem;
     protected ListPopupWindow homeButtonPopup;
     protected ViewGroup mMeasureParent;
-
+    protected static final SettingsFragment settingsFragment = new SettingsFragment();
+    protected android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     private static final int POPUP_MENU_ROW_PADDING = 50;
     private static int popupMenuRowWidth = 0;
 //    private static MenuItem connectionMenuIcon;
@@ -81,6 +84,26 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 
     @Override
     public void onPoorSignalReceived(ESignalVolume signalVolume) {
+
+    }
+
+    @Override
+    public void onSettingsShow() {
+
+    }
+
+//    @Override
+//    public void onSettingsBackPressed() {
+//
+//    }
+
+    @Override
+    public void onSettingsDonePressed() {
+        onResume();
+    }
+
+    @Override
+    public void onSettingsBackPressed(){
 
     }
 
@@ -129,14 +152,21 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        settingsFragment.setCommunicator(this, getApplicationContext());
+    }
+
 //    public void setOnBackPressedActivityTarget(Class onBackPressedActivity) {
 //        this.onBackPressedActivityTarget = onBackPressedActivity;
 //    }
 
 //    @Override
-//    public void onBackPressed() {
+//    public void onGameDialogBackPressed() {
 //        if (onBackPressedActivityTarget == null)
-//            super.onBackPressed();
+//            super.onGameDialogBackPressed();
 //        else
 //            Utils.startNewActivity(this, onBackPressedActivityTarget);
 //    }
@@ -173,30 +203,42 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Class cls = null;
 
-                homeButtonPopup.dismiss();
-
                 switch (POPUP_MENU_TITLES[+position]) {
                     case "Settings":
-                        cls = SettingsActivity.class;
+                        onSettingsDialogClicked();
                         break;
                     case "Games":
-                        cls = MenuActivity.class;
+                        if (parent.getContext().getClass() != MenuActivity.class) {
+                            Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
+                            onPopupMenuOptionSelected();
+                        }
                         break;
                     case "Quit":
-                        finish();
-                        return;
+                        onQuitClicked();
+                        break;
                 }
 
-                if (parent.getContext().getClass() != cls) {
-                    Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
-                    onPopupMenuOptionSelected(cls);
+                if(homeButtonPopup.isShowing()){
+                    homeButtonPopup.dismiss();
                 }
+//                if (parent.getContext().getClass() != cls) {
+//                    Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
+//                    onPopupMenuOptionSelected(cls);
+//                }
             }
         });
     }
 
-    protected void onPopupMenuOptionSelected(Class cls) {
-        Utils.startNewActivity(this, cls);
+    protected void onQuitClicked(){
+        finish();
+    }
+
+    protected void onSettingsDialogClicked(){
+        settingsFragment.show(fm, "Settings");
+    }
+
+    protected void onPopupMenuOptionSelected() {
+        Utils.startNewActivity(this, MenuActivity.class);
     }
 
     /**
@@ -301,7 +343,7 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 //            @Override
 //            public void run() {
         if (connectionMenuItem == null) {
-            connectionMenuItem = menu.add("Connection");
+            connectionMenuItem = menu.add("Connection").setEnabled(false);
         }
 
         runOnUiThread(new Runnable() {
@@ -331,13 +373,13 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
         return true;
     }
 
-    private void showPopup() {
+    protected void showPopup() {
         //TODO - take care of things not happening twice!
 //        actionsList = ArrayAdapter.createFromResource(this,
 //                R.array.action_list, android.R.layout.simple_dropdown_item_1line);
 //        popup.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, POPUP_MENU_TITLES));
-
         homeButtonPopup.show();
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     private static int measureContentWidth(ArrayAdapter adapter, Context context, ViewGroup mMeasureParent) {

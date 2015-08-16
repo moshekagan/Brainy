@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingTop="@dimen/pad_15dp"
+    android:paddingBottom="@dimen/pad_10dp"
     android:weightSum="60"
     tools:context=".CrazyCubeActivity">
 
@@ -23,8 +24,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/pad_10dp"
-        android:layout_marginTop="@dimen/pad_10dp"
+        android:paddingBottom="@dimen/pad_10dp"
+        android:paddingTop="@dimen/pad_10dp"
         android:layout_weight="6"
         android:orientation="horizontal"
         android:weightSum="3">
@@ -54,23 +55,55 @@
 
     </LinearLayout>
 
-    <TableLayout
-        android:id="@+id/table"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="36"
-        android:background="@drawable/ccube_table"
-        android:padding="@dimen/pad_15dp"
-        android:weightSum="36">
+        android:layout_weight="39"
+        android:padding="@dimen/pad_15dp">
 
-    </TableLayout>
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ccube_table"
+            android:weightSum="36">
 
-    <fragment
+        </TableLayout>
+
+    </FrameLayout>
+
+
+    <!--<fragment-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="15"-->
+        <!--android:name="com.example.first.kaganmoshe.brainy.GraphFragment"-->
+        <!--android:id="@+id/fragment"/>-->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="15"
-        android:name="com.example.first.kaganmoshe.brainy.GraphFragment"
-        android:id="@+id/fragment"/>
+        android:weightSum="20"
+        android:orientation="horizontal">
+
+        <!--<android.widget.Space-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1" />-->
+
+        <com.jjoe64.graphview.GraphView
+
+            android:id="@+id/graph"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="19"/>
+
+        <android.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </LinearLayout>

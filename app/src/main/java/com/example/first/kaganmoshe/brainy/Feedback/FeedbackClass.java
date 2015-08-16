@@ -30,7 +30,7 @@ public abstract class FeedbackClass implements IHeadSetData {
     // Graph Data members
 //    private static final Random RANDOM = new Random();
     private ArrayList<ParcelableDataPoint> concentrationPoints;
-    //    private int lastX = 0;
+    //    private int lastXGraphAtt = 0;
 //    private GraphView m_GraphView;
     private long sessionTimeStart = 0;
     private long sessionTimeStop = 0;
@@ -75,7 +75,7 @@ public abstract class FeedbackClass implements IHeadSetData {
     }
 
     //    private void addEntry(int value) {
-//        concentrationPoints.appendData(new DataPoint(lastX++, value), true, 20);
+//        concentrationPoints.appendData(new DataPoint(lastXGraphAtt++, value), true, 20);
 //    }
 
     @Override
