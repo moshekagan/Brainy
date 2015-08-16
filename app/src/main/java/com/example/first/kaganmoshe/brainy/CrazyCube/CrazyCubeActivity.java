@@ -63,22 +63,6 @@ public class CrazyCubeActivity extends GameActivity {
         context = getApplicationContext();
 
         gameGraph = new GameGraph((GraphView)findViewById(R.id.graph), this);
-//        graphView = (GraphView) findViewById(R.id.graph);
-
-//        series = new LineGraphSeries<>();
-//        graphView.addSeries(series);
-//
-//        GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
-//        gridLabelRenderer.setNumHorizontalLabels(2);
-//        gridLabelRenderer.setNumVerticalLabels(3);
-//        gridLabelRenderer.setHorizontalLabelsVisible(false);
-//
-//        Viewport viewport = graphView.getViewport();
-//        viewport.setYAxisBoundsManual(true);
-//        viewport.setMinY(0);
-//        viewport.setMaxY(100);
-//        viewport.setScrollable(true);
-
         setScore(currScore);
 
         timer = new Runnable() {

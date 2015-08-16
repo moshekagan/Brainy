@@ -90,6 +90,10 @@
             android:name=".CustomActivity.GameGraphActivity"
             android:label="@string/title_activity_game_graph" >
         </activity>
+        <activity
+            android:name=".CustomActivity.ActionBarAppActivity"
+            android:label="@string/title_activity_action_bar_app" >
+        </activity>
     </application>
 
 </manifest>

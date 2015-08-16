@@ -4,6 +4,10 @@
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/pad_20dp"
+    android:paddingBottom="@dimen/pad_20dp"
+    android:paddingStart="@dimen/pad_30dp"
+    android:paddingEnd="@dimen/pad_30dp"
     android:background="@drawable/background"
     tools:context=".WinnerDialogFragment">
 
@@ -21,7 +25,6 @@
     <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         android:id="@+id/winnerDialogTitle"
         style="@style/winnerDialogTitle"
-        android:layout_marginTop="@dimen/pad_20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -34,22 +37,20 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:src="@drawable/brainy_thumbup"
-        android:id="@+id/imageView2"
+        android:id="@+id/brainyWinnerImage"
         android:layout_marginBottom="@dimen/pad_20dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/continueButton"
-        style="@style/dialogButtonText"
-        android:layout_width="wrap_content"
+        style="@style/btn_white_large"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/winner_dialog_button"
         android:stateListAnimator="@null"
-        android:layout_marginEnd="@dimen/pad_10dp"
         android:text="@string/winner_dialog_continue"
-        android:layout_below="@+id/imageView2"
-        android:layout_alignEnd="@+id/imageView2" />
+        android:layout_below="@+id/brainyWinnerImage"
+        android:layout_alignParentEnd="true"/>
 
 
 </RelativeLayout>

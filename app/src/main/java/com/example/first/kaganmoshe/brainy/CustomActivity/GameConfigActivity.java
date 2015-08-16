@@ -22,17 +22,21 @@ public abstract class GameConfigActivity extends AppActivity {
     protected Button m_StartGameButton;
 
     @Override
-    public final void onBackPressed(){
-        Utils.startNewActivity(this, MenuActivity.class);
+    public final void onBackPressed() {
+        if (!homeButtonPopup.isShowing()) {
+            Utils.startNewActivity(this, MenuActivity.class);
+        } else {
+            homeButtonPopup.dismiss();
+        }
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
 
         sessionsRangeSeekBar = (SeekBar) findViewById(R.id.sessionsRangeSeekBar);
@@ -71,7 +75,7 @@ public abstract class GameConfigActivity extends AppActivity {
 
     abstract protected void onStartGameClick();
 
-    protected void setTitle(String title){
+    protected void setTitle(String title) {
         configTitle.append(title);
 //        Utils.changeFont(getAssets(), configTitle);
     }

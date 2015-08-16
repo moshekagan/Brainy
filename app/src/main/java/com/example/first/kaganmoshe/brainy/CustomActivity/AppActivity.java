@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -38,6 +37,7 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
     private final static String[] POPUP_MENU_TITLES = {"Games", "Settings", "Quit"};
     protected ActionBar actionBar;
     ArrayAdapter actionsList;
+    private View homeButtonView = null;
 
     private Integer[] imageId = {
             R.drawable.hot_air_balloon,
@@ -156,18 +156,6 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 
         settingsFragment.setCommunicator(this, getApplicationContext());
     }
-
-//    public void setOnBackPressedActivityTarget(Class onBackPressedActivity) {
-//        this.onBackPressedActivityTarget = onBackPressedActivity;
-//    }
-
-//    @Override
-//    public void onGameDialogBackPressed() {
-//        if (onBackPressedActivityTarget == null)
-//            super.onGameDialogBackPressed();
-//        else
-//            Utils.startNewActivity(this, onBackPressedActivityTarget);
-//    }
 
     /**
      * Apply this Constant as touch listener for views to provide alpha touch
@@ -329,16 +317,6 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        if(actionBarConnectionItem == null){
-//            actionBarConnectionItem = new ActionBarConnectionItem(this, menu.add("Connection"),
-//                    getResources().getDrawable(R.drawable.good),
-//                    getResources().getDrawable(R.drawable.bad),
-//                    getResources().getDrawable(R.drawable.medium));
-//        }
-
-//        this.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
         if (connectionMenuItem == null) {
             connectionMenuItem = menu.add("Connection").setEnabled(false);
         }
@@ -350,25 +328,16 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
             }
         });
 
-// }
-//        });
-
-//        connectionMenuIcon = menu.add("Connection");
-//        connectionMenuIcon.setIcon(R.drawable.bad).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getIcon() == getActionBar().getCustomView() && !homeButtonPopup.isShowing()) {
-            if (item.getItemId() == android.R.id.home && !homeButtonPopup.isShowing()) {
+        if (item.getItemId() == android.R.id.home && !homeButtonPopup.isShowing()) {
             homeMenuButtonClicked();
         } else if (homeButtonPopup.isShowing()) {
             homeButtonPopup.dismiss();
         }
-
-//        get
 
         return true;
     }

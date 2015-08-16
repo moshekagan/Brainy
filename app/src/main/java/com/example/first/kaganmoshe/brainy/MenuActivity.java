@@ -10,10 +10,12 @@ import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfigActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
+import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonGameActivity;
 import com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
+import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 
 
@@ -100,7 +102,11 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
 
     @Override
     public void onBackPressed(){
-        Utils.startNewActivity(this, SettingsActivity.class);
+        if(!homeButtonPopup.isShowing()){
+            Utils.startNewActivity(this, SettingsActivity.class);
+        } else {
+            homeButtonPopup.dismiss();
+        }
     }
 
     @Override

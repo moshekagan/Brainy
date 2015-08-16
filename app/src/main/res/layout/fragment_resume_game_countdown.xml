@@ -19,10 +19,13 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:textSize="40sp"
+            android:textColor="@color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
 
+
+    <!--android:background="@drawable/circle_border"-->
 </RelativeLayout>
 
 <!--<TextView-->

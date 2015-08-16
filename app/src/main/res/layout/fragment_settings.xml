@@ -48,7 +48,7 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/pad_20dp"
-                android:text="Volume:"
+                android:text="Sound:"
                 android:textSize="20sp" />
 
             <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
@@ -87,26 +87,26 @@
                 android:layout_height="25dp"
                 android:text="Mute"
                 android:layout_alignParentTop="true"
-                android:layout_alignEnd="@+id/musicEnableButton" />
+                android:layout_toEndOf="@+id/increaseButton" />
 
             <Button
                 android:id="@+id/musicDisableButton"
                 style="@style/btn_white_large"
-                android:layout_width="70dp"
+                android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/musicTextView"
                 android:layout_alignStart="@+id/decreaseButton"
                 android:layout_marginEnd="@dimen/pad_10dp"
-                android:text="Disable" />
+                android:text="On" />
 
             <Button
                 android:id="@+id/musicEnableButton"
                 style="@style/btn_white_large"
-                android:layout_width="70dp"
+                android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/musicDisableButton"
                 android:layout_toEndOf="@+id/musicDisableButton"
-                android:text="Enable" />
+                android:text="Off" />
 
         </RelativeLayout>
 
