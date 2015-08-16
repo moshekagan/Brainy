@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -100,7 +101,7 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
     }
 
     @Override
-    public void onSettingsBackPressed(){
+    public void onSettingsBackPressed() {
 
     }
 
@@ -131,7 +132,7 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
 
-        if(getActionBar() != null && getActionBar().isShowing()) {
+        if (getActionBar() != null && getActionBar().isShowing()) {
             AppManager.getInstance().getHeadSet().registerListener(this);
 
             if (connectionMenuItem != null) {
@@ -144,13 +145,13 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
     protected void onPause() {
         super.onPause();
 
-        if(getActionBar() != null && getActionBar().isShowing()){
+        if (getActionBar() != null && getActionBar().isShowing()) {
             AppManager.getInstance().getHeadSet().unregisterListener(this);
         }
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         settingsFragment.setCommunicator(this, getApplicationContext());
@@ -182,7 +183,6 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
         super.setContentView(layoutResID);
         setupActionBar();
         homeButtonPopup = new ListPopupWindow(this);
-
         MenuCustomList adapter = new
                 MenuCustomList(this, POPUP_MENU_TITLES, imageId, reviews, R.layout.overflow_menu_popup_row);
         homeButtonPopup.setAdapter(adapter);
@@ -215,7 +215,7 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
                         break;
                 }
 
-                if(homeButtonPopup.isShowing()){
+                if (homeButtonPopup.isShowing()) {
                     homeButtonPopup.dismiss();
                 }
 //                if (parent.getContext().getClass() != cls) {
@@ -226,11 +226,11 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
         });
     }
 
-    protected void onQuitClicked(){
+    protected void onQuitClicked() {
         finish();
     }
 
-    protected void onSettingsDialogClicked(){
+    protected void onSettingsDialogClicked() {
         settingsFragment.show(fm, "Settings");
     }
 
@@ -361,11 +361,14 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home && !homeButtonPopup.isShowing()) {
+//        if (item.getIcon() == getActionBar().getCustomView() && !homeButtonPopup.isShowing()) {
+            if (item.getItemId() == android.R.id.home && !homeButtonPopup.isShowing()) {
             homeMenuButtonClicked();
         } else if (homeButtonPopup.isShowing()) {
             homeButtonPopup.dismiss();
         }
+
+//        get
 
         return true;
     }
@@ -411,6 +414,13 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
         unbindDrawables(findViewById(android.R.id.content));
         System.gc();
     }
+
+//    @Override
+//    public void onStop(){
+//        super.onStop();
+//
+//
+//    }
 
     private void unbindDrawables(View view) {
         if (view.getBackground() != null) {

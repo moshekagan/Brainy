@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
+
 /**
  * Created by tamirkash on 7/27/15.
  */

@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/blue_sky_and_green_grass_new"
+    android:paddingTop="@dimen/pad_30dp"
     tools:context="com.example.first.kaganmoshe.brainy.MenuActivity">
-
-
-    <!--android:background="@drawable/blue_sky_and_green_grass_new"-->
 
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="208dp"
         android:layout_height="154dp"
-        android:layout_margin="@dimen/pad_10dp"
-        android:src="@drawable/brainy_logo"
-        android:layout_gravity="center_horizontal"/>
+        android:src="@drawable/brainy_weights3"
+        android:layout_marginBottom="@dimen/pad_20dp"
+        android:paddingEnd="@dimen/pad_20dp"
+        android:layout_gravity="end"/>
 
     <ListView
         android:id="@+id/list"
