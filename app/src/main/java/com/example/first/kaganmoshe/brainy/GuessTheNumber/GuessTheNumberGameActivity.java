@@ -11,10 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
 import com.example.first.kaganmoshe.brainy.R;
-import com.example.first.kaganmoshe.brainy.Utils;
 import com.jjoe64.graphview.GraphView;
 
 import EEG.EConnectionState;
@@ -69,7 +69,8 @@ public class GuessTheNumberGameActivity extends GameActivity {
             public View makeView() {
                 TextView textView = new TextView(GuessTheNumberGameActivity.this);
                 textView.setTextAppearance(GuessTheNumberGameActivity.this, R.style.gameOutputText);
-                Utils.changeFont(getAssets(), textView);
+                textView.setTypeface(AppTextView.getAppFontTypeface());
+//                Utils.changeFont(getAssets(), textView);
                 return textView;
             }
         });

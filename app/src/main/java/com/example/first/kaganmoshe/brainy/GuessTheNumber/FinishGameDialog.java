@@ -2,7 +2,6 @@ package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameDialog;
 import com.example.first.kaganmoshe.brainy.R;
-import com.example.first.kaganmoshe.brainy.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +52,7 @@ public class FinishGameDialog extends GameDialog {
         continueButton = (Button) rootView.findViewById(R.id.continueButton);
         title = (TextView) rootView.findViewById(R.id.winnerDialogTitle);
 
-        Utils.changeFont(getActivity().getAssets(), title);
+//        Utils.changeFont(getActivity().getAssets(), title);
         initButtons();
 
         return rootView;

@@ -10,7 +10,7 @@
         android:src="@drawable/text_balloon"
         android:layout_gravity="center_horizontal|top" />
 
-    <TextView
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         style="@style/winnerDialogTitle"
         android:id="@+id/winnerDialogTitle"
         android:layout_marginTop="30dp"

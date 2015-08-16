@@ -67,8 +67,8 @@
         </activity>
         <activity
             android:name=".HotAirBallon.HABConfigActivity"
-            android:label="@string/title_activity_habconfig"
             android:configChanges="orientation"
+            android:label="@string/title_activity_habconfig"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -85,6 +85,10 @@
             android:name=".MindShooter.MindShooterConfigActivity"
             android:label="@string/title_activity_mind_shooter_config"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".CustomActivity.GameGraphActivity"
+            android:label="@string/title_activity_game_graph" >
         </activity>
     </application>
 

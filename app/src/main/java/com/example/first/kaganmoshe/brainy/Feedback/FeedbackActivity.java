@@ -135,7 +135,7 @@ public class FeedbackActivity extends AppActivity {
             concentrationPoints.appendData(p, false, Integer.MAX_VALUE);
         }
 
-        initTitle();
+//        initTitle();
 
         graphView = (GraphView) findViewById(R.id.graph);
         concentrationPoints.setThickness(6);
@@ -173,8 +173,8 @@ public class FeedbackActivity extends AppActivity {
 //        }
     }
 
-    private void initTitle() {
-        feedbackTitle = (TextView) findViewById(R.id.feedbackTitle);
-        Utils.changeFont(getAssets(), feedbackTitle);
-    }
+//    private void initTitle() {
+//        feedbackTitle = (TextView) findViewById(R.id.feedbackTitle);
+//        Utils.changeFont(getAssets(), feedbackTitle);
+//    }
 }

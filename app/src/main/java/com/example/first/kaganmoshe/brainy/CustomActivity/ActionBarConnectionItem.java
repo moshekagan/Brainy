@@ -1,12 +1,10 @@
 package com.example.first.kaganmoshe.brainy.CustomActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.MenuItem;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
-import com.example.first.kaganmoshe.brainy.R;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;

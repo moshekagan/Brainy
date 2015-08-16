@@ -38,6 +38,7 @@ public class CrazyCubeActivity extends GameActivity {
     private double lastConcentrationAverage = 0;
     private int currConcentrationListIndex = 0;
     private ArrayList<DataPoint> concentrationList = new ArrayList<>();
+    private Button currSpecialCell = null;
 
 //    private GraphView graphView;
 //    private LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
@@ -108,6 +109,7 @@ public class CrazyCubeActivity extends GameActivity {
     protected void onPause() {
         super.onPause();
         stopClock();
+        hideSpecialCell();
     }
 
     @Override
@@ -162,7 +164,7 @@ public class CrazyCubeActivity extends GameActivity {
             gameTable.addView(row, i, tableLayoutParams);
 
             for (int j = 0; j < n; j++) {
-                Button button = (Button) LayoutInflater.from(this).inflate(R.layout.ccube_table_button, null);
+                Button button = (Button) LayoutInflater.from(context).inflate(R.layout.ccube_table_button, null);
                 button.setBackgroundColor(currColor);
                 TableRow.LayoutParams tableColLayoutParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1);
                 tableColLayoutParams.setMargins(2, 0, 2, 0);
@@ -185,8 +187,9 @@ public class CrazyCubeActivity extends GameActivity {
         else
             updateCellFactor();
 
-        (tableRow.getChildAt(column)).setBackgroundColor(currColor + currSpecialCellFactor);
-        (tableRow.getChildAt(column)).setOnClickListener(new View.OnClickListener() {
+        currSpecialCell = (Button) tableRow.getChildAt(column);
+        currSpecialCell.setBackgroundColor(currColor + currSpecialCellFactor);
+        currSpecialCell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setScore(++currScore);
@@ -194,7 +197,14 @@ public class CrazyCubeActivity extends GameActivity {
                 BuildTable((currBoardSize < MAX_BOARD_SIZE) ? ++currBoardSize : MAX_BOARD_SIZE);
             }
         });
+    }
 
+    private void hideSpecialCell(){
+        currSpecialCell.setBackgroundColor(currColor);
+    }
+
+    private void showSpecialCell(){
+        currSpecialCell.setBackgroundColor(currColor + currSpecialCellFactor);
     }
 
     private void updateCellFactor() {
@@ -234,6 +244,11 @@ public class CrazyCubeActivity extends GameActivity {
     }
 
     @Override
+    protected void onResumeGameShow() {
+        hideSpecialCell();
+    }
+
+    @Override
     public void onDialogShow(Class thisClass) {
         stopClock();
         super.onDialogShow(thisClass);
@@ -248,6 +263,7 @@ public class CrazyCubeActivity extends GameActivity {
     public void onGameResumed() {
         super.onGameResumed();
         resumeClock();
+        showSpecialCell();
     }
 
     @Override
@@ -259,5 +275,12 @@ public class CrazyCubeActivity extends GameActivity {
         extraStats.put("Test3", "3:21");
 
         setNewStatsListAndContinue(extraStats);
+    }
+
+    @Override
+    public void homeMenuButtonClicked(){
+        super.homeMenuButtonClicked();
+
+        hideSpecialCell();
     }
 }

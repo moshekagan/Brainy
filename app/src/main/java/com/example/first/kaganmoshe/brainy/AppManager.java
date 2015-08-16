@@ -1,12 +1,6 @@
 package com.example.first.kaganmoshe.brainy;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
-
-import java.security.PublicKey;
-import java.util.HashMap;
 
 import EEG.EConnectionState;
 import EEG.EHeadSetType;

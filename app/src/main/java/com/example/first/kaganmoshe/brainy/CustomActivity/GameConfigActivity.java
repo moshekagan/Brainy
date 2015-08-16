@@ -1,11 +1,8 @@
 package com.example.first.kaganmoshe.brainy.CustomActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -13,8 +10,6 @@ import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Created by tamirkash on 8/5/15.
@@ -78,6 +73,7 @@ public abstract class GameConfigActivity extends AppActivity {
 
     protected void setTitle(String title){
         configTitle.append(title);
-        Utils.changeFont(getAssets(), configTitle);
+//        Utils.changeFont(getAssets(), configTitle);
     }
+
 }

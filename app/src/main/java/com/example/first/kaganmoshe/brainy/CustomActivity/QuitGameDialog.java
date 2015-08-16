@@ -1,7 +1,6 @@
 package com.example.first.kaganmoshe.brainy.CustomActivity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.R;
-import com.example.first.kaganmoshe.brainy.Utils;
 
 /**
  * Created by tamirkash on 8/4/15.
@@ -52,7 +50,7 @@ public class QuitGameDialog extends GameDialog {
         title = (TextView) rootView.findViewById(R.id.quitGameDialogTitle);
         leaveButton = (Button) rootView.findViewById(R.id.quitButton);
 
-        Utils.changeFont(getActivity().getAssets(), title);
+//        Utils.changeFont(getActivity().getAssets(), title);
         initButtons();
 
         return rootView;

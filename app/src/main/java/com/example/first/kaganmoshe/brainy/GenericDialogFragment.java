@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
@@ -15,7 +14,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.first.kaganmoshe.brainy.Utils;
 
 
 /**
@@ -75,7 +73,7 @@ public class GenericDialogFragment extends DialogFragment {
         continueButton.setText(continueButtonText);
         title.setText(titleText);
 
-        Utils.changeFont(getActivity().getAssets(), title);
+//        Utils.changeFont(getActivity().getAssets(), title);
         initButtons();
 
         return rootView;

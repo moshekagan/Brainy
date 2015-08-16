@@ -2,7 +2,6 @@ package com.example.first.kaganmoshe.brainy;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 
@@ -11,7 +10,7 @@ import Utils.Logs;
 
 public class LoginActivity extends AppActivity {
     private static final String LOGIN_ACTIVITY = "LoginActivity";
-    private TextView loginTitle;
+//    private TextView loginTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +24,8 @@ public class LoginActivity extends AppActivity {
         setTouchNClick(R.id.RegisterButton);
         setTouchNClick(R.id.loginButton);
 
-        loginTitle = (TextView) findViewById(R.id.loginTitle);
-        Utils.changeFont(getAssets(), loginTitle);
+//        loginTitle = (TextView) findViewById(R.id.loginTitle);
+//        Utils.changeFont(getAssets(), loginTitle);
 
         Logs.info(LOGIN_ACTIVITY, " geting the first instace of AppManager");
         AppManager.getInstance(); // Create the appManager

@@ -24,7 +24,7 @@
         android:orientation="vertical"
         android:weightSum="4">
 
-        <TextView
+        <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
             style="@style/winnerDialogTitle"
             android:id="@+id/winnerDialogTitle"
             android:layout_marginTop="10dp"

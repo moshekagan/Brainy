@@ -69,4 +69,5 @@
     <string name="title_activity_mind_shooter_config">MindShooterConfigActivity</string>
     <string name="numberOfSessionsView">Number of sessions:</string>
     <string name="numberOfSessionsChoiceView">1</string>
+    <string name="title_activity_game_graph">GameGraphActivity</string>
 </resources>

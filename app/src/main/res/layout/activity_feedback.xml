@@ -12,7 +12,7 @@
     <!--android:background="@drawable/feedback_background"-->
 
 
-    <TextView
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         android:id="@+id/feedbackTitle"
         style="@style/feedbackActivityTitle"
         android:layout_width="match_parent"
@@ -42,14 +42,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     style="@style/feedbackActivityTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/pad_5dp"
                     android:text="@string/feedbackScoreView" />
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     android:id="@+id/feedbackScoreViewText"
                     style="@style/feedbackActivityTextViewText"
                     android:layout_width="wrap_content"
@@ -65,14 +65,14 @@
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/pad_15dp">
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     style="@style/feedbackActivityTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/pad_5dp"
                     android:text="@string/feedbackTimeView" />
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     android:id="@+id/feedbackTimeViewText"
                     style="@style/feedbackActivityTextViewText"
                     android:layout_width="wrap_content"
@@ -90,14 +90,14 @@
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/pad_15dp">
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     style="@style/feedbackActivityTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/pad_5dp"
                     android:text="@string/feedbackTimeView" />
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     android:id="@+id/feedbackTimeViewTextdd"
                     style="@style/feedbackActivityTextViewText"
                     android:layout_width="wrap_content"
@@ -113,14 +113,14 @@
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/pad_15dp">
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     style="@style/feedbackActivityTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/pad_5dp"
                     android:text="@string/feedbackTimeView" />
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     android:id="@+id/feedbackTimeViewTextaa"
                     style="@style/feedbackActivityTextViewText"
                     android:layout_width="wrap_content"
@@ -136,14 +136,14 @@
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/pad_15dp">
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     style="@style/feedbackActivityTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/pad_5dp"
                     android:text="@string/feedbackTimeView" />
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     android:id="@+id/feedbackTimeViewTextaaa"
                     style="@style/feedbackActivityTextViewText"
                     android:layout_width="wrap_content"
@@ -159,14 +159,14 @@
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/pad_15dp">
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     style="@style/feedbackActivityTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/pad_5dp"
                     android:text="@string/feedbackTimeView" />
 
-                <TextView
+                <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                     android:id="@+id/feedbackTimeViewTextee"
                     style="@style/feedbackActivityTextViewText"
                     android:layout_width="wrap_content"

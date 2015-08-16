@@ -14,7 +14,7 @@
         android:layout_marginEnd="8dp" />
 
     <!-- Game name -->
-    <TextView
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         android:id="@+id/menu_listrow_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:textColor="#ffffff"/>
 
     <!-- Review -->
-    <TextView
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         android:id="@+id/menu_listrow_review"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -8,20 +8,12 @@ import android.widget.PopupWindow;
 
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
-import com.example.first.kaganmoshe.brainy.GraphFragment;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.FinishGameDialog;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
-import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-
-import EEG.IHeadSetData;
 
 /**
  * Created by tamirkash on 8/3/15.
@@ -95,31 +87,35 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
 
 //        showResumeCountdown();
 //                Log.d("GRAPH_LIFE", "RESUME_GRAPH_ON_RESUME");
-//                resumeFeedbackAndGraph();
+//                resumeReceivingEEGData();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.d("GRAPH_LIFE", "STOPPING_GRAPH_ON_PAUSE");
-        stopFeedbackAndGraph();
+        stopReceivingEEGData();
     }
 
-    protected void stopFeedbackAndGraph() {
+    protected void stopReceivingEEGData() {
         Log.d("GRAPH_LIFE", "STOPPING_GRAPH");
+
         if (gameGraph != null) {
             gameGraph.stopReceivingData();
         }
+
         if (feedback != null) {
             feedback.stopTimerAndRecievingData();
         }
     }
 
-    protected void resumeFeedbackAndGraph() {
+    protected void resumeReceivingEEGData() {
         Log.d("GRAPH_LIFE", "RESUME_GRAPH");
+
         if (gameGraph != null) {
             gameGraph.resumeReceivingData();
         }
+
         if (feedback != null) {
             feedback.resumeRecievingData();
         }
@@ -148,9 +144,9 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
 //    }
 
 //    @Override
-//    protected void showPopup() {
+//    protected void homeMenuButtonClicked() {
 //        resumeGameCountDown.show(fm, "Show Resume");
-//        super.showPopup();
+//        super.homeMenuButtonClicked();
 //    }
 
         private Intent makeIntentForFeedback() {
@@ -180,7 +176,7 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean value = super.onOptionsItemSelected(item);
-        stopFeedbackAndGraph();
+        stopReceivingEEGData();
         onMenuPopupShow();
 
         homeButtonPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -191,7 +187,7 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
 //            onResume();
 //            onMenuPopupDismiss();
                 }
-//                resumeFeedbackAndGraph();
+//                resumeReceivingEEGData();
 //                onMenuPopupDismiss();
 //                showResumeCountdown();
             }
@@ -216,7 +212,7 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
 
     @Override
     public void onGameResumed() {
-        resumeFeedbackAndGraph();
+        resumeReceivingEEGData();
     }
 
     @Override

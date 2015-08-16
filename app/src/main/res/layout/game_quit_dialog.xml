@@ -19,7 +19,7 @@
     <!--android:layout_alignRight="@id/dialog_layout_main" />-->
 
 
-    <TextView
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         android:id="@+id/quitGameDialogTitle"
         style="@style/winnerDialogTitle"
         android:layout_width="match_parent"

@@ -1,25 +1,19 @@
 package com.example.first.kaganmoshe.brainy;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfigActivity;
-import com.example.first.kaganmoshe.brainy.CrazyCube.CrazyCubeActivity;
-import com.example.first.kaganmoshe.brainy.CustomActivity.ActionBarConnectionItem;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
-import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonGameActivity;
 import com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
-import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 
 
@@ -99,7 +93,7 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
                         break;
                 }
 
-                Utils.startNewActivity((Activity) view.getContext(), cls);
+                Utils.startNewActivity((Activity)view.getRootView().getContext(), cls);
             }
         });
     }

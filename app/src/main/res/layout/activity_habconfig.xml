@@ -13,7 +13,7 @@
     <!--android:background="@drawable/background"-->
 
 
-    <TextView
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         android:id="@+id/configTitle"
         style="@style/feedbackActivityTitle"
         android:layout_width="match_parent"

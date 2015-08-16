@@ -11,18 +11,15 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListPopupWindow;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
-import com.example.first.kaganmoshe.brainy.LoginActivity;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.MenuCustomList;
 import com.example.first.kaganmoshe.brainy.R;
-import com.example.first.kaganmoshe.brainy.SettingsActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
 
 import EEG.EConnectionState;
@@ -43,8 +40,8 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
 
     private Integer[] imageId = {
             R.drawable.hot_air_balloon,
-            R.drawable.hot_air_balloon,
-            R.drawable.hot_air_balloon
+            R.drawable.settings_icon,
+            R.drawable.quit_icon
     };
     private String[] reviews = {
             "bla",
@@ -365,7 +362,7 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home && !homeButtonPopup.isShowing()) {
-            showPopup();
+            homeMenuButtonClicked();
         } else if (homeButtonPopup.isShowing()) {
             homeButtonPopup.dismiss();
         }
@@ -373,7 +370,7 @@ public class AppActivity extends FragmentActivity implements View.OnClickListene
         return true;
     }
 
-    protected void showPopup() {
+    protected void homeMenuButtonClicked() {
         //TODO - take care of things not happening twice!
 //        actionsList = ArrayAdapter.createFromResource(this,
 //                R.array.action_list, android.R.layout.simple_dropdown_item_1line);

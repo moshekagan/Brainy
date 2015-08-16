@@ -2,10 +2,6 @@ package com.example.first.kaganmoshe.brainy.CrazyCube;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameConfigActivity;
 import com.example.first.kaganmoshe.brainy.R;

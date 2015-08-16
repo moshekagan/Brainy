@@ -42,7 +42,7 @@ public class MenuCustomList extends ArrayAdapter<String>{
             TextView txtTitle = (TextView) view.findViewById(R.id.menu_listrow_title);
 
             txtTitle.setText(titles[position]);
-            Utils.changeFont(context.getAssets(), txtTitle);
+//            Utils.changeFont(context.getAssets(), txtTitle);
 //            int alpha = 128; //50% transparency
 //            int color = Color.WHITE; //Your color value
 //            int bgColor = Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));

@@ -1,28 +1,18 @@
 package com.example.first.kaganmoshe.brainy;
 
 import android.support.v4.app.Fragment;
-//import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
-import java.util.List;
 import java.util.Random;
 
 import EEG.EConnectionState;
-import EEG.EHeadSetType;
 import EEG.ESignalVolume;
 import EEG.EegHeadSet;
 import EEG.IHeadSetData;
-import EEG.MindWave;
 import Utils.Logs;
 
 

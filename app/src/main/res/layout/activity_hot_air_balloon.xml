@@ -33,7 +33,7 @@
         android:id="@+id/button"
         android:layout_gravity="right|bottom" />
 
-    <TextView
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         android:id="@+id/timerValue"
         android:layout_width="130dp"
         android:layout_height="wrap_content"

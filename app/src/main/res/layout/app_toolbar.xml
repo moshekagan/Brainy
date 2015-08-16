@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <TextView
+        <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
             android:id="@+id/toolbarText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

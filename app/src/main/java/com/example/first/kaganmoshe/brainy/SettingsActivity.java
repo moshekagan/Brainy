@@ -1,23 +1,13 @@
 package com.example.first.kaganmoshe.brainy;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
-import com.neurosky.thinkgear.TGDevice;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
-
-import EEG.EConnectionState;
 import EEG.EHeadSetType;
-import EEG.ESignalVolume;
-import EEG.EegHeadSet;
-import EEG.IHeadSetData;
 import Utils.Logs;
 
 

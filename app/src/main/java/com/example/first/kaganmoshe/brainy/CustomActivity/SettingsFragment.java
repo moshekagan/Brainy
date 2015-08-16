@@ -1,13 +1,10 @@
 package com.example.first.kaganmoshe.brainy.CustomActivity;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.R;
@@ -133,6 +129,11 @@ public class SettingsFragment extends DialogFragment {
             }
         });
 
+
+//        Utils.changeFont(getActivity().getAssets(), (TextView) view.findViewById(R.id.titleTextView));
+//        Utils.changeFont(getActivity().getAssets(), (TextView)view.findViewById(R.id.volumeTextView));
+//        Utils.changeFont(getActivity().getAssets(), (TextView)view.findViewById(R.id.musicTextView));
+
         return view;
     }
 
@@ -141,7 +142,8 @@ public class SettingsFragment extends DialogFragment {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
 
         // request a window without the title
-        dialog.getWindow().setTitle("Settings");
+        dialog.getWindow().
+                requestFeature(Window.FEATURE_NO_TITLE);
 
         dialog.setCanceledOnTouchOutside(false);
 
