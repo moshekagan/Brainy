@@ -1,8 +1,10 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
+import com.example.first.kaganmoshe.brainy.CustomActivity.ResumeGameCountDown;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +36,10 @@ public abstract class FeedbackClass implements IHeadSetData {
 //    private GraphView m_GraphView;
     private long sessionTimeStart = 0;
     private long sessionTimeStop = 0;
+//    private long sessionTimePaused = 0;
+//    private long totalTimePaused = 0;
     private int lastX = 0;
+    private boolean isPaused = false;
 
 
     public FeedbackClass() {
@@ -49,21 +54,38 @@ public abstract class FeedbackClass implements IHeadSetData {
 
     public void stopTimerAndRecievingData(){
         sessionTimeStop = Calendar.getInstance().getTimeInMillis();
-        EegHeadSet headSet = AppManager.getInstance().getHeadSet();
-        headSet.unregisterListener(this);
+        AppManager.getInstance().getHeadSet().unregisterListener(this);
     }
 
-    public void resumeRecievingData(){
+//    public void pauseTimerAndReceivingData(){
+//        if(!isPaused) {
+//            sessionTimePaused = Calendar.getInstance().getTimeInMillis();
+//            isPaused = true;
+//        }
+//        AppManager.getInstance().getHeadSet().unregisterListener(this);
+//    }
+
+    public void resumeTimerAndReceivingData(){
+        isPaused = false;
+
+//        if(sessionTimePaused != 0) {
+//            totalTimePaused = totalTimePaused + Calendar.getInstance().getTimeInMillis() - sessionTimePaused;
+//        }
+//
+//        Log.d("TIME_PAUSED", Long.toString((totalTimePaused / DateUtils.SECOND_IN_MILLIS)));
         EegHeadSet headSet = AppManager.getInstance().getHeadSet();
         headSet.registerListener(this);
     }
 
     public long getSessionTimeInSeconds(){
-        return (sessionTimeStop - sessionTimeStart) / DateUtils.SECOND_IN_MILLIS;
+//        Log.d("SECONDS", Long.toString(sessionTimeStop - sessionTimeStart - totalTimePaused));
+        return (sessionTimeStop - sessionTimeStart - (DateUtils.SECOND_IN_MILLIS * ResumeGameCountDown.COUNTDOWN_TIME))
+                / DateUtils.SECOND_IN_MILLIS;
     }
 
     public long getSessionTimeInMinutes(){
-        return (sessionTimeStop - sessionTimeStart) / DateUtils.MINUTE_IN_MILLIS;
+        return (sessionTimeStop - sessionTimeStart - (DateUtils.SECOND_IN_MILLIS * ResumeGameCountDown.COUNTDOWN_TIME))
+                / DateUtils.MINUTE_IN_MILLIS;
     }
 
     public ArrayList<ParcelableDataPoint> getConcentrationPoints() {
@@ -75,7 +97,7 @@ public abstract class FeedbackClass implements IHeadSetData {
     }
 
     //    private void addEntry(int value) {
-//        concentrationPoints.appendData(new DataPoint(lastXGraphAtt++, value), true, 20);
+//        graphConcentrationPoints.appendData(new DataPoint(lastXGraphAtt++, value), true, 20);
 //    }
 
     @Override

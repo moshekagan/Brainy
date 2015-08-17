@@ -129,6 +129,11 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected int calculateScore() {
+        return 100;
+    }
+
     // GameActivity Override Methods
     @Override
     protected void startFeedbackSession() {

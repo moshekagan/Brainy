@@ -18,18 +18,17 @@ import java.util.LinkedHashMap;
 /**
  * Created by tamirkash on 8/3/15.
  */
-public abstract class GameActivity extends AppActivity implements ResumeGameCountDown.ResumeGameCommunicator,
+public abstract class GameActivity extends ActionBarAppActivity implements ResumeGameCountDown.ResumeGameCommunicator,
         QuitGameDialog.QuitGameCommunicator, FinishGameDialog.FinishGameCommunicator {
     // Data Members
     protected FeedbackClass feedback;
-//    protected GraphFragment graphFragment;
+    //    protected GraphFragment graphFragment;
     protected QuitGameDialog quitGameDialog = new QuitGameDialog();
     protected FinishGameDialog finishGameDialog = new FinishGameDialog();
     protected ResumeGameCountDown resumeGameCountDown = new ResumeGameCountDown();
     protected Class onBackPressedActivityTarget = null;
     private Class targetActivity = null;
 
-    protected GameGraph gameGraph = null;
 //    protected GraphView graphView;
 //    protected LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
 //    protected int lastXGraphAtt = 0;
@@ -100,10 +99,6 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
     protected void stopReceivingEEGData() {
         Log.d("GRAPH_LIFE", "STOPPING_GRAPH");
 
-        if (gameGraph != null) {
-            gameGraph.stopReceivingData();
-        }
-
         if (feedback != null) {
             feedback.stopTimerAndRecievingData();
         }
@@ -112,12 +107,9 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
     protected void resumeReceivingEEGData() {
         Log.d("GRAPH_LIFE", "RESUME_GRAPH");
 
-        if (gameGraph != null) {
-            gameGraph.resumeReceivingData();
-        }
 
         if (feedback != null) {
-            feedback.resumeRecievingData();
+            feedback.resumeTimerAndReceivingData();
         }
     }
 
@@ -149,15 +141,23 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
 //        super.homeMenuButtonClicked();
 //    }
 
-        private Intent makeIntentForFeedback() {
+    private Intent makeIntentForFeedback() {
         Intent intent = new Intent(getApplicationContext(), FeedbackActivity.class);
+        int score = calculateScore();
+        int distractionScore = calculateDistraction();
 
+        intent.putExtra(FeedbackActivity.DISTRACTION_STAT, Integer.toString(distractionScore));
+        intent.putExtra(FeedbackActivity.SCORE_STAT, Integer.toString(score));
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
         intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, getIntent().getStringExtra(Utils.CALLING_CLASS));
 
         return intent;
+    }
+
+    private int calculateDistraction() {
+        return 100;
     }
 
     protected void setNewStatsListAndContinue(LinkedHashMap<String, String> extraStats) {
@@ -266,7 +266,7 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
     }
 
     @Override
-    protected void onQuitClicked(){
+    protected void onQuitClicked() {
         quitGameDialog.show(fm, "QUIT CONFIRMATION");
     }
 
@@ -283,10 +283,13 @@ public abstract class GameActivity extends AppActivity implements ResumeGameCoun
         this.targetActivity = MenuActivity.class;
         quitGameDialog.show(fm, "QuitGameDialog");
     }
+
     @Override
     public void onSettingsShow() {
 //        settingsFragment.show(fm, "SETTINGS SHOW");
     }
+
+    protected abstract int calculateScore();
 
 //    @Override
 //    public void onSettingsBackPressed() {

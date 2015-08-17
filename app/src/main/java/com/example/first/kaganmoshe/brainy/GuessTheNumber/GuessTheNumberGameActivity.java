@@ -12,8 +12,8 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView;
-import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
+import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraphActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
 
@@ -23,7 +23,7 @@ import EEG.EegHeadSet;
 import Utils.Logs;
 
 
-public class GuessTheNumberGameActivity extends GameActivity {
+public class GuessTheNumberGameActivity extends GameGraphActivity {
 
     private static final int MAX_INPUT_DIGITS = 3;
     private final String GUESS_THE_NUMBER_GAME_ACTIVITY = "GuessTheNumberGameActivity";
@@ -61,6 +61,11 @@ public class GuessTheNumberGameActivity extends GameActivity {
         } else {
 
         }
+    }
+
+    @Override
+    protected int calculateScore() {
+        return 100;
     }
 
     private void initTextLines() {

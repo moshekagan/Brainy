@@ -32,7 +32,7 @@
     <string name="feedback_activity_title">Feedback</string>
     <string name="winner_dialog_continue">Continue</string>
     <string name="feedbackScoreView">Score:</string>
-    <string name="feedbackTimeView">Time:</string>
+    <string name="feedbackTimeView">Session time:</string>
     <string name="title_activity_crazy_cube">CrazyCubeActivity</string>
     <string name="CrazyCubeActivityTitle">Crazy Cube</string>
     <string name="title_activity_hot_air_ballon">HotAirBallonActivity</string>

@@ -14,7 +14,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
 /**
  * Created by tamirkash on 8/5/15.
  */
-public abstract class GameConfigActivity extends AppActivity {
+public abstract class GameConfigActivity extends ActionBarAppActivity {
 
     protected TextView configTitle;
     protected SeekBar sessionsRangeSeekBar;

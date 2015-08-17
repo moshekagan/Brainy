@@ -86,8 +86,8 @@ public class SettingsFragment extends DialogFragment {
 //                audioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) - 1,
                         AudioManager.FLAG_SHOW_UI);
-                Toast.makeText(context.getApplicationContext(), "Volume decreased",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context.getApplicationContext(), "Volume decreased",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -100,8 +100,8 @@ public class SettingsFragment extends DialogFragment {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) + 1,
                         AudioManager.FLAG_SHOW_UI);
 //                audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
-                Toast.makeText(context.getApplicationContext(), "Volume increased",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context.getApplicationContext(), "Volume increased",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -114,8 +114,8 @@ public class SettingsFragment extends DialogFragment {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0,
                         AudioManager.FLAG_SHOW_UI);
 //                audioManager.setRingerMode(AudioManager.);
-                Toast.makeText(context.getApplicationContext(), "Mute",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context.getApplicationContext(), "Mute",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -1,49 +1,91 @@
 package com.example.first.kaganmoshe.brainy;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfigActivity;
-import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.ActionBarAppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
-import com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonGameActivity;
 import com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity;
-
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
-import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 
 
-public class MenuActivity extends AppActivity implements IHeadSetData{
+public class MenuActivity extends ActionBarAppActivity implements IHeadSetData{
+
+    public enum EGameRow{
+        GUESS_THE_NUMBER(GUESS_THE_NUMBER_STR, GuessTheNumberConfigActivity.class, R.drawable.numbers),
+        HOT_AIR_BALLOON(HOT_AIR_BALLOON_STR, HABConfigActivity.class, R.drawable.hot_air_balloon),
+        CRAZY_CUBE(CRAZY_CUBE_STR, CCConfigActivity.class, R.drawable.kuku_cube),
+        MIND_SHOOTER(MIND_SHOOTER_STR, MindShooterConfigActivity.class, R.drawable.ic_kavent);
+
+        private String name;
+        private Class targetActivity;
+        private int imageId;
+
+        EGameRow(String name, Class targetActivity, int imageId){
+            this.name = name;
+            this.targetActivity = targetActivity;
+            this.imageId = imageId;
+        }
+
+        public static EGameRow getGameRowByName(String name){
+            EGameRow gameRowResult = null;
+
+            for(EGameRow gameRow : values()){
+                if(gameRow.name.equals(name)){
+                    gameRowResult = gameRow;
+                    break;
+                }
+            }
+
+            return gameRowResult;
+        }
+
+        public Class getTargetActivity() {
+            return targetActivity;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+//
+        public int getImageId() {
+            return imageId;
+        }
+    }
+
+    private static final String[] gamesTitles = new String[EGameRow.values().length];
+    private static final Integer[] gamesImagesId = new Integer[EGameRow.values().length];
 
 //    private TextView toolbarText;
-
-
     private static final String MENU_TOOLBAR_TEXT = "Menu";
-    private static final String GUESS_THE_NUMBER_STR = "Guess The Number";
-    private static final String HOT_AIR_BALLOON_STR = "HotAir Balloon";
-    private static final String CRAZY_CUBE_STR = "Crazy Cube";
-    private static final String MIND_SHOOTER_STR = "Mind Shooter";
+    public static final String GUESS_THE_NUMBER_STR = "Guess The Number";
+    public static final String HOT_AIR_BALLOON_STR = "HotAir Balloon";
+    public static final String CRAZY_CUBE_STR = "Crazy Cube";
+    public static final String MIND_SHOOTER_STR = "Mind Shooter";
     private static MenuCustomList adapter;
 
     private ListView list;
-    private static final String[] titles = {
-            GUESS_THE_NUMBER_STR,
-            HOT_AIR_BALLOON_STR,
-            CRAZY_CUBE_STR,
-            MIND_SHOOTER_STR
-    };
-    private static final Integer[] imageId = {
-            R.drawable.numbers,
-            R.drawable.hot_air_balloon,
-            R.drawable.kuku_cube,
-            R.drawable.ic_kavent
-    };
+
+//    private static final String[] titles = {
+//            GUESS_THE_NUMBER_STR,
+//            HOT_AIR_BALLOON_STR,
+//            CRAZY_CUBE_STR,
+//            MIND_SHOOTER_STR
+//    };
+//    private static final ArrayList<EGameRow> gamesRows = new ArrayList<>();
+//    private static final Integer[] imageId = {
+//            R.drawable.numbers,
+//            R.drawable.hot_air_balloon,
+//            R.drawable.kuku_cube,
+//            R.drawable.ic_kavent
+//    };
+
     private static final String[] reviews = {
             "bla",
             "bla",
@@ -53,18 +95,24 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
 
     private EConnectionState currnetState = EConnectionState.IDLE;
 
+    static{
+        int i = 0;
+
+        for(EGameRow gameRow : EGameRow.values()){
+            gamesTitles[i] = gameRow.toString();
+            gamesImagesId[i++] = gameRow.getImageId();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
-
-
 //        this.setOnBackPressedActivity(SettingsActivity.class);
 
         if(adapter == null){
             adapter = new
-                    MenuCustomList(MenuActivity.this, titles, imageId, reviews, R.layout.menu_list_row);
+                    MenuCustomList(MenuActivity.this, gamesTitles, gamesImagesId, reviews, R.layout.menu_list_row);
         }
 
         list = (ListView) findViewById(R.id.list);
@@ -74,28 +122,24 @@ public class MenuActivity extends AppActivity implements IHeadSetData{
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Class cls = null;
-
-                switch (titles[+position]) {
-                    case GUESS_THE_NUMBER_STR:
-                        cls = GuessTheNumberConfigActivity.class;
-//                        onGuessTheNumberClick();
-                        break;
-                    case HOT_AIR_BALLOON_STR:
-                        cls = HABConfigActivity.class;
-//                        onHotAirBalloonClick();
-                        break;
-                    case CRAZY_CUBE_STR:
-                        cls = CCConfigActivity.class;
-//                        onCrazyCubeClick();
-                        break;
-                    case MIND_SHOOTER_STR:
-                        cls = MindShooterConfigActivity.class;
-//                        onCrazyCubeClick();
-                        break;
-                }
-
-                Utils.startNewActivity((Activity)view.getRootView().getContext(), cls);
+//                Class cls = null;
+//
+//                switch (titles[+position]) {
+//                    case GUESS_THE_NUMBER_STR:
+//                        cls = GuessTheNumberConfigActivity.class;
+//                        break;
+//                    case HOT_AIR_BALLOON_STR:
+//                        cls = HABConfigActivity.class;
+//                        break;
+//                    case CRAZY_CUBE_STR:
+//                        cls = CCConfigActivity.class;
+//                        break;
+//                    case MIND_SHOOTER_STR:
+//                        cls = MindShooterConfigActivity.class;
+//                        break;
+//                }
+                Utils.startNewActivity((Activity)view.getRootView().getContext(),
+                        EGameRow.getGameRowByName(gamesTitles[+position]).getTargetActivity());
             }
         });
     }

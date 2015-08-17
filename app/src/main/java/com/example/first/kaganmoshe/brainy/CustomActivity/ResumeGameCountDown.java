@@ -21,8 +21,8 @@ import com.example.first.kaganmoshe.brainy.R;
 // * create an instance of this fragment.
 // */
 public class ResumeGameCountDown extends GameDialog {
-    private static final int COUNTDOWN_TIME = 3;
-    private static final String COUNTDOWN_TIME_TEXT = String.valueOf(COUNTDOWN_TIME);
+    public static final int COUNTDOWN_TIME = 3;
+    public static final String COUNTDOWN_TIME_TEXT = String.valueOf(COUNTDOWN_TIME);
     private int currTime = COUNTDOWN_TIME;
 
     public interface ResumeGameCommunicator extends GameDialogCommunicator{

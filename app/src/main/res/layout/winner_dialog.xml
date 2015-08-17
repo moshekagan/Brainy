@@ -8,7 +8,7 @@
     android:paddingBottom="@dimen/pad_20dp"
     android:paddingStart="@dimen/pad_30dp"
     android:paddingEnd="@dimen/pad_30dp"
-    android:background="@drawable/background"
+    android:background="@drawable/winner_background"
     tools:context=".WinnerDialogFragment">
 
     <!--<ImageView-->

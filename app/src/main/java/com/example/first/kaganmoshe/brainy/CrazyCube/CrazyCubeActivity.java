@@ -13,6 +13,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
+import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraphActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
-public class CrazyCubeActivity extends GameActivity {
+public class CrazyCubeActivity extends GameGraphActivity {
 
     private TableLayout gameTable;
     private Context context;
@@ -50,7 +51,7 @@ public class CrazyCubeActivity extends GameActivity {
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
     //    private static final int TIME_FOR_GAME = 60;
-    private static final int TIME_FOR_GAME = 40;
+    private static final int TIME_FOR_GAME = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -254,11 +255,16 @@ public class CrazyCubeActivity extends GameActivity {
     public void onFinishGameContinueClicked() {
         LinkedHashMap<String, String> extraStats = new LinkedHashMap<>();
 
-        extraStats.put("Test", "Success");
-        extraStats.put("Test2", "Success");
-        extraStats.put("Test3", "3:21");
+//        extraStats.put("Test", "Success");
+//        extraStats.put("Test2", "Success");
+//        extraStats.put("Test3", "3:21");
 
         setNewStatsListAndContinue(extraStats);
+    }
+
+    @Override
+    protected int calculateScore() {
+        return 100;
     }
 
     @Override

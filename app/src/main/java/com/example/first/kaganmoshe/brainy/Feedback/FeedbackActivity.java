@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
+
+import com.example.first.kaganmoshe.brainy.CustomActivity.ActionBarAppActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
 import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
@@ -20,19 +21,28 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 
-public class FeedbackActivity extends AppActivity {
+public class FeedbackActivity extends ActionBarAppActivity {
     //TODO - take care of the onFinishDialogConfirmed method of the games
     //TODO - constants for the extra stats
     public static final String CURR_GAME_CONCENTRATION_POINTS = "currGameConcentrationPoints";
     public static final String CURR_GAME_TIME_MINUTES = "currGameTimeMinutes";
     public static final String CURR_GAME_TIME_SECONDS = "currGameTimeSeconds";
     public static final String EXTRA_STATS = "EXTRA_STATS";
+    public static final String SCORE_STAT = "SCORE_STAT";
+    public static final String DISTRACTION_STAT = "DISTRACTION_STAT";
+    //    public static final String GAME_DISTRACTION_STAT = "GAME_DISTRACTION_STAT";
+    public static final String SCORE_LABEL = "Score";
     public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
     private static final int FACTOR = 20;
+//    private static final float GAME_SCORE_WEIGHT = 0.5f;
+//    private static final float GENERAL_DISTRACTION_WEIGHT = 0.2f;
+//    private static final float CONCENTRATION_WEIGHT = 0.3f;
+    public static final int BEST_CONCENTRATION_SCORE = 85;
+    public static final String CONCENTRATION_AVERAGE = "Concentration average";
 
     protected GraphView graphView;
-    protected LineGraphSeries<DataPoint> concentrationPoints = new LineGraphSeries<>();
-    protected TextView feedbackTitle;
+    protected LineGraphSeries<DataPoint> graphConcentrationPoints = new LineGraphSeries<>();
+    protected ArrayList<ParcelableDataPoint> parcelableConcentrationPointsList;
     protected TextView timeView;
     protected Button backButton;
     protected Button playAgainButton;
@@ -43,20 +53,55 @@ public class FeedbackActivity extends AppActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-        feedbackStatsLayout = (LinearLayout)findViewById(R.id.feedbackStatsLayout);
+        feedbackStatsLayout = (LinearLayout) findViewById(R.id.feedbackStatsLayout);
 
+        initConcentrationPoints();
+        initStats();
         initExtraStats();
         initGraph();
         initButtons();
         initInfo();
     }
 
+    private void initStats() {
+        int gameScore = Integer.valueOf(getIntent().getStringExtra(SCORE_STAT));
+        int generalDistraction = Integer.valueOf(getIntent().getStringExtra(DISTRACTION_STAT));
+//        int gameDistraction = Integer.valueOf(getIntent().getStringExtra(GAME_DISTRACTION_STAT));
+
+//        int finalScore = (int) (gameScore * GAME_SCORE_WEIGHT + generalDistraction * GENERAL_DISTRACTION_WEIGHT
+//                + concentrationScore() * CONCENTRATION_WEIGHT);
+        int finalScore = gameScore + generalDistraction + concentrationScore();
+
+        ((TextView)findViewById(R.id.feedbackScoreTextView)).setText(Integer.toString(finalScore));
+    }
+
+    private int concentrationScore() {
+        int concentrationSum = 0;
+        int concentrationAvg;
+        int finalScore;
+
+        for (ParcelableDataPoint dp : parcelableConcentrationPointsList) {
+            concentrationSum += dp.getY();
+        }
+
+        concentrationAvg = concentrationSum / parcelableConcentrationPointsList.size();
+        addStat(CONCENTRATION_AVERAGE, Integer.toString(concentrationAvg));
+
+        if(concentrationAvg > BEST_CONCENTRATION_SCORE){
+            finalScore = 100;
+        } else {
+            finalScore = concentrationAvg;
+        }
+
+        return finalScore;
+    }
+
     private void initExtraStats() {
         Intent intent = getIntent();
         ArrayList<String> stats = intent.getStringArrayListExtra(EXTRA_STATS);
 
-        if(stats != null){
-            for(String statName : stats){
+        if (stats != null) {
+            for (String statName : stats) {
                 String statValue = intent.getStringExtra(statName);
                 addStat(statName, statValue);
             }
@@ -64,7 +109,7 @@ public class FeedbackActivity extends AppActivity {
     }
 
     private void addStat(String statName, String statValue) {
-        LinearLayout newStatLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.layout_feedback_stat, null);
+        LinearLayout newStatLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_feedback_stat, null);
         TextView statKeyText = (TextView) newStatLayout.findViewById(R.id.statNameText);
         TextView statValueText = (TextView) newStatLayout.findViewById(R.id.statValueText);
 
@@ -83,11 +128,11 @@ public class FeedbackActivity extends AppActivity {
     }
 
     private void initInfo() {
-        long sessionTimeMin = getIntent().getLongExtra(CURR_GAME_TIME_MINUTES, 0);
-        long sessionTimeSec = getIntent().getLongExtra(CURR_GAME_TIME_SECONDS, 0);
+        int sessionTimeMin = (int) getIntent().getLongExtra(CURR_GAME_TIME_MINUTES, 0);
+        int sessionTimeSec = (int) getIntent().getLongExtra(CURR_GAME_TIME_SECONDS, 0);
         timeView = (TextView) findViewById(R.id.feedbackTimeViewText);
 
-        timeView.append(" " + Long.toString(sessionTimeMin) + ":" + Long.toString(sessionTimeSec));
+        timeView.append(" " + Integer.toString(sessionTimeMin) + ":" + Integer.toString(sessionTimeSec));
     }
 
     private void initButtons() {
@@ -127,18 +172,27 @@ public class FeedbackActivity extends AppActivity {
         Utils.startNewActivity(this, MenuActivity.class);
     }
 
-    private void initGraph(){
-        ArrayList<ParcelableDataPoint> concentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
+    private void initConcentrationPoints() {
+        parcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
 
 //        prepareConcentrationPoints();
-        for(ParcelableDataPoint p : concentrationPointsList){
-            concentrationPoints.appendData(p, false, Integer.MAX_VALUE);
+        for (ParcelableDataPoint p : parcelableConcentrationPointsList) {
+            graphConcentrationPoints.appendData(p, false, Integer.MAX_VALUE);
         }
+    }
+
+    private void initGraph() {
+//        ArrayList<ParcelableDataPoint> parcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
+//
+////        prepareConcentrationPoints();
+//        for(ParcelableDataPoint p : parcelableConcentrationPointsList){
+//            graphConcentrationPoints.appendData(p, false, Integer.MAX_VALUE);
+//        }
 
 //        initTitle();
 
         graphView = (GraphView) findViewById(R.id.graph);
-        concentrationPoints.setThickness(6);
+        graphConcentrationPoints.setThickness(6);
 
         GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
         gridLabelRenderer.setNumHorizontalLabels(2);
@@ -150,25 +204,25 @@ public class FeedbackActivity extends AppActivity {
         viewport.setXAxisBoundsManual(true);
         viewport.setMinY(0);
         viewport.setMaxY(100);
-        viewport.setMaxX(concentrationPoints.getHighestValueX());
+        viewport.setMaxX(graphConcentrationPoints.getHighestValueX());
         viewport.setScrollable(false);
 
-        graphView.addSeries(concentrationPoints);
+        graphView.addSeries(graphConcentrationPoints);
     }
 
     private void prepareConcentrationPoints() {
-//        ArrayList<ParcelableDataPoint> concentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
-//        double size = concentrationPointsList.size() / FACTOR;
+//        ArrayList<ParcelableDataPoint> parcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
+//        double size = parcelableConcentrationPointsList.size() / FACTOR;
 //        int currX = 0;
 //        int currY = 0;
 //        int currConcentrationListIndex = 0;
 //
 //        for(int i = 0; i < size; i++){
 //            for(int y = 0; y < FACTOR; y++){
-//                currY += concentrationPointsList.get(currX++).getY();
+//                currY += parcelableConcentrationPointsList.get(currX++).getY();
 //            }
 //
-//            concentrationPoints.appendData(new DataPoint(currConcentrationListIndex++, currY / FACTOR), false, Integer.MAX_VALUE);
+//            graphConcentrationPoints.appendData(new DataPoint(currConcentrationListIndex++, currY / FACTOR), false, Integer.MAX_VALUE);
 //            currY = 0;
 //        }
     }

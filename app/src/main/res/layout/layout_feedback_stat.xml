@@ -5,14 +5,14 @@
     android:orientation="horizontal"
     android:paddingTop="@dimen/pad_15dp">
 
-        <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        <TextView
             style="@style/feedbackActivityTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/pad_5dp"
             android:id="@+id/statNameText"/>
 
-        <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        <TextView
             style="@style/feedbackActivityTextViewText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

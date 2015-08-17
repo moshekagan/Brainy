@@ -101,6 +101,11 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //        showStartGameDialogFragment();
     }
 
+    @Override
+    protected int calculateScore() {
+        return 100;
+    }
+
     private void initialize() {
         Intent intent = getIntent();
         timeToPlayInMilSec = intent.getLongExtra(HABConfigActivity.TIME_TO_PLAY, HABConfigActivity.ONE_MIN);
