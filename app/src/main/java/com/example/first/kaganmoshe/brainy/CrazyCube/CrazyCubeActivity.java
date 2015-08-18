@@ -2,8 +2,11 @@ package com.example.first.kaganmoshe.brainy.CrazyCube;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +14,13 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
+
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraphActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
@@ -34,12 +38,16 @@ public class CrazyCubeActivity extends GameGraphActivity {
     private Handler handler = new Handler();
     private int currTime = TIME_FOR_GAME;
     private int currScore = 0;
+    private int badChoicesLeft = BAD_CHOICES_SIZE;
     private Runnable timer;
     private boolean timerOn = true;
     private double lastConcentrationAverage = 0;
     private int currConcentrationListIndex = 0;
     private ArrayList<DataPoint> concentrationList = new ArrayList<>();
     private Button currSpecialCell = null;
+    private TextView badChoiceLeftTextView;
+    private MediaPlayer goodSound;
+    private MediaPlayer badSound;
 
 //    private GraphView graphView;
 //    private LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
@@ -52,6 +60,7 @@ public class CrazyCubeActivity extends GameGraphActivity {
     private static final int MAX_BOARD_SIZE = 8;
     //    private static final int TIME_FOR_GAME = 60;
     private static final int TIME_FOR_GAME = 10;
+    private static final int BAD_CHOICES_SIZE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +70,15 @@ public class CrazyCubeActivity extends GameGraphActivity {
         gameTable = (TableLayout) findViewById(R.id.table);
         scoreTextView = (TextView) findViewById(R.id.CCubeScoreTextView);
         timeTextView = (TextView) findViewById(R.id.CCubeTimeTextView);
+        badChoiceLeftTextView = (TextView) findViewById(R.id.CCubeBadChoiceLeftTextView);
         context = getApplicationContext();
 
-        gameGraph = new GameGraph((GraphView)findViewById(R.id.graph), this);
-        setScore(currScore);
+        goodSound = MediaPlayer.create(this, R.raw.good_sound_effect);
+        badSound = MediaPlayer.create(this, R.raw.wrong_sound2);
+
+        gameGraph = new GameGraph((GraphView) findViewById(R.id.graph), this);
+        setScoreView();
+        setBadChoicesLeftView();
 
         timer = new Runnable() {
             @Override
@@ -114,13 +128,16 @@ public class CrazyCubeActivity extends GameGraphActivity {
 
             if (currTime != 0)
                 handler.postDelayed(timer, 1000);
-            else
+            else{
+                timeTextView.setText("0");
+                ((CCubeFeedback)feedback).calculateFinalScore(currScore, badChoicesLeft);
                 showFinishDialog();
+            }
         }
     }
 
-    private void setScore(int score) {
-        scoreTextView.setText(Integer.toString(score));
+    private void setScoreView() {
+        scoreTextView.setText(Integer.toString(currScore));
     }
 
     public void pickColor() {
@@ -149,15 +166,66 @@ public class CrazyCubeActivity extends GameGraphActivity {
             gameTable.addView(row, i, tableLayoutParams);
 
             for (int j = 0; j < n; j++) {
-                Button button = (Button) LayoutInflater.from(context).inflate(R.layout.ccube_table_button, null);
-                button.setBackgroundColor(currColor);
+                Button cell = (Button) LayoutInflater.from(context).inflate(R.layout.ccube_table_button, null);
+                cell.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onCellClicked(v);
+                    }
+                });
+
+                cell.setBackgroundColor(currColor);
                 TableRow.LayoutParams tableColLayoutParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1);
                 tableColLayoutParams.setMargins(2, 0, 2, 0);
-                row.addView(button, j, tableColLayoutParams);
+                row.addView(cell, j, tableColLayoutParams);
             }
         }
 
         setSpecialCell();
+    }
+
+    private void onCellClicked(View cell) {
+        ColorDrawable backgroundColor = (ColorDrawable) cell.getBackground();
+
+        if (backgroundColor.getColor() == currColor) {
+            wrongCellClicked();
+        } else {
+            specialCellClicked();
+        }
+    }
+
+    private void specialCellClicked() {
+        playGoodSound();
+        ++currScore;
+        setScoreView();
+        gameTable.removeAllViews();
+        BuildTable((currBoardSize < MAX_BOARD_SIZE) ? ++currBoardSize : MAX_BOARD_SIZE);
+    }
+
+    private void playGoodSound() {
+        goodSound.seekTo(0);
+        goodSound.start();
+    }
+
+    private void wrongCellClicked() {
+        playBadSound();
+
+        if(badChoicesLeft > 0){
+            --badChoicesLeft;
+            setBadChoicesLeftView();
+        } else if(currScore > 0){
+            --currScore;
+            setScoreView();
+        }
+    }
+
+    private void setBadChoicesLeftView() {
+        badChoiceLeftTextView.setText(Integer.toString(badChoicesLeft));
+    }
+
+    private void playBadSound() {
+        badSound.seekTo(0);
+        badSound.start();
     }
 
     private void setSpecialCell() {
@@ -174,21 +242,21 @@ public class CrazyCubeActivity extends GameGraphActivity {
 
         currSpecialCell = (Button) tableRow.getChildAt(column);
         currSpecialCell.setBackgroundColor(currColor + currSpecialCellFactor);
-        currSpecialCell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setScore(++currScore);
-                gameTable.removeAllViews();
-                BuildTable((currBoardSize < MAX_BOARD_SIZE) ? ++currBoardSize : MAX_BOARD_SIZE);
-            }
-        });
+//        currSpecialCell.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setScoreView(++currScore);
+//                gameTable.removeAllViews();
+//                BuildTable((currBoardSize < MAX_BOARD_SIZE) ? ++currBoardSize : MAX_BOARD_SIZE);
+//            }
+//        });
     }
 
-    private void hideSpecialCell(){
+    private void hideSpecialCell() {
         currSpecialCell.setBackgroundColor(currColor);
     }
 
-    private void showSpecialCell(){
+    private void showSpecialCell() {
         currSpecialCell.setBackgroundColor(currColor + currSpecialCellFactor);
     }
 
@@ -241,6 +309,7 @@ public class CrazyCubeActivity extends GameGraphActivity {
 
     @Override
     protected void onMenuPopupShow() {
+        super.onMenuPopupShow();
         stopClock();
     }
 
@@ -262,13 +331,13 @@ public class CrazyCubeActivity extends GameGraphActivity {
         setNewStatsListAndContinue(extraStats);
     }
 
-    @Override
-    protected int calculateScore() {
-        return 100;
-    }
+//    @Override
+//    protected int calculateScore() {
+//        return ((5 * badChoicesLeft) + (10 * currScore));
+//    }
 
     @Override
-    public void homeMenuButtonClicked(){
+    public void homeMenuButtonClicked() {
         super.homeMenuButtonClicked();
 
         hideSpecialCell();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextSwitcher;
@@ -32,9 +33,11 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
     private TextView guessRequestText;
     private Button approveGuessButton;
     private Button backspaceButton;
-    private GuessTheNumberEngine game;
+    private GuessTheNumberLogic game;
     private MediaPlayer buttonClickSound;
     private MediaPlayer wrongAnswerSound;
+//    private boolean isButtonClickSoundReady = false;
+//    private boolean isWrongAnswerSoundReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,12 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         backspaceButton = (Button) findViewById(R.id.backspaceButton);
         inputText = (TextView) findViewById(R.id.guessInput);
 
-        buttonClickSound = MediaPlayer.create(this, R.raw.button_click_sound);
-        wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
+        if (buttonClickSound == null && wrongAnswerSound == null) {
+            buttonClickSound = MediaPlayer.create(this, R.raw.button_click_sound);
+            wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
+        }
 
-        gameGraph = new GameGraph((GraphView)findViewById(R.id.graph), this);
-
-        startFeedbackSession();
+        gameGraph = new GameGraph((GraphView) findViewById(R.id.graph), this);
 
         initTextLines();
 
@@ -61,12 +64,15 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         } else {
 
         }
+
+        startFeedbackSession();
     }
 
-    @Override
-    protected int calculateScore() {
-        return 100;
-    }
+//    @Override
+//    protected int calculateScore() {
+//        int minAttemptsToWin ;
+//        return 100;
+//    }
 
     private void initTextLines() {
         outputText.setFactory(new ViewSwitcher.ViewFactory() {
@@ -75,32 +81,30 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
                 TextView textView = new TextView(GuessTheNumberGameActivity.this);
                 textView.setTextAppearance(GuessTheNumberGameActivity.this, R.style.gameOutputText);
                 textView.setTypeface(AppTextView.getAppFontTypeface());
-//                Utils.changeFont(getAssets(), textView);
                 return textView;
             }
         });
 
         outputText.setInAnimation(this, android.R.anim.fade_in);
         outputText.setOutAnimation(this, android.R.anim.fade_out);
-
-        //changing title font
-//        Utils.changeFont(getAssets(), headLineText);
     }
 
     private void initialize() {
         Intent intent = getIntent();
-        game = new GuessTheNumberEngine(Integer.parseInt(intent.getStringExtra(GuessTheNumberConfigActivity.EXTRA_MESSAGE)));
+        Log.d("GTN", "CREATE_LOGIC");
+        game = new GuessTheNumberLogic(Integer.parseInt(intent.getStringExtra(GuessTheNumberConfigActivity.EXTRA_MESSAGE)));
+        Log.d("GTN", "FINISH CREATE LOGIC");
         guessRequestText.append(" " + Integer.toString(game.getMaxValue()));
     }
 
     private void checkGuess() {
         try {
-            GuessTheNumberEngine.GuessResult result = game.checkGuess(Integer.parseInt(inputText.getText().toString()));
+            GuessTheNumberLogic.GuessResult result = game.checkGuess(Integer.parseInt(inputText.getText().toString()));
 
             switch (result) {
                 case GOOD:
                     showFinishDialog();
-                    break;
+                    return;
                 case TOO_HIGH:
                     outputText.setText("Try a lower number..");
                     break;
@@ -112,10 +116,8 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
                     break;
             }
 
-            if (result != GuessTheNumberEngine.GuessResult.GOOD) {
-                wrongAnswerSound.start();
-                inputText.setText("");
-            }
+            wrongAnswerSound.start();
+            inputText.setText("");
         } catch (NumberFormatException ex) {
             outputText.setText("Invalid input");
             wrongAnswerSound.start();
@@ -151,38 +153,9 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         }
     }
 
-//    @Override
-//    public void onAttentionReceived(int attValue) {
-//        Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, "Got Attention! " + EegHeadSet.ATTENTION_STR + ": " + attValue);
-//
-//        if (attValue != Integer.parseInt(m_AttentionTextV.getText().toString())) {
-//            final String newAttValue = Integer.toString(attValue);
-//            final int att = attValue;
-//
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    m_AttentionTextV.setText(newAttValue);
-//                }
-//            });
-//        }
-//    }
-
     @Override
     public void onMeditationReceived(int medValue) {
         Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, "Got Meditation!" + EegHeadSet.MEDITATION_STR + ": " + medValue);
-
-        // TODO - To see if we need it
-//        if (medValue != Integer.parseInt(m_AttentionTextV.getText().toString())){
-//            final String newMedValue = Integer.toString(medValue);
-//
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    m_MeditationTextV.setText(newMedValue);
-//                }
-//            });
-//        }
     }
 
     @Override
@@ -251,12 +224,16 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
 
     @Override
     protected void startFeedbackSession() {
-        feedback = new GTNFeedback();
+        Log.d("GTN", "GETTING FEEDBACK");
+        feedback = game.getFeedback();
+        Log.d("GTN", "FINISH SET FEEDBACK");
+        Log.d("GTN", "STARTING FEEDBACK TIMER");
         feedback.startTimer();
+        Log.d("GTN", "STARTED FEEDBACK TIMER");
     }
 
     @Override
     protected void onMenuPopupShow() {
-
+        super.onMenuPopupShow();
     }
 }

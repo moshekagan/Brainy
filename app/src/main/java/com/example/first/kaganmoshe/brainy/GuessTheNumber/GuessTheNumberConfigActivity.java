@@ -23,13 +23,14 @@ public class GuessTheNumberConfigActivity extends GameConfigActivity {
         setContentView(R.layout.activity_guess_the_number_config);
 
         if (savedInstanceState == null) {
-            currentRangeValue = 100;
+            currentRangeValue = GuessTheNumberLogic.RANGE_DIFFERENCE;
         } else {
             currentRangeValue = savedInstanceState.getInt(CURRENT_RANGE_VALUE);
         }
 
         rangeValueText = (TextView) findViewById(R.id.rangeValueText);
         rangeSeekBar = (SeekBar) findViewById(R.id.rangeSeekBar);
+        rangeSeekBar.setMax(GuessTheNumberLogic.NUM_OF_RANGES - 1);
 //        startButton = (Button) findViewById(R.id.startButton);
 //        setTouchNClick(R.id.startButton);
 //        this.setOnBackPressedActivity(MenuActivity.class);
@@ -37,7 +38,7 @@ public class GuessTheNumberConfigActivity extends GameConfigActivity {
         rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int value = (rangeSeekBar.getProgress() + 1) * 100;
+                int value = (rangeSeekBar.getProgress() + 1) * GuessTheNumberLogic.RANGE_DIFFERENCE;
 
                 rangeValueText.setText(Integer.toString(value));
             }

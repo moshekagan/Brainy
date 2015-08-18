@@ -36,9 +36,16 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     // Need To Implements
     protected abstract void startFeedbackSession();
 
-    protected abstract void onMenuPopupShow();
+    protected void onMenuPopupShow() {
+        Log.d("FEEDBACK_USER_PAUSE", "PAUSED");
+        feedback.incNumOfUserPauses();
+    }
 
 //    protected abstract void onMenuPopupDismiss();
+
+    protected int calculateScore(){
+        return 100;
+    }
 
     @Override
     public void onBackPressed() {
@@ -93,6 +100,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected void onPause() {
         super.onPause();
         Log.d("GRAPH_LIFE", "STOPPING_GRAPH_ON_PAUSE");
+        feedback.incNumOfUserPauses();
         stopReceivingEEGData();
     }
 
@@ -143,11 +151,10 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     private Intent makeIntentForFeedback() {
         Intent intent = new Intent(getApplicationContext(), FeedbackActivity.class);
-        int score = calculateScore();
-        int distractionScore = calculateDistraction();
+//        int score = calculateScore();
 
-        intent.putExtra(FeedbackActivity.DISTRACTION_STAT, Integer.toString(distractionScore));
-        intent.putExtra(FeedbackActivity.SCORE_STAT, Integer.toString(score));
+        intent.putExtra(FeedbackActivity.DISTRACTION_STAT, Integer.toString(feedback.getDistractionScore()));
+        intent.putExtra(FeedbackActivity.SCORE_STAT, Integer.toString(feedback.getGameScore()));
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
@@ -156,9 +163,26 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         return intent;
     }
 
-    private int calculateDistraction() {
-        return 100;
-    }
+//    private int calculateDistraction() {
+//        int score;
+//
+//        switch (feedback.getNumOfUserPauses()) {
+//            case 0:
+//                score = 150;
+//                break;
+//            case 1:
+//                score = 95;
+//                break;
+//            case 2:
+//                score = 85;
+//                break;
+//            default:
+//                score = 60;
+//                break;
+//        }
+//
+//        return score;
+//    }
 
     protected void setNewStatsListAndContinue(LinkedHashMap<String, String> extraStats) {
         ArrayList<String> extraStatKeys = new ArrayList<>();
@@ -289,7 +313,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 //        settingsFragment.show(fm, "SETTINGS SHOW");
     }
 
-    protected abstract int calculateScore();
+//    protected abstract int calculateScore();
 
 //    @Override
 //    public void onSettingsBackPressed() {

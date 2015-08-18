@@ -101,10 +101,10 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //        showStartGameDialogFragment();
     }
 
-    @Override
-    protected int calculateScore() {
-        return 100;
-    }
+//    @Override
+//    protected int calculateScore() {
+//        return 100;
+//    }
 
     private void initialize() {
         Intent intent = getIntent();

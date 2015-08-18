@@ -39,13 +39,20 @@ public abstract class FeedbackClass implements IHeadSetData {
 //    private long sessionTimePaused = 0;
 //    private long totalTimePaused = 0;
     private int lastX = 0;
-    private boolean isPaused = false;
-
+    private int numOfUserPauses = 0;
 
     public FeedbackClass() {
         concentrationPoints = new ArrayList<>();
         EegHeadSet headSet = AppManager.getInstance().getHeadSet();
         headSet.registerListener(this);
+    }
+
+    public void incNumOfUserPauses(){
+        numOfUserPauses++;
+    }
+
+    public int getNumOfUserPauses(){
+        return numOfUserPauses;
     }
 
     public void startTimer(){
@@ -66,7 +73,7 @@ public abstract class FeedbackClass implements IHeadSetData {
 //    }
 
     public void resumeTimerAndReceivingData(){
-        isPaused = false;
+//        isPaused = false;
 
 //        if(sessionTimePaused != 0) {
 //            totalTimePaused = totalTimePaused + Calendar.getInstance().getTimeInMillis() - sessionTimePaused;
@@ -130,4 +137,31 @@ public abstract class FeedbackClass implements IHeadSetData {
     public int getLastX() {
         return lastX;
     }
+
+    public int getDistractionScore(){
+        int score;
+
+        switch (numOfUserPauses) {
+            case 0:
+                score = 150;
+                break;
+            case 1:
+                score = 100;
+                break;
+            case 2:
+                score = 80;
+                break;
+            default:
+                score = 60;
+                break;
+        }
+
+        return score;
+    }
+
+//    public int getGameScore() {
+//        return 100;
+//    }
+
+    public abstract int getGameScore();
 }
