@@ -27,6 +27,8 @@ public class MindShooterLogic implements IHeadSetData{
     private Point m_IntentSize = new Point(135, 135);
     private boolean m_ListenToHeadSet= false;
     private int m_SpaceVal = 20;
+    private int m_CurrentScore = 0;
+
 //    private int balloonSize = 250;
 //    private int intentSize = 135;
     // Methods
@@ -55,7 +57,7 @@ public class MindShooterLogic implements IHeadSetData{
         // TODO - Init: timer,
         m_MindShooter.setIntentLocation(m_CurrentIntentLocation);
         m_MindShooter.setBalloonLocation(m_CurrentBalloonLocation, true);
-
+        m_MindShooter.setScore(m_CurrentScore);
 //        Timer timer = new Timer();
 //        timer.schedule(new TimerTask() {
 //            @Override
@@ -67,7 +69,6 @@ public class MindShooterLogic implements IHeadSetData{
 //            }
 //        }, 0, 1000);
     }
-
 
     public void shoot(){
         Logs.error(MIND_SHOOTER_LOGIC, "Enter to MindShooterLogic.Shoot()");
@@ -82,7 +83,7 @@ public class MindShooterLogic implements IHeadSetData{
         { // Good Shoot
             // TODO - Make sound of the balloon bamp
             calculateNewLocationForBalloon();
-            m_MindShooter.setBalloonLocation(m_CurrentBalloonLocation, false);
+            m_MindShooter.theBalloonExploded(m_CurrentBalloonLocation, ++m_CurrentScore);
         }
     }
 

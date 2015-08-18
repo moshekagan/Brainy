@@ -157,7 +157,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         float destination = getDestination(attPresent);
         if (oldAtt < attValues.get(i))
             hotAirBalloonSoundAffect.start();
-//                else hotAirBalloonSoundAffect.stop();
+                else hotAirBalloonSoundAffect.pause();
         oldAtt = attValues.get(i);
 //                Log.e(HOT_AIR_BALLOON_ACTIVITY, "# ATT = " + attVal);
 //                Log.e(HOT_AIR_BALLOON_ACTIVITY, "++++++ destination = " + destination);
@@ -309,6 +309,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         timeSwapBuff += timeInMilliseconds;
         customHandler.removeCallbacks(updateTimerThread);
         feedback.stopTimerAndRecievingData();
+        hotAirBalloonSoundAffect.stop();
         showFinishGameDialog();
     }
 

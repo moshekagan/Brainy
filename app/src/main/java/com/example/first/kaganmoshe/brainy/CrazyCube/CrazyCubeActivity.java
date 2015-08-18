@@ -89,7 +89,6 @@ public class CrazyCubeActivity extends GameGraphActivity {
 
         startFeedbackSession();
         BuildTable(++currBoardSize);
-
 //        ResumeGameCountDown rgc = new ResumeGameCountDown();
 //        rgc.show(fm, "Countdown");
     }

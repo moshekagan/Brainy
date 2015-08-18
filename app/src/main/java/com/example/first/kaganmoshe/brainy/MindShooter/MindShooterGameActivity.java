@@ -2,17 +2,19 @@ package com.example.first.kaganmoshe.brainy.MindShooter;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.graphics.Path;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Property;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.CrazyCube.CCubeFeedback;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
@@ -27,6 +29,7 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
 
     // Data Members
     public static final String MIND_SHOOTER_GAME_ACTIVITY = "MindShooterGameActivity";
+    private static final long TIME_FOR_GAME = 60000l;
 
     private MindShooterLogic m_MindShooterLogic;
     private Point m_IntentPointSize = new Point();
@@ -36,7 +39,23 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     private Point m_ScreenSize;
     private ImageView m_IntentImageView;
     private ImageView m_BalloonImageView;
+    private TextView m_ScoreTextView;
     private Button m_ShootBtn;
+    private boolean timerOn = true;
+
+    // Timer Members
+    private TextView m_TimeTextView;
+    private Handler m_CustomHandler = new Handler();
+    private long m_StartTime = 0;
+    private long m_TimeInMilliseconds;
+    private long m_TimerValueInMilliseconds = TIME_FOR_GAME;
+    private long m_UpdatedTime;
+    private long m_TimeSwapBuff;
+    private Runnable m_UpdateTimerThread = new Runnable() {
+        public void run() {
+            updatedTimeForThread(this);
+        }
+    };
 
     // Methods
     @Override
@@ -48,6 +67,9 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         m_BalloonImageView = (ImageView) findViewById(R.id.balloon);
         m_IntentImageView = (ImageView) findViewById(R.id.intent);
         m_ShootBtn = (Button) findViewById(R.id.shootBtn);
+        m_ScoreTextView = (TextView) findViewById(R.id.MindShooterScoreTextView);
+        m_TimeTextView = (TextView) findViewById(R.id.MindShooterTimeTextView);
+
 
         try {
             m_MindShooterLogic = new MindShooterLogic(m_ScreenSize.x, m_ScreenSize.y, this);
@@ -58,7 +80,6 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
             public void onGlobalLayout() {
                 calcViewSizeAbdLocation(m_IntentImageView, m_IntentPointLocation, m_IntentPointSize);
                 m_IntentImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
             }
         });
 
@@ -73,14 +94,60 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         m_IntentImageView.bringToFront();
         m_BalloonImageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { m_MindShooterLogic.test(); }
+            public void onClick(View v) {
+                m_MindShooterLogic.test();
+            }
         }); // TODO - Remove it
         m_ShootBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               m_MindShooterLogic.shoot();
-            }});
+                m_MindShooterLogic.shoot();
+            }
+        });
+
+        setScore(0);
+        startGame();
+    }
+
+    private void startGame() {
         m_MindShooterLogic.startGame();
+        startFeedbackSession();
+        startTimerGame(TIME_FOR_GAME);
+    }
+
+    private void updatedTimeForThread(Runnable runnable) {
+        m_TimeInMilliseconds = SystemClock.uptimeMillis() - m_StartTime;
+        m_TimeInMilliseconds = m_TimerValueInMilliseconds - m_TimeInMilliseconds;
+
+        if (m_TimeInMilliseconds > 0L) {
+            m_UpdatedTime = m_TimeSwapBuff + m_TimeInMilliseconds;
+
+
+            int secs = (int) (m_UpdatedTime / 1000);
+            int mins = secs / 60;
+            secs = secs % 60;
+//                int milliseconds = (int) (m_UpdatedTime % 1000);
+            m_TimeTextView.setText("" + mins + ":"
+                    + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
+            m_CustomHandler.postDelayed(runnable, 0);
+        } else {
+            finishTimerGame();
+        }
+    }
+
+    private void startTimerGame(long value) {
+        m_TimerValueInMilliseconds = value;
+        m_StartTime = SystemClock.uptimeMillis();
+//        feedback.startTimer();
+        startFeedbackSession();
+        m_CustomHandler.postDelayed(m_UpdateTimerThread, 0);
+    }
+
+    private void finishTimerGame() {
+        m_TimeSwapBuff += m_TimeInMilliseconds;
+        m_CustomHandler.removeCallbacks(m_UpdateTimerThread);
+        feedback.stopTimerAndRecievingData();
+        showFinishDialog();
     }
 
     private void calcViewSizeAbdLocation(ImageView image, Point pointLocation, Point pointSize) {
@@ -137,7 +204,8 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     // GameActivity Override Methods
     @Override
     protected void startFeedbackSession() {
-
+        feedback = new MindShooterFeedback();
+        feedback.startTimer();
     }
 
     @Override
@@ -196,5 +264,16 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     @Override
     public void animateIntentForLocation(Point intentLocation, int duration) {
         moveImageViewTo(m_IntentImageView, intentLocation, duration);
+    }
+
+    @Override
+    public void theBalloonExploded(Point currentBalloonLocation, int i) {
+        setBalloonLocation(currentBalloonLocation, false);
+        setScore(i);
+    }
+
+    @Override
+    public void setScore(int currentScore) {
+        m_ScoreTextView.setText(Integer.toString(currentScore));
     }
 }

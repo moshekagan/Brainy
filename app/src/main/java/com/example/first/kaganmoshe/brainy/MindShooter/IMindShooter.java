@@ -9,4 +9,6 @@ public interface IMindShooter {
     void setIntentLocation(Point intentLocation);
     void setBalloonLocation(Point balloonLocation, boolean withAnimation);
     void animateIntentForLocation(Point intentLocation, int duration);
+    void theBalloonExploded(Point m_currentBalloonLocation, int i);
+    void setScore(int m_currentScore);
 }
