@@ -1,5 +1,7 @@
 package com.example.first.kaganmoshe.brainy;
 
+import android.media.MediaPlayer;
+
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
 
 import EEG.EConnectionState;
@@ -18,8 +20,10 @@ public class AppManager implements IHeadSetData {
     // Data Members
     private static final String APP_MANAGER = "AppManager";
     private static AppManager m_Instance;
+    private static MediaPlayer m_BackgroundMusic;
     private EegHeadSet m_HeadSet;
     private AppSettings m_AppSettings;
+
 
 //    private HashMap<Integer, Drawable> m_Drawables;
 //
@@ -37,6 +41,7 @@ public class AppManager implements IHeadSetData {
 //            m_Drawables.put(id, //co)
 //      //  }
 //    }
+
 
     public static AppManager getInstance(){
         if (m_Instance == null){
@@ -107,4 +112,20 @@ public class AppManager implements IHeadSetData {
 
     @Override
     public void onPoorSignalReceived(ESignalVolume signalVolume) { /* Do Nothing! */ }
+
+    public static void setBackgroundMusic(MediaPlayer backgroundMusic){
+        m_BackgroundMusic = backgroundMusic;
+    }
+
+    public static void playBackgroundMusic(){
+        m_BackgroundMusic.start();
+    }
+
+    public static void stopBackgroundMusic(){
+        m_BackgroundMusic.stop();
+    }
+
+    public static void pauseBackgroundMusic(){
+        m_BackgroundMusic.pause();
+    }
 }

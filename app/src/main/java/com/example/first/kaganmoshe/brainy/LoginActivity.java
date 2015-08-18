@@ -1,5 +1,6 @@
 package com.example.first.kaganmoshe.brainy;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
@@ -29,6 +30,8 @@ public class LoginActivity extends AppActivity {
 
         Logs.info(LOGIN_ACTIVITY, " geting the first instace of AppManager");
         AppManager.getInstance(); // Create the appManager
+        AppManager.getInstance().setBackgroundMusic(MediaPlayer.create(this, R.raw.background_music));
+        AppManager.getInstance().playBackgroundMusic();
     }
 
     @Override

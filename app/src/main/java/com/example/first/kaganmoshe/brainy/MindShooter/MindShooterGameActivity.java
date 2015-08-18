@@ -3,6 +3,7 @@ package com.example.first.kaganmoshe.brainy.MindShooter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -42,6 +43,8 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     private TextView m_ScoreTextView;
     private Button m_ShootBtn;
     private boolean timerOn = true;
+    private MediaPlayer m_BalloonPoppingAffect;
+    private MediaPlayer m_SingleShotAffect;
 
     // Timer Members
     private TextView m_TimeTextView;
@@ -70,6 +73,9 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         m_ScoreTextView = (TextView) findViewById(R.id.MindShooterScoreTextView);
         m_TimeTextView = (TextView) findViewById(R.id.MindShooterTimeTextView);
 
+        m_SingleShotAffect = MediaPlayer.create(this, R.raw.single_shot_affect);
+        m_BalloonPoppingAffect = MediaPlayer.create(this, R.raw.balloon_popping_affect);
+
 
         try {
             m_MindShooterLogic = new MindShooterLogic(m_ScreenSize.x, m_ScreenSize.y, this);
@@ -91,6 +97,7 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
             }
         });
 
+        m_ShootBtn.bringToFront();
         m_IntentImageView.bringToFront();
         m_BalloonImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,12 +108,18 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         m_ShootBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                m_MindShooterLogic.shoot();
+                shoot();
+
             }
         });
 
         setScore(0);
         startGame();
+    }
+
+    private void shoot() {
+        m_MindShooterLogic.shoot();
+        m_SingleShotAffect.start();
     }
 
     private void startGame() {
@@ -268,6 +281,7 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
 
     @Override
     public void theBalloonExploded(Point currentBalloonLocation, int i) {
+        m_BalloonPoppingAffect.start();
         setBalloonLocation(currentBalloonLocation, false);
         setScore(i);
     }

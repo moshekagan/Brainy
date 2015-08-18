@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.first.kaganmoshe.brainy.AppManager;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameConfigActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
@@ -48,6 +49,7 @@ public class MindShooterConfigActivity extends GameConfigActivity {
     //////tamir end
     @Override
     protected void onStartGameClick() {
+        AppManager.getInstance().pauseBackgroundMusic();
         Intent intent = new Intent(getApplicationContext(), MindShooterGameActivity.class);
         intent.putExtra(TIME_TO_PLAY, timeToPlayInMilSec);
         Utils.startNewActivity(this, intent);
