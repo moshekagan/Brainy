@@ -33,7 +33,7 @@ public class GuessTheNumberConfigActivity extends GameConfigActivity {
         rangeSeekBar.setMax(GuessTheNumberLogic.NUM_OF_RANGES - 1);
 //        startButton = (Button) findViewById(R.id.startButton);
 //        setTouchNClick(R.id.startButton);
-//        this.setOnBackPressedActivity(MenuActivity.class);
+//        this.setOnBackPressedActivity(GamesActivity.class);
 
         rangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

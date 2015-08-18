@@ -4,7 +4,6 @@
         android:id="@+id/startGameButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_gravity="center_horizontal|bottom"
         android:background="@drawable/ic_play_button" />
 
 </merge>

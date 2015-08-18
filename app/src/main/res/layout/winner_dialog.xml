@@ -44,7 +44,7 @@
 
     <Button
         android:id="@+id/continueButton"
-        style="@style/btn_white_large"
+        style="@style/btn_blue"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:stateListAnimator="@null"

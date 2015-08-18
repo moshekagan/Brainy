@@ -123,14 +123,14 @@
         android:layout_weight="3"
         android:gravity="bottom"
         android:orientation="horizontal"
-        android:paddingEnd="@dimen/pad_10dp"
-        android:paddingStart="@dimen/pad_10dp"
+        android:paddingEnd="@dimen/pad_20dp"
+        android:paddingStart="@dimen/pad_20dp"
         android:paddingTop="@dimen/padding_feedback_layout"
         android:weightSum="12">
 
         <Button
             android:id="@+id/backFeedbackButton"
-            style="@style/btn_white_large"
+            style="@style/btn_blue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -144,7 +144,7 @@
 
         <Button
             android:id="@+id/playAgainFeedbackButton"
-            style="@style/btn_white_large"
+            style="@style/btn_blue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"

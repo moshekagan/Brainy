@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="40dp"
     android:paddingStart="@dimen/pad_30dp"
     android:paddingEnd="@dimen/pad_30dp"
+    android:paddingTop="@dimen/pad_30dp"
     android:paddingBottom="16dp"
-    android:weightSum="16"
+    android:background="@drawable/blue_sky_and_green_grass_new"
     tools:context=".GuessTheNumberConfigActivity">
 
     <!--android:background="@drawable/background"-->
@@ -15,22 +15,19 @@
         android:id="@+id/configTitle"
         style="@style/feedbackActivityTitle"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:text="Guess The Number"
+        android:layout_height="wrap_content"
+        android:text="Guess  The \n Number"
         android:gravity="center_horizontal" />
 
     <include
         layout="@layout/layout_sessions_amount"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_weight="5"
         android:orientation="vertical">
 
         <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
@@ -65,16 +62,17 @@
 
     </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center_horizontal"
+        android:paddingBottom="@dimen/pad_30dp"
+        android:gravity="bottom">
 
-    <include
-        layout="@layout/layout_play_config_button"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        <include
+            layout="@layout/layout_play_config_button"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
 

@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher2"
+        android:icon="@mipmap/ic_brainy_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.TranslucentActionBar.ActionBar.Overlay" >
         <activity
@@ -36,14 +36,14 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ConnectionActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".GamesActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_menu"
             android:screenOrientation="portrait" >

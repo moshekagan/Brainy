@@ -40,9 +40,10 @@ public class MenuCustomList extends ArrayAdapter<String>{
 
             ImageView imageView = (ImageView) view.findViewById(R.id.menu_listrow_thumbnail);
             imageView.setImageResource(imageId[position]);
-
+            TextView review = (TextView) view.findViewById(R.id.menu_listrow_review);
             TextView txtTitle = (TextView) view.findViewById(R.id.menu_listrow_title);
 
+            review.setText(reviews[position]);
             txtTitle.setText(titles[position]);
 //            Utils.changeFont(context.getAssets(), txtTitle);
 //            int alpha = 128; //50% transparency

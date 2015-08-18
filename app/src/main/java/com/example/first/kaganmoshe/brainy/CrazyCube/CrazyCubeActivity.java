@@ -58,8 +58,8 @@ public class CrazyCubeActivity extends GameGraphActivity {
     private static final int FACTOR_DELTA_JUMP = 5;
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
-    //    private static final int TIME_FOR_GAME = 60;
-    private static final int TIME_FOR_GAME = 10;
+        private static final int TIME_FOR_GAME = 60;
+//    private static final int TIME_FOR_GAME = 10;
     private static final int BAD_CHOICES_SIZE = 3;
 
     @Override
@@ -128,7 +128,7 @@ public class CrazyCubeActivity extends GameGraphActivity {
             if (currTime != 0)
                 handler.postDelayed(timer, 1000);
             else{
-                timeTextView.setText("0");
+//                timeTextView.setText("0");
                 ((CCubeFeedback)feedback).calculateFinalScore(currScore, badChoicesLeft);
                 showFinishDialog();
             }
@@ -341,4 +341,11 @@ public class CrazyCubeActivity extends GameGraphActivity {
 
         hideSpecialCell();
     }
+
+//    @Override
+//    protected void onFinishGameShow() {
+//        super.onFinishGameShow();
+//
+//        timeTextView.setText("");
+//    }
 }

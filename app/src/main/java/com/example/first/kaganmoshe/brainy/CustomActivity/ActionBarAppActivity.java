@@ -2,7 +2,6 @@ package com.example.first.kaganmoshe.brainy.CustomActivity;
 
 import android.app.ActionBar;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,7 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ListPopupWindow;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
-import com.example.first.kaganmoshe.brainy.MenuActivity;
+import com.example.first.kaganmoshe.brainy.GamesActivity;
 import com.example.first.kaganmoshe.brainy.MenuCustomList;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
@@ -38,9 +37,9 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
             R.drawable.quit_icon
     };
     private String[] reviews = {
-            "bla",
-            "bla",
-            "bla"
+            "",
+            "",
+            ""
     };
 
     protected ActionBar actionBar;
@@ -136,6 +135,7 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                 MenuCustomList(this, POPUP_MENU_TITLES, imageId, reviews, R.layout.overflow_menu_popup_row);
         homeButtonPopup.setAdapter(adapter);
         homeButtonPopup.setAnchorView(findViewById(android.R.id.home));
+//        homeButtonPopup.setBackgroundDrawable(null);
 
         if (popupMenuRowWidth == 0) {
             popupMenuRowWidth = measureContentWidth(adapter, getApplicationContext(), mMeasureParent);
@@ -154,7 +154,7 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                         onSettingsDialogClicked();
                         break;
                     case "Games":
-                        if (parent.getContext().getClass() != MenuActivity.class) {
+                        if (parent.getContext().getClass() != GamesActivity.class) {
                             Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
                             onPopupMenuOptionSelected();
                         }
@@ -184,7 +184,7 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     }
 
     protected void onPopupMenuOptionSelected() {
-        Utils.startNewActivity(this, MenuActivity.class);
+        Utils.startNewActivity(this, GamesActivity.class);
     }
 
     /**
@@ -224,19 +224,23 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     }
 
     private void setNewConnectionIconByConnectionState(EConnectionState connectionState) {
-        switch (connectionState) {
-            case DEVICE_CONNECTED:
-                connectionMenuItem.setIcon(R.drawable.good).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                break;
-            case DEVICE_CONNECTING:
-                connectionMenuItem.setIcon(R.drawable.medium).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                break;
-            case DEVICE_NOT_CONNECTED:
-            case DEVICE_NOT_FOUND:
-            case BLUETOOTH_NOT_AVAILABLE:
-            case IDLE:
-                connectionMenuItem.setIcon(R.drawable.bad).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                break;
+
+        //TODO - need to take care of the synchronization. the if statement is not enough!!!!
+        if(connectionMenuItem != null) {
+            switch (connectionState) {
+                case DEVICE_CONNECTED:
+                    connectionMenuItem.setIcon(R.drawable.good).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                    break;
+                case DEVICE_CONNECTING:
+                    connectionMenuItem.setIcon(R.drawable.medium).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                    break;
+                case DEVICE_NOT_CONNECTED:
+                case DEVICE_NOT_FOUND:
+                case BLUETOOTH_NOT_AVAILABLE:
+                case IDLE:
+                    connectionMenuItem.setIcon(R.drawable.bad).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                    break;
+            }
         }
     }
 

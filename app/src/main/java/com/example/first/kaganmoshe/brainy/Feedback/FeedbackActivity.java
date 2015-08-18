@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.CustomActivity.ActionBarAppActivity;
+import com.example.first.kaganmoshe.brainy.GamesActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
-import com.example.first.kaganmoshe.brainy.MenuActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -129,7 +129,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
 
     private void initInfo() {
         int sessionTimeMin = (int) getIntent().getLongExtra(CURR_GAME_TIME_MINUTES, 0);
-        int sessionTimeSec = (int) getIntent().getLongExtra(CURR_GAME_TIME_SECONDS, 0);
+        int sessionTimeSec = (int) getIntent().getLongExtra(CURR_GAME_TIME_SECONDS, 0) % 60;
         timeView = (TextView) findViewById(R.id.feedbackTimeViewText);
 
         timeView.append(" " + Integer.toString(sessionTimeMin) + ":" + Integer.toString(sessionTimeSec));
@@ -142,7 +142,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(MenuActivity.class);
+                startNewActivity(GamesActivity.class);
             }
         });
 
@@ -157,7 +157,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    startNewActivity(MenuActivity.class);
+                    startNewActivity(GamesActivity.class);
                 }
             }
         });
@@ -169,7 +169,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
 
     @Override
     public void onBackPressed() {
-        Utils.startNewActivity(this, MenuActivity.class);
+        Utils.startNewActivity(this, GamesActivity.class);
     }
 
     private void initConcentrationPoints() {

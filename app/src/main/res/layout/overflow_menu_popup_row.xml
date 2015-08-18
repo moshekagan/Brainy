@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#b3575959"
+    android:background="#003549"
+    android:alpha="100"
     android:padding="8dp">
 
     <!-- Thumbnail Image -->

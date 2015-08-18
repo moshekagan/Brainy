@@ -5,7 +5,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:paddingBottom="@dimen/pad_15dp"
         android:paddingTop="@dimen/pad_20dp">
 
         <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
@@ -36,7 +35,6 @@
                 style="@style/configActivityText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/pad_15dp"
                 android:text="@string/numberOfSessionsChoiceView" />
 
         </LinearLayout>

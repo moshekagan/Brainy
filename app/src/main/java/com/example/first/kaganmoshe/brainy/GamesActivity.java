@@ -1,22 +1,25 @@
 package com.example.first.kaganmoshe.brainy;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfigActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.ActionBarAppActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
 import com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity;
+
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
 import EEG.IHeadSetData;
 
 
-public class MenuActivity extends ActionBarAppActivity implements IHeadSetData{
+public class GamesActivity extends ActionBarAppActivity implements IHeadSetData {
 
-    public enum EGameRow{
+    public enum EGameRow {
         GUESS_THE_NUMBER(GUESS_THE_NUMBER_STR, GuessTheNumberConfigActivity.class, R.drawable.numbers),
         HOT_AIR_BALLOON(HOT_AIR_BALLOON_STR, HABConfigActivity.class, R.drawable.hot_air_balloon),
         CRAZY_CUBE(CRAZY_CUBE_STR, CCConfigActivity.class, R.drawable.kuku_cube),
@@ -26,17 +29,17 @@ public class MenuActivity extends ActionBarAppActivity implements IHeadSetData{
         private Class targetActivity;
         private int imageId;
 
-        EGameRow(String name, Class targetActivity, int imageId){
+        EGameRow(String name, Class targetActivity, int imageId) {
             this.name = name;
             this.targetActivity = targetActivity;
             this.imageId = imageId;
         }
 
-        public static EGameRow getGameRowByName(String name){
+        public static EGameRow getGameRowByName(String name) {
             EGameRow gameRowResult = null;
 
-            for(EGameRow gameRow : values()){
-                if(gameRow.name.equals(name)){
+            for (EGameRow gameRow : values()) {
+                if (gameRow.name.equals(name)) {
                     gameRowResult = gameRow;
                     break;
                 }
@@ -53,7 +56,8 @@ public class MenuActivity extends ActionBarAppActivity implements IHeadSetData{
         public String toString() {
             return name;
         }
-//
+
+        //
         public int getImageId() {
             return imageId;
         }
@@ -62,7 +66,7 @@ public class MenuActivity extends ActionBarAppActivity implements IHeadSetData{
     private static final String[] gamesTitles = new String[EGameRow.values().length];
     private static final Integer[] gamesImagesId = new Integer[EGameRow.values().length];
 
-//    private TextView toolbarText;
+    //    private TextView toolbarText;
     private static final String MENU_TOOLBAR_TEXT = "Menu";
     public static final String GUESS_THE_NUMBER_STR = "Guess The Number";
     public static final String HOT_AIR_BALLOON_STR = "HotAir Balloon";
@@ -87,18 +91,18 @@ public class MenuActivity extends ActionBarAppActivity implements IHeadSetData{
 //    };
 
     private static final String[] reviews = {
-            "bla",
-            "bla",
-            "bla",
-            "bla"
+            "Figure which number am I thinking of!",
+            "Lift the hot air balloon with your mind!",
+            "There is only one different cube, Can you find it?",
+            "Shoot the target using your mind!"
     };
 
     private EConnectionState currnetState = EConnectionState.IDLE;
 
-    static{
+    static {
         int i = 0;
 
-        for(EGameRow gameRow : EGameRow.values()){
+        for (EGameRow gameRow : EGameRow.values()) {
             gamesTitles[i] = gameRow.toString();
             gamesImagesId[i++] = gameRow.getImageId();
         }
@@ -107,47 +111,33 @@ public class MenuActivity extends ActionBarAppActivity implements IHeadSetData{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-//        this.setOnBackPressedActivity(SettingsActivity.class);
+        setContentView(R.layout.activity_games);
+//        this.setOnBackPressedActivity(ConnectionActivity.class);
 
-        if(adapter == null){
+        if (adapter == null) {
             adapter = new
-                    MenuCustomList(MenuActivity.this, gamesTitles, gamesImagesId, reviews, R.layout.menu_list_row);
+                    MenuCustomList(GamesActivity.this, gamesTitles, gamesImagesId, reviews, R.layout.games_list_row);
         }
 
-        list = (ListView) findViewById(R.id.list);
+        list = (ListView) findViewById(R.id.gamesList);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-//                Class cls = null;
-//
-//                switch (titles[+position]) {
-//                    case GUESS_THE_NUMBER_STR:
-//                        cls = GuessTheNumberConfigActivity.class;
-//                        break;
-//                    case HOT_AIR_BALLOON_STR:
-//                        cls = HABConfigActivity.class;
-//                        break;
-//                    case CRAZY_CUBE_STR:
-//                        cls = CCConfigActivity.class;
-//                        break;
-//                    case MIND_SHOOTER_STR:
-//                        cls = MindShooterConfigActivity.class;
-//                        break;
-//                }
-                Utils.startNewActivity((Activity)view.getRootView().getContext(),
+                //TODO - fix outside click events when popup is open
+                Utils.startNewActivity((Activity) view.getRootView().getContext(),
                         EGameRow.getGameRowByName(gamesTitles[+position]).getTargetActivity());
             }
         });
+
     }
 
     @Override
-    public void onBackPressed(){
-        if(!homeButtonPopup.isShowing()){
-            Utils.startNewActivity(this, SettingsActivity.class);
+    public void onBackPressed() {
+        if (!homeButtonPopup.isShowing()) {
+            Utils.startNewActivity(this, ConnectionActivity.class);
         } else {
             homeButtonPopup.dismiss();
         }

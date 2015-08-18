@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/blue_sky_and_green_grass_new"
+    android:paddingTop="@dimen/pad_30dp"
+    android:weightSum="10"
+    tools:context="com.example.first.kaganmoshe.brainy.GamesActivity">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView-->
+            <!--android:id="@+id/feedbackTitle"-->
+            <!--style="@style/gamesActivityTitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:text="Games" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/logoImage"-->
+            <!--android:layout_width="208dp"-->
+            <!--android:layout_height="154dp"-->
+            <!--android:src="@drawable/brainy_weights3"-->
+            <!--android:layout_gravity="end"/>-->
+
+
+    <!--</LinearLayout>-->
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/feedbackTitle"
+        style="@style/gamesActivityTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/pad_10dp"
+        android:text="Games" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/logoImage"-->
+        <!--android:layout_width="208dp"-->
+        <!--android:layout_height="154dp"-->
+        <!--android:src="@drawable/brainy_weights3"-->
+        <!--android:layout_marginBottom="@dimen/pad_10dp"-->
+        <!--android:paddingEnd="@dimen/pad_20dp"-->
+        <!--android:layout_gravity="end"/>-->
+
+    <ListView
+        android:id="@+id/gamesList"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:paddingTop="@dimen/pad_10dp"
+        android:paddingBottom="@dimen/pad_10dp"
+        android:divider="@color/list_divider"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/list_row_selector" />
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:src="@drawable/brainy_weights3"
+        android:scaleType="centerInside"
+        android:layout_gravity="bottom|center_horizontal"/>
+
+</LinearLayout>

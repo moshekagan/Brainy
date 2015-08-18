@@ -9,7 +9,7 @@ import android.widget.PopupWindow;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.FinishGameDialog;
-import com.example.first.kaganmoshe.brainy.MenuActivity;
+import com.example.first.kaganmoshe.brainy.GamesActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
 //    @Override
 //    public void onGameDialogBackPressed() {
-//        Utils.startNewActivity(this, MenuActivity.class);
+//        Utils.startNewActivity(this, GamesActivity.class);
 //    }
 
     @Override
@@ -261,7 +261,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     }
 
     protected void onBackClickedFinishGame() {
-        Utils.startNewActivity(this, MenuActivity.class);
+        Utils.startNewActivity(this, GamesActivity.class);
     }
 
     @Override
@@ -304,7 +304,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     @Override
     protected void onPopupMenuOptionSelected() {
-        this.targetActivity = MenuActivity.class;
+        this.targetActivity = GamesActivity.class;
         quitGameDialog.show(fm, "QuitGameDialog");
     }
 

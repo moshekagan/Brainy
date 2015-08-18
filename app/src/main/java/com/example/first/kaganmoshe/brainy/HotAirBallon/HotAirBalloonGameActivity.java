@@ -3,7 +3,6 @@ package com.example.first.kaganmoshe.brainy.HotAirBallon;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +18,7 @@ import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GenericDialogFragment;
-import com.example.first.kaganmoshe.brainy.MenuActivity;
+import com.example.first.kaganmoshe.brainy.GamesActivity;
 import com.example.first.kaganmoshe.brainy.R;
 
 import java.util.LinkedList;
@@ -333,6 +332,6 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
     @Override
     public void backKeyPressed() {
-        Utils.startNewActivity(this, MenuActivity.class);
+        Utils.startNewActivity(this, GamesActivity.class);
     }
 }

@@ -11,7 +11,7 @@ import EEG.EHeadSetType;
 import Utils.Logs;
 
 
-public class SettingsActivity extends AppActivity {
+public class ConnectionActivity extends AppActivity {
 
     // Const Members
     final private String SETTINGS_ACTIVITY = "Settings Activity";
@@ -34,7 +34,7 @@ public class SettingsActivity extends AppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_connection);
 
 //        this.setOnBackPressedActivity(LoginActivity.class);
 
@@ -94,7 +94,7 @@ public class SettingsActivity extends AppActivity {
         AppManager.getInstance().configureAndConnectHeadSet();
 
         // TODO - Update settings
-        Utils.startNewActivity(this, MenuActivity.class);
+        Utils.startNewActivity(this, GamesActivity.class);
     }
 
     @Override

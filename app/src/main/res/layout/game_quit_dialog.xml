@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
     tools:context=".QuitGameDialog">
+
+    <!--android:layout_gravity="center_horizontal"-->
+
 
     <!--<ImageView-->
     <!--android:src="@drawable/winner_background"-->
@@ -19,70 +20,64 @@
     <!--android:layout_alignRight="@id/dialog_layout_main" />-->
 
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
-        android:id="@+id/quitGameDialogTitle"
-        style="@style/winnerDialogTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="@string/game_quit_dialog_title" />
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="2"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:weightSum="5">-->
-
-        <!--<android.widget.Space-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1" />-->
-        <!--<ImageView-->
-        <!--android:layout_marginTop="25dp"-->
-        <!--android:layout_marginBottom="25dp"-->
-        <!--android:layout_weight="3"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/brainy_thumbup"-->
-        <!--android:adjustViewBounds="true" />-->
-
-    <!--</LinearLayout>-->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@id/dialog_layout_main"
+        android:layout_alignEnd="@id/dialog_layout_main"
+        android:layout_alignStart="@id/dialog_layout_main"
+        android:layout_alignTop="@+id/dialog_layout_main"
+        android:scaleType="fitXY"
+        android:src="@drawable/background" />
 
     <LinearLayout
+        android:id="@+id/dialog_layout_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="12"
-        android:layout_marginTop="@dimen/pad_20dp">
+        android:orientation="vertical">
 
-        <android.widget.Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4" />
-
-        <Button
-            android:id="@+id/continueButton"
-            style="@style/dialogButtonText"
-            android:layout_width="0dp"
+        <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+            android:id="@+id/quitGameDialogTitle"
+            style="@style/winnerDialogTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:background="@drawable/winner_dialog_button"
-            android:stateListAnimator="@null"
-            android:text="@string/winner_dialog_continue" />
+            android:layout_marginBottom="@dimen/pad_30dp"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="@dimen/pad_10dp"
+            android:paddingStart="@dimen/pad_20dp"
+            android:text="@string/game_quit_dialog_title" />
 
-        <Button
-            android:id="@+id/quitButton"
-            style="@style/dialogButtonText"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:background="@drawable/winner_dialog_button"
-            android:stateListAnimator="@null"
-            android:text="@string/winner_dialog_quit" />
+            android:layout_marginBottom="@dimen/pad_10dp"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/pad_30dp">
+
+            <Button
+                android:id="@+id/continueButton"
+                style="@style/btn_blue"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/pad_10dp"
+                android:stateListAnimator="@null"
+                android:text="@string/winner_dialog_continue"
+                android:padding="@dimen/pad_5dp"
+                android:textSize="@dimen/txt_15sp" />
+
+            <Button
+                android:id="@+id/quitButton"
+                style="@style/btn_blue"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:stateListAnimator="@null"
+                android:padding="@dimen/pad_5dp"
+                android:text="@string/winner_dialog_quit"
+                android:textSize="@dimen/txt_15sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

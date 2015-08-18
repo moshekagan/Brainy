@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.first.kaganmoshe.brainy.MenuActivity;
+import com.example.first.kaganmoshe.brainy.GamesActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
@@ -24,7 +24,7 @@ public abstract class GameConfigActivity extends ActionBarAppActivity {
     @Override
     public final void onBackPressed() {
         if (!homeButtonPopup.isShowing()) {
-            Utils.startNewActivity(this, MenuActivity.class);
+            Utils.startNewActivity(this, GamesActivity.class);
         } else {
             homeButtonPopup.dismiss();
         }

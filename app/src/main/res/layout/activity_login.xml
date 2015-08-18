@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/blue_sky_and_green_grass_new"
+    android:orientation="vertical"
+    android:padding="@dimen/pad_30dp"
     tools:context=".LoginActivity">
 
-    <RelativeLayout
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="@dimen/pad_30dp">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:id="@+id/loginFields">-->
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/pad_5dp"
+        android:src="@drawable/brainy_logo" />
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/loginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/pad_20dp"
+        android:text="Brainy"
+        android:textColor="@color/black"
+        android:textSize="50sp" />
+
+    <EditText
+        android:id="@+id/user"
+        style="@style/editext_graybg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/pad_30dp">
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_username"
+        android:hint="@string/username">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/loginFields">
+        <requestFocus />
+    </EditText>
 
-            <ImageView
-                android:id="@+id/logoImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/pad_5dp"
-                android:src="@drawable/brainy_logo"
-                android:layout_gravity="center_horizontal"/>
+    <EditText
+        android:id="@+id/password"
+        style="@style/editext_graybg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/pad_20dp"
+        android:layout_marginTop="@dimen/pad_5dp"
+        android:drawableStart="@drawable/ic_pwd"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
 
-            <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
-                android:id="@+id/loginTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Brainy"
-                android:textSize="50sp"
-                android:textColor="@color/black"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/pad_20dp"/>
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/user"
-                style="@style/editext_graybg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_username"
-                android:hint="@string/username">
+        <Button
+            android:id="@+id/RegisterButton"
+            style="@style/btn_white_large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/pad_10dp"
+            android:layout_weight="1"
+            android:text="@string/register" />
 
-                <requestFocus />
-            </EditText>
+        <Button
+            android:id="@+id/loginButton"
+            style="@style/btn_white_large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="@string/sign_in" />
 
-            <EditText
-                android:id="@+id/password"
-                style="@style/editext_graybg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/pad_20dp"
-                android:layout_marginTop="@dimen/pad_5dp"
-                android:drawableStart="@drawable/ic_pwd"
-                android:hint="@string/password"
-                android:inputType="textPassword"/>
+    </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+    <!--</LinearLayout>-->
 
-                <Button
-                    android:id="@+id/RegisterButton"
-                    style="@style/btn_white_large"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/register"
-                    android:layout_marginEnd="@dimen/pad_10dp"/>
+    <!--</RelativeLayout>-->
 
-                <Button
-                    android:id="@+id/loginButton"
-                    style="@style/btn_white_large"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="78dp"
-                    android:layout_weight="1"
-                    android:text="@string/log_in" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-</ScrollView>
+</LinearLayout>

@@ -4,26 +4,20 @@
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/pad_10dp"
     tools:context="com.example.first.kaganmoshe.brainy.CustomActivity.SettingsFragment">
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:textSize="40sp"-->
-    <!--android:layout_gravity="center_horizontal"-->
-    <!--android:text="Settings"-->
-    <!--android:layout_marginBottom="@dimen/pad_15dp"/>-->
-
-    <!-- TODO: Update blank fragment layout -->
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_gravity="center_horizontal"-->
-    <!--android:padding="@dimen/pad_15dp">-->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@id/dialog_layout_main"
+        android:layout_alignEnd="@id/dialog_layout_main"
+        android:layout_alignStart="@id/dialog_layout_main"
+        android:layout_alignTop="@+id/dialog_layout_main"
+        android:scaleType="fitXY"
+        android:src="@drawable/background" />
 
     <LinearLayout
+        android:id="@+id/dialog_layout_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -38,10 +32,9 @@
             android:textSize="40sp" />
 
         <RelativeLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pad_30dp"
-            android:layout_marginStart="@dimen/pad_15dp">
+            android:layout_marginBottom="@dimen/pad_20dp">
 
             <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
                 android:id="@+id/volumeTextView"
@@ -62,61 +55,68 @@
 
             <Button
                 android:id="@+id/decreaseButton"
-                style="@style/btn_white_large"
+                style="@style/btn_blue"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/volumeTextView"
                 android:layout_marginEnd="@dimen/pad_5dp"
+                android:padding="0dp"
                 android:layout_toEndOf="@+id/volumeTextView"
                 android:text="-" />
 
             <Button
                 android:id="@+id/increaseButton"
-                style="@style/btn_white_large"
+                style="@style/btn_blue"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/volumeTextView"
                 android:layout_marginEnd="@dimen/pad_10dp"
                 android:layout_toEndOf="@+id/decreaseButton"
+                android:padding="0dp"
                 android:text="+" />
 
             <Button
                 android:id="@+id/muteButton"
-                style="@style/btn_white_large"
+                style="@style/btn_blue"
                 android:layout_width="75dp"
                 android:layout_height="25dp"
                 android:text="Mute"
+                android:padding="0dp"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/increaseButton" />
 
             <Button
-                android:id="@+id/musicDisableButton"
-                style="@style/btn_white_large"
+                android:id="@+id/musicEnableButton"
+                style="@style/btn_blue"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/musicTextView"
                 android:layout_alignStart="@+id/decreaseButton"
+                android:padding="0dp"
                 android:layout_marginEnd="@dimen/pad_10dp"
                 android:text="On" />
 
             <Button
-                android:id="@+id/musicEnableButton"
-                style="@style/btn_white_large"
+                android:id="@+id/musicDisableButton"
+                style="@style/btn_blue"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
-                android:layout_alignBottom="@+id/musicDisableButton"
-                android:layout_toEndOf="@+id/musicDisableButton"
+                android:padding="0dp"
+                android:layout_alignBottom="@+id/musicEnableButton"
+                android:layout_toEndOf="@+id/musicEnableButton"
                 android:text="Off" />
 
+            <Button
+                android:id="@+id/doneButton"
+                style="@style/btn_blue"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:layout_marginTop="50dp"
+                android:padding="@dimen/pad_5dp"
+                android:layout_below="@+id/musicEnableButton"
+                android:layout_alignEnd="@+id/muteButton" />
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/doneButton"
-            style="@style/btn_white_large"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Done" />
 
     </LinearLayout>
 </RelativeLayout>

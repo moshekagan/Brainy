@@ -37,7 +37,6 @@ public class HABConfigActivity extends GameConfigActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        setTitle("Hot Air Balloon");
     }
 
     @Override

@@ -36,7 +36,7 @@ public class LoginActivity extends AppActivity {
         super.onClick(v);
         if (v.getId() == R.id.loginButton)
         {
-            Utils.startNewActivity(this, SettingsActivity.class);
+            Utils.startNewActivity(this, ConnectionActivity.class);
         }
     }
 

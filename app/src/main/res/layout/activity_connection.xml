@@ -4,11 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/blue_sky_and_green_grass_new"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.first.kaganmoshe.brainy.SettingsActivity">
+    android:padding="@dimen/pad_30dp"
+    tools:context="com.example.first.kaganmoshe.brainy.ConnectionActivity">
 
     <ImageView
         android:id="@+id/logoImage"
@@ -16,8 +13,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/pad_30dp"
-        android:src="@drawable/brainy_logo" />
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/eegheadset_cartoon" />
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/connectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect with \n Brainy"
+        android:textSize="40sp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/logoImage"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/pad_20dp"/>
 
     <com.weiwangcn.betterspinner.library.BetterSpinner
         android:id="@+id/headset_list"
@@ -25,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/logoImage"
+        android:layout_below="@id/connectionTitle"
         android:layout_marginEnd="@dimen/pad_30dp"
         android:layout_marginStart="@dimen/pad_30dp"
         android:hint="@string/choose_headset" />
