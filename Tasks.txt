@@ -10,3 +10,8 @@ style - partly (6)
 progress bar = headset connection
 research user (5)
 server - users (7)
+
+- To record how to implement game on the fly with the SDK
+- TO add session of 10-15 mins with few games
+- To add in feedback activity some icons that show if it’s a good score or not.
+- 
