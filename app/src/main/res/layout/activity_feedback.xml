@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/feedback_background"
+    android:background="@drawable/blue_sky_and_green_grass_new"
     android:orientation="vertical"
     android:paddingBottom="@dimen/padding_feedback_layout"
     android:paddingTop="@dimen/padding_feedback_layout"

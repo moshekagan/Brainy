@@ -17,16 +17,6 @@ public abstract class GameGraphActivity extends GameActivity {
         }
     }
 
-//    @Override
-//    protected void pauseReceivingEEGData(){
-//        super.pauseReceivingEEGData();
-//        Log.d("GRAPH_LIFE", "STOPPING_GRAPH");
-//
-//        if(gameGraph != null) {
-//            gameGraph.stopReceivingData();
-//        }
-//    }
-
     @Override
     protected void resumeReceivingEEGData() {
         super.resumeReceivingEEGData();

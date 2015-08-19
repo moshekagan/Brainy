@@ -48,7 +48,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     private boolean displayMessage = true;
     private MediaPlayer hotAirBalloonSoundAffect;
     private int oldAtt = 0;
-    private FeedbackClass feedback;
+//    private FeedbackClass feedback;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
 //    StartGameDialogFragment startGameDialogFragment;
 
@@ -237,11 +237,6 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    @Override
-    protected void onMenuPopupShow() {
-
-    }
-
 //    @Override
 //    protected void onMenuPopupDismiss() {
 //
@@ -309,16 +304,16 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         customHandler.removeCallbacks(updateTimerThread);
         feedback.stopTimerAndRecievingData();
         hotAirBalloonSoundAffect.stop();
-        showFinishGameDialog();
+        showFinishDialog();
     }
 
-    private void showFinishGameDialog() {
-        GenericDialogFragment finishDialogFragment = new GenericDialogFragment();
-        finishDialogFragment.setGameScreen(this);
-        finishDialogFragment.setTitleText("End Of Time, Good Work!");
-        finishDialogFragment.setContinueButtonText("Show Results");
-        finishDialogFragment.show(fm, "FinishDialogFragment");
-    }
+//    private void showFinishGameDialog() {
+//        GenericDialogFragment finishDialogFragment = new GenericDialogFragment();
+//        finishDialogFragment.setGameScreen(this);
+//        finishDialogFragment.setTitleText("End Of Time, Good Work!");
+//        finishDialogFragment.setContinueButtonText("Show Results");
+//        finishDialogFragment.show(fm, "FinishDialogFragment");
+//    }
 
     @Override
     public void continueNextScreen() {
@@ -333,5 +328,29 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     @Override
     public void backKeyPressed() {
         Utils.startNewActivity(this, GamesActivity.class);
+    }
+
+    @Override
+    public void onDialogShow(Class thisClass) {
+//        stopClock();
+        super.onDialogShow(thisClass);
+    }
+
+    @Override
+    protected void onMenuPopupShow() {
+        super.onMenuPopupShow();
+//        stopClock();
+    }
+
+    @Override
+    public void onGameResumed() {
+        super.onGameResumed();
+//        resumeClock();
+//        showSpecialCell();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
     }
 }

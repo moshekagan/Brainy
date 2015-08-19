@@ -38,7 +38,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     protected void onMenuPopupShow() {
         Log.d("FEEDBACK_USER_PAUSE", "PAUSED");
-        feedback.incNumOfUserPauses();
     }
 
 //    protected abstract void onMenuPopupDismiss();

@@ -6,6 +6,7 @@
     android:paddingBottom="@dimen/pad_10dp"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/blue_sky_and_green_grass_new"
     android:weightSum="60"
     tools:context=".GuessTheNumberGameActivity">
 

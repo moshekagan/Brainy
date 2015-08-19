@@ -15,6 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppTimer;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraphActivity;
 import com.example.first.kaganmoshe.brainy.R;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
-public class CrazyCubeActivity extends GameGraphActivity {
+public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAppTimerListener{
 
     private TableLayout gameTable;
     private Context context;
@@ -35,12 +36,12 @@ public class CrazyCubeActivity extends GameGraphActivity {
     private int currSpecialCellFactor = MAX_SPECIAL_CELL_FACTOR - 10;
     private TextView scoreTextView;
     private TextView timeTextView;
-    private Handler handler = new Handler();
     private int currTime = TIME_FOR_GAME;
     private int currScore = 0;
     private int badChoicesLeft = BAD_CHOICES_SIZE;
-    private Runnable timer;
-    private boolean timerOn = true;
+//    private Handler handler = new Handler();
+//    private Runnable timer;
+//    private boolean timerOn = true;
     private double lastConcentrationAverage = 0;
     private int currConcentrationListIndex = 0;
     private ArrayList<DataPoint> concentrationList = new ArrayList<>();
@@ -58,9 +59,11 @@ public class CrazyCubeActivity extends GameGraphActivity {
     private static final int FACTOR_DELTA_JUMP = 5;
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
-        private static final int TIME_FOR_GAME = 60;
-//    private static final int TIME_FOR_GAME = 10;
+//        private static final int TIME_FOR_GAME = 60;
+    private static final int TIME_FOR_GAME = 10;
     private static final int BAD_CHOICES_SIZE = 3;
+
+    private AppTimer timer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.SECONDS_ONLY);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +83,15 @@ public class CrazyCubeActivity extends GameGraphActivity {
         setScoreView();
         setBadChoicesLeftView();
 
-        timer = new Runnable() {
-            @Override
-            public void run() {
-                updateTimeTextView();
-            }
-        };
+        timer.registerListener(this);
+//        timer = new Runnable() {
+//            @Override
+//            public void run() {
+//                updateTimeTextView();
+//            }
+//        };
 
+        timeTextView.setText(timer.toString());
         startFeedbackSession();
         BuildTable(++currBoardSize);
 //        ResumeGameCountDown rgc = new ResumeGameCountDown();
@@ -94,13 +99,15 @@ public class CrazyCubeActivity extends GameGraphActivity {
     }
 
     private void stopClock() {
-        handler.removeCallbacks(timer);
-        timerOn = false;
+//        handler.removeCallbacks(timer);
+//        timerOn = false;
+        timer.stopTimer();
     }
 
     private void resumeClock() {
-        timerOn = true;
-        handler.postDelayed(timer, 1000);
+        timer.resumeTimer();
+//        timerOn = true;
+//        handler.postDelayed(timer, 1000);
     }
 
     @Override
@@ -122,17 +129,17 @@ public class CrazyCubeActivity extends GameGraphActivity {
     }
 
     private void updateTimeTextView() {
-        if (timerOn) {
-            timeTextView.setText(Integer.toString(currTime--));
-
-            if (currTime != 0)
-                handler.postDelayed(timer, 1000);
-            else{
-//                timeTextView.setText("0");
-                ((CCubeFeedback)feedback).calculateFinalScore(currScore, badChoicesLeft);
-                showFinishDialog();
-            }
-        }
+//        if (timerOn) {
+//            timeTextView.setText(Integer.toString(currTime--));
+//
+//            if (currTime != 0)
+//                handler.postDelayed(timer, 1000);
+//            else{
+////                timeTextView.setText("0");
+//                ((CCubeFeedback)feedback).calculateFinalScore(currScore, badChoicesLeft);
+//                showFinishDialog();
+//            }
+//        }
     }
 
     private void setScoreView() {
@@ -342,6 +349,20 @@ public class CrazyCubeActivity extends GameGraphActivity {
         hideSpecialCell();
     }
 
+    @Override
+    public void onTimeTick(String timeString) {
+        timeTextView.setText(timeString);
+    }
+
+    @Override
+    public void onTimeFinish(String timeString) {
+        finishGame();
+    }
+
+    private void finishGame(){
+        ((CCubeFeedback)feedback).calculateFinalScore(currScore, badChoicesLeft);
+        showFinishDialog();
+    }
 //    @Override
 //    protected void onFinishGameShow() {
 //        super.onFinishGameShow();

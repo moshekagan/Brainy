@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/pad_15dp"
     android:paddingBottom="@dimen/pad_10dp"
+    android:background="@drawable/blue_sky_and_green_grass_new"
     android:weightSum="60"
     tools:context=".CrazyCubeActivity">
 
