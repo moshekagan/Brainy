@@ -59,8 +59,8 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     private static final int FACTOR_DELTA_JUMP = 5;
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
-//        private static final int TIME_FOR_GAME = 60;
-    private static final int TIME_FOR_GAME = 10;
+        private static final int TIME_FOR_GAME = 60;
+//    private static final int TIME_FOR_GAME = 10;
     private static final int BAD_CHOICES_SIZE = 3;
 
     private AppTimer timer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.SECONDS_ONLY);
