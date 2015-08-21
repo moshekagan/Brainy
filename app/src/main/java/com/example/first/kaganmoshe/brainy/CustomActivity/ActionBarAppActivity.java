@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListPopupWindow;
+import android.widget.RelativeLayout;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
 import com.example.first.kaganmoshe.brainy.GamesActivity;
@@ -298,6 +299,10 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                 mMeasureParent = new FrameLayout(context);
             }
             itemView = adapter.getView(i, itemView, mMeasureParent);
+            itemView.setLayoutParams(new ViewGroup.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT));
+            itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
             itemView.measure(widthMeasureSpec, heightMeasureSpec);
             width = Math.max(width, itemView.getMeasuredWidth());
         }
