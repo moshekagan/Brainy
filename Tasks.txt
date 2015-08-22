@@ -1,18 +1,40 @@
-sessions (2)
-score (3)
-mind shooter (1)
-hebrew support(8)
--   cache
+———————————————————————
+——————— General ———————
+———————————————————————
+- Work on the algorithm of getting the concentration attributes.	-
+- Remove login. 							tamir
+- Progress bar on headset connection.					-
+- Support no headset Mode (Skip option in the connection activity).	-
+- Logout.								-
+- Option to mute the music in the action bar.				tamir
+- Add an option to add a game to the app like a plugin.			-
+- Style Style Style.							-
 
-settings option (4)
-style - partly (6)
+———————————————————————
+——————— Video —————————
+———————————————————————
+- Talk about neurofeedback.
 
-progress bar = headset connection
-research user (5)
-server - users (7)
+———————————————————————
+——————— Games —————————
+———————————————————————
+- Show best score.							tamir
+- Show history of games - 1 week/1 month/1 year.			tamir
+- Add option of 15 minutes session games.
+- Make a demo of creating a game from scratch.
+- Add Help option - for each game.
 
-- To record how to implement game on the fly with the SDK
-- TO add session of 10-15 mins with few games
-- To add in feedback activity some icons that show if it’s a good score or not.
-- Save history of session
-- Remove Login
+	———————————————————————
+	——————— GTN ———————————
+	———————————————————————
+	- Add arrow icons up/down.					tamir
+
+	———————————————————————
+	——————— CCUBE —————————
+	———————————————————————
+	- Check the algorithm reliability.				tamir
+
+———————————————————————
+——————— Feedback ——————
+———————————————————————
+- Add some visualisation to the stats to know if its good or bad.	tamir

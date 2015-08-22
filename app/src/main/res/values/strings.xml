@@ -71,4 +71,5 @@
     <string name="numberOfSessionsChoiceView">1</string>
     <string name="title_activity_game_graph">GameGraphActivity</string>
     <string name="title_activity_action_bar_app">ActionBarAppActivity</string>
+    <string name="saved_high_score" />
 </resources>

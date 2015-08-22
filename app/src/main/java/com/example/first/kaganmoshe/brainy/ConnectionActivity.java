@@ -1,5 +1,6 @@
 package com.example.first.kaganmoshe.brainy;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -73,6 +74,9 @@ public class ConnectionActivity extends AppActivity {
         setTouchNClick(R.id.skipButton);
 
         initViewActivity();
+
+        AppManager.getInstance().setBackgroundMusic(getApplicationContext());
+        AppManager.getInstance().playBackgroundMusic();
     }
 
     private void initViewActivity() {
@@ -99,6 +103,6 @@ public class ConnectionActivity extends AppActivity {
 
     @Override
     public void onBackPressed(){
-        Utils.startNewActivity(this, LoginActivity.class);
+        finish();
     }
 }

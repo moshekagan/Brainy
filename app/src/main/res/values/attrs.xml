@@ -8,5 +8,6 @@
         <attr name="metaButtonBarStyle" format="reference" />
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
+    <integer name="default_high_score">0</integer>
 
 </resources>

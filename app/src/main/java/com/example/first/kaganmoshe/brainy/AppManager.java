@@ -1,5 +1,6 @@
 package com.example.first.kaganmoshe.brainy;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
@@ -21,8 +22,10 @@ public class AppManager implements IHeadSetData {
     private static final String APP_MANAGER = "AppManager";
     private static AppManager m_Instance;
     private static MediaPlayer m_BackgroundMusic;
+    private static boolean m_MusicMute = false;
     private EegHeadSet m_HeadSet;
     private AppSettings m_AppSettings;
+    private static Context m_Context;
 
 
 //    private HashMap<Integer, Drawable> m_Drawables;
@@ -30,12 +33,12 @@ public class AppManager implements IHeadSetData {
 //    public static final String MENU_CONNECTION_ICON = "MENU";
 
     // C'tor
-    private AppManager(){
+    private AppManager() {
         m_AppSettings = new AppSettings();
         Logs.info("APP_MANAGER", "APP_MANAGER");
 //        configureAndConnectHeadSet();
     }
- //
+    //
 //    public Drawable getDrawable(int i//d){
 //        if(!m_Drawables.containsKey(id//)){
 //            m_Drawables.put(id, //co)
@@ -43,8 +46,8 @@ public class AppManager implements IHeadSetData {
 //    }
 
 
-    public static AppManager getInstance(){
-        if (m_Instance == null){
+    public static AppManager getInstance() {
+        if (m_Instance == null) {
             m_Instance = new AppManager();
             Logs.info(APP_MANAGER, "~ * ~ * ~ * Just created AppManager instance (Singleton)! * ~ * ~ * ~");
         }
@@ -53,16 +56,18 @@ public class AppManager implements IHeadSetData {
     }
 
     // Methods
-    public EegHeadSet getHeadSet(){
+    public EegHeadSet getHeadSet() {
         return m_HeadSet;
     }
 
-    public AppSettings getAppSettings() { return m_AppSettings; }
+    public AppSettings getAppSettings() {
+        return m_AppSettings;
+    }
 
-    public void configureAndConnectHeadSet(){
+    public void configureAndConnectHeadSet() {
         EHeadSetType type = getAppSettings().getHeadSetType();
-        if (m_AppSettings.isUsingHeadSet() && m_HeadSet == null){
-            switch (type){
+        if (m_AppSettings.isUsingHeadSet() && m_HeadSet == null) {
+            switch (type) {
                 case MindWave:
                     m_HeadSet = new MindWave();
                     Logs.info(APP_MANAGER, "Connected to: MINDWAVE :)");
@@ -77,13 +82,13 @@ public class AppManager implements IHeadSetData {
         connectToHeadSet();
     }
 
-    public void connectToHeadSet(){
-        if (m_AppSettings.isUsingHeadSet() && m_HeadSet != null){
+    public void connectToHeadSet() {
+        if (m_AppSettings.isUsingHeadSet() && m_HeadSet != null) {
             m_HeadSet.connect();
             Logs.info(APP_MANAGER, "Try to connect to MindWave");
         }
         //mocker
-        else{
+        else {
             m_HeadSet.connect();
         }
     }
@@ -113,19 +118,37 @@ public class AppManager implements IHeadSetData {
     @Override
     public void onPoorSignalReceived(ESignalVolume signalVolume) { /* Do Nothing! */ }
 
-    public static void setBackgroundMusic(MediaPlayer backgroundMusic){
-        m_BackgroundMusic = backgroundMusic;
+    public static void setBackgroundMusic(Context context) {
+        if (m_BackgroundMusic == null) {
+            m_Context = context;
+            m_BackgroundMusic = MediaPlayer.create(m_Context, R.raw.background_music);
+        }
     }
 
-    public static void playBackgroundMusic(){
-        m_BackgroundMusic.start();
+    public static void playBackgroundMusic() {
+        if (!m_BackgroundMusic.isPlaying() && !m_MusicMute) {
+            m_BackgroundMusic.start();
+            m_BackgroundMusic.setLooping(true);
+        }
     }
 
-    public static void stopBackgroundMusic(){
+    public static void stopBackgroundMusic() {
         m_BackgroundMusic.stop();
     }
 
-    public static void pauseBackgroundMusic(){
+    public static void pauseBackgroundMusic() {
         m_BackgroundMusic.pause();
+    }
+
+    public static void muteMusic(boolean muteMode) {
+        if (m_MusicMute && !muteMode) {
+            m_BackgroundMusic = MediaPlayer.create(m_Context, R.raw.background_music);
+            m_BackgroundMusic.setLooping(true);
+            m_BackgroundMusic.start();
+        } else if (!m_MusicMute && muteMode) {
+            m_BackgroundMusic.reset();
+        }
+
+        m_MusicMute = muteMode;
     }
 }

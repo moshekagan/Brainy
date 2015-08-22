@@ -61,11 +61,12 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         quitGameDialog.setGameScreen(this);
         finishGameDialog.setGameScreen(this);
         resumeGameCountDown.setGameScreen(this);
-        try {
-            onBackPressedActivityTarget = Class.forName(getIntent().getStringExtra(Utils.CALLING_CLASS));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            onBackPressedActivityTarget = Class.forName(getIntent().getStringExtra(Utils.CALLING_CLASS));
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        onBackPressedActivityTarget = GamesActivity.class;
     }
 
 //    @Override
@@ -157,7 +158,8 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
         intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
-        intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, getIntent().getStringExtra(Utils.CALLING_CLASS));
+//        intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, getIntent().getStringExtra(Utils.CALLING_CLASS));
+        intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, this.getClass().getCanonicalName());
 
         return intent;
     }

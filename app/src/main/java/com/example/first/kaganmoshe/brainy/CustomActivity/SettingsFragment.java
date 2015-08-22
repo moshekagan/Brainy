@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.first.kaganmoshe.brainy.AppManager;
 import com.example.first.kaganmoshe.brainy.R;
 
 ///**
@@ -34,6 +35,8 @@ public class SettingsFragment extends DialogFragment {
     private Button decreaseButton;
     private Button muteButton;
     private Button doneButton;
+    private Button musicEnableButton;
+    private Button musicDisableButton;
     private boolean isShowing = false;
 
     public boolean isShowing() {
@@ -126,6 +129,22 @@ public class SettingsFragment extends DialogFragment {
                 isShowing = false;
                 currScreen.onSettingsDonePressed();
                 dismiss();
+            }
+        });
+
+        musicDisableButton = (Button) view.findViewById(R.id.musicDisableButton);
+        musicDisableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppManager.getInstance().muteMusic(true);
+            }
+        });
+
+        musicEnableButton = (Button) view.findViewById(R.id.musicEnableButton);
+        musicEnableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppManager.getInstance().muteMusic(false);
             }
         });
 

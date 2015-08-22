@@ -1,6 +1,8 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
 //    private static final float CONCENTRATION_WEIGHT = 0.3f;
     public static final int BEST_CONCENTRATION_SCORE = 85;
     public static final String CONCENTRATION_AVERAGE = "Concentration average";
+    private int finalScore;
 
     protected GraphView graphView;
     protected LineGraphSeries<DataPoint> graphConcentrationPoints = new LineGraphSeries<>();
@@ -57,10 +60,39 @@ public class FeedbackActivity extends ActionBarAppActivity {
 
         initConcentrationPoints();
         initStats();
+//        initBestScore();
         initExtraStats();
         initGraph();
         initButtons();
         initInfo();
+    }
+
+    private void initBestScore() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        int defaultValue = getResources().getInteger(R.integer.default_high_score);
+        long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
+
+        addStat("High score", String.valueOf(highScore));
+
+        checkBestScore();
+    }
+
+    private void checkBestScore(){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        int defaultValue = getResources().getInteger(R.integer.default_high_score);
+        long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
+
+        if(highScore < finalScore){
+            setBestScore();
+            addStat("New high score", String.valueOf(finalScore));
+        }
+    }
+
+    private void setBestScore(){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.saved_high_score), finalScore);
+        editor.commit();
     }
 
     private void initStats() {
@@ -70,7 +102,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
 
 //        int finalScore = (int) (gameScore * GAME_SCORE_WEIGHT + generalDistraction * GENERAL_DISTRACTION_WEIGHT
 //                + concentrationScore() * CONCENTRATION_WEIGHT);
-        int finalScore = gameScore + generalDistraction + concentrationScore();
+        finalScore = gameScore + generalDistraction + concentrationScore();
 
         ((TextView)findViewById(R.id.feedbackScoreTextView)).setText(Integer.toString(finalScore));
     }

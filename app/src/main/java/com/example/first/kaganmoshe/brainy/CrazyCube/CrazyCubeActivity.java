@@ -1,9 +1,13 @@
 package com.example.first.kaganmoshe.brainy.CrazyCube;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,7 +30,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
-public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAppTimerListener{
+public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAppTimerListener {
 
     private TableLayout gameTable;
     private Context context;
@@ -39,7 +43,7 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     private int currTime = TIME_FOR_GAME;
     private int currScore = 0;
     private int badChoicesLeft = BAD_CHOICES_SIZE;
-//    private Handler handler = new Handler();
+    //    private Handler handler = new Handler();
 //    private Runnable timer;
 //    private boolean timerOn = true;
     private double lastConcentrationAverage = 0;
@@ -47,24 +51,26 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     private ArrayList<DataPoint> concentrationList = new ArrayList<>();
     private Button currSpecialCell = null;
     private TextView badChoiceLeftTextView;
-    private MediaPlayer goodSound;
-    private MediaPlayer badSound;
-
-//    private GraphView graphView;
-//    private LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-//    private int lastX = 0;
+//    private MediaPlayer goodSound;
+//    private MediaPlayer badSound;
+    private SoundPool soundEffect;
+    private int goodSoundId;
+    private int badSoundId;
 
     private static final int MIN_SPECIAL_CELL_FACTOR = -5;
     private static final int MAX_SPECIAL_CELL_FACTOR = -40;
     private static final int FACTOR_DELTA_JUMP = 5;
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
-        private static final int TIME_FOR_GAME = 60;
 //    private static final int TIME_FOR_GAME = 10;
+    //        private static final int TIME_FOR_GAME = 60;
+    private static final int TIME_FOR_GAME = 60;
+    //    private static final int TIME_FOR_GAME = 10;
     private static final int BAD_CHOICES_SIZE = 3;
 
     private AppTimer timer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.SECONDS_ONLY);
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +82,13 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         badChoiceLeftTextView = (TextView) findViewById(R.id.CCubeBadChoiceLeftTextView);
         context = getApplicationContext();
 
-        goodSound = MediaPlayer.create(this, R.raw.good_sound_effect);
-        badSound = MediaPlayer.create(this, R.raw.wrong_sound2);
+        soundEffect = new SoundPool.Builder()
+                .setMaxStreams(10)
+                .build();
+        goodSoundId = soundEffect.load(this, R.raw.good_sound_effect, 1);
+        badSoundId = soundEffect.load(this, R.raw.wrong_sound2, 1);
+//        goodSoundId = MediaPlayer.create(this, R.raw.good_sound_effect);
+//        badSound = MediaPlayer.create(this, R.raw.wrong_sound2);
 
         gameGraph = new GameGraph((GraphView) findViewById(R.id.graph), this);
         setScoreView();
@@ -90,7 +101,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
 //                updateTimeTextView();
 //            }
 //        };
-
         timeTextView.setText(timer.toString());
         startFeedbackSession();
         BuildTable(++currBoardSize);
@@ -209,17 +219,18 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     }
 
     private void playGoodSound() {
-        goodSound.seekTo(0);
-        goodSound.start();
+//        goodSound.seekTo(0);
+//        goodSound.start();
+        soundEffect.play(goodSoundId, 1, 1, 1, 0, 1);
     }
 
     private void wrongCellClicked() {
         playBadSound();
 
-        if(badChoicesLeft > 0){
+        if (badChoicesLeft > 0) {
             --badChoicesLeft;
             setBadChoicesLeftView();
-        } else if(currScore > 0){
+        } else if (currScore > 0) {
             --currScore;
             setScoreView();
         }
@@ -230,8 +241,9 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     }
 
     private void playBadSound() {
-        badSound.seekTo(0);
-        badSound.start();
+        soundEffect.play(badSoundId, 1, 1, 1, 0, 1);
+//        badSound.seekTo(0);
+//        badSound.start();
     }
 
     private void setSpecialCell() {
@@ -359,8 +371,8 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         finishGame();
     }
 
-    private void finishGame(){
-        ((CCubeFeedback)feedback).calculateFinalScore(currScore, badChoicesLeft);
+    private void finishGame() {
+        ((CCubeFeedback) feedback).calculateFinalScore(currScore, badChoicesLeft);
         showFinishDialog();
     }
 //    @Override

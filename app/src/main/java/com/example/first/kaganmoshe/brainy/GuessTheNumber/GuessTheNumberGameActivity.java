@@ -1,8 +1,10 @@
 package com.example.first.kaganmoshe.brainy.GuessTheNumber;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,11 +36,16 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
     private Button approveGuessButton;
     private Button backspaceButton;
     private GuessTheNumberLogic game;
-    private MediaPlayer buttonClickSound;
-    private MediaPlayer wrongAnswerSound;
+    private SoundPool soundEffect;
+    private SoundPool wrongAnswerSound;
+    private int buttonClickSoundId;
+    private int wrongAnswerSoundId;
+//    private MediaPlayer soundEffect;
+//    private MediaPlayer wrongAnswerSound;
 //    private boolean isButtonClickSoundReady = false;
 //    private boolean isWrongAnswerSoundReady = false;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +57,15 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         backspaceButton = (Button) findViewById(R.id.backspaceButton);
         inputText = (TextView) findViewById(R.id.guessInput);
 
-        if (buttonClickSound == null && wrongAnswerSound == null) {
-            buttonClickSound = MediaPlayer.create(this, R.raw.button_click_sound);
-            wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
-        }
+//        if (soundEffect == null && wrongAnswerSound == null) {
+            soundEffect = new SoundPool.Builder()
+                    .setMaxStreams(10)
+                    .build();
+            buttonClickSoundId = soundEffect.load(this, R.raw.button_click_sound, 1);
+            wrongAnswerSoundId = soundEffect.load(this, R.raw.wrong_sound2, 1);
+//            soundEffect = MediaPlayer.create(this, R.raw.button_click_sound);
+//            wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
+//        }
 
         gameGraph = new GameGraph((GraphView) findViewById(R.id.graph), this);
 
@@ -90,9 +102,10 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
     }
 
     private void initialize() {
-        Intent intent = getIntent();
+//        Intent intent = getIntent();
         Log.d("GTN", "CREATE_LOGIC");
-        game = new GuessTheNumberLogic(Integer.parseInt(intent.getStringExtra(GuessTheNumberConfigActivity.EXTRA_MESSAGE)));
+//        game = new GuessTheNumberLogic(Integer.parseInt(intent.getStringExtra(GuessTheNumberConfigActivity.EXTRA_MESSAGE)));
+        game = new GuessTheNumberLogic(100);
         Log.d("GTN", "FINISH CREATE LOGIC");
         guessRequestText.append(" " + Integer.toString(game.getMaxValue()));
     }
@@ -116,11 +129,13 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
                     break;
             }
 
-            wrongAnswerSound.start();
+//            wrongAnswerSound.start();
+            soundEffect.play(wrongAnswerSoundId, 1, 1, 1, 0, 1);
             inputText.setText("");
         } catch (NumberFormatException ex) {
             outputText.setText("Invalid input");
-            wrongAnswerSound.start();
+//            wrongAnswerSound.start();
+            soundEffect.play(wrongAnswerSoundId, 1, 1, 1, 0, 1);
         }
     }
 
@@ -128,7 +143,8 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         if (view.getId() == approveGuessButton.getId()) {
             checkGuess();
         } else {
-            buttonClickSound.start();
+//            soundEffect.start();
+            soundEffect.play(buttonClickSoundId, 1, 1, 1, 0, 1);
 
             if (view.getId() == backspaceButton.getId()) {
                 removeLastLetterFromInput();

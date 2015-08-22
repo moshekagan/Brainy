@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -97,6 +98,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         } else { }
 
         startGame();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 //        showStartGameDialogFragment();
     }
 

@@ -6,6 +6,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.first.kaganmoshe.brainy.AppManager;
+
 /**
  * Created by tamirkash on 7/28/15.
  */
@@ -99,5 +101,17 @@ public abstract class AppActivity extends FragmentActivity implements View.OnCli
                 //if can't remove all view (e.g. adapter view) - no problem
             }
         }
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        AppManager.getInstance().pauseBackgroundMusic();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        AppManager.getInstance().playBackgroundMusic();
     }
 }
