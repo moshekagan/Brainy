@@ -2,6 +2,7 @@ package com.example.first.kaganmoshe.brainy.CrazyCube;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppTimer;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraphActivity;
+import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -43,9 +45,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     private int currTime = TIME_FOR_GAME;
     private int currScore = 0;
     private int badChoicesLeft = BAD_CHOICES_SIZE;
-    //    private Handler handler = new Handler();
-//    private Runnable timer;
-//    private boolean timerOn = true;
     private double lastConcentrationAverage = 0;
     private int currConcentrationListIndex = 0;
     private ArrayList<DataPoint> concentrationList = new ArrayList<>();
@@ -306,7 +305,7 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     @Override
     protected void startFeedbackSession() {
         feedback = new CCubeFeedback();
-        feedback.startTimer();
+//        feedback.startTimer();
     }
 
     @Override
@@ -338,15 +337,19 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         showSpecialCell();
     }
 
+    // If you dont override this, the default is to go to the feedback activity
     @Override
     public void onFinishGameContinueClicked() {
-        LinkedHashMap<String, String> extraStats = new LinkedHashMap<>();
+        //this is the format to add your own stat
+        addNewStatForFeedback("Bonus", "100");
+        //then you call this method
+        continueToNextActivity(FeedbackActivity.class);
 
-//        extraStats.put("Test", "Success");
-//        extraStats.put("Test2", "Success");
-//        extraStats.put("Test3", "3:21");
+    }
 
-        setNewStatsListAndContinue(extraStats);
+    @Override
+    protected void addTotalTimeSessionFeedbackStat(Intent intent) {
+        intent.putExtra(FeedbackActivity.TOTAL_TIME, "01:00");
     }
 
 //    @Override
@@ -354,10 +357,10 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
 //        return ((5 * badChoicesLeft) + (10 * currScore));
 //    }
 
+    //home button icon on the actionbar was clicked
     @Override
     public void homeMenuButtonClicked() {
         super.homeMenuButtonClicked();
-
         hideSpecialCell();
     }
 

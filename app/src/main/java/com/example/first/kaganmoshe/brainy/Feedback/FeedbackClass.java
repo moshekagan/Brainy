@@ -34,8 +34,8 @@ public abstract class FeedbackClass implements IHeadSetData {
     private ArrayList<ParcelableDataPoint> concentrationPoints;
     //    private int lastXGraphAtt = 0;
 //    private GraphView m_GraphView;
-    private long sessionTimeStart = 0;
-    private long sessionTimeStop = 0;
+//    private long sessionTimeStart = 0;
+//    private long sessionTimeStop = 0;
 //    private long sessionTimePaused = 0;
 //    private long totalTimePaused = 0;
     private int lastX = 0;
@@ -56,11 +56,11 @@ public abstract class FeedbackClass implements IHeadSetData {
     }
 
     public void startTimer(){
-        sessionTimeStart = Calendar.getInstance().getTimeInMillis();
+//        sessionTimeStart = Calendar.getInstance().getTimeInMillis();
     }
 
     public void stopTimerAndRecievingData(){
-        sessionTimeStop = Calendar.getInstance().getTimeInMillis();
+//        sessionTimeStop = Calendar.getInstance().getTimeInMillis();
         AppManager.getInstance().getHeadSet().unregisterListener(this);
     }
 
@@ -84,16 +84,16 @@ public abstract class FeedbackClass implements IHeadSetData {
         headSet.registerListener(this);
     }
 
-    public long getSessionTimeInSeconds(){
-//        Log.d("SECONDS", Long.toString(sessionTimeStop - sessionTimeStart - totalTimePaused));
-        return (sessionTimeStop - sessionTimeStart - (DateUtils.SECOND_IN_MILLIS * ResumeGameCountDown.COUNTDOWN_TIME))
-                / DateUtils.SECOND_IN_MILLIS;
-    }
+//    public long getSessionTimeInSeconds(){
+////        Log.d("SECONDS", Long.toString(sessionTimeStop - sessionTimeStart - totalTimePaused));
+//        return (sessionTimeStop - sessionTimeStart - (DateUtils.SECOND_IN_MILLIS * ResumeGameCountDown.COUNTDOWN_TIME))
+//                / DateUtils.SECOND_IN_MILLIS;
+//    }
 
-    public long getSessionTimeInMinutes(){
-        return (sessionTimeStop - sessionTimeStart - (DateUtils.SECOND_IN_MILLIS * ResumeGameCountDown.COUNTDOWN_TIME))
-                / DateUtils.MINUTE_IN_MILLIS;
-    }
+//    public long getSessionTimeInMinutes(){
+//        return (sessionTimeStop - sessionTimeStart - (DateUtils.SECOND_IN_MILLIS * ResumeGameCountDown.COUNTDOWN_TIME))
+//                / DateUtils.MINUTE_IN_MILLIS;
+//    }
 
     public ArrayList<ParcelableDataPoint> getConcentrationPoints() {
         return concentrationPoints;

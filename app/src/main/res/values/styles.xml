@@ -188,4 +188,9 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="feedbackBestScoreTextView" parent="feedbackActivityTextViewText">
+        <item name="android:textColor">@color/feedback_best_score_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

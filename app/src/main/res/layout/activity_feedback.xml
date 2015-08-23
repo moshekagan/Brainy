@@ -19,6 +19,14 @@
         android:gravity="center_horizontal|bottom"
         android:text="@string/feedback_activity_title" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:src="@drawable/brainy_teacher"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerInside"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,8 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="@dimen/pad_15dp"
-            android:paddingTop="@dimen/pad_15dp">
+            android:paddingStart="@dimen/pad_15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,18 +49,38 @@
 
                 <TextView
                     style="@style/feedbackActivityTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/pad_5dp"
                     android:text="@string/feedbackScoreView" />
 
                 <TextView
                     android:id="@+id/feedbackScoreTextView"
                     style="@style/feedbackActivityTextViewText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="bottom"
                     android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/pad_15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/feedbackActivityTextView"
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/feedbackBestScoreView" />
+
+                <TextView
+                    android:id="@+id/feedbackBestScoreTextView"
+                    style="@style/feedbackBestScoreTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom" />
 
             </LinearLayout>
 
@@ -65,9 +92,8 @@
 
                 <TextView
                     style="@style/feedbackActivityTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="180dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/pad_5dp"
                     android:text="@string/feedbackTimeView" />
 
                 <TextView
@@ -75,20 +101,12 @@
                     style="@style/feedbackActivityTextViewText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="bottom"
-                    android:text="" />
+                    android:gravity="bottom" />
 
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:src="@drawable/brainy_teacher"
-        android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
         android:layout_width="match_parent"

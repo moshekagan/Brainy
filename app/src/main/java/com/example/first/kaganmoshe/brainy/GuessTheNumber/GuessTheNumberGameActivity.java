@@ -8,15 +8,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppStopWatch;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView;
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppTime;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraph;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameGraphActivity;
+import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
 
@@ -37,13 +45,14 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
     private Button backspaceButton;
     private GuessTheNumberLogic game;
     private SoundPool soundEffect;
-    private SoundPool wrongAnswerSound;
     private int buttonClickSoundId;
     private int wrongAnswerSoundId;
-//    private MediaPlayer soundEffect;
+    private ImageSwitcher arrowImage;
+    //    private MediaPlayer soundEffect;
 //    private MediaPlayer wrongAnswerSound;
 //    private boolean isButtonClickSoundReady = false;
 //    private boolean isWrongAnswerSoundReady = false;
+    protected AppStopWatch stopWatch = new AppStopWatch(AppTime.ETimeStringFormat.MINUTES_AND_SECONDS);
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -56,13 +65,14 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         approveGuessButton = (Button) findViewById(R.id.approveGuessButton);
         backspaceButton = (Button) findViewById(R.id.backspaceButton);
         inputText = (TextView) findViewById(R.id.guessInput);
+        arrowImage = (ImageSwitcher) findViewById(R.id.arrowImageView);
 
 //        if (soundEffect == null && wrongAnswerSound == null) {
-            soundEffect = new SoundPool.Builder()
-                    .setMaxStreams(10)
-                    .build();
-            buttonClickSoundId = soundEffect.load(this, R.raw.button_click_sound, 1);
-            wrongAnswerSoundId = soundEffect.load(this, R.raw.wrong_sound2, 1);
+        soundEffect = new SoundPool.Builder()
+                .setMaxStreams(10)
+                .build();
+        buttonClickSoundId = soundEffect.load(this, R.raw.button_click_sound, 1);
+        wrongAnswerSoundId = soundEffect.load(this, R.raw.wrong_sound2, 1);
 //            soundEffect = MediaPlayer.create(this, R.raw.button_click_sound);
 //            wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
 //        }
@@ -78,6 +88,29 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         }
 
         startFeedbackSession();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopWatch.stopTimer();
+    }
+
+    @Override
+    public void onGameResumed() {
+        super.onGameResumed();
+        stopWatch.resumeTimer();
+    }
+
+    @Override
+    public void onDialogShow(Class thisClass) {
+        super.onDialogShow(thisClass);
+        stopWatch.stopTimer();
+    }
+
+    @Override
+    protected void addTotalTimeSessionFeedbackStat(Intent intent) {
+        intent.putExtra(FeedbackActivity.TOTAL_TIME, stopWatch.toString());
     }
 
 //    @Override
@@ -97,8 +130,26 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
             }
         });
 
-        outputText.setInAnimation(this, android.R.anim.fade_in);
-        outputText.setOutAnimation(this, android.R.anim.fade_out);
+        outputText.setInAnimation(getApplicationContext(), android.R.anim.fade_in);
+        outputText.setOutAnimation(getApplicationContext(), android.R.anim.fade_out);
+
+        arrowImage.setFactory(new ViewSwitcher.ViewFactory() {
+            public View makeView() {
+                ImageView myView = new ImageView(getApplicationContext());
+
+                myView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                FrameLayout.LayoutParams params = new ImageSwitcher.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                myView.setLayoutParams(params);
+
+                return myView;
+            }
+        });
+
+        arrowImage.setInAnimation(getApplicationContext(), android.R.anim.fade_in);
+        arrowImage.setOutAnimation(getApplicationContext(), android.R.anim.fade_out);
     }
 
     private void initialize() {
@@ -115,18 +166,22 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
             GuessTheNumberLogic.GuessResult result = game.checkGuess(Integer.parseInt(inputText.getText().toString()));
 
             switch (result) {
-                case GOOD:
-                    showFinishDialog();
-                    return;
+                case TOO_LOW:
+                    arrowImage.setImageResource(R.drawable.arrow_up2);
+                    outputText.setText("Try a higher number..");
+                    break;
                 case TOO_HIGH:
+                    arrowImage.setImageResource(R.drawable.arrow_down2);
                     outputText.setText("Try a lower number..");
                     break;
                 case NOT_IN_RANGE:
+                    arrowImage.setImageResource(android.R.color.transparent);
                     outputText.setText("Number not in range..");
                     break;
-                case TOO_LOW:
-                    outputText.setText("Try a higher number..");
-                    break;
+                case GOOD:
+                    arrowImage.setImageResource(android.R.color.transparent);
+                    showFinishDialog();
+                    return;
             }
 
 //            wrongAnswerSound.start();
@@ -153,6 +208,8 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
             }
 
             outputText.setText("");
+            arrowImage.setImageResource(android.R.color.transparent);
+//            arrowImage.setImageDrawable(null);
         }
     }
 
@@ -244,12 +301,13 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         feedback = game.getFeedback();
         Log.d("GTN", "FINISH SET FEEDBACK");
         Log.d("GTN", "STARTING FEEDBACK TIMER");
-        feedback.startTimer();
+//        feedback.startTimer();
         Log.d("GTN", "STARTED FEEDBACK TIMER");
     }
 
     @Override
     protected void onMenuPopupShow() {
+        stopWatch.stopTimer();
         super.onMenuPopupShow();
     }
 }

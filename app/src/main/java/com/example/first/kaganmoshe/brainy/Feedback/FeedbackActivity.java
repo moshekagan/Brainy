@@ -40,7 +40,8 @@ public class FeedbackActivity extends ActionBarAppActivity {
 //    private static final float GENERAL_DISTRACTION_WEIGHT = 0.2f;
 //    private static final float CONCENTRATION_WEIGHT = 0.3f;
     public static final int BEST_CONCENTRATION_SCORE = 85;
-    public static final String CONCENTRATION_AVERAGE = "Concentration average";
+    public static final String CONCENTRATION_AVERAGE = "Concentration";
+    public static final String TOTAL_TIME = "TOTAL_TIME";
     private int finalScore;
 
     protected GraphView graphView;
@@ -50,6 +51,8 @@ public class FeedbackActivity extends ActionBarAppActivity {
     protected Button backButton;
     protected Button playAgainButton;
     protected LinearLayout feedbackStatsLayout;
+    protected TextView bestScoreTextView;
+    protected TextView scoreTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,45 +60,44 @@ public class FeedbackActivity extends ActionBarAppActivity {
         setContentView(R.layout.activity_feedback);
 
         feedbackStatsLayout = (LinearLayout) findViewById(R.id.feedbackStatsLayout);
+        bestScoreTextView = (TextView) findViewById(R.id.feedbackBestScoreTextView);
+        scoreTextView = (TextView) findViewById(R.id.feedbackScoreTextView);
 
+        initGameTime();
         initConcentrationPoints();
-        initStats();
-//        initBestScore();
+        initScoreStat();
+        initBestScore();
         initExtraStats();
         initGraph();
         initButtons();
-        initInfo();
     }
 
     private void initBestScore() {
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        int defaultValue = getResources().getInteger(R.integer.default_high_score);
-        long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
-
-        addStat("High score", String.valueOf(highScore));
-
         checkBestScore();
     }
 
     private void checkBestScore(){
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         int defaultValue = getResources().getInteger(R.integer.default_high_score);
-        long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
+        long highScore = sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue);
 
         if(highScore < finalScore){
             setBestScore();
-            addStat("New high score", String.valueOf(finalScore));
+            scoreTextView.setTextColor(getResources().getColor(R.color.feedback_best_score_text));
+//            addStat("New high score", String.valueOf(finalScore));
         }
+
+        bestScoreTextView.append(String.valueOf(sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue)));
     }
 
     private void setBestScore(){
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(getString(R.string.saved_high_score), finalScore);
+        editor.putInt(getIntent().getStringExtra(Utils.CALLING_CLASS), finalScore);
         editor.commit();
     }
 
-    private void initStats() {
+    private void initScoreStat() {
         int gameScore = Integer.valueOf(getIntent().getStringExtra(SCORE_STAT));
         int generalDistraction = Integer.valueOf(getIntent().getStringExtra(DISTRACTION_STAT));
 //        int gameDistraction = Integer.valueOf(getIntent().getStringExtra(GAME_DISTRACTION_STAT));
@@ -104,7 +106,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
 //                + concentrationScore() * CONCENTRATION_WEIGHT);
         finalScore = gameScore + generalDistraction + concentrationScore();
 
-        ((TextView)findViewById(R.id.feedbackScoreTextView)).setText(Integer.toString(finalScore));
+        scoreTextView.setText(Integer.toString(finalScore));
     }
 
     private int concentrationScore() {
@@ -117,7 +119,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
         }
 
         concentrationAvg = concentrationSum / parcelableConcentrationPointsList.size();
-        addStat(CONCENTRATION_AVERAGE, Integer.toString(concentrationAvg));
+        addStat(CONCENTRATION_AVERAGE, Integer.toString(concentrationAvg) + " (0-100)");
 
         if(concentrationAvg > BEST_CONCENTRATION_SCORE){
             finalScore = 100;
@@ -159,12 +161,13 @@ public class FeedbackActivity extends ActionBarAppActivity {
         return statName.substring(0, 1).toUpperCase() + statName.substring(1, statName.length()).toLowerCase() + ":";
     }
 
-    private void initInfo() {
-        int sessionTimeMin = (int) getIntent().getLongExtra(CURR_GAME_TIME_MINUTES, 0);
-        int sessionTimeSec = (int) getIntent().getLongExtra(CURR_GAME_TIME_SECONDS, 0) % 60;
+    private void initGameTime() {
+//        int sessionTimeMin = (int) getIntent().getLongExtra(CURR_GAME_TIME_MINUTES, 0);
+//        int sessionTimeSec = (int) getIntent().getLongExtra(CURR_GAME_TIME_SECONDS, 0) % 60;
         timeView = (TextView) findViewById(R.id.feedbackTimeViewText);
+        timeView.append(getIntent().getStringExtra(TOTAL_TIME));
 
-        timeView.append(" " + Integer.toString(sessionTimeMin) + ":" + Integer.toString(sessionTimeSec));
+//        timeView.append("" + Integer.toString(sessionTimeMin) + ":" + Integer.toString(sessionTimeSec));
     }
 
     private void initButtons() {

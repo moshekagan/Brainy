@@ -28,6 +28,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected ResumeGameCountDown resumeGameCountDown = new ResumeGameCountDown();
     protected Class onBackPressedActivityTarget = null;
     private Class targetActivity = null;
+    LinkedHashMap<String, String> extraStats = new LinkedHashMap<>();
 
 //    protected GraphView graphView;
 //    protected LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
@@ -149,17 +150,23 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 //        super.homeMenuButtonClicked();
 //    }
 
-    private Intent makeIntentForFeedback() {
-        Intent intent = new Intent(getApplicationContext(), FeedbackActivity.class);
+//    private Intent makeIntentForFeedback() {
+//        return makeIntent(FeedbackActivity.class);
+//    }
+
+    private Intent makeIntentForFinishedGame(Class targetActivity){
+        Intent intent = new Intent(getApplicationContext(), targetActivity);
 //        int score = calculateScore();
 
         intent.putExtra(FeedbackActivity.DISTRACTION_STAT, Integer.toString(feedback.getDistractionScore()));
         intent.putExtra(FeedbackActivity.SCORE_STAT, Integer.toString(feedback.getGameScore()));
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
+//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
+//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
 //        intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, getIntent().getStringExtra(Utils.CALLING_CLASS));
+//        intent.putExtra(FeedbackActivity.TOTAL_TIME, stopWatch.toString());
         intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, this.getClass().getCanonicalName());
+        addTotalTimeSessionFeedbackStat(intent);
 
         return intent;
     }
@@ -185,9 +192,28 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 //        return score;
 //    }
 
-    protected void setNewStatsListAndContinue(LinkedHashMap<String, String> extraStats) {
+//    protected void setNewStatsListAndContinue(LinkedHashMap<String, String> extraStats) {
+//        ArrayList<String> extraStatKeys = new ArrayList<>();
+//        Intent intent = makeIntentForFeedback();
+//
+//        for (String extraStat : extraStats.keySet()) {
+//            intent.putExtra(extraStat, extraStats.get(extraStat));
+//            extraStatKeys.add(extraStat);
+//        }
+//
+//        intent.putStringArrayListExtra(FeedbackActivity.EXTRA_STATS, extraStatKeys);
+//        Utils.startNewActivity(this, intent);
+//    }
+
+    protected void continueToNextActivity(Class targetActivity){
+        Intent intent = makeIntentForFinishedGame(targetActivity);
+
+        loadExtraStatsToIntent(intent);
+        Utils.startNewActivity(this, intent);
+    }
+
+    protected void loadExtraStatsToIntent(Intent intent){
         ArrayList<String> extraStatKeys = new ArrayList<>();
-        Intent intent = makeIntentForFeedback();
 
         for (String extraStat : extraStats.keySet()) {
             intent.putExtra(extraStat, extraStats.get(extraStat));
@@ -195,7 +221,10 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         }
 
         intent.putStringArrayListExtra(FeedbackActivity.EXTRA_STATS, extraStatKeys);
-        Utils.startNewActivity(this, intent);
+    }
+
+    protected void addNewStatForFeedback(String name, String value){
+        extraStats.put(name, value);
     }
 
     @Override
@@ -209,12 +238,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
             public void onDismiss() {
                 if (!quitGameDialog.isShowing() && !settingsFragment.isShowing() && !homeButtonPopup.isShowing()) {
                     onResume();
-//            onResume();
-//            onMenuPopupDismiss();
                 }
-//                resumeReceivingEEGData();
-//                onMenuPopupDismiss();
-//                showResumeCountdown();
             }
         });
 
@@ -297,10 +321,11 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     @Override
     public void onFinishGameContinueClicked() {
-        Intent intent = makeIntentForFeedback();
-
-        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
-        Utils.startNewActivity(this, intent);
+        continueToNextActivity(FeedbackActivity.class);
+//        Intent intent = makeIntentForFinishedGame(FeedbackActivity.class);
+//
+//        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
+//        Utils.startNewActivity(this, intent);
     }
 
     @Override
@@ -326,4 +351,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 //    public void onSettingsDonePressed(){
 //        onResume();
 //    }
+
+    protected abstract void addTotalTimeSessionFeedbackStat(Intent intent);
 }

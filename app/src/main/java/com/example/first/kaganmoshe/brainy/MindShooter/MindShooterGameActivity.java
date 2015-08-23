@@ -2,6 +2,7 @@ package com.example.first.kaganmoshe.brainy.MindShooter;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.CrazyCube.CCubeFeedback;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
+import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
@@ -207,6 +209,11 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void addTotalTimeSessionFeedbackStat(Intent intent) {
+        intent.putExtra(FeedbackActivity.TOTAL_TIME, "01:00");
     }
 
     @Override

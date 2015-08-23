@@ -2,11 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/pad_15dp"
-    android:paddingBottom="@dimen/pad_10dp"
     android:layout_gravity="center"
-    android:orientation="vertical"
     android:background="@drawable/blue_sky_and_green_grass_new"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/pad_10dp"
+    android:paddingTop="@dimen/pad_15dp"
     android:weightSum="60"
     tools:context=".GuessTheNumberGameActivity">
 
@@ -14,15 +14,15 @@
 
 
     <!--<TextView-->
-        <!--android:text="@string/guess_number_title"-->
-        <!--android:id="@+id/guessNumberTitle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:layout_marginLeft="@dimen/start_margin_layout"-->
-        <!--android:layout_marginStart="@dimen/start_margin_layout"-->
-        <!--style="@style/guessTheNumberTitle"-->
-        <!--android:layout_weight="0" />-->
+    <!--android:text="@string/guess_number_title"-->
+    <!--android:id="@+id/guessNumberTitle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:layout_marginLeft="@dimen/start_margin_layout"-->
+    <!--android:layout_marginStart="@dimen/start_margin_layout"-->
+    <!--style="@style/guessTheNumberTitle"-->
+    <!--android:layout_weight="0" />-->
 
     <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
         android:id="@+id/guessNumberRequest"
@@ -30,58 +30,74 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/start_margin_layout"
         android:layout_marginStart="@dimen/start_margin_layout"
-        android:text="@string/guess_number_headline"
+        android:layout_weight="5"
         android:gravity="bottom"
+        android:text="@string/guess_number_headline"
         android:textSize="15sp"
-        android:textStyle="bold"
-        android:layout_weight="5" />
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:background="@drawable/input_field"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/start_margin_layout"
-        android:layout_marginEnd="@dimen/end_margin_layout"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginEnd="@dimen/end_margin_layout"
+        android:layout_marginStart="@dimen/start_margin_layout"
+        android:layout_marginTop="10dp"
         android:layout_weight="5"
+        android:background="@drawable/input_field"
         android:orientation="horizontal"
         android:weightSum="5">
 
         <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
             android:id="@+id/guessInput"
             android:layout_width="150sp"
-            android:layout_weight="4"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginRight="100dp"
+            android:layout_weight="4"
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/backspaceButton"
             android:layout_width="40dp"
             android:layout_height="match_parent"
+            android:background="@drawable/ic_removeicon"
             android:gravity="right"
-            android:id="@+id/backspaceButton"
             android:onClick="gameButtonClicked"
-            android:stateListAnimator="@null"
-            android:background="@drawable/ic_removeicon"/>
+            android:stateListAnimator="@null" />
     </LinearLayout>
 
-    <TextSwitcher
-        android:id="@+id/outputText"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_marginLeft="@dimen/start_margin_layout"
         android:layout_marginStart="@dimen/start_margin_layout"
-        android:layout_marginLeft="@dimen/start_margin_layout"/>
-        <!--android:layout_marginBottom="10dp"/>-->
+        android:layout_weight="5"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <TextSwitcher
+            android:id="@+id/outputText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/pad_10dp"
+            android:layout_marginEnd="@dimen/pad_10dp"/>
+
+        <ImageSwitcher
+            android:id="@+id/arrowImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/pad_10dp"
-        android:layout_marginStart="@dimen/start_margin_layout"
         android:layout_marginEnd="@dimen/end_margin_layout"
+        android:layout_marginStart="@dimen/start_margin_layout"
         android:layout_weight="30"
         android:orientation="vertical">
 
@@ -122,6 +138,7 @@
                 android:stateListAnimator="@null"
                 android:text="3" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -199,6 +216,7 @@
                 android:text="9" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -225,7 +243,7 @@
                 android:background="@drawable/approve_button"
                 android:onClick="gameButtonClicked"
                 android:stateListAnimator="@null"
-                android:text="@string/approve_button"/>
+                android:text="@string/approve_button" />
 
         </LinearLayout>
     </LinearLayout>
@@ -234,8 +252,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="15"
-        android:weightSum="20"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="20">
 
         <!--<android.widget.Space-->
         <!--android:layout_width="0dp"-->
@@ -247,7 +265,7 @@
             android:id="@+id/graph"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="19"/>
+            android:layout_weight="19" />
 
         <android.widget.Space
             android:layout_width="0dp"

@@ -116,7 +116,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     @Override
     protected void startFeedbackSession() {
         feedback = new HotAirBalloonFeedback();
-        feedback.startTimer();
+//        feedback.startTimer();
     }
 
     private void setBalloonDefaultLocation() {
@@ -322,8 +322,8 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         Intent intent = new Intent(this, FeedbackActivity.class);
 
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, feedback.getConcentrationPoints());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
-        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
+//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, feedback.getSessionTimeInSeconds());
+//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, feedback.getSessionTimeInMinutes());
         startActivity(intent);
     }
 
@@ -336,6 +336,11 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     public void onDialogShow(Class thisClass) {
 //        stopClock();
         super.onDialogShow(thisClass);
+    }
+
+    @Override
+    protected void addTotalTimeSessionFeedbackStat(Intent intent) {
+        intent.putExtra(FeedbackActivity.TOTAL_TIME, "01:00");
     }
 
     @Override
