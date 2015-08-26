@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.example.first.kaganmoshe.brainy.CrazyCube.CCConfigActivity;
 import com.example.first.kaganmoshe.brainy.CustomActivity.ActionBarAppActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.HistoryActivity;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.GuessTheNumberConfigActivity;
 import com.example.first.kaganmoshe.brainy.HotAirBallon.HABConfigActivity;
 import com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity;
@@ -17,7 +18,7 @@ import EEG.ESignalVolume;
 import EEG.IHeadSetData;
 
 
-public class GamesActivity extends ActionBarAppActivity implements IHeadSetData {
+public class GamesActivity extends ActionBarAppActivity {
 
     public enum EGameRow {
         GUESS_THE_NUMBER(GUESS_THE_NUMBER_STR, GuessTheNumberConfigActivity.class, R.drawable.numbers),
@@ -132,6 +133,17 @@ public class GamesActivity extends ActionBarAppActivity implements IHeadSetData 
             }
         });
 
+        findViewById(R.id.historyButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHistoryClicked();
+            }
+        });
+
+    }
+
+    private void onHistoryClicked() {
+        Utils.startNewActivity(this, HistoryActivity.class);
     }
 
     @Override

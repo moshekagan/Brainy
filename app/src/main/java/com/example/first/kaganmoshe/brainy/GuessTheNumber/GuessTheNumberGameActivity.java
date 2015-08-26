@@ -113,6 +113,11 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         intent.putExtra(FeedbackActivity.TOTAL_TIME, stopWatch.toString());
     }
 
+    @Override
+    protected String getGameName() {
+        return "Guess The Number";
+    }
+
 //    @Override
 //    protected int calculateScore() {
 //        int minAttemptsToWin ;

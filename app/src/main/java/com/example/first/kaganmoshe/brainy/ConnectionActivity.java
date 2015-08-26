@@ -1,12 +1,13 @@
 package com.example.first.kaganmoshe.brainy;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.internal.widget.ActivityChooserModel;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
+import com.example.first.kaganmoshe.brainy.CustomActivity.HistoryActivity;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
 import EEG.EHeadSetType;
 import Utils.Logs;
@@ -42,7 +43,7 @@ public class ConnectionActivity extends AppActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, HEADSETS);
 
-        headsetSpinner = (BetterSpinner) findViewById(R.id.headset_list);
+        headsetSpinner = (BetterSpinner) findViewById(R.id.showList);
         m_Connect = (Button) findViewById(R.id.connectButton);
         m_Skip = (Button) findViewById(R.id.skipButton);
 
@@ -50,7 +51,7 @@ public class ConnectionActivity extends AppActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String headSetSelection = parent.getItemAtPosition(position).toString();
-                switch (headSetSelection){
+                switch (headSetSelection) {
                     case MINDWAVE_STR:
                         headSetType = EHeadSetType.MindWave;
                         break;
@@ -69,11 +70,19 @@ public class ConnectionActivity extends AppActivity {
         });
         headsetSpinner.setAdapter(adapter);
 
-        setTouchNClick(R.id.headset_list);
+        setTouchNClick(R.id.showList);
         setTouchNClick(R.id.connectButton);
         setTouchNClick(R.id.skipButton);
 
         initViewActivity();
+
+        HistoryDBAdapter db = AppManager.getHistoryDBInstance(getApplicationContext());
+        db.insertRecord("Guess The Number", 50, 89);
+        db.insertRecord("Guess The Number", 60, 22);
+        db.insertRecord("Guess The Number", 70, 23);
+        db.insertRecord("Guess The Number", 60, 76);
+        db.insertRecord("Guess The Number", 32, 45);
+        db.insertRecord("Guess The Number", 15, 20);
 
         AppManager.getInstance().setBackgroundMusic(getApplicationContext());
         AppManager.getInstance().playBackgroundMusic();

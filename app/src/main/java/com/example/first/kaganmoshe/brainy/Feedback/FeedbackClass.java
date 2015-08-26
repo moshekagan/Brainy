@@ -1,5 +1,6 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
+import android.content.Context;
 import android.text.format.DateUtils;
 import android.util.Log;
 
@@ -40,6 +41,8 @@ public abstract class FeedbackClass implements IHeadSetData {
 //    private long totalTimePaused = 0;
     private int lastX = 0;
     private int numOfUserPauses = 0;
+    private int finalScore;
+    private int concentrationScore;
 
     public FeedbackClass() {
         concentrationPoints = new ArrayList<>();
@@ -165,5 +168,28 @@ public abstract class FeedbackClass implements IHeadSetData {
 
     public abstract int getGameScore();
 
+    public void insertRecordToHistoryDB(Context context, String name){
+        concentrationScore = getConcentrationScore(concentrationPoints);
 
+        AppManager.getHistoryDBInstance(context).insertRecord(name, concentrationScore
+                        + getGameScore() + getDistractionScore(), concentrationScore);
+    }
+
+//    public int getFinalScore(){
+//
+//    }
+
+    public static int getConcentrationScore(ArrayList<ParcelableDataPoint> concentrationPoints) {
+        int concentrationSum = 0;
+
+        for (ParcelableDataPoint dp : concentrationPoints) {
+            concentrationSum += dp.getY();
+        }
+
+        return concentrationSum / concentrationPoints.size();
+    }
+
+//    public static int (){
+//
+//    }
 }

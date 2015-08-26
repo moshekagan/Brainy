@@ -58,9 +58,6 @@ public class MenuCustomList extends ArrayAdapter<String>{
          *    primarily you only use this to get a copy of the ViewHolder */
         }
 
-
-
-
         return view;
     }
 }

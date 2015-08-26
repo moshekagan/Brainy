@@ -36,9 +36,6 @@ public class FeedbackActivity extends ActionBarAppActivity {
     public static final String SCORE_LABEL = "Score";
     public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
     private static final int FACTOR = 20;
-//    private static final float GAME_SCORE_WEIGHT = 0.5f;
-//    private static final float GENERAL_DISTRACTION_WEIGHT = 0.2f;
-//    private static final float CONCENTRATION_WEIGHT = 0.3f;
     public static final int BEST_CONCENTRATION_SCORE = 85;
     public static final String CONCENTRATION_AVERAGE = "Concentration";
     public static final String TOTAL_TIME = "TOTAL_TIME";
@@ -104,30 +101,21 @@ public class FeedbackActivity extends ActionBarAppActivity {
 
 //        int finalScore = (int) (gameScore * GAME_SCORE_WEIGHT + generalDistraction * GENERAL_DISTRACTION_WEIGHT
 //                + concentrationScore() * CONCENTRATION_WEIGHT);
-        finalScore = gameScore + generalDistraction + concentrationScore();
+        int concentrationScore = FeedbackClass.getConcentrationScore(parcelableConcentrationPointsList);
+
+        addConcentrationStat(concentrationScore);
+
+        if(concentrationScore > BEST_CONCENTRATION_SCORE) {
+            concentrationScore = 100;
+        }
+
+        finalScore = gameScore + generalDistraction + concentrationScore;
 
         scoreTextView.setText(Integer.toString(finalScore));
     }
 
-    private int concentrationScore() {
-        int concentrationSum = 0;
-        int concentrationAvg;
-        int finalScore;
-
-        for (ParcelableDataPoint dp : parcelableConcentrationPointsList) {
-            concentrationSum += dp.getY();
-        }
-
-        concentrationAvg = concentrationSum / parcelableConcentrationPointsList.size();
-        addStat(CONCENTRATION_AVERAGE, Integer.toString(concentrationAvg) + " (0-100)");
-
-        if(concentrationAvg > BEST_CONCENTRATION_SCORE){
-            finalScore = 100;
-        } else {
-            finalScore = concentrationAvg;
-        }
-
-        return finalScore;
+    private void addConcentrationStat(int score){
+        addStat(CONCENTRATION_AVERAGE, Integer.toString(score) + " (0-100)");
     }
 
     private void initExtraStats() {

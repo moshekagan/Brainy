@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.PopupWindow;
 
+import com.example.first.kaganmoshe.brainy.AppManager;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GuessTheNumber.FinishGameDialog;
@@ -311,7 +312,8 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     }
 
     protected void onFinishGameShow() {
-
+//        AppManager.getHistoryDBInstance(getApplicationContext())
+        feedback.insertRecordToHistoryDB(getApplicationContext(), getGameName());
     }
 
     @Override
@@ -353,4 +355,8 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 //    }
 
     protected abstract void addTotalTimeSessionFeedbackStat(Intent intent);
+
+    protected String getGameName(){
+        return "Some Game";
+    }
 }

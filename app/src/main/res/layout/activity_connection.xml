@@ -7,7 +7,6 @@
     android:padding="@dimen/pad_30dp"
     tools:context="com.example.first.kaganmoshe.brainy.ConnectionActivity">
 
-
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="wrap_content"
@@ -28,29 +27,8 @@
         android:layout_marginBottom="@dimen/pad_20dp"
         android:layout_centerHorizontal="true" />
 
-    <!--<ImageView-->
-        <!--android:id="@+id/logoImage"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:src="@drawable/eegheadset_cartoon" />-->
-
-    <!--<com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView-->
-        <!--android:id="@+id/connectionTitle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Connect with \n Brainy"-->
-        <!--android:textSize="40sp"-->
-        <!--android:textColor="@color/black"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_below="@id/logoImage"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:layout_marginBottom="@dimen/pad_20dp"/>-->
-
     <com.weiwangcn.betterspinner.library.BetterSpinner
-        android:id="@+id/headset_list"
+        android:id="@+id/showList"
         style="@style/choose_headset_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,18 +39,13 @@
         android:layout_marginStart="@dimen/pad_30dp"
         android:hint="@string/choose_headset" />
 
-    <!--<TextView android:text="@string/settings" android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/TitleTextView"-->
-    <!--android:textSize="24dp" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignStart="@+id/headset_list"
-        android:layout_below="@+id/headset_list"
+        android:layout_alignStart="@+id/showList"
+        android:layout_below="@+id/showList"
         android:orientation="horizontal"
-        android:layout_alignEnd="@+id/headset_list"
+        android:layout_alignEnd="@+id/showList"
         android:layout_marginTop="@dimen/pad_10dp">
 
         <Button
@@ -95,228 +68,5 @@
 
 
     </LinearLayout>
-
-
-    <!--<LinearLayout-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:weightSum="8">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-    <!--android:text="Choose HeadSet:"-->
-    <!--android:id="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_marginTop="36dp"-->
-    <!--android:layout_alignParentStart="true"-->
-    <!--android:layout_below="@+id/TitleTextView"-->
-    <!--android:layout_weight="0.5" />-->
-
-    <!--<LinearLayout-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_width="340dp"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="3"-->
-    <!--android:weightSum="5">-->
-
-    <!--<RadioGroup-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_below="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_alignEnd="@+id/imageView"-->
-    <!--android:id="@+id/headSetRadioGroup"-->
-    <!--android:layout_alignParentStart="true"-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_weight="2.5"-->
-    <!--android:weightSum="3">-->
-
-    <!--<RadioButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Mind Wave Mobile"-->
-    <!--android:id="@+id/MindWaveRadioButton"-->
-    <!--android:checked="true"-->
-    <!--android:layout_below="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_alignEnd="@+id/connectToHeadSetCheckBox"-->
-    <!--android:layout_weight="1" />-->
-
-    <!--<RadioButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Demo Mode"-->
-    <!--android:id="@+id/DemoRadioButton"-->
-    <!--android:layout_below="@+id/MindWaveRadioButton"-->
-    <!--android:layout_alignStart="@+id/MindWaveRadioButton"-->
-    <!--android:checked="false"-->
-    <!--android:layout_weight="1" />-->
-
-    <!--<RadioButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Emotiv EPOC+"-->
-    <!--android:id="@+id/EmotivRadioButton"-->
-    <!--android:layout_below="@+id/MindWaveRadioButton"-->
-    <!--android:layout_alignStart="@+id/MindWaveRadioButton"-->
-    <!--android:checked="false"-->
-    <!--android:layout_weight="1" />-->
-    <!--</RadioGroup>-->
-
-    <!--<LinearLayout-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="2.5"-->
-    <!--android:weightSum="3">-->
-
-    <!--<LinearLayout-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:weightSum="2.5">-->
-
-    <!--<Space-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="2"-->
-    <!--android:layout_marginTop="15dp" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/imageView"-->
-    <!--android:layout_below="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:src="@drawable/ic_mind_wave_mobile"-->
-    <!--android:layout_marginTop="15dp"-->
-    <!--android:layout_weight="0.9" />-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:weightSum="1" />-->
-
-    <!--<LinearLayout-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:weightSum="2">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-    <!--android:text="(Unsupprted Yet)"-->
-    <!--android:id="@+id/textView7"-->
-    <!--android:layout_alignBaseline="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_alignBottom="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_toEndOf="@+id/TitleTextView"-->
-    <!--android:layout_weight="2"-->
-    <!--android:layout_marginTop="25dp" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/imageView2"-->
-    <!--android:src="@drawable/ic_emotive"-->
-    <!--android:layout_below="@+id/imageView"-->
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_weight="0.5"-->
-    <!--android:layout_marginTop="15dp" />-->
-    <!--</LinearLayout>-->
-    <!--</LinearLayout>-->
-
-    <!--</LinearLayout>-->
-
-    <!--<Space-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="0.4" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-    <!--android:text="Choose Lenguge:"-->
-    <!--android:id="@+id/textView6"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_alignParentStart="true"-->
-    <!--android:layout_weight="0.5" />-->
-
-    <!--<LinearLayout-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="0"-->
-    <!--android:weightSum="2">-->
-
-    <!--<RadioGroup-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@+id/headSetRadioGroup"-->
-    <!--android:layout_alignEnd="@+id/doneBtn"-->
-    <!--android:orientation="vertical"-->
-    <!--android:id="@+id/lengugeRadioGroup"-->
-    <!--android:layout_gravity="bottom"-->
-    <!--android:layout_weight="0.5"-->
-    <!--android:weightSum="2">-->
-
-    <!--<RadioButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="English"-->
-    <!--android:id="@+id/englishRadioButton"-->
-    <!--android:checked="true"-->
-    <!--android:layout_weight="1" />-->
-
-    <!--<RadioButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Hebrew"-->
-    <!--android:id="@+id/hebrewRadioButton"-->
-    <!--android:checked="false"-->
-    <!--android:layout_weight="1" />-->
-    <!--</RadioGroup>-->
-
-    <!--<LinearLayout-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="1.5"-->
-    <!--android:weightSum="2">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-    <!--android:id="@+id/textView8"-->
-    <!--android:layout_alignBaseline="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_alignBottom="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_toEndOf="@+id/TitleTextView"-->
-    <!--android:layout_weight="1"-->
-    <!--android:layout_marginTop="25dp" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-    <!--android:text="(Unsupprted Yet)"-->
-    <!--android:id="@+id/textView9"-->
-    <!--android:layout_alignBaseline="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_alignBottom="@+id/ChooseHeadSetTextView"-->
-    <!--android:layout_toEndOf="@+id/TitleTextView"-->
-    <!--android:layout_weight="1"-->
-    <!--android:layout_marginTop="17dp" />-->
-    <!--</LinearLayout>-->
-    <!--</LinearLayout>-->
-
-    <!--</LinearLayout>-->
 
 </RelativeLayout>

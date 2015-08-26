@@ -36,13 +36,13 @@
             android:label="@string/title_activity_game"
             android:screenOrientation="portrait" >
         </activity>
-        <!--<activity-->
-            <!--android:name=".ConnectionActivity"-->
-            <!--android:configChanges="orientation"-->
-            <!--android:label="@string/title_activity_setting"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@android:style/Theme.Holo.Light.NoActionBar" >-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name=".ConnectionActivity" -->
+        <!-- android:configChanges="orientation" -->
+        <!-- android:label="@string/title_activity_setting" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@android:style/Theme.Holo.Light.NoActionBar" > -->
+        <!-- </activity> -->
         <activity
             android:name=".GamesActivity"
             android:configChanges="orientation"
@@ -94,6 +94,11 @@
         <activity
             android:name=".CustomActivity.ActionBarAppActivity"
             android:label="@string/title_activity_action_bar_app" >
+        </activity>
+        <activity
+            android:name=".CustomActivity.HistoryActivity"
+            android:label="@string/title_activity_history"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

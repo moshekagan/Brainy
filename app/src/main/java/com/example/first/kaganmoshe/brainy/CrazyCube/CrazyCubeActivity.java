@@ -352,6 +352,11 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         intent.putExtra(FeedbackActivity.TOTAL_TIME, "01:00");
     }
 
+    @Override
+    protected String getGameName() {
+        return "Crazy Cube";
+    }
+
 //    @Override
 //    protected int calculateScore() {
 //        return ((5 * badChoicesLeft) + (10 * currScore));

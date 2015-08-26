@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/historyActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blue_sky_and_green_grass_new"
+    android:paddingBottom="@dimen/pad_20dp"
+    android:paddingEnd="@dimen/pad_5dp"
+    android:paddingStart="@dimen/pad_5dp"
+    android:paddingTop="@dimen/pad_30dp"
+    tools:context="com.example.first.kaganmoshe.brainy.CustomActivity.HistoryActivity">
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/pad_20dp"
+        android:text="History"
+        android:textColor="@color/black"
+        android:textSize="50sp" />
+
+    <LinearLayout
+        android:id="@+id/spinnersLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/title"
+        android:layout_marginEnd="@dimen/pad_20dp"
+        android:layout_marginStart="@dimen/pad_20dp"
+        android:orientation="horizontal">
+
+        <com.weiwangcn.betterspinner.library.BetterSpinner
+            android:id="@+id/showListSpinner"
+            style="@style/history_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/pad_5dp"
+            android:layout_weight="3"
+            android:hint="Guess The Number" />
+
+        <com.weiwangcn.betterspinner.library.BetterSpinner
+            android:id="@+id/timeRangeSpinner"
+            style="@style/history_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Last Week" />
+
+    </LinearLayout>
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/recordName"
+        style="@style/historyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/spinnersLayout"
+        android:layout_below="@id/spinnersLayout"
+        android:paddingStart="@dimen/pad_5dp"
+        android:layout_marginTop="@dimen/pad_15dp"
+        android:text="Name:" />
+
+    <TextView
+        style="@style/historyTextView"
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/recordName"
+        android:layout_alignStart="@+id/concentrationTextView" />
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/recordDate"
+        style="@style/historyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/recordName"
+        android:layout_below="@+id/recordName"
+        android:paddingStart="@dimen/pad_5dp"
+        android:layout_marginTop="@dimen/pad_15dp"
+        android:text="Date:" />
+
+    <TextView
+        style="@style/historyTextView"
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/recordDate"
+        android:layout_alignStart="@+id/concentrationTextView" />
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/recordConcentration"
+        style="@style/historyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/recordDate"
+        android:layout_below="@+id/recordDate"
+        android:paddingStart="@dimen/pad_5dp"
+        android:layout_marginTop="@dimen/pad_15dp"
+        android:text="Concentration:" />
+
+    <TextView
+        style="@style/historyTextView"
+        android:id="@+id/concentrationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/recordScore"
+        android:layout_marginStart="@dimen/pad_30dp"
+        android:layout_alignBottom="@+id/recordConcentration"
+        android:layout_toEndOf="@+id/recordConcentration" />
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/recordScore"
+        style="@style/historyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/recordConcentration"
+        android:paddingStart="@dimen/pad_5dp"
+        android:layout_below="@+id/recordConcentration"
+        android:layout_marginTop="@dimen/pad_15dp"
+        android:text="Score:" />
+
+    <TextView
+        style="@style/historyTextView"
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/recordScore"
+        android:layout_alignStart="@+id/concentrationTextView" />
+
+    <com.jjoe64.graphview.GraphView
+
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

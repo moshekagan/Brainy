@@ -72,5 +72,7 @@
     <string name="title_activity_game_graph">GameGraphActivity</string>
     <string name="title_activity_action_bar_app">ActionBarAppActivity</string>
     <string name="feedbackBestScoreView">Best score:</string>
+    <string name="title_activity_history">HistoryActivity</string>
     <!--<string name="saved_high_score" />-->
+    <string name="space_character">\u00A0</string>
 </resources>
