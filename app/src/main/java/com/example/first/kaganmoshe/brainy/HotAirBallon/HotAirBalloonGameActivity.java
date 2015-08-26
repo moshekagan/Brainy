@@ -39,7 +39,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
     private final int distanceFromTopActivity = 15;
-    private final int startLocationOnActivity = 1200;
+    private int startLocationOnActivity = 1200;
     private float balloonRange = startLocationOnActivity - distanceFromTopActivity;
     private Button btn;
     private ImageView hotAirBalloonImageView;
@@ -68,6 +68,11 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hot_air_balloon);
+
+        startLocationOnActivity = Utils.getActivityScreenSize(this).y - (int)(Utils.getActivityScreenSize(this).y * 0.32f);
+        balloonRange = startLocationOnActivity - distanceFromTopActivity;
+
+        Logs.error("TESTTTTTTT", "!!!!!! Balloon Range = " + balloonRange);
 
 //        feedback = new HotAirBalloonFeedback();
         hotAirBalloonImageView = (ImageView) findViewById(R.id.balloonImageView);
