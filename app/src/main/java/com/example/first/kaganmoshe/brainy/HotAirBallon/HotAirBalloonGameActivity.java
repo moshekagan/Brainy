@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.example.first.kaganmoshe.brainy.AppManager;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
-import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 import com.example.first.kaganmoshe.brainy.GenericDialogFragment;
 import com.example.first.kaganmoshe.brainy.GamesActivity;
 import com.example.first.kaganmoshe.brainy.R;

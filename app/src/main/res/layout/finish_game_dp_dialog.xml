@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/winnerDialogLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/winner_background"
+    android:paddingBottom="@dimen/pad_20dp"
+    android:paddingEnd="@dimen/pad_30dp"
+    android:paddingStart="@dimen/pad_30dp"
+    android:paddingTop="@dimen/pad_20dp"
+    tools:context=".WinnerDialogFragment">
+
+    <!--<ImageView-->
+    <!--android:src="@drawable/winner_background"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_alignTop="@+id/dialog_layout_main"-->
+    <!--android:layout_alignBottom="@id/dialog_layout_main"-->
+    <!--android:layout_alignLeft="@id/dialog_layout_main"-->
+    <!--android:layout_alignRight="@id/dialog_layout_main" />-->
+
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/winnerDialogTitle"
+        style="@style/winnerDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/pad_10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/winner_dialog_title" />
+
+    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        android:id="@+id/winnerDialogDPTitle"
+        style="@style/winnerDialogDPTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/winnerDialogTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/pad_10dp"
+        android:gravity="center_horizontal"
+        android:text="" />
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/imageAndStatsLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_below="@+id/winnerDialogDPTitle"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginBottom="@dimen/pad_20dp"-->
+    <!--android:layout_alignParentEnd="true">-->
+    <ImageView
+        android:id="@+id/brainyWinnerImage"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:adjustViewBounds="true"
+        android:paddingBottom="@dimen/pad_10dp"
+        android:src="@drawable/brainy_thumbup"
+        android:layout_below="@+id/winnerDialogDPTitle"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/statsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/brainyWinnerImage"
+        android:layout_marginBottom="@dimen/pad_30dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/feedbackActivityTextView"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:text="Concentration:" />
+
+            <TextView
+                android:id="@+id/feedbackBestScoreTextView"
+                style="@style/feedbackBestScoreTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/pad_15dp">
+
+            <TextView
+                style="@style/feedbackActivityTextView"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:text="@string/feedbackScoreView" />
+
+            <TextView
+                android:id="@+id/feedbackBestScoreTextView"
+                style="@style/feedbackBestScoreTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/pad_15dp">
+
+            <TextView
+                style="@style/feedbackActivityTextView"
+                android:layout_width="145dp"
+                android:layout_height="match_parent"
+                android:text="@string/feedbackBestScoreView" />
+
+            <TextView
+                android:id="@+id/feedbackBestScoreTextView"
+                style="@style/feedbackBestScoreTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/statsLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_alignBottom="@+id/brainyWinnerImage"-->
+    <!--android:layout_alignTop="@+id/brainyWinnerImage"-->
+    <!--android:layout_toStartOf="@+id/brainyWinnerImage"-->
+    <!--android:layout_marginEnd="@dimen/pad_10dp">-->
+
+    <!--</LinearLayout>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/brainyWinnerImage"-->
+    <!--android:layout_width="150dp"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:layout_marginBottom="@dimen/pad_20dp"-->
+    <!--android:paddingBottom="@dimen/pad_10dp"-->
+    <!--android:src="@drawable/brainy_thumbup"-->
+    <!--android:layout_below="@+id/winnerDialogDPTitle"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentEnd="true" />-->
+
+    <Button
+        android:id="@+id/continueButton"
+        style="@style/btn_blue"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:stateListAnimator="@null"
+        android:text="@string/winner_dialog_continue"
+        android:layout_below="@+id/statsLayout"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

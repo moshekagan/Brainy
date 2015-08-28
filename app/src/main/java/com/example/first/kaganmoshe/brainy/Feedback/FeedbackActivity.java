@@ -27,29 +27,24 @@ public class FeedbackActivity extends ActionBarAppActivity {
     //TODO - take care of the onFinishDialogConfirmed method of the games
     //TODO - constants for the extra stats
     public static final String CURR_GAME_CONCENTRATION_POINTS = "currGameConcentrationPoints";
-    public static final String CURR_GAME_TIME_MINUTES = "currGameTimeMinutes";
-    public static final String CURR_GAME_TIME_SECONDS = "currGameTimeSeconds";
-    public static final String EXTRA_STATS = "EXTRA_STATS";
-    public static final String SCORE_STAT = "SCORE_STAT";
-    public static final String DISTRACTION_STAT = "DISTRACTION_STAT";
-    //    public static final String GAME_DISTRACTION_STAT = "GAME_DISTRACTION_STAT";
-    public static final String SCORE_LABEL = "Score";
-    public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
-    private static final int FACTOR = 20;
-    public static final int BEST_CONCENTRATION_SCORE = 85;
     public static final String CONCENTRATION_AVERAGE = "Concentration";
-    public static final String TOTAL_TIME = "TOTAL_TIME";
+    public static final String EXTRA_STATS = "EXTRA_STATS";
+    public static final String SCORE_STAT = "Score";
+    public static final String DISTRACTION_STAT = "DISTRACTION_STAT";
+    public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
+    public static final int BEST_CONCENTRATION_SCORE = 85;
+    public static final String TOTAL_TIME = "Session time";
     private int finalScore;
 
     protected GraphView graphView;
     protected LineGraphSeries<DataPoint> graphConcentrationPoints = new LineGraphSeries<>();
     protected ArrayList<ParcelableDataPoint> parcelableConcentrationPointsList;
-    protected TextView timeView;
+//    protected TextView timeView;
     protected Button backButton;
     protected Button playAgainButton;
     protected LinearLayout feedbackStatsLayout;
-    protected TextView bestScoreTextView;
-    protected TextView scoreTextView;
+//    protected TextView bestScoreTextView;
+//    protected TextView scoreTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +52,8 @@ public class FeedbackActivity extends ActionBarAppActivity {
         setContentView(R.layout.activity_feedback);
 
         feedbackStatsLayout = (LinearLayout) findViewById(R.id.feedbackStatsLayout);
-        bestScoreTextView = (TextView) findViewById(R.id.feedbackBestScoreTextView);
-        scoreTextView = (TextView) findViewById(R.id.feedbackScoreTextView);
+//        bestScoreTextView = (TextView) findViewById(R.id.feedbackBestScoreTextView);
+//        scoreTextView = (TextView) findViewById(R.id.feedbackScoreTextView);
 
         initGameTime();
         initConcentrationPoints();
@@ -80,11 +75,11 @@ public class FeedbackActivity extends ActionBarAppActivity {
 
         if(highScore < finalScore){
             setBestScore();
-            scoreTextView.setTextColor(getResources().getColor(R.color.feedback_best_score_text));
-//            addStat("New high score", String.valueOf(finalScore));
+//            scoreTextView.setTextColor(getResources().getColor(R.color.feedback_best_score_text));
         }
 
-        bestScoreTextView.append(String.valueOf(sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue)));
+//        bestScoreTextView.append(String.valueOf(sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue)));
+        addStat("Best score", String.valueOf(sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue)));
     }
 
     private void setBestScore(){
@@ -97,10 +92,7 @@ public class FeedbackActivity extends ActionBarAppActivity {
     private void initScoreStat() {
         int gameScore = Integer.valueOf(getIntent().getStringExtra(SCORE_STAT));
         int generalDistraction = Integer.valueOf(getIntent().getStringExtra(DISTRACTION_STAT));
-//        int gameDistraction = Integer.valueOf(getIntent().getStringExtra(GAME_DISTRACTION_STAT));
 
-//        int finalScore = (int) (gameScore * GAME_SCORE_WEIGHT + generalDistraction * GENERAL_DISTRACTION_WEIGHT
-//                + concentrationScore() * CONCENTRATION_WEIGHT);
         int concentrationScore = FeedbackClass.getConcentrationScore(parcelableConcentrationPointsList);
 
         addConcentrationStat(concentrationScore);
@@ -111,7 +103,8 @@ public class FeedbackActivity extends ActionBarAppActivity {
 
         finalScore = gameScore + generalDistraction + concentrationScore;
 
-        scoreTextView.setText(Integer.toString(finalScore));
+        addStat(SCORE_STAT, String.valueOf(finalScore));
+//        scoreTextView.setText(Integer.toString(finalScore));
     }
 
     private void addConcentrationStat(int score){
@@ -150,12 +143,9 @@ public class FeedbackActivity extends ActionBarAppActivity {
     }
 
     private void initGameTime() {
-//        int sessionTimeMin = (int) getIntent().getLongExtra(CURR_GAME_TIME_MINUTES, 0);
-//        int sessionTimeSec = (int) getIntent().getLongExtra(CURR_GAME_TIME_SECONDS, 0) % 60;
-        timeView = (TextView) findViewById(R.id.feedbackTimeViewText);
-        timeView.append(getIntent().getStringExtra(TOTAL_TIME));
-
-//        timeView.append("" + Integer.toString(sessionTimeMin) + ":" + Integer.toString(sessionTimeSec));
+//        timeView = (TextView) findViewById(R.id.feedbackTimeViewText);
+//        timeView.append(getIntent().getStringExtra(TOTAL_TIME));
+        addStat(TOTAL_TIME, getIntent().getStringExtra(TOTAL_TIME));
     }
 
     private void initButtons() {
@@ -205,15 +195,6 @@ public class FeedbackActivity extends ActionBarAppActivity {
     }
 
     private void initGraph() {
-//        ArrayList<ParcelableDataPoint> parcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
-//
-////        prepareConcentrationPoints();
-//        for(ParcelableDataPoint p : parcelableConcentrationPointsList){
-//            graphConcentrationPoints.appendData(p, false, Integer.MAX_VALUE);
-//        }
-
-//        initTitle();
-
         graphView = (GraphView) findViewById(R.id.graph);
         graphConcentrationPoints.setThickness(6);
 

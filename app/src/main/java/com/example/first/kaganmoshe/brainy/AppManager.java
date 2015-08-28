@@ -1,7 +1,6 @@
 package com.example.first.kaganmoshe.brainy;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
@@ -28,6 +27,7 @@ public class AppManager implements IHeadSetData {
     private AppSettings m_AppSettings;
     private static Context m_Context;
     private static HistoryDBAdapter historyDB;
+    private static final GamesManager gamesManager = new GamesManager();
 
 
 //    private HashMap<Integer, Drawable> m_Drawables;
@@ -158,5 +158,13 @@ public class AppManager implements IHeadSetData {
         }
 
         m_MusicMute = muteMode;
+    }
+
+    public static Context getContext() {
+        return m_Context;
+    }
+
+    public static GamesManager getGamesManager(){
+        return gamesManager;
     }
 }

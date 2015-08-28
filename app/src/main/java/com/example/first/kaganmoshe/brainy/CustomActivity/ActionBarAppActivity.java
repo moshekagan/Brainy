@@ -52,6 +52,8 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     private static final int POPUP_MENU_ROW_PADDING = 50;
     private static int popupMenuRowWidth = 0;
 
+//    private boolean homeButtonDisabled = false;
+
 
     @Override
     public void onAttentionReceived(int attValue) {
@@ -136,7 +138,10 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                 MenuCustomList(this, POPUP_MENU_TITLES, imageId, reviews, R.layout.overflow_menu_popup_row);
         homeButtonPopup.setAdapter(adapter);
         homeButtonPopup.setAnchorView(findViewById(android.R.id.home));
-//        homeButtonPopup.setBackgroundDrawable(null);
+
+        homeButtonPopup.setModal(true);
+
+
 
         if (popupMenuRowWidth == 0) {
             popupMenuRowWidth = measureContentWidth(adapter, getApplicationContext(), mMeasureParent);
@@ -166,14 +171,24 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                 }
 
                 if (homeButtonPopup.isShowing()) {
+                    Log.d("HOME BUTTON", "setOnItemClickListener dismiss");
                     homeButtonPopup.dismiss();
                 }
+
 //                if (parent.getContext().getClass() != cls) {
 //                    Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
 //                    onPopupMenuOptionSelected(cls);
 //                }
             }
         });
+
+//        homeButtonPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//            @Override
+//            public void onDismiss() {
+//                Log.d("HOME BUTTON", "setOnDismissListener homeButtonDisabled=false");
+//                homeButtonDisabled = false;
+//            }
+//        });
     }
 
     protected void onQuitClicked() {
@@ -227,7 +242,7 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     private void setNewConnectionIconByConnectionState(EConnectionState connectionState) {
 
         //TODO - need to take care of the synchronization. the if statement is not enough!!!!
-        if(connectionMenuItem != null) {
+        if (connectionMenuItem != null) {
             switch (connectionState) {
                 case DEVICE_CONNECTED:
                     connectionMenuItem.setIcon(R.drawable.good).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -264,15 +279,18 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home && !homeButtonPopup.isShowing()) {
+            Log.d("HOME BUTTON", "onOptionsItemSelected calls homeMenuButtonClicked()");
             homeMenuButtonClicked();
-        } else if (homeButtonPopup.isShowing()) {
+        } else if (item.getItemId() != android.R.id.home && homeButtonPopup.isShowing()) {
             homeButtonPopup.dismiss();
+            Log.d("HOME BUTTON", "onOptionsItemSelected dismiss");
         }
 
         return true;
     }
 
     protected void homeMenuButtonClicked() {
+        Log.d("HOME BUTTON", "homeMenuButtonClicked()");
         //TODO - take care of things not happening twice!
 //        actionsList = ArrayAdapter.createFromResource(this,
 //                R.array.action_list, android.R.layout.simple_dropdown_item_1line);

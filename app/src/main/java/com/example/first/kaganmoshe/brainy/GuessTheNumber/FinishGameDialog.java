@@ -14,14 +14,20 @@ import android.widget.TextView;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameDialog;
 import com.example.first.kaganmoshe.brainy.R;
 
+import java.util.HashMap;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FinishGameDialog extends GameDialog {
 
     private MediaPlayer winnerSound;
-    private TextView title;
+    private TextView titleTextView;
     private Button continueButton;
+    private String title = "Well Done";
+    private String dpTitle;
+
+    private int layoutID = R.layout.winner_dialog;
 
     public FinishGameDialog() {
         // Required empty public constructor
@@ -31,7 +37,23 @@ public class FinishGameDialog extends GameDialog {
         void onFinishGameContinueClicked();
     }
 
-//    @Override
+    public void setLayoutID(int layoutID) {
+        this.layoutID = layoutID;
+    }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public void setStats(HashMap<String, String> stats){
+
+    }
+
+    public void setDPTitle(String dpTitle){
+        this.dpTitle = dpTitle;
+    }
+
+    //    @Override
 //    protected void fireBackClickedEvent() {
 //        gameScreen.onDialogBackClicked(FinishGameDialog.class);
 //    }
@@ -46,16 +68,25 @@ public class FinishGameDialog extends GameDialog {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.winner_dialog, container,
+        View rootView = inflater.inflate(layoutID, container,
                 false);
         getDialog().setCanceledOnTouchOutside(false);
         continueButton = (Button) rootView.findViewById(R.id.continueButton);
-        title = (TextView) rootView.findViewById(R.id.winnerDialogTitle);
+        titleTextView = (TextView) rootView.findViewById(R.id.winnerDialogTitle);
 
-//        Utils.changeFont(getActivity().getAssets(), title);
+        titleTextView.setText(title);
         initButtons();
 
+        if(layoutID == R.layout.finish_game_dp_dialog){
+            ((TextView)rootView.findViewById(R.id.winnerDialogDPTitle)).setText(dpTitle);
+            addStats();
+        }
+
         return rootView;
+    }
+
+    private void addStats() {
+
     }
 
     private void initButtons() {
@@ -87,4 +118,6 @@ public class FinishGameDialog extends GameDialog {
         winnerSound = MediaPlayer.create(getActivity(), R.raw.winner_sound);
         winnerSound.start();
     }
+
+
 }

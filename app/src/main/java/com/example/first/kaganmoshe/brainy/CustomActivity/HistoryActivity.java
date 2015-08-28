@@ -2,14 +2,13 @@ package com.example.first.kaganmoshe.brainy.CustomActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
-import com.example.first.kaganmoshe.brainy.ConnectionActivity;
 import com.example.first.kaganmoshe.brainy.GamesActivity;
 import com.example.first.kaganmoshe.brainy.HistoryDBAdapter;
 import com.example.first.kaganmoshe.brainy.R;
@@ -131,6 +130,8 @@ public class HistoryActivity extends ActionBarAppActivity {
 
                     itemsSpinner.onItemClick(parent, view, position, id);
                 }
+
+                Log.d("HISTORY ACTIVITY", "currNameSelection: " + currGameSelection);
             }
         });
         itemsSpinner.setAdapter(itemsAdapter);
@@ -172,41 +173,11 @@ public class HistoryActivity extends ActionBarAppActivity {
         graphView.removeAllSeries();
         graphView.getSecondScale().getSeries().clear();
         initSeries();
-//        graphView.getViewport().setMinX(Doublerecords.get(0).date);
 
-//        graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
-//        graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
-
-//        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphView);
-//        String[] dates = new String[records.size()];
-//
-//        for (int i = 0; i < records.size(); i++) {
-//            dates[i] = records.get(i).date;
-//        }
-//
-//        staticLabelsFormatter.setHorizontalLabels(dates);
-//        staticLabelsFormatter.set
-//        graphView.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        concentrationSeries.appendData(new DataPoint(index, 0), false, Integer.MAX_VALUE);
+        scoreSeries.appendData(new DataPoint(index++, 0), false, Integer.MAX_VALUE);
 
         for (HistoryRecordData record : records) {
-//            String dateString = record.date;
-//            Log.d("HistoryActivity", "Date: " + record.date);
-//
-//            Date date = null;
-//            try {
-//                date = dateFormat.parse(dateString);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//
-//            Log.d("HistoryActivity", String.valueOf(date.getTime()));
-//            String formattedDate = record.date.substring(8, 10) + "." + record.date.substring(5, 7)
-//                    + "." + record.date.substring(0, 4) + " - " + record.date.substring(11, 16);
-//            Log.d("HistoryActivity", "Date: " + formattedDate);
-//            Double d = Double.parseDouble(formattedDate);
-//            Log.d("HistoryActivity", "Dateformatted valueof: " + String.valueOf(d));
-//            Log.d("HistoryActivity", "Dateformatted: " + d);
-
             concentrationSeries.appendData(new HistoryDataPoint(index, record.concentration, record),
                     false, Integer.MAX_VALUE);
             scoreSeries.appendData(new HistoryDataPoint(index++, record.score, record),
@@ -216,14 +187,18 @@ public class HistoryActivity extends ActionBarAppActivity {
         scoreSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
-                showData(((HistoryDataPoint) dataPoint).getData());
+                if (dataPoint instanceof HistoryDataPoint) {
+                    showData(((HistoryDataPoint) dataPoint).getData());
+                }
             }
         });
 
         concentrationSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
-                showData(((HistoryDataPoint) dataPoint).getData());
+                if (dataPoint instanceof HistoryDataPoint) {
+                    showData(((HistoryDataPoint) dataPoint).getData());
+                }
             }
         });
 
@@ -234,7 +209,7 @@ public class HistoryActivity extends ActionBarAppActivity {
     }
 
     private void showData(HistoryRecordData data) {
-        if(!data.date.equals(dateTextView.getText())) {
+        if (!data.date.equals(dateTextView.getText())) {
             resetTextViews();
 
             nameTextView.setText(data.name);
@@ -244,7 +219,7 @@ public class HistoryActivity extends ActionBarAppActivity {
         }
     }
 
-    private void resetTextViews(){
+    private void resetTextViews() {
         nameTextView.setText("");
         scoreTextView.setText("");
         concentrationTextView.setText("");
@@ -273,6 +248,7 @@ public class HistoryActivity extends ActionBarAppActivity {
             }
         });
 
+
 //        gridLabelRenderer.setHighlightZeroLines(false);
 
 
@@ -282,12 +258,14 @@ public class HistoryActivity extends ActionBarAppActivity {
         Viewport viewport = graphView.getViewport();
         viewport.setXAxisBoundsManual(true);
         viewport.setYAxisBoundsManual(true);
-        viewport.setMaxX(20);
+        viewport.setMaxX(10);
         viewport.setMinY(0);
         viewport.setMaxY(100);
         viewport.setScrollable(true);
         graphView.getSecondScale().setMaxY(1000);
 
+        gridLabelRenderer.setNumHorizontalLabels(4);
+        gridLabelRenderer.setHorizontalLabelsVisible(false);
         gridLabelRenderer.setVerticalLabelsSecondScaleColor(SCORE_COLOR);
         gridLabelRenderer.setVerticalLabelsColor(CONCENTRATION_COLOR);
     }
@@ -295,6 +273,13 @@ public class HistoryActivity extends ActionBarAppActivity {
     private void initSeries() {
         concentrationSeries = new LineGraphSeries<>();
         scoreSeries = new LineGraphSeries<>();
+
+        concentrationSeries.setDrawDataPoints(true);
+        scoreSeries.setDrawDataPoints(true);
+        concentrationSeries.setDataPointsRadius(7f);
+        scoreSeries.setDataPointsRadius(7f);
+        concentrationSeries.setThickness(6);
+        scoreSeries.setThickness(6);
 
         graphView.getLegendRenderer().setVisible(true);
         concentrationSeries.setTitle("Concentration");

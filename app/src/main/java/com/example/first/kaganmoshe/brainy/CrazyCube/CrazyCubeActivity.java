@@ -3,15 +3,11 @@ package com.example.first.kaganmoshe.brainy.CrazyCube;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
-import android.os.Handler;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +25,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Random;
 
 public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAppTimerListener {
@@ -343,8 +338,8 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         //this is the format to add your own stat
         addNewStatForFeedback("Bonus", "100");
         //then you call this method
-        continueToNextActivity(FeedbackActivity.class);
-
+//        continueToNextActivity(FeedbackActivity.class);
+        super.onFinishGameContinueClicked();
     }
 
     @Override

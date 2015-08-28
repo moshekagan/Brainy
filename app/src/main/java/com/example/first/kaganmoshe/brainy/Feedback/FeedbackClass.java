@@ -1,14 +1,10 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
 import android.content.Context;
-import android.text.format.DateUtils;
-import android.util.Log;
 
 import com.example.first.kaganmoshe.brainy.AppManager;
-import com.example.first.kaganmoshe.brainy.CustomActivity.ResumeGameCountDown;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import EEG.EConnectionState;

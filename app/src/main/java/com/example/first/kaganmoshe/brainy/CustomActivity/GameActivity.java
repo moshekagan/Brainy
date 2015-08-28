@@ -29,7 +29,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected ResumeGameCountDown resumeGameCountDown = new ResumeGameCountDown();
     protected Class onBackPressedActivityTarget = null;
     private Class targetActivity = null;
-    LinkedHashMap<String, String> extraStats = new LinkedHashMap<>();
+    protected LinkedHashMap<String, String> extraStats = new LinkedHashMap<>();
 
 //    protected GraphView graphView;
 //    protected LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
@@ -81,7 +81,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         super.onResume();
 
         Log.d("RESUME", "onResume");
-        targetActivity = null;
+//        targetActivity = null;
 
 //        if (graphFragment == null) {
 //            graphFragment = (GraphFragment) fm.findFragmentById(R.id.fragment);
@@ -132,9 +132,8 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     protected void showFinishDialog() {
         onPause();
-//        FinishGameDialog finishGameDialog = new FinishGameDialog();
-//        finishGameDialog.setGameScreen(this);
-        finishGameDialog.show(fm, "FinishGameDialog");
+        AppManager.getGamesManager().showFinishDialog(fm, finishGameDialog);
+//        finishGameDialog.show(fm, "FinishGameDialog");
     }
 
 //    @Override
@@ -206,12 +205,12 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 //        Utils.startNewActivity(this, intent);
 //    }
 
-    protected void continueToNextActivity(Class targetActivity){
-        Intent intent = makeIntentForFinishedGame(targetActivity);
-
-        loadExtraStatsToIntent(intent);
-        Utils.startNewActivity(this, intent);
-    }
+//    protected void continueToNextActivity(Class targetActivity){
+//        Intent intent = makeIntentForFinishedGame(targetActivity);
+//
+//        loadExtraStatsToIntent(intent);
+//        Utils.startNewActivity(this, intent);
+//    }
 
     protected void loadExtraStatsToIntent(Intent intent){
         ArrayList<String> extraStatKeys = new ArrayList<>();
@@ -248,11 +247,13 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     @Override
     public void onQuitGameConfirmed() {
-        if (targetActivity == null) {
-            Utils.startNewActivity(this, onBackPressedActivityTarget);
-        } else {
-            Utils.startNewActivity(this, targetActivity);
-        }
+//        if (targetActivity == null) {
+//            Utils.startNewActivity(this, onBackPressedActivityTarget);
+//        } else {
+//            Utils.startNewActivity(this, targetActivity);
+//        }
+        AppManager.getGamesManager().continueAfterQuitConfirmed(this);
+//        Utils.startNewActivity(this, GamesActivity.class);
     }
 
     @Override
@@ -267,6 +268,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     @Override
     public void onDialogBackClicked(Class thisClass) {
+        //TODO - not good !!
         Log.d("Back class", thisClass.toString());
 
         if (thisClass == FinishGameDialog.class) {
@@ -314,25 +316,28 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected void onFinishGameShow() {
 //        AppManager.getHistoryDBInstance(getApplicationContext())
         feedback.insertRecordToHistoryDB(getApplicationContext(), getGameName());
+        Log.d("DAILY PRACTICE", "INSERT RECORD " + getGameName());
     }
 
     @Override
     protected void onQuitClicked() {
-        quitGameDialog.show(fm, "QUIT CONFIRMATION");
+//        quitGameDialog.show(fm, "QUIT CONFIRMATION");
+        AppManager.getGamesManager().showQuitDialog(fm, quitGameDialog);
     }
 
     @Override
     public void onFinishGameContinueClicked() {
-        continueToNextActivity(FeedbackActivity.class);
+        AppManager.getGamesManager().continueToActivityAfterGameFinished(this);
+//        continueToNextActivity(FeedbackActivity.class);
+
 //        Intent intent = makeIntentForFinishedGame(FeedbackActivity.class);
-//
 //        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
 //        Utils.startNewActivity(this, intent);
     }
 
     @Override
     protected void onPopupMenuOptionSelected() {
-        this.targetActivity = GamesActivity.class;
+//        this.targetActivity = GamesActivity.class;
         quitGameDialog.show(fm, "QuitGameDialog");
     }
 
@@ -357,6 +362,19 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected abstract void addTotalTimeSessionFeedbackStat(Intent intent);
 
     protected String getGameName(){
-        return "Some Game";
+        return "Guess The Number";
+    }
+
+    public Intent prepareIntentForFeedback() {
+//        Intent intent = makeIntentForFinishedGame(targetActivity);
+        Intent intent = makeIntentForFinishedGame(FeedbackActivity.class);
+
+        loadExtraStatsToIntent(intent);
+
+        return intent;
+    }
+
+    public FeedbackClass getFeedback() {
+        return feedback;
     }
 }

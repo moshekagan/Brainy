@@ -75,4 +75,6 @@
     <string name="title_activity_history">HistoryActivity</string>
     <!--<string name="saved_high_score" />-->
     <string name="space_character">\u00A0</string>
+    <string name="title_activity_dpfeedback">DPFeedbackActivity</string>
+    <string name="title_activity_fb">FBActivity</string>
 </resources>

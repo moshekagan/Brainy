@@ -10,6 +10,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:logo">@drawable/pause_icon5</item>
+        <item name="android:animateOnClick">false</item>
+        <item name="android:actionBarItemBackground">@null</item>
         <!--<item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>-->
 
         <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
@@ -67,6 +69,10 @@
     <style name="winnerDialogTitle">
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
+    <style name="winnerDialogDPTitle">
+        <item name="android:textSize">25sp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
     </style>
     <style name="gameOutputText">

@@ -100,6 +100,14 @@
             android:label="@string/title_activity_history"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".Feedback.DPFeedbackActivity"
+            android:label="@string/title_activity_dpfeedback" >
+        </activity>
+        <activity
+            android:name=".Feedback.FBActivity"
+            android:label="@string/title_activity_fb" >
+        </activity>
     </application>
 
 </manifest>

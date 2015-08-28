@@ -1,6 +1,5 @@
 package com.example.first.kaganmoshe.brainy;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 

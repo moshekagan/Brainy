@@ -15,7 +15,6 @@ import com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
-import EEG.IHeadSetData;
 
 
 public class GamesActivity extends ActionBarAppActivity {
@@ -140,6 +139,17 @@ public class GamesActivity extends ActionBarAppActivity {
             }
         });
 
+        findViewById(R.id.dailyPracticeButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDailyPracticeClicked();
+            }
+        });
+
+    }
+
+    private void onDailyPracticeClicked() {
+        AppManager.getGamesManager().startDailyPractice(this);
     }
 
     private void onHistoryClicked() {
