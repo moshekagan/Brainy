@@ -541,4 +541,6 @@ public class MindShooterLogic implements IHeadSetData{
     public void setBalloonSize(Point p){ this.m_BalloonSize.set(p.x, p.y); }
 
     public void setIntentSize(Point p){ this.m_IntentSize.set(p.x, p.y); }
+
+    public int getScore() { return m_CurrentScore; }
 }

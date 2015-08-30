@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppTime;
+import com.example.first.kaganmoshe.brainy.CustomActivity.AppTimer;
 import com.example.first.kaganmoshe.brainy.CustomActivity.GameActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
@@ -30,7 +32,7 @@ import EEG.EConnectionState;
 import EEG.ESignalVolume;
 import Utils.Logs;
 
-public class MindShooterGameActivity extends GameActivity implements IMindShooter {
+public class MindShooterGameActivity extends GameActivity implements IMindShooter, AppTimer.IAppTimerListener {
 
     // Data Members
     public static final String MIND_SHOOTER_GAME_ACTIVITY = "MindShooterGameActivity";
@@ -52,8 +54,10 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     private SoundPool m_SoundEffect;
     private int m_BalloonPoppingAffectId;
     private int m_SingleShotAffectId;
+    private boolean m_IsPlaying = false;
 
     // Timer Members
+    private AppTimer m_Timer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.MINUTES_AND_SECONDS);
     private TextView m_TimeTextView;
     private Handler m_CustomHandler = new Handler();
     private long m_StartTime = 0;
@@ -132,14 +136,16 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     }
 
     private void shoot() {
-        m_MindShooterLogic.shoot();
+        if (m_IsPlaying) {
+            m_MindShooterLogic.shoot();
 //        m_SingleShotAffect_.start();
-        m_SoundEffect.play(m_SingleShotAffectId, 1, 1, 1, 0, 1);
+            m_SoundEffect.play(m_SingleShotAffectId, 1, 1, 1, 0, 1);
+        }
     }
 
     private void startGame() {
         m_MindShooterLogic.startGame();
-        startFeedbackSession();
+//        startFeedbackSession();
         startTimerGame(TIME_FOR_GAME);
     }
 
@@ -164,17 +170,33 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     }
 
     private void startTimerGame(long value) {
-        m_TimerValueInMilliseconds = value;
-        m_StartTime = SystemClock.uptimeMillis();
+        m_Timer.registerListener(this);
+        m_TimeTextView.setText(m_Timer.toString());
+        m_IsPlaying = true;
+//        m_TimerValueInMilliseconds = value;
+//        m_StartTime = SystemClock.uptimeMillis();
 //        feedback.startTimer();
         startFeedbackSession();
-        m_CustomHandler.postDelayed(m_UpdateTimerThread, 0);
+//        m_CustomHandler.postDelayed(m_UpdateTimerThread, 0);
+
+    }
+
+    private void stopTimer(){
+        m_Timer.stopTimer();
+        m_IsPlaying = false;
+    }
+
+    private void resumeTimer() {
+        m_Timer.resumeTimer();
+        m_IsPlaying = true;
     }
 
     private void finishTimerGame() {
-        m_TimeSwapBuff += m_TimeInMilliseconds;
-        m_CustomHandler.removeCallbacks(m_UpdateTimerThread);
-        feedback.stopTimerAndRecievingData();
+//        m_TimeSwapBuff += m_TimeInMilliseconds;
+//        m_CustomHandler.removeCallbacks(m_UpdateTimerThread);
+//        feedback.stopTimerAndRecievingData();
+
+        ((MindShooterFeedback) feedback).calculateFinalScore(m_MindShooterLogic.getScore());
         showFinishDialog();
     }
 
@@ -238,12 +260,7 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     @Override
     protected void startFeedbackSession() {
         feedback = new MindShooterFeedback();
-        feedback.startTimer();
-    }
-
-    @Override
-    protected void onMenuPopupShow() {
-
+//        feedback.startTimer();
     }
 
 //    @Override
@@ -296,7 +313,8 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
 
     @Override
     public void animateIntentForLocation(Point intentLocation, int duration) {
-        moveImageViewTo(m_IntentImageView, intentLocation, duration);
+        if (m_IsPlaying)
+            moveImageViewTo(m_IntentImageView, intentLocation, duration);
     }
 
     @Override
@@ -311,5 +329,42 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     @Override
     public void setScore(int currentScore) {
         m_ScoreTextView.setText(Integer.toString(currentScore));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopTimer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDialogShow(Class thisClass) {
+        stopTimer();
+        super.onDialogShow(thisClass);
+    }
+
+    @Override
+    protected void onMenuPopupShow() {
+        super.onMenuPopupShow();
+        stopTimer();
+    }
+
+    @Override
+    public void onGameResumed() {
+        super.onGameResumed();
+        resumeTimer();
+    }
+
+    @Override
+    public void onTimeTick(String timeString) { m_TimeTextView.setText(m_Timer.toString()); }
+
+    @Override
+    public void onTimeFinish(String timeString) {
+        finishTimerGame();
     }
 }
