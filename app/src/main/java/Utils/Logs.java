@@ -17,7 +17,7 @@ public class Logs {
     static public Date m_Date = new Date();
 
     static public String format(String tag, String msg){
-        return "||" + m_DateFormat.format(m_Date) + "||" + "BRAINY" + "|| " + "|| " + tag + " || " + msg;
+        return "||" /*+ m_DateFormat.format(m_Date)*/ + "||" + "BRAINY" + "|| " + "|| " + tag + " || " + msg;
     }
 
     static public int info(String tag, String msg){

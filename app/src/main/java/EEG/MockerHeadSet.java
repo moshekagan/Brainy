@@ -44,7 +44,7 @@ public class MockerHeadSet extends EegHeadSet {
         };
 
         Handler handler = new Handler();
-        handler.postDelayed(notConnectedTimer, 5000);
+//        handler.postDelayed(notConnectedTimer, 5000);
 
         Runnable connectedTimer = new Runnable() {
             @Override
@@ -53,7 +53,7 @@ public class MockerHeadSet extends EegHeadSet {
             }
         };
 
-        handler.postDelayed(connectedTimer, 10000);
+        handler.postDelayed(connectedTimer, 1000);
     }
 
     @Override

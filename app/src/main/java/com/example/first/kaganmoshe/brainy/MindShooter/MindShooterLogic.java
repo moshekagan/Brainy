@@ -45,6 +45,7 @@ public class MindShooterLogic implements IHeadSetData{
     private final int Y_MinRangeScreen;
     private final int Y_MaxRangeScreen;
 
+    private int m_CurrentAttention;
     private IMindShooter m_MindShooter;
     private Point m_CurrentBalloonLocation = new Point();
     private Point m_CurrentIntentLocation = new Point();
@@ -56,8 +57,6 @@ public class MindShooterLogic implements IHeadSetData{
     private Random rand = new Random();
     private EEdges m_CurrentEdge = EEdges.BOTTOM; 
 
-//    private int balloonSize = 250;
-//    private int intentSize = 135;
     // Methods
     public MindShooterLogic(int screenWidth, int screenHeight, IMindShooter mindShooter) throws Exception {
         if (mindShooter == null)
@@ -78,12 +77,6 @@ public class MindShooterLogic implements IHeadSetData{
         Y_MinRangeScreen = getY_MinRange();
     }
 
-    private Point calculatePointTarget(){
-        Point target = new Point();
-
-        return target;
-    }
-
     public void startGame(){
         // TODO - Init: timer,
         m_MindShooter.setIntentLocation(m_CurrentIntentLocation);
@@ -102,20 +95,27 @@ public class MindShooterLogic implements IHeadSetData{
 //        }, 0, 1000);
     }
 
-    public void shoot(){
-        Logs.error(MIND_SHOOTER_LOGIC, "Enter to MindShooterLogic.Shoot()");
-        int XmiddelIntentLocation = m_CurrentIntentLocation.x + (m_IntentSize.x/2);
-        int YmiddelIntentLocation = m_CurrentIntentLocation.y + (m_IntentSize.y/2);
+    @Override
+    public void onAttentionReceived(int attValue) {
+        if (m_ListenToHeadSet) {
+            Logs.error(MIND_SHOOTER_LOGIC, "Att Rec =>" + attValue);
+            m_CurrentAttention = attValue;
+            float attFranction = getAttentionAsFraction(attValue);
+//            goToTheTarget(calcNewPosition(attFranction));
 
-        // TODO - Make sound of shoot
-        if ( XmiddelIntentLocation >= m_CurrentBalloonLocation.x + m_SpaceVal &&
-                XmiddelIntentLocation <= m_CurrentBalloonLocation.x + m_BalloonSize.x - m_SpaceVal &&
-                YmiddelIntentLocation >= m_CurrentBalloonLocation.y + m_SpaceVal &&
-                YmiddelIntentLocation <= m_CurrentBalloonLocation.y + m_BalloonSize.y - m_SpaceVal)
-        { // Good Shoot
-            // TODO - Make sound of the balloon bamp
-            calculateNewLocationForBalloon();
-            m_MindShooter.theBalloonExploded(m_CurrentBalloonLocation, ++m_CurrentScore);
+            if (attValue >= 75)  // Case that bring the intent right to the target
+                goToTheTarget(attFranction);
+            else if(attValue >= 65)
+                newPositionForIntent(1);
+            else if (attValue >= 50) // Bring the intent close but not enough
+                newPositionForIntent(2);
+            else if (attValue >= 35)
+                newPositionForIntent(3);
+            else if (attValue >= 25)  // Taking the intent far from the target
+                newPositionForIntent(4);
+            else { // Taking the intent far from
+                goFarAwayFromTarget(attFranction, 2);
+            }
         }
     }
 
@@ -125,12 +125,13 @@ public class MindShooterLogic implements IHeadSetData{
         int newY_Position;
 
         do {
-            newX_Position = rand.nextInt(X_MaxRangeScreen) + X_MinRangeScreen;
-            newY_Position = rand.nextInt(Y_MaxRangeScreen) + Y_MinRangeScreen;
-        } while (newY_Position >= Y_MaxRangeScreen - 120 &&
-                newX_Position >= screenWidth / 2 - 180 &&
-                newX_Position <= screenWidth / 2);
+            newX_Position = rand.nextInt(getX_MaxRangeForBalloon() - getX_MinRange()) + getX_MinRange();
+            newY_Position = rand.nextInt(getY_MaxRangeForBalloon() - getY_MinRange()) + getY_MinRange();
+        } while (newY_Position >= Y_MaxRangeScreen - 1.5*m_BalloonSize.y &&
+                newX_Position >= screenWidth / 2 - 1.5*m_BalloonSize.x &&
+                newX_Position <= screenWidth / 2 + m_BalloonSize.x);
 
+        Logs.debug(MIND_SHOOTER_LOGIC, "Balloon new location: X=" + newX_Position + " Y=" + newY_Position);
         m_CurrentBalloonLocation.set(newX_Position, newY_Position);
 //        int val = m_SpaceVal*3;
 //        switch (count1){
@@ -160,114 +161,75 @@ public class MindShooterLogic implements IHeadSetData{
 //        else m_CurrentBalloonLocation.set(m_CurrentBalloonLocation.x + m_CurrentBalloonLocation.x/10, m_CurrentBalloonLocation.y + m_CurrentBalloonLocation.y/12);
     }
 
-    int count =0;
-    // TODO - Need to remove this method...
-    public void test(){
-//        count++;
-//        int intentImageSize = 180;
-//        int disBetweenTheEdges = 80;
-//        switch (count){
-//            case 1:
-//                m_CurrentIntentLocation.set(disBetweenTheEdges, disBetweenTheEdges);
-//                break;
-//            case 2:
-//                m_CurrentIntentLocation.set(screenWidth-disBetweenTheEdges-intentImageSize, disBetweenTheEdges);
-//                break;
-//            case 3:
-//                m_CurrentIntentLocation.set(disBetweenTheEdges, screenHeight-disBetweenTheEdges-intentImageSize);
-//                break;
-//            case 4:
-//                m_CurrentIntentLocation.set(screenWidth-disBetweenTheEdges-intentImageSize, screenHeight-disBetweenTheEdges-intentImageSize);
-//                int x = m_CurrentBalloonLocation.x - intentImageSize <= screenWidth-disBetweenTheEdges-intentImageSize ?
-//                        m_CurrentBalloonLocation.x - intentImageSize : m_CurrentBalloonLocation.x + intentImageSize;
-//                int y = m_CurrentBalloonLocation.y - disBetweenTheEdges <= screenHeight-disBetweenTheEdges-intentImageSize?
-//                        m_CurrentBalloonLocation.y - disBetweenTheEdges : m_CurrentBalloonLocation.y + disBetweenTheEdges;
-//                m_CurrentBalloonLocation.set(x,y);
-//                m_MindShooter.setBalloonLocation(m_CurrentBalloonLocation);
-//                count = 0;
-//                break;
-//        }
-        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x+ m_SpaceVal, m_CurrentBalloonLocation.y+ m_SpaceVal);
-        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 1000);
-    }
+    private float getAttentionAsFraction(int attVal) { return (attVal * 0.01f); }
 
-    private float getAttentionAsFraction(int attVal) {
-        return (attVal * 0.01f);
-    }
+    int m_PreviousRandPosition = 1;
+    private void goFarAwayFromTarget(float attFranction, int doItAgain) {
+        int randPosition;
+        while ((randPosition = rand.nextInt(8) + 1) == m_PreviousRandPosition);
+        m_PreviousRandPosition = randPosition;
+        Logs.error(MIND_SHOOTER_LOGIC, "In goFarAwayFromTarget(attFranction = " + attFranction + ")");
 
-    @Override
-    public void onAttentionReceived(int attValue) {
-        if (m_ListenToHeadSet) {
-            Logs.error(MIND_SHOOTER_LOGIC, "Att Rec =>" + attValue);
-            float attFranction = getAttentionAsFraction(attValue);
-//            goToTheTarget(calcNewPosition(attFranction));
-
-            if (attValue >= 75) { // Case that bring the intent right to the target
-                goToTheTarget(attFranction);
-            } else if(attValue >= 65){
-                goCloseToTarget(attFranction, 1.25f);
-            } else if (attValue >= 50) { // Bring the intent close but not enough
-                goCloseToTarget(attFranction, 1.5f);
-            } else if (attValue >= 25) { // Taking the intent far from the target
-                goCloseToTarget(attFranction, 1.75f);
-//                goFarFromTarget(attFranction);
-            } else { // Taking the intent far from
-                goFarAwayFromTarget(attFranction);
-            }
-        }
-    }
-
-//    private Point calcNewPosition(float attFranction) {
-//        return new Point(m_CurrentBalloonLocation.x + m_SpaceVal + m_BalloonSize.x/2,
-//                m_CurrentBalloonLocation.y + m_SpaceVal + m_BalloonSize.y/2);
-//    }
-    
-    private EEdges getAndSetNextRandomEdge(){
-        int newEdgeVal;
-        newEdgeVal = rand.nextInt(4) + 1;
-        Logs.debug(MIND_SHOOTER_LOGIC, "Rand the number: " + newEdgeVal);
-
-        switch (m_CurrentEdge){
-            case LEFT:
-                if (newEdgeVal == 1) m_CurrentEdge = EEdges.TOP;
-                else if (newEdgeVal == 2) m_CurrentEdge = EEdges.BOTTOM;
-                break;
-            case TOP:
-                if (newEdgeVal == 1) m_CurrentEdge = EEdges.RIGHT;
-                else if (newEdgeVal == 2) m_CurrentEdge = EEdges.LEFT;
-                break;
-            case RIGHT:
-                if (newEdgeVal == 1) m_CurrentEdge = EEdges.BOTTOM;
-                else if (newEdgeVal == 2) m_CurrentEdge = EEdges.TOP;
-                break;
-            case BOTTOM:
-                if (newEdgeVal == 1) m_CurrentEdge = EEdges.LEFT;
-                else if (newEdgeVal == 2) m_CurrentEdge = EEdges.RIGHT;
-                break;
-        }
-
-        return m_CurrentEdge;
-    }
-
-    private void goFarAwayFromTarget(float attFranction) {
-//        int randPosition = rand.nextInt(4) + 1; // random new position (1-8)
         int newXPosition = getX_MinRange();
         int newYPosition = getY_MinRange();
+        int x2 = 0, y2 = 0;
 
-        switch (getAndSetNextRandomEdge()){
-            case LEFT:
-                newYPosition = rand.nextInt(getY_MaxRangeForIntent()) + getY_MinRange();
+        switch (randPosition){
+            case 1:
+                newXPosition = getX_MinRange();
+                newYPosition = getY_MinRange();
+                x2 = getX_MaxRangeForIntent();
+                y2 = getY_MaxRangeForIntent() / 2;
+                m_PreviousRandPosition = 7;
                 break;
-            case TOP:
-                newXPosition = rand.nextInt(getX_MaxRangeForIntent()) + getX_MinRange();
-                break;
-            case RIGHT:
-                newYPosition = rand.nextInt(getY_MaxRangeForIntent()) + getY_MinRange();
+            case 2:
                 newXPosition = getX_MaxRangeForIntent();
+                newYPosition = getY_MinRange();
+                x2 = getX_MaxRangeForIntent() / 2;
+                y2 = getY_MaxRangeForIntent();
+                m_PreviousRandPosition = 8;
                 break;
-            case BOTTOM:
-                newXPosition = rand.nextInt(getX_MaxRangeForIntent()) + getX_MinRange();
+            case 3:
+                newXPosition = getX_MaxRangeForIntent();
                 newYPosition = getY_MaxRangeForIntent();
+                x2 = getX_MinRange();
+                y2 = getY_MaxRangeForIntent() / 2;
+                m_PreviousRandPosition = 5;
+                break;
+            case 4:
+                newXPosition = getX_MinRange();
+                newYPosition = getY_MaxRangeForIntent();
+                x2 = getX_MaxRangeForIntent() / 2;
+                y2 = getY_MinRange();
+                m_PreviousRandPosition = 6;
+                break;
+            case 5:
+                newXPosition = getX_MinRange();
+                newYPosition = getY_MaxRangeForIntent() / 2;
+                x2 = getX_MaxRangeForIntent();
+                y2 = getY_MinRange();
+                m_PreviousRandPosition = 2;
+                break;
+            case 6:
+                newXPosition = getX_MaxRangeForIntent() / 2;
+                newYPosition = getY_MinRange();
+                x2 = getX_MaxRangeForIntent();
+                y2 = getY_MaxRangeForIntent();
+                m_PreviousRandPosition = 3;
+                break;
+            case 7:
+                newXPosition = getX_MaxRangeForIntent();
+                newYPosition = getY_MaxRangeForIntent() / 2;
+                x2 = getX_MinRange();
+                y2 = getY_MaxRangeForIntent();
+                m_PreviousRandPosition = 4;
+                break;
+            case 8:
+                newXPosition = getX_MaxRangeForIntent() / 2;
+                newYPosition = getY_MaxRangeForIntent();
+                x2 = getX_MinRange();
+                y2 = getY_MinRange();
+                m_PreviousRandPosition = 1;
                 break;
         }
 
@@ -312,74 +274,235 @@ public class MindShooterLogic implements IHeadSetData{
 //        else
 //                m_CurrentIntentLocation.set(screenWidth-disBetweenTheEdges-intentImageSize, screenHeight-disBetweenTheEdges-intentImageSize);
         m_CurrentIntentLocation.set(newXPosition, newYPosition);
-        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 700);
-    }
+        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 250);
+        m_CurrentIntentLocation.set(x2, y2);
+        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 250);
 
-    private void goFarFromTarget(float attFranction) {
-        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x - m_CurrentBalloonLocation.x/2 + m_SpaceVal + m_BalloonSize.x/2,
-                m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y/2 + m_SpaceVal + m_BalloonSize.y/2);
-        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 1000);
-    }
-
-    private void goCloseToTarget(float attFranction, float level) {
-        int newXIntentPosition;
-        int newYIntentPosition;
-
-        int X_SpaceVal = m_SpaceVal + m_IntentSize.x;
-        int Y_SpaceVal = m_SpaceVal + m_IntentSize.y;
-
-        int rangeHeight = (int)((m_CurrentBalloonLocation.y + m_BalloonSize.y) * level -
-                (m_CurrentBalloonLocation.y / level));
-        int rangeWidth = (int)((m_CurrentBalloonLocation.x + m_BalloonSize.x) * level -
-                (m_CurrentBalloonLocation.x / level));
-
-        switch (getAndSetNextRandomEdge()){
-            case LEFT:
-                newYIntentPosition = rand.nextInt(rangeHeight) + (int)(m_CurrentBalloonLocation.y / level);
-                newXIntentPosition = (int)(m_CurrentBalloonLocation.x / level);
-                break;
-            case TOP:
-                newXIntentPosition = rand.nextInt(rangeWidth) + (int)(m_CurrentBalloonLocation.x / level);
-                newYIntentPosition = (int)(m_CurrentBalloonLocation.y / level);
-                break;
-            case RIGHT:
-                newYIntentPosition = rand.nextInt(rangeHeight) + (int)(m_CurrentBalloonLocation.y / level);
-                newXIntentPosition = (int)((m_CurrentBalloonLocation.x + m_BalloonSize.x) / level);
-                break;
-            case BOTTOM:
-            default:
-                newXIntentPosition = rand.nextInt(rangeWidth) + (int)(m_CurrentBalloonLocation.x / level);
-                newYIntentPosition = (int)((m_CurrentBalloonLocation.y + m_BalloonSize.y) / level);
-                break;
+        if (--doItAgain > 0){
+            goFarAwayFromTarget(attFranction, doItAgain);
         }
-
-//        newXIntentPosition += X_SpaceVal;
-//        newYIntentPosition += Y_SpaceVal;
-
-        newYIntentPosition = fix_Y_Location(newYIntentPosition);
-        newXIntentPosition = fix_X_Location(newXIntentPosition);
-
-        m_CurrentIntentLocation.set(newXIntentPosition, newYIntentPosition);
-//        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x - m_CurrentBalloonLocation.x/3 + m_SpaceVal + m_BalloonSize.x/2,
-//                m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y/3 + m_SpaceVal + m_BalloonSize.y/2);
-        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 1000);
-    }
-
-    private int fix_Y_Location(int y){
-        // TODO:
-        return y;
-    }
-
-    private int fix_X_Location(int x){
-        // TODO:
-        return x;
     }
 
     private void goToTheTarget(float attFranction) {
-        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x + m_SpaceVal + m_BalloonSize.x/2,
-                m_CurrentBalloonLocation.y + m_SpaceVal + m_BalloonSize.y/2);
+        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x  + m_BalloonSize.x/3 - m_SpaceVal,
+                m_CurrentBalloonLocation.y +  m_BalloonSize.y/3 - m_SpaceVal);
         m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 1000);
     }
+
+    private void newPositionForIntent(int level){
+        m_CurrentIntentLocation.set(newXPositionForIntent(level), newYPositionForIntent(level));
+        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 1000);
+    }
+
+    private int newXPositionForIntent(int level){
+        float val = calcValByLevel(level);
+
+        int res = (int)(m_CurrentBalloonLocation.x - m_CurrentBalloonLocation.x*val /*+ m_SpaceVal + m_BalloonSize.x/2*/);
+
+        Logs.error(MIND_SHOOTER_LOGIC, "m_CurrentBalloonLocation.x/val= " + m_CurrentBalloonLocation.x * val);
+
+        if (m_CurrentBalloonLocation.x < m_CurrentIntentLocation.x)
+            res = (int)(m_CurrentBalloonLocation.x + m_BalloonSize.x +
+                    (screenWidth - (m_CurrentIntentLocation.x + m_BalloonSize.x))*val /*- m_SpaceVal - m_BalloonSize.x/2*/);
+
+        Logs.error(MIND_SHOOTER_LOGIC, "X = " + res);
+        return res;
+    }
+
+    private int newYPositionForIntent(int level){
+        float val = calcValByLevel(level);
+        int res;
+
+        res = (int)(m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y*val /*+ m_SpaceVal + m_BalloonSize.y/2*/);
+
+        Logs.error(MIND_SHOOTER_LOGIC, "m_CurrentBalloonLocation.y/val= " + m_CurrentBalloonLocation.y*val);
+
+        if (m_CurrentBalloonLocation.y < m_CurrentIntentLocation.y)
+            res = (int)(m_CurrentBalloonLocation.y + m_BalloonSize.y +
+                    (screenHeight - (m_CurrentIntentLocation.y + m_BalloonSize.y))*val /* - m_SpaceVal - m_BalloonSize.y/2*/);
+
+        Logs.error(MIND_SHOOTER_LOGIC, "Y = " + res);
+        return res;
+    }
+
+    private float calcValByLevel(int level) {
+        float val = 1;
+
+        if (level == 1) val = 0.25f;
+        else if (level == 2) val = 0.33f;
+        else if (level == 3) val = 0.5f;
+        else if (level == 4) val = 0.75f;
+
+        return val;
+    }
+
+    public void shoot(){
+        Logs.error(MIND_SHOOTER_LOGIC, "Enter to MindShooterLogic.Shoot()");
+        int XmiddelIntentLocation = m_CurrentIntentLocation.x + (m_IntentSize.x/2);
+        int YmiddelIntentLocation = m_CurrentIntentLocation.y + (m_IntentSize.y/2);
+
+        // TODO - Make sound of shoot
+        if ( XmiddelIntentLocation >= m_CurrentBalloonLocation.x + m_SpaceVal &&
+                XmiddelIntentLocation <= m_CurrentBalloonLocation.x + m_BalloonSize.x - m_SpaceVal &&
+                YmiddelIntentLocation >= m_CurrentBalloonLocation.y + m_SpaceVal &&
+                YmiddelIntentLocation <= m_CurrentBalloonLocation.y + m_BalloonSize.y - m_SpaceVal)
+        { // Good Shoot
+            // TODO - Make sound of the balloon bamp
+            calculateNewLocationForBalloon();
+            m_MindShooter.theBalloonExploded(m_CurrentBalloonLocation, ++m_CurrentScore);
+        }
+    }
+
+    int count = -1;
+    // TODO - Need to remove this method...
+    public void test(){
+//        count++;
+//        int intentImageSize = 180;
+//        int disBetweenTheEdges = 80;
+//        switch (count){
+//            case 1:
+//                m_CurrentIntentLocation.set(disBetweenTheEdges, disBetweenTheEdges);
+//                break;
+//            case 2:
+//                m_CurrentIntentLocation.set(screenWidth-disBetweenTheEdges-intentImageSize, disBetweenTheEdges);
+//                break;
+//            case 3:
+//                m_CurrentIntentLocation.set(disBetweenTheEdges, screenHeight-disBetweenTheEdges-intentImageSize);
+//                break;
+//            case 4:
+//                m_CurrentIntentLocation.set(screenWidth-disBetweenTheEdges-intentImageSize, screenHeight-disBetweenTheEdges-intentImageSize);
+//                int x = m_CurrentBalloonLocation.x - intentImageSize <= screenWidth-disBetweenTheEdges-intentImageSize ?
+//                        m_CurrentBalloonLocation.x - intentImageSize : m_CurrentBalloonLocation.x + intentImageSize;
+//                int y = m_CurrentBalloonLocation.y - disBetweenTheEdges <= screenHeight-disBetweenTheEdges-intentImageSize?
+//                        m_CurrentBalloonLocation.y - disBetweenTheEdges : m_CurrentBalloonLocation.y + disBetweenTheEdges;
+//                m_CurrentBalloonLocation.set(x,y);
+//                m_MindShooter.setBalloonLocation(m_CurrentBalloonLocation);
+//                count = 0;
+//                break;
+//        }
+//        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x+ m_SpaceVal, m_CurrentBalloonLocation.y+ m_SpaceVal);
+//        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 1000);
+        count++;
+        if (count == 0)
+            newPositionForIntent(1);
+        else if (count == 1)
+            newPositionForIntent(2);
+        else if (count == 2)
+            newPositionForIntent(3);
+        else if (count == 3)
+            newPositionForIntent(4);
+        else if (count == 4){
+            goFarAwayFromTarget(0, 1);
+            count = -1;
+        }
+    }
+
+//    private void goToLevel3() {
+//        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x - m_CurrentBalloonLocation.x/2 + m_SpaceVal + m_BalloonSize.x/2,
+//                m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y/2 + m_SpaceVal + m_BalloonSize.y/2);
+//    }
+//
+//    private void goToLevel2() {
+//        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x - m_CurrentBalloonLocation.x/3 + m_SpaceVal + m_BalloonSize.x/2,
+//        m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y/3 + m_SpaceVal + m_BalloonSize.y/2);
+//    }
+
+//    private Point calcNewPosition(float attFranction) {
+//        return new Point(m_CurrentBalloonLocation.x + m_SpaceVal + m_BalloonSize.x/2,
+//                m_CurrentBalloonLocation.y + m_SpaceVal + m_BalloonSize.y/2);
+//    }
+    
+//    private EEdges getAndSetNextRandomEdge(){
+//        int newEdgeVal;
+//        newEdgeVal = rand.nextInt(4) + 1;
+//        Logs.debug(MIND_SHOOTER_LOGIC, "Rand the number: " + newEdgeVal);
+//
+//        switch (newEdgeVal){
+//            case 1:
+//                m_CurrentEdge = EEdges.LEFT;
+//                break;
+//            case 2:
+//                m_CurrentEdge = EEdges.RIGHT;
+//                break;
+//            case 3:
+//                m_CurrentEdge = EEdges.TOP;
+//                break;
+//            case 4:
+//                m_CurrentEdge = EEdges.BOTTOM;
+//                break;
+//        }
+////        switch (m_CurrentEdge){
+////            case LEFT:
+////                if (newEdgeVal == 1) m_CurrentEdge = EEdges.TOP;
+////                else if (newEdgeVal == 2) m_CurrentEdge = EEdges.BOTTOM;
+////                break;
+////            case TOP:
+////                if (newEdgeVal == 1) m_CurrentEdge = EEdges.RIGHT;
+////                else if (newEdgeVal == 2) m_CurrentEdge = EEdges.LEFT;
+////                break;
+////            case RIGHT:
+////                if (newEdgeVal == 1) m_CurrentEdge = EEdges.BOTTOM;
+////                else if (newEdgeVal == 2) m_CurrentEdge = EEdges.TOP;
+////                break;
+////            case BOTTOM:
+////                if (newEdgeVal == 1) m_CurrentEdge = EEdges.LEFT;
+////                else if (newEdgeVal == 2) m_CurrentEdge = EEdges.RIGHT;
+////                break;
+////        }
+//
+//        return m_CurrentEdge;
+//    }
+
+//    private void goFarFromTarget(float attFranction) {
+//        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x - m_CurrentBalloonLocation.x/2 + m_SpaceVal + m_BalloonSize.x/2,
+//                m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y/2 + m_SpaceVal + m_BalloonSize.y/2);
+//        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 1000);
+//    }
+//
+//    private void goCloseToTarget(float attFranction, float level) {
+//        int newXIntentPosition;
+//        int newYIntentPosition;
+//
+//        int X_SpaceVal = m_SpaceVal + m_IntentSize.x;
+//        int Y_SpaceVal = m_SpaceVal + m_IntentSize.y;
+//
+//        int rangeHeight = (int)((m_CurrentBalloonLocation.y + m_BalloonSize.y) * level -
+//                (m_CurrentBalloonLocation.y / level));
+//        int rangeWidth = (int)((m_CurrentBalloonLocation.x + m_BalloonSize.x) * level -
+//                (m_CurrentBalloonLocation.x / level));
+//
+//        switch (getAndSetNextRandomEdge()){
+//            case LEFT:
+//                newYIntentPosition = rand.nextInt(rangeHeight) + (int)(m_CurrentBalloonLocation.y / level);
+//                newXIntentPosition = (int)(m_CurrentBalloonLocation.x / level);
+//                break;
+//            case TOP:
+//                newXIntentPosition = rand.nextInt(rangeWidth) + (int)(m_CurrentBalloonLocation.x / level);
+//                newYIntentPosition = (int)(m_CurrentBalloonLocation.y / level);
+//                break;
+//            case RIGHT:
+//                newYIntentPosition = rand.nextInt(rangeHeight) + (int)(m_CurrentBalloonLocation.y / level);
+//                newXIntentPosition = (int)((m_CurrentBalloonLocation.x + m_BalloonSize.x) / level);
+//                break;
+//            case BOTTOM:
+//            default:
+//                newXIntentPosition = rand.nextInt(rangeWidth) + (int)(m_CurrentBalloonLocation.x / level);
+//                newYIntentPosition = (int)((m_CurrentBalloonLocation.y + m_BalloonSize.y) / level);
+//                break;
+//        }
+//
+////        newXIntentPosition += X_SpaceVal;
+////        newYIntentPosition += Y_SpaceVal;
+//
+//        newYIntentPosition = fix_Y_Location(newYIntentPosition);
+//        newXIntentPosition = fix_X_Location(newXIntentPosition);
+//
+//        m_CurrentIntentLocation.set(newXIntentPosition, newYIntentPosition);
+////        m_CurrentIntentLocation.set(m_CurrentBalloonLocation.x - m_CurrentBalloonLocation.x/3 + m_SpaceVal + m_BalloonSize.x/2,
+////                m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y/3 + m_SpaceVal + m_BalloonSize.y/2);
+//        m_MindShooter.animateIntentForLocation(m_CurrentIntentLocation, 1000);
+//    }
+
 
 //    private void getNewYPos(float attFranction) {
 //
@@ -394,24 +517,14 @@ public class MindShooterLogic implements IHeadSetData{
 //        return (balloonRange * (1 - attPresent)) + distanceFromTopActivity;
 //    }
 
-    public void setBalloonSize(Point p){ this.m_BalloonSize.set(p.x, p.y); }
-
-    public void setIntentSize(Point p){ this.m_IntentSize.set(p.x, p.y); }
+    @Override
+    public void onMeditationReceived(int medValue) {}
 
     @Override
-    public void onMeditationReceived(int medValue) {
-
-    }
+    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {}
 
     @Override
-    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
-
-    }
-
-    @Override
-    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-
-    }
+    public void onPoorSignalReceived(ESignalVolume signalVolume) {}
 
     public int getX_MaxRangeForBalloon() { return screenWidth - m_BalloonSize.x - 2*getX_MinRange(); }
 
@@ -421,11 +534,11 @@ public class MindShooterLogic implements IHeadSetData{
 
     public int getY_MaxRangeForIntent() { return screenHeight - m_IntentSize.y - 2*getY_MinRange(); }
 
-    public int getX_MinRange() {
-        return 80;
-    }
+    public int getX_MinRange() { return 80; }
 
-    public int getY_MinRange() {
-        return 80;
-    }
+    public int getY_MinRange() { return 80; }
+
+    public void setBalloonSize(Point p){ this.m_BalloonSize.set(p.x, p.y); }
+
+    public void setIntentSize(Point p){ this.m_IntentSize.set(p.x, p.y); }
 }

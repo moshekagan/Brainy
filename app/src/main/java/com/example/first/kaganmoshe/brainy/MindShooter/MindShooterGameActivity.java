@@ -2,9 +2,12 @@ package com.example.first.kaganmoshe.brainy.MindShooter;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -44,8 +47,11 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     private TextView m_ScoreTextView;
     private Button m_ShootBtn;
     private boolean timerOn = true;
-    private MediaPlayer m_BalloonPoppingAffect;
-    private MediaPlayer m_SingleShotAffect;
+    private MediaPlayer m_BalloonPoppingAffect_;
+    private MediaPlayer m_SingleShotAffect_;
+    private SoundPool m_SoundEffect;
+    private int m_BalloonPoppingAffectId;
+    private int m_SingleShotAffectId;
 
     // Timer Members
     private TextView m_TimeTextView;
@@ -62,6 +68,7 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     };
 
     // Methods
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,9 +81,15 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         m_ScoreTextView = (TextView) findViewById(R.id.MindShooterScoreTextView);
         m_TimeTextView = (TextView) findViewById(R.id.MindShooterTimeTextView);
 
-        m_SingleShotAffect = MediaPlayer.create(this, R.raw.single_shot_affect);
-        m_BalloonPoppingAffect = MediaPlayer.create(this, R.raw.balloon_popping_affect);
+        m_SingleShotAffect_ = MediaPlayer.create(this, R.raw.single_shot_affect);
+        m_BalloonPoppingAffect_ = MediaPlayer.create(this, R.raw.balloon_popping_affect);
 
+        m_SoundEffect = new SoundPool.Builder()
+                .setMaxStreams(10)
+                .build();
+
+        m_BalloonPoppingAffectId = m_SoundEffect.load(this, R.raw.balloon_popping_affect, 1);
+        m_SingleShotAffectId = m_SoundEffect.load(this, R.raw.single_shot_affect, 1);
 
         try {
             m_MindShooterLogic = new MindShooterLogic(m_ScreenSize.x, m_ScreenSize.y, this);
@@ -120,7 +133,8 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
 
     private void shoot() {
         m_MindShooterLogic.shoot();
-        m_SingleShotAffect.start();
+//        m_SingleShotAffect_.start();
+        m_SoundEffect.play(m_SingleShotAffectId, 1, 1, 1, 0, 1);
     }
 
     private void startGame() {
@@ -287,7 +301,9 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
 
     @Override
     public void theBalloonExploded(Point currentBalloonLocation, int i) {
-        m_BalloonPoppingAffect.start();
+//        m_BalloonPoppingAffect_.start();
+        m_SoundEffect.play(m_BalloonPoppingAffectId, 1, 1, 1, 0, 1);
+
         setBalloonLocation(currentBalloonLocation, false);
         setScore(i);
     }

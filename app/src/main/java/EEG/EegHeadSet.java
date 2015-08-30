@@ -47,6 +47,7 @@ public abstract class EegHeadSet {
         for (IHeadSetData headSetData : m_HeadSetData){
             if (headSetData != null){
                 headSetData.onAttentionReceived(attValue);
+//                headSetData.onAttentionReceived(20); // TODO - Delete it!!
             }
         }
     }
