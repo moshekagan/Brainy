@@ -27,7 +27,7 @@
         android:layout_marginBottom="@dimen/pad_5dp"
         android:src="@drawable/brainy_logo" />
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

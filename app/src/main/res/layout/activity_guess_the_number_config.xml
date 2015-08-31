@@ -11,7 +11,7 @@
     tools:context=".GuessTheNumberConfigActivity">
 
     <!--android:background="@drawable/background"-->
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/configTitle"
         style="@style/feedbackActivityTitle"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:layout_gravity="start"
         android:orientation="vertical">
 
-        <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        <Utils.AppTextView
             android:id="@+id/rangeSelectionView"
             style="@style/configActivityText"
             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
                 android:layout_marginEnd="@dimen/pad_15dp"
                 android:progress="0" />
 
-            <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+            <Utils.AppTextView
                 android:id="@+id/rangeValueText"
                 style="@style/configActivityText"
                 android:layout_width="wrap_content"

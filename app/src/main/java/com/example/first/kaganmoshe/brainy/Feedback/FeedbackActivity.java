@@ -5,111 +5,95 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.first.kaganmoshe.brainy.CustomActivity.ActionBarAppActivity;
-import com.example.first.kaganmoshe.brainy.GamesActivity;
+import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
 import com.example.first.kaganmoshe.brainy.Utils;
 import com.example.first.kaganmoshe.brainy.R;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
-import com.jjoe64.graphview.Viewport;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 
-public class FeedbackActivity extends ActionBarAppActivity {
-    //TODO - take care of the onFinishDialogConfirmed method of the games
-    //TODO - constants for the extra stats
-    public static final String CURR_GAME_CONCENTRATION_POINTS = "currGameConcentrationPoints";
-    public static final String CONCENTRATION_AVERAGE = "Concentration";
+public class FeedbackActivity extends FBActivity {
     public static final String EXTRA_STATS = "EXTRA_STATS";
     public static final String SCORE_STAT = "Score";
+    public static final String BEST_SCORE_STAT = "Best score";
     public static final String DISTRACTION_STAT = "DISTRACTION_STAT";
     public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
-    public static final int BEST_CONCENTRATION_SCORE = 85;
+    //    public static final int BEST_CONCENTRATION_SCORE = 85;
     public static final String TOTAL_TIME = "Session time";
-    private int finalScore;
+    private int mFinalScore;
 
-    protected GraphView graphView;
-    protected LineGraphSeries<DataPoint> graphConcentrationPoints = new LineGraphSeries<>();
-    protected ArrayList<ParcelableDataPoint> parcelableConcentrationPointsList;
-//    protected TextView timeView;
-    protected Button backButton;
-    protected Button playAgainButton;
-    protected LinearLayout feedbackStatsLayout;
-//    protected TextView bestScoreTextView;
-//    protected TextView scoreTextView;
+    protected Button mBackButton;
+    protected Button mPlayAgainButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-        feedbackStatsLayout = (LinearLayout) findViewById(R.id.feedbackStatsLayout);
+        mFeedbackStatsLayout = (LinearLayout) findViewById(R.id.feedbackStatsLayout);
 //        bestScoreTextView = (TextView) findViewById(R.id.feedbackBestScoreTextView);
 //        scoreTextView = (TextView) findViewById(R.id.feedbackScoreTextView);
 
         initGameTime();
         initConcentrationPoints();
         initScoreStat();
-        initBestScore();
+//        initBestScore();
         initExtraStats();
         initGraph();
         initButtons();
     }
 
-    private void initBestScore() {
-        checkBestScore();
-    }
+//    private void initBestScore() {
+//        checkBestScore();
+//    }
 
-    private void checkBestScore(){
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+    private int getBestScore() {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("bestScore", Context.MODE_PRIVATE);
         int defaultValue = getResources().getInteger(R.integer.default_high_score);
         long highScore = sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue);
 
-        if(highScore < finalScore){
-            setBestScore();
-//            scoreTextView.setTextColor(getResources().getColor(R.color.feedback_best_score_text));
-        }
+        Log.d("DP", "defaultValue=" + defaultValue + " highScore=" + highScore);
 
 //        bestScoreTextView.append(String.valueOf(sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue)));
-        addStat("Best score", String.valueOf(sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue)));
-    }
-
-    private void setBestScore(){
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(getIntent().getStringExtra(Utils.CALLING_CLASS), finalScore);
-        editor.commit();
+        return (int) highScore;
     }
 
     private void initScoreStat() {
         int gameScore = Integer.valueOf(getIntent().getStringExtra(SCORE_STAT));
         int generalDistraction = Integer.valueOf(getIntent().getStringExtra(DISTRACTION_STAT));
-
-        int concentrationScore = FeedbackClass.getConcentrationScore(parcelableConcentrationPointsList);
+        int bestScore = getBestScore();
+        int concentrationScore = FeedbackClass.getConcentrationScore(mParcelableConcentrationPointsList);
 
         addConcentrationStat(concentrationScore);
 
-        if(concentrationScore > BEST_CONCENTRATION_SCORE) {
-            concentrationScore = 100;
+//        if(concentrationScore > BEST_CONCENTRATION_SCORE) {
+//            concentrationScore = 100;
+//        }
+
+        mFinalScore = gameScore + generalDistraction + concentrationScore;
+        LinearLayout scoreStat = prepareStat(SCORE_STAT, String.valueOf(mFinalScore), mStatsTextSize, getApplicationContext());
+
+        if (mFinalScore > bestScore) {
+            bestScore = mFinalScore;
+            setBestScore(this, getIntent().getStringExtra(Utils.CALLING_CLASS), bestScore);
+            ((TextView) scoreStat.getChildAt(1)).setTextColor(getResources().getColor(R.color.feedback_best_score_text));
+            ((TextView) scoreStat.getChildAt(1)).append(" (New record!)");
         }
 
-        finalScore = gameScore + generalDistraction + concentrationScore;
+        LinearLayout bestScoreStat = prepareStat(BEST_SCORE_STAT, String.valueOf(bestScore), mStatsTextSize, getApplicationContext());
+        ((TextView) bestScoreStat.getChildAt(1)).setTextColor(getResources().getColor(R.color.feedback_best_score_text));
 
-        addStat(SCORE_STAT, String.valueOf(finalScore));
-//        scoreTextView.setText(Integer.toString(finalScore));
+        addStat(scoreStat);
+        addStat(bestScoreStat);
     }
 
-    private void addConcentrationStat(int score){
-        addStat(CONCENTRATION_AVERAGE, Integer.toString(score) + " (0-100)");
-    }
+//    private void addConcentrationStat(int score){
+//        addStat(CONCENTRATION_AVERAGE, Integer.toString(score) + " (0-100)");
+//    }
 
     private void initExtraStats() {
         Intent intent = getIntent();
@@ -118,48 +102,48 @@ public class FeedbackActivity extends ActionBarAppActivity {
         if (stats != null) {
             for (String statName : stats) {
                 String statValue = intent.getStringExtra(statName);
-                addStat(statName, statValue);
+                addStat(prepareStat(statName, statValue, mStatsTextSize, getApplicationContext()));
+//                addStat(statName, statValue);
             }
         }
     }
 
-    private void addStat(String statName, String statValue) {
-        LinearLayout newStatLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_feedback_stat, null);
-        TextView statKeyText = (TextView) newStatLayout.findViewById(R.id.statNameText);
-        TextView statValueText = (TextView) newStatLayout.findViewById(R.id.statValueText);
+//    private void addStat(String statName, String statValue) {
+//        LinearLayout newStatLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_feedback_stat, null);
+//        TextView statKeyText = (TextView) newStatLayout.findViewById(R.id.statNameText);
+//        TextView statValueText = (TextView) newStatLayout.findViewById(R.id.statValueText);
+//
+//        statKeyText.setText(formatStatKey(statName));
+//        statValueText.setText(formatStatValue(statValue));
+//
+//        mFeedbackStatsLayout.addView(newStatLayout);
+//    }
 
-        statKeyText.setText(formatStatKey(statName));
-        statValueText.setText(formatStatValue(statValue));
-
-        feedbackStatsLayout.addView(newStatLayout);
-    }
-
-    private String formatStatValue(String statValue) {
-        return statValue.substring(0, 1).toUpperCase() + statValue.substring(1, statValue.length()).toLowerCase();
-    }
-
-    private String formatStatKey(String statName) {
-        return statName.substring(0, 1).toUpperCase() + statName.substring(1, statName.length()).toLowerCase() + ":";
-    }
+//    private String formatStatValue(String statValue) {
+//        return statValue.substring(0, 1).toUpperCase() + statValue.substring(1, statValue.length()).toLowerCase();
+//    }
+//
+//    private String formatStatKey(String statName) {
+//        return statName.substring(0, 1).toUpperCase() + statName.substring(1, statName.length()).toLowerCase() + ":";
+//    }
 
     private void initGameTime() {
-//        timeView = (TextView) findViewById(R.id.feedbackTimeViewText);
-//        timeView.append(getIntent().getStringExtra(TOTAL_TIME));
-        addStat(TOTAL_TIME, getIntent().getStringExtra(TOTAL_TIME));
+        addStat(prepareStat(TOTAL_TIME, getIntent().getStringExtra(TOTAL_TIME), mStatsTextSize, getApplicationContext()));
+//        addStat(TOTAL_TIME, getIntent().getStringExtra(TOTAL_TIME));
     }
 
     private void initButtons() {
-        backButton = (Button) findViewById(R.id.backFeedbackButton);
-        playAgainButton = (Button) findViewById(R.id.playAgainFeedbackButton);
+        mBackButton = (Button) findViewById(R.id.backFeedbackButton);
+        mPlayAgainButton = (Button) findViewById(R.id.playAgainFeedbackButton);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNewActivity(GamesActivity.class);
+                startNewActivity(MainActivity.class);
             }
         });
 
-        playAgainButton.setOnClickListener(new View.OnClickListener() {
+        mPlayAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("PLAY_AGAIN_TARGET", getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET));
@@ -170,63 +154,63 @@ public class FeedbackActivity extends ActionBarAppActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    startNewActivity(GamesActivity.class);
+                    startNewActivity(MainActivity.class);
                 }
             }
         });
     }
 
-    private void startNewActivity(Class toActivity) {
-        Utils.startNewActivity(this, toActivity);
-    }
+//    private void startNewActivity(Class toActivity) {
+//        Utils.startNewActivity(this, toActivity);
+//    }
 
-    @Override
-    public void onBackPressed() {
-        Utils.startNewActivity(this, GamesActivity.class);
-    }
+//    @Override
+//    public void onBackPressed() {
+//        Utils.startNewActivity(this, MainActivity.class);
+//    }
 
     private void initConcentrationPoints() {
-        parcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
+        mParcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
 
 //        prepareConcentrationPoints();
-        for (ParcelableDataPoint p : parcelableConcentrationPointsList) {
-            graphConcentrationPoints.appendData(p, false, Integer.MAX_VALUE);
+        for (ParcelableDataPoint p : mParcelableConcentrationPointsList) {
+            mGraphConcentrationPoints.appendData(p, false, Integer.MAX_VALUE);
         }
     }
 
-    private void initGraph() {
-        graphView = (GraphView) findViewById(R.id.graph);
-        graphConcentrationPoints.setThickness(6);
-
-        GridLabelRenderer gridLabelRenderer = graphView.getGridLabelRenderer();
-        gridLabelRenderer.setNumHorizontalLabels(2);
-        gridLabelRenderer.setNumVerticalLabels(3);
-        gridLabelRenderer.setHorizontalLabelsVisible(false);
-
-        Viewport viewport = graphView.getViewport();
-        viewport.setYAxisBoundsManual(true);
-        viewport.setXAxisBoundsManual(true);
-        viewport.setMinY(0);
-        viewport.setMaxY(100);
-        viewport.setMaxX(graphConcentrationPoints.getHighestValueX());
-        viewport.setScrollable(false);
-
-        graphView.addSeries(graphConcentrationPoints);
-    }
+//    private void initGraph() {
+//        mGraphView = (GraphView) findViewById(R.id.graph);
+//        mGraphConcentrationPoints.setThickness(6);
+//
+//        GridLabelRenderer gridLabelRenderer = mGraphView.getGridLabelRenderer();
+//        gridLabelRenderer.setNumHorizontalLabels(2);
+//        gridLabelRenderer.setNumVerticalLabels(3);
+//        gridLabelRenderer.setHorizontalLabelsVisible(false);
+//
+//        Viewport viewport = mGraphView.getViewport();
+//        viewport.setYAxisBoundsManual(true);
+//        viewport.setXAxisBoundsManual(true);
+//        viewport.setMinY(0);
+//        viewport.setMaxY(100);
+//        viewport.setMaxX(mGraphConcentrationPoints.getHighestValueX());
+//        viewport.setScrollable(false);
+//
+//        mGraphView.addSeries(mGraphConcentrationPoints);
+//    }
 
     private void prepareConcentrationPoints() {
-//        ArrayList<ParcelableDataPoint> parcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
-//        double size = parcelableConcentrationPointsList.size() / FACTOR;
+//        ArrayList<ParcelableDataPoint> mParcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
+//        double size = mParcelableConcentrationPointsList.size() / FACTOR;
 //        int currX = 0;
 //        int currY = 0;
 //        int currConcentrationListIndex = 0;
 //
 //        for(int i = 0; i < size; i++){
 //            for(int y = 0; y < FACTOR; y++){
-//                currY += parcelableConcentrationPointsList.get(currX++).getY();
+//                currY += mParcelableConcentrationPointsList.get(currX++).getY();
 //            }
 //
-//            graphConcentrationPoints.appendData(new DataPoint(currConcentrationListIndex++, currY / FACTOR), false, Integer.MAX_VALUE);
+//            mGraphConcentrationPoints.appendData(new DataPoint(currConcentrationListIndex++, currY / FACTOR), false, Integer.MAX_VALUE);
 //            currY = 0;
 //        }
     }

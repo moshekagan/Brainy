@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.TranslucentActionBar.ActionBar.Overlay" >
         <activity
-            android:name=".ConnectionActivity"
+            android:name=".AppActivities.ConnectionActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -25,13 +25,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GuessTheNumber.GuessTheNumberConfigActivity"
+            android:name=".Games.GuessTheNumber.GuessTheNumberConfigActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".GuessTheNumber.GuessTheNumberGameActivity"
+            android:name=".Games.GuessTheNumber.GuessTheNumberGameActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_game"
             android:screenOrientation="portrait" >
@@ -44,7 +44,7 @@
         <!-- android:theme="@android:style/Theme.Holo.Light.NoActionBar" > -->
         <!-- </activity> -->
         <activity
-            android:name=".GamesActivity"
+            android:name=".AppActivities.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_menu"
             android:screenOrientation="portrait" >
@@ -56,47 +56,47 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".HotAirBallon.HotAirBalloonGameActivity"
+            android:name=".Games.HotAirBallon.HotAirBalloonGameActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_hot_air_ballon"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CrazyCube.CrazyCubeActivity"
+            android:name=".Games.CrazyCube.CrazyCubeActivity"
             android:label="@string/title_activity_crazy_cube"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".HotAirBallon.HABConfigActivity"
+            android:name=".Games.HotAirBallon.HABConfigActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_habconfig"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CrazyCube.CCConfigActivity"
+            android:name=".Games.CrazyCube.CCConfigActivity"
             android:label="@string/title_activity_ccconfing"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".MindShooter.MindShooterGameActivity"
+            android:name=".Games.MindShooter.MindShooterGameActivity"
             android:label="@string/title_activity_maind_shooter_game"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name=".MindShooter.MindShooterConfigActivity"
+            android:name=".Games.MindShooter.MindShooterConfigActivity"
             android:label="@string/title_activity_mind_shooter_config"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CustomActivity.GameGraphActivity"
+            android:name=".AppActivities.GameGraph.GameGraphActivity"
             android:label="@string/title_activity_game_graph" >
         </activity>
         <activity
-            android:name=".CustomActivity.ActionBarAppActivity"
+            android:name=".AppActivities.ActionBarActivity.ActionBarAppActivity"
             android:label="@string/title_activity_action_bar_app" >
         </activity>
         <activity
-            android:name=".CustomActivity.HistoryActivity"
+            android:name=".HistoryDataBase.HistoryActivity"
             android:label="@string/title_activity_history"
             android:screenOrientation="portrait" >
         </activity>

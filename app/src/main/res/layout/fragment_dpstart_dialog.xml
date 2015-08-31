@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/winnerDialogLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/pad_20dp"
+    android:background="@drawable/settings_background"
+    tools:context="com.example.first.kaganmoshe.brainy.DailyPractice.DPStartDialog">
+
+    <!--<ImageView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_alignBottom="@+id/dialog_layout_main"-->
+        <!--android:layout_alignEnd="@+id/dialog_layout_main"-->
+        <!--android:layout_alignStart="@+id/dialog_layout_main"-->
+        <!--android:layout_alignTop="@+id/dialog_layout_main"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/background" />-->
+
+    <LinearLayout
+        android:id="@+id/dialog_layout_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/pad_10dp"
+        android:paddingTop="@dimen/pad_10dp"
+        android:paddingStart="@dimen/pad_15dp"
+        android:paddingEnd="@dimen/pad_15dp">
+
+        <Utils.AppTextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Lets practice!"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <RelativeLayout
+            android:id="@+id/explanationLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pad_20dp">
+
+            <Utils.AppTextView
+                android:id="@+id/explanationTextView"
+                android:layout_width="wrap_content"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pad_10dp"
+                android:text="Do your best in a session of 15 random games and improve your abilities!"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/pad_10dp">
+
+            <include
+                layout="@layout/layout_play_config_button"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

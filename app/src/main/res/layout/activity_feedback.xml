@@ -5,12 +5,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/blue_sky_and_green_grass_new"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/padding_feedback_layout"
-    android:paddingTop="@dimen/padding_feedback_layout"
+    android:paddingTop="@dimen/pad_20dp"
     android:weightSum="22"
     tools:context="com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity">
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/feedbackTitle"
         style="@style/feedbackActivityTitle"
         android:layout_width="match_parent"
@@ -22,7 +21,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:src="@drawable/brainy_teacher"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerInside"/>
@@ -33,7 +32,8 @@
         android:layout_marginStart="@dimen/pad_20dp"
         android:layout_weight="7"
         android:gravity="center_vertical"
-        android:paddingBottom="@dimen/pad_20dp">
+        android:paddingBottom="@dimen/pad_20dp"
+        android:paddingTop="@dimen/pad_10dp">
 
         <LinearLayout
             android:id="@+id/feedbackStatsLayout"
@@ -42,77 +42,15 @@
             android:orientation="vertical"
             android:paddingStart="@dimen/pad_15dp">
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<TextView-->
-                    <!--style="@style/feedbackActivityTextView"-->
-                    <!--android:layout_width="180dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:text="@string/feedbackScoreView" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/feedbackScoreTextView"-->
-                    <!--style="@style/feedbackActivityTextViewText"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="bottom"-->
-                    <!--android:text="" />-->
-
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingTop="@dimen/pad_15dp"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<TextView-->
-                    <!--style="@style/feedbackActivityTextView"-->
-                    <!--android:layout_width="180dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:text="@string/feedbackBestScoreView" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/feedbackBestScoreTextView"-->
-                    <!--style="@style/feedbackBestScoreTextView"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="bottom" />-->
-
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:paddingTop="@dimen/pad_15dp">-->
-
-                <!--<TextView-->
-                    <!--style="@style/feedbackActivityTextView"-->
-                    <!--android:layout_width="180dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:text="@string/feedbackTimeView" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/feedbackTimeViewText"-->
-                    <!--style="@style/feedbackActivityTextViewText"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="bottom" />-->
-
-            <!--</LinearLayout>-->
-
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="7"
         android:orientation="horizontal"
+        android:paddingBottom="@dimen/pad_10dp"
         android:weightSum="20">
 
         <!--<android.widget.Space-->
@@ -134,21 +72,21 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:gravity="bottom"
         android:orientation="horizontal"
         android:paddingEnd="@dimen/pad_20dp"
         android:paddingStart="@dimen/pad_20dp"
-        android:paddingTop="@dimen/padding_feedback_layout"
+        android:paddingTop="@dimen/pad_5dp"
         android:weightSum="12">
 
         <Button
             android:id="@+id/backFeedbackButton"
-            style="@style/btn_blue"
+            android:background="@drawable/app_button"
+            style="@style/app_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -162,12 +100,13 @@
 
         <Button
             android:id="@+id/playAgainFeedbackButton"
-            style="@style/btn_blue"
+            android:background="@drawable/app_button"
+            style="@style/app_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:stateListAnimator="@null"
-            android:text="@string/winner_dialog_play_again" />
+            android:text="@string/winner_dialog_play_again"/>
 
     </LinearLayout>
 

@@ -8,13 +8,13 @@
     android:paddingTop="@dimen/pad_30dp"
     android:paddingBottom="16dp"
     android:background="@drawable/blue_sky_and_green_grass_new"
-    tools:context="com.example.first.kaganmoshe.brainy.MindShooter.MindShooterConfigActivity">
+    tools:context="com.example.first.kaganmoshe.brainy.Games.MindShooter.MindShooterConfigActivity">
 
 
     <!--android:background="@drawable/background"-->
 
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/configTitle"
         style="@style/feedbackActivityTitle"
         android:layout_width="match_parent"

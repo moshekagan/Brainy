@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/winnerDialogLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/pad_20dp"
+    android:background="@drawable/settings_background"
+    tools:context="com.example.first.kaganmoshe.brainy.Games.Dialogs.GameHelpDialog">
+
+    <!--<ImageView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_alignBottom="@id/dialog_layout_main"-->
+        <!--android:layout_alignEnd="@id/dialog_layout_main"-->
+        <!--android:layout_alignStart="@id/dialog_layout_main"-->
+        <!--android:layout_alignTop="@+id/dialog_layout_main"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/background" />-->
+
+    <LinearLayout
+        android:id="@+id/dialog_layout_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/pad_10dp"
+        android:gravity="center_horizontal">
+
+        <Utils.AppTextView
+            android:id="@+id/helpTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pad_20dp"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/helpContentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pad_20dp"
+            android:textSize="20sp"
+            android:paddingStart="@dimen/pad_15dp"
+            android:paddingEnd="@dimen/pad_15dp"
+            android:textColor="@color/white"/>
+
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/pad_10dp">
+
+            <include
+                layout="@layout/layout_play_config_button"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

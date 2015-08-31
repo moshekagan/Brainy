@@ -9,7 +9,7 @@
     android:paddingEnd="@dimen/pad_30dp"
     android:paddingStart="@dimen/pad_30dp"
     android:paddingTop="@dimen/pad_20dp"
-    tools:context=".WinnerDialogFragment">
+    tools:context="com.example.first.kaganmoshe.brainy.Fe">
 
     <!--<ImageView-->
     <!--android:src="@drawable/winner_background"-->
@@ -22,7 +22,7 @@
     <!--android:layout_alignRight="@id/dialog_layout_main" />-->
 
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/winnerDialogTitle"
         style="@style/winnerDialogTitle"
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
         android:gravity="center_horizontal"
         android:text="@string/winner_dialog_title" />
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/winnerDialogDPTitle"
         style="@style/winnerDialogDPTitle"
         android:layout_width="wrap_content"
@@ -76,14 +76,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <Utils.AppTextView
                 style="@style/feedbackActivityTextView"
                 android:layout_width="145dp"
                 android:layout_height="match_parent"
                 android:text="Concentration:" />
 
             <TextView
-                android:id="@+id/feedbackBestScoreTextView"
+                android:id="@+id/concentrationStatTextView"
                 style="@style/feedbackBestScoreTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -95,16 +95,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/pad_15dp">
+            android:paddingTop="@dimen/pad_10dp">
 
-            <TextView
+            <Utils.AppTextView
                 style="@style/feedbackActivityTextView"
                 android:layout_width="145dp"
                 android:layout_height="match_parent"
                 android:text="@string/feedbackScoreView" />
 
             <TextView
-                android:id="@+id/feedbackBestScoreTextView"
+                android:id="@+id/scoreStatTextView"
                 style="@style/feedbackBestScoreTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -116,16 +116,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/pad_15dp">
+            android:paddingTop="@dimen/pad_10dp">
 
-            <TextView
+            <Utils.AppTextView
                 style="@style/feedbackActivityTextView"
                 android:layout_width="145dp"
                 android:layout_height="match_parent"
                 android:text="@string/feedbackBestScoreView" />
 
             <TextView
-                android:id="@+id/feedbackBestScoreTextView"
+                android:id="@+id/bestScoreStatTextView"
                 style="@style/feedbackBestScoreTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -164,7 +164,8 @@
 
     <Button
         android:id="@+id/continueButton"
-        style="@style/btn_blue"
+        style="@style/app_btn"
+        android:background="@drawable/app_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:stateListAnimator="@null"

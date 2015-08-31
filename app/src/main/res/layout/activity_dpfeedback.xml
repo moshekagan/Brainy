@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blue_sky_and_green_grass_new"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/pad_20dp"
+    android:weightSum="22"
+    tools:context="com.example.first.kaganmoshe.brainy.Feedback.FBActivity">
+
+    <Utils.AppTextView
+        android:id="@+id/feedbackTitle"
+        style="@style/feedbackActivityTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal|bottom"
+        android:text="@string/feedback_activity_title" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:src="@drawable/brainy_teacher"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerInside"/>
+
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_marginStart="@dimen/pad_20dp"-->
+    <!--android:layout_weight="7"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:paddingBottom="@dimen/pad_20dp">-->
+
+    <LinearLayout
+        android:id="@+id/feedbackStatsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/pad_20dp"
+        android:layout_weight="7"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/pad_15dp">
+
+    </LinearLayout>
+    <!--</ScrollView>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/pad_10dp"
+        android:weightSum="20">
+
+        <!--<android.widget.Space-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1" />-->
+
+        <com.jjoe64.graphview.GraphView
+
+            android:id="@+id/graph"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="19" />
+
+        <android.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/pad_20dp"
+        android:paddingStart="@dimen/pad_20dp"
+        android:paddingTop="@dimen/pad_5dp"
+        android:weightSum="11">
+
+        <android.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3" />
+
+        <Button
+            android:id="@+id/continueButton"
+            style="@style/app_btn"
+            android:background="@drawable/app_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:stateListAnimator="@null"
+            android:text="Continue" />
+
+        <android.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -24,7 +24,7 @@
     <!--style="@style/guessTheNumberTitle"-->
     <!--android:layout_weight="0" />-->
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/guessNumberRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:orientation="horizontal"
         android:weightSum="5">
 
-        <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+        <Utils.AppTextView
             android:id="@+id/guessInput"
             android:layout_width="150sp"
             android:layout_height="wrap_content"

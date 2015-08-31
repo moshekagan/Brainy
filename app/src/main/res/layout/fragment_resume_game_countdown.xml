@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context="com.example.first.kaganmoshe.brainy.CustomActivity.ResumeGameCountDown">
+    tools:context="com.example.first.kaganmoshe.brainy.Games.Dialogs.ResumeGameCountDown">
 
     <LinearLayout
         android:id="@+id/lin_all"

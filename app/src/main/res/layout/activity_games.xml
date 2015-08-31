@@ -6,34 +6,34 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/pad_20dp"
     android:weightSum="12"
-    tools:context="com.example.first.kaganmoshe.brainy.GamesActivity">
+    tools:context="com.example.first.kaganmoshe.brainy.AppActivities.MainActivity">
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="2"-->
-        <!--android:weightSum="5"-->
-        <!--android:orientation="horizontal">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="2"-->
+    <!--android:weightSum="5"-->
+    <!--android:orientation="horizontal">-->
 
-        <!--<ImageView-->
-            <!--android:id="@+id/logoImage"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="2"-->
-            <!--android:paddingStart="@dimen/pad_30dp"-->
-            <!--android:scaleType="fitCenter"-->
-            <!--android:src="@drawable/brainy_weights3" />-->
+    <!--<ImageView-->
+    <!--android:id="@+id/logoImage"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="2"-->
+    <!--android:paddingStart="@dimen/pad_30dp"-->
+    <!--android:scaleType="fitCenter"-->
+    <!--android:src="@drawable/brainy_weights3" />-->
 
-        <!--<com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView-->
-            <!--android:id="@+id/feedbackTitle"-->
-            <!--style="@style/gamesActivityTitle"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="3"-->
-            <!--android:layout_gravity="bottom"-->
-            <!--android:paddingStart="@dimen/pad_20dp"-->
-            <!--android:gravity="start"-->
-            <!--android:text="Main" />-->
+    <!--<Utils.AppTextView-->
+    <!--android:id="@+id/feedbackTitle"-->
+    <!--style="@style/gamesActivityTitle"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="3"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:paddingStart="@dimen/pad_20dp"-->
+    <!--android:gravity="start"-->
+    <!--android:text="Main" />-->
 
     <!--</LinearLayout>-->
 
@@ -45,15 +45,15 @@
         android:scaleType="fitCenter"
         android:src="@drawable/brainy_weights3" />
 
-    <!--<com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView-->
-        <!--android:id="@+id/feedbackTitle"-->
-        <!--style="@style/gamesActivityTitle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_gravity="bottom|center_horizontal"-->
-        <!--android:layout_marginBottom="@dimen/pad_10dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="Main" />-->
+    <!--<Utils.AppTextView-->
+    <!--android:id="@+id/feedbackTitle"-->
+    <!--style="@style/gamesActivityTitle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_gravity="bottom|center_horizontal"-->
+    <!--android:layout_marginBottom="@dimen/pad_10dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="Main" />-->
 
     <!--<ImageView-->
     <!--android:id="@+id/logoImage"-->
@@ -83,20 +83,22 @@
 
         <Button
             android:id="@+id/dailyPracticeButton"
-            style="@style/btn_white_large"
-            android:layout_width="wrap_content"
+            style="@style/app_btn"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/pad_5dp"
             android:layout_weight="1"
-            android:text="Daily Practice"
-            android:layout_marginEnd="@dimen/pad_5dp"/>
+            android:background="@drawable/app_button"
+            android:text="Daily Practice" />
 
         <Button
             android:id="@+id/historyButton"
-            style="@style/btn_white_large"
-            android:layout_width="wrap_content"
+            style="@style/app_btn"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/pad_5dp"
             android:layout_weight="1"
+            android:background="@drawable/app_button"
             android:text="History" />
 
 

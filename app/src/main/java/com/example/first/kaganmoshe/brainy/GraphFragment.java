@@ -2,6 +2,8 @@ package com.example.first.kaganmoshe.brainy;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+
+import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.Viewport;

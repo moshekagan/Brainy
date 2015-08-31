@@ -6,7 +6,8 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.first.kaganmoshe.brainy.GamesActivity;
+import com.example.first.kaganmoshe.brainy.AppActivities.ActionBarActivity.ActionBarAppActivity;
+import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 
@@ -23,10 +24,10 @@ public abstract class GameConfigActivity extends ActionBarAppActivity {
 
     @Override
     public final void onBackPressed() {
-        if (!homeButtonPopup.isShowing()) {
-            Utils.startNewActivity(this, GamesActivity.class);
+        if (!mHomeButtonPopup.isShowing()) {
+            Utils.startNewActivity(this, MainActivity.class);
         } else {
-            homeButtonPopup.dismiss();
+            mHomeButtonPopup.dismiss();
         }
     }
 

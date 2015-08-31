@@ -10,7 +10,7 @@
     android:weightSum="3"
     android:background="@drawable/blue_sky_and_green_grass_new"
     android:id="@+id/mainFrameLayout"
-    tools:context="com.example.first.kaganmoshe.brainy.HotAirBallon.HotAirBalloonGameActivity">
+    tools:context="com.example.first.kaganmoshe.brainy.Games.HotAirBallon.HotAirBalloonGameActivity">
 
     <ImageView
         android:layout_width="135dp"
@@ -31,7 +31,7 @@
         android:id="@+id/button"
         android:layout_gravity="right|bottom" />
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/timerValue"
         android:layout_width="130dp"
         android:layout_height="wrap_content"

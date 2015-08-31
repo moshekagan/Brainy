@@ -5,66 +5,70 @@
     android:layout_height="match_parent"
     android:background="@drawable/blue_sky_and_green_grass_new"
     android:padding="@dimen/pad_30dp"
-    tools:context="com.example.first.kaganmoshe.brainy.ConnectionActivity">
+    tools:context="com.example.first.kaganmoshe.brainy.AppActivities.ConnectionActivity">
 
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/brainy_logo"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/pad_10dp"
-        android:layout_centerHorizontal="true" />
+        android:src="@drawable/brainy_logo" />
 
-    <com.example.first.kaganmoshe.brainy.CustomActivity.AppTextView
+    <Utils.AppTextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/logoImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/pad_20dp"
         android:text="Brainy"
         android:textColor="@color/black"
-        android:textSize="50sp"
-        android:layout_below="@+id/logoImage"
-        android:layout_marginBottom="@dimen/pad_20dp"
-        android:layout_centerHorizontal="true" />
+        android:textStyle="bold"
+        android:textSize="50sp" />
 
     <com.weiwangcn.betterspinner.library.BetterSpinner
         android:id="@+id/showList"
         style="@style/choose_headset_spinner"
-        android:layout_width="wrap_content"
+        android:background="@drawable/app_button"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:drawableStart="@drawable/eegheadset_cartoon"
         android:layout_below="@id/title"
         android:layout_marginEnd="@dimen/pad_30dp"
         android:layout_marginStart="@dimen/pad_30dp"
+        android:drawableStart="@drawable/eegheadset_cartoon"
         android:hint="@string/choose_headset" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/showList"
         android:layout_alignStart="@+id/showList"
         android:layout_below="@+id/showList"
-        android:orientation="horizontal"
-        android:layout_alignEnd="@+id/showList"
-        android:layout_marginTop="@dimen/pad_10dp">
+        android:layout_marginTop="@dimen/pad_10dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/skipButton"
-            style="@style/btn_white_large"
+            android:background="@drawable/app_button"
+            style="@style/app_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/pad_5dp"
             android:layout_weight="1"
-            android:text="@string/settings_skip"
-            android:layout_marginEnd="@dimen/pad_10dp"/>
+            android:text="@string/settings_skip" />
 
         <Button
             android:id="@+id/connectButton"
-            style="@style/btn_white_large"
+            android:background="@drawable/app_button"
+            style="@style/app_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/pad_5dp"
             android:layout_weight="1"
-            android:text="@string/settings_connect"
-            android:layout_marginStart="@dimen/pad_10dp"/>
+            android:text="@string/settings_connect" />
 
 
     </LinearLayout>

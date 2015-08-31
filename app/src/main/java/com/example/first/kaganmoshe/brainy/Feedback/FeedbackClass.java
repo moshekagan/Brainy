@@ -1,11 +1,11 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.example.first.kaganmoshe.brainy.AppManager;
+import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
@@ -27,18 +27,10 @@ public abstract class FeedbackClass implements IHeadSetData {
 //    private String mParam2;
 
     // Graph Data members
-//    private static final Random RANDOM = new Random();
     private ArrayList<ParcelableDataPoint> concentrationPoints;
-    //    private int lastXGraphAtt = 0;
-//    private GraphView m_GraphView;
-//    private long sessionTimeStart = 0;
-//    private long sessionTimeStop = 0;
-//    private long sessionTimePaused = 0;
-//    private long totalTimePaused = 0;
-    private int lastX = 0;
-    private int numOfUserPauses = 0;
-    private int finalScore;
-    private int concentrationScore;
+    private int mLastX = 0;
+    private int mNumOfUserPauses = 0;
+    protected int finalScore;
 
     public FeedbackClass() {
         concentrationPoints = new ArrayList<>();
@@ -46,69 +38,35 @@ public abstract class FeedbackClass implements IHeadSetData {
         headSet.registerListener(this);
     }
 
-    public void incNumOfUserPauses(){
-        numOfUserPauses++;
+    public void incNumOfUserPauses() {
+        mNumOfUserPauses++;
     }
 
-    public int getNumOfUserPauses(){
-        return numOfUserPauses;
+    public int getNumOfUserPauses() {
+        return mNumOfUserPauses;
     }
 
-    public void startTimer(){
+    public void startTimer() {
 //        sessionTimeStart = Calendar.getInstance().getTimeInMillis();
     }
 
-    public void stopTimerAndRecievingData(){
-//        sessionTimeStop = Calendar.getInstance().getTimeInMillis();
+    public void stopTimerAndRecievingData() {
         AppManager.getInstance().getHeadSet().unregisterListener(this);
     }
 
-//    public void pauseTimerAndReceivingData(){
-//        if(!isPaused) {
-//            sessionTimePaused = Calendar.getInstance().getTimeInMillis();
-//            isPaused = true;
-//        }
-//        AppManager.getInstance().getHeadSet().unregisterListener(this);
-//    }
-
-    public void resumeTimerAndReceivingData(){
-//        isPaused = false;
-
-//        if(sessionTimePaused != 0) {
-//            totalTimePaused = totalTimePaused + Calendar.getInstance().getTimeInMillis() - sessionTimePaused;
-//        }
-//
-//        Log.d("TIME_PAUSED", Long.toString((totalTimePaused / DateUtils.SECOND_IN_MILLIS)));
+    public void resumeTimerAndReceivingData() {
         EegHeadSet headSet = AppManager.getInstance().getHeadSet();
         headSet.registerListener(this);
     }
-
-//    public long getSessionTimeInSeconds(){
-////        Log.d("SECONDS", Long.toString(sessionTimeStop - sessionTimeStart - totalTimePaused));
-//        return (sessionTimeStop - sessionTimeStart - (DateUtils.SECOND_IN_MILLIS * ResumeGameCountDown.COUNTDOWN_TIME))
-//                / DateUtils.SECOND_IN_MILLIS;
-//    }
-
-//    public long getSessionTimeInMinutes(){
-//        return (sessionTimeStop - sessionTimeStart - (DateUtils.SECOND_IN_MILLIS * ResumeGameCountDown.COUNTDOWN_TIME))
-//                / DateUtils.MINUTE_IN_MILLIS;
-//    }
 
     public ArrayList<ParcelableDataPoint> getConcentrationPoints() {
         return concentrationPoints;
     }
 
-    public List<ParcelableDataPoint> getConcentrationPoints(int index){
-        return concentrationPoints.subList(index, concentrationPoints.size());
-    }
-
-    //    private void addEntry(int value) {
-//        graphConcentrationPoints.appendData(new DataPoint(lastXGraphAtt++, value), true, 20);
-//    }
-
     @Override
     public void onAttentionReceived(int attValue) {
-        concentrationPoints.add(new ParcelableDataPoint(lastX++, attValue));
+        concentrationPoints.add(new ParcelableDataPoint(mLastX++, attValue));
+        Log.d("FEEDBACK - onAttention", "att=" + attValue);
 //        getActivity().runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -134,13 +92,13 @@ public abstract class FeedbackClass implements IHeadSetData {
     }
 
     public int getLastX() {
-        return lastX;
+        return mLastX;
     }
 
-    public int getDistractionScore(){
+    public int getDistractionScore() {
         int score;
 
-        switch (numOfUserPauses) {
+        switch (mNumOfUserPauses) {
             case 0:
                 score = 150;
                 break;
@@ -164,28 +122,22 @@ public abstract class FeedbackClass implements IHeadSetData {
 
     public abstract int getGameScore();
 
-    public void insertRecordToHistoryDB(Context context, String name){
-        concentrationScore = getConcentrationScore(concentrationPoints);
+    public void insertRecordToHistoryDB(Context context, String name) {
+        int concentrationScore = getConcentrationScore(concentrationPoints);
 
+        Log.d("DP", name);
         AppManager.getHistoryDBInstance(context).insertRecord(name, concentrationScore
-                        + getGameScore() + getDistractionScore(), concentrationScore);
+                + getGameScore() + getDistractionScore(), concentrationScore);
     }
-
-//    public int getFinalScore(){
-//
-//    }
 
     public static int getConcentrationScore(ArrayList<ParcelableDataPoint> concentrationPoints) {
         int concentrationSum = 0;
 
         for (ParcelableDataPoint dp : concentrationPoints) {
+            Log.d("FEEDBACK - getScore", "att=" + dp.getY());
             concentrationSum += dp.getY();
         }
 
         return concentrationSum / concentrationPoints.size();
     }
-
-//    public static int (){
-//
-//    }
 }

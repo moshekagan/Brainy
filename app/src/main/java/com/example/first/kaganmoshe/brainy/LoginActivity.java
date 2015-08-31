@@ -3,7 +3,9 @@ package com.example.first.kaganmoshe.brainy;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.first.kaganmoshe.brainy.CustomActivity.AppActivity;
+import com.example.first.kaganmoshe.brainy.AppActivities.ConnectionActivity;
+import com.example.first.kaganmoshe.brainy.AppActivities.AppActivity;
+import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
 
 import Utils.Logs;
 
