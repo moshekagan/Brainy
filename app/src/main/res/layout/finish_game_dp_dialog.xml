@@ -4,7 +4,7 @@
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/clouds_background3"
+    android:background="@drawable/background_blue_sunburst2"
     android:paddingEnd="@dimen/pad_30dp"
     android:paddingStart="@dimen/pad_30dp"
     android:paddingTop="@dimen/pad_20dp"
