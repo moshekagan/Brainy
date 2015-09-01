@@ -54,7 +54,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:scaleType="fitCenter"
-            android:layout_marginBottom="@dimen/pad_20dp"
+            android:layout_marginBottom="@dimen/pad_30dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/brainy_sign2" />
 

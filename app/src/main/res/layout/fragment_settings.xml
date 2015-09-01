@@ -21,25 +21,35 @@
         android:id="@+id/dialog_layout_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingEnd="@dimen/pad_20dp"
-        android:paddingStart="@dimen/pad_20dp"
         android:paddingTop="@dimen/pad_20dp">
 
         <Utils.AppTextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:paddingEnd="@dimen/pad_20dp"
+            android:paddingStart="@dimen/pad_20dp"
+            android:layout_marginBottom="5dp"
             android:text="Settings"
             android:textColor="@color/white"
             android:textSize="30sp" />
 
+        <View
+            android:id="@+id/volumeDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/pad_30dp"
+            android:background="@android:color/darker_gray" />
+
         <RelativeLayout
             android:id="@+id/contentLayout"
             android:layout_width="wrap_content"
+            android:paddingEnd="@dimen/pad_20dp"
+            android:paddingStart="@dimen/pad_20dp"
             android:layout_height="wrap_content">
+
+
 
             <Utils.AppTextView
                 android:id="@+id/volumeTextView"
