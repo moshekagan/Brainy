@@ -103,15 +103,36 @@ public abstract class AppActivity extends FragmentActivity implements View.OnCli
         }
     }
 
+//    @Override
+//    protected void onPause(){
+//        super.onPause();
+////        AppManager.getInstance().pauseBackgroundMusic();
+//    }
+
     @Override
-    protected void onPause(){
-        super.onPause();
-        AppManager.getInstance().pauseBackgroundMusic();
+    protected void onStop(){
+        super.onStop();
+        AppManager.getInstance().onActivityStopped();
     }
 
     @Override
-    protected void onResume(){
-        super.onResume();
-        AppManager.getInstance().playBackgroundMusic();
+    protected void onStart(){
+        super.onStart();
+        AppManager.getInstance().onActivityStarted(playMusicInActivity());
     }
+
+    protected boolean playMusicInActivity(){
+        return true;
+    }
+
+//    @Override
+//    protected void onResume(){
+//        super.onResume();
+////        AppManager.getInstance().playBackgroundMusic();
+//    }
+
+//    @Override
+//    public void onUserLeaveHint(){
+//        super.onUserLeaveHint();
+//    }
 }

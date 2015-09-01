@@ -4,8 +4,7 @@
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/winner_background"
-    android:paddingBottom="@dimen/pad_20dp"
+    android:background="@drawable/clouds_background3"
     android:paddingEnd="@dimen/pad_30dp"
     android:paddingStart="@dimen/pad_30dp"
     android:paddingTop="@dimen/pad_20dp"
@@ -24,7 +23,7 @@
 
     <Utils.AppTextView
         android:id="@+id/winnerDialogTitle"
-        style="@style/winnerDialogTitle"
+        style="@style/winnerDialogTitleNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -54,8 +53,8 @@
     <!--android:layout_alignParentEnd="true">-->
     <ImageView
         android:id="@+id/brainyWinnerImage"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:adjustViewBounds="true"
         android:paddingBottom="@dimen/pad_10dp"
         android:src="@drawable/brainy_thumbup"
@@ -82,7 +81,7 @@
                 android:layout_height="match_parent"
                 android:text="Concentration:" />
 
-            <TextView
+            <Utils.AppTextView
                 android:id="@+id/concentrationStatTextView"
                 style="@style/feedbackBestScoreTextView"
                 android:layout_width="match_parent"
@@ -103,7 +102,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/feedbackScoreView" />
 
-            <TextView
+            <Utils.AppTextView
                 android:id="@+id/scoreStatTextView"
                 style="@style/feedbackBestScoreTextView"
                 android:layout_width="match_parent"
@@ -162,7 +161,7 @@
     <!--android:layout_centerVertical="true"-->
     <!--android:layout_alignParentEnd="true" />-->
 
-    <Button
+    <Utils.AppButton
         android:id="@+id/continueButton"
         style="@style/app_btn"
         android:background="@drawable/app_button"

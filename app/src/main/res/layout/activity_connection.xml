@@ -18,26 +18,29 @@
 
     <Utils.AppTextView
         android:id="@+id/title"
+        style="@style/connectionBrainyTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logoImage"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/pad_20dp"
-        android:text="Brainy"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="50sp" />
+        android:text="Brainy" />
 
-    <com.weiwangcn.betterspinner.library.BetterSpinner
+
+    <!--android:textColor="@color/black"-->
+    <!--android:textStyle="bold"-->
+    <!--android:textSize="50sp" />-->
+
+    <Utils.AppSpinner
         android:id="@+id/showList"
         style="@style/choose_headset_spinner"
-        android:background="@drawable/app_button"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
         android:layout_marginEnd="@dimen/pad_30dp"
         android:layout_marginStart="@dimen/pad_30dp"
+        android:background="@drawable/app_button"
         android:drawableStart="@drawable/eegheadset_cartoon"
         android:hint="@string/choose_headset" />
 
@@ -50,25 +53,27 @@
         android:layout_marginTop="@dimen/pad_10dp"
         android:orientation="horizontal">
 
-        <Button
+        <Utils.AppButton
             android:id="@+id/skipButton"
-            android:background="@drawable/app_button"
             style="@style/app_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/pad_5dp"
             android:layout_weight="1"
-            android:text="@string/settings_skip" />
-
-        <Button
-            android:id="@+id/connectButton"
             android:background="@drawable/app_button"
+            android:text="@string/settings_skip"
+            android:textSize="19sp" />
+
+        <Utils.AppButton
+            android:id="@+id/connectButton"
             style="@style/app_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/pad_5dp"
             android:layout_weight="1"
-            android:text="@string/settings_connect" />
+            android:background="@drawable/app_button"
+            android:text="@string/settings_connect"
+            android:textSize="19sp" />
 
 
     </LinearLayout>

@@ -5,10 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/pad_20dp"
-    android:paddingBottom="@dimen/pad_20dp"
     android:paddingStart="@dimen/pad_30dp"
     android:paddingEnd="@dimen/pad_30dp"
-    android:background="@drawable/winner_background"
+    android:background="@drawable/clouds_background3"
     tools:context=".WinnerDialogFragment">
 
     <!--<ImageView-->
@@ -24,7 +23,7 @@
 
     <Utils.AppTextView
         android:id="@+id/winnerDialogTitle"
-        style="@style/winnerDialogTitle"
+        style="@style/winnerDialogTitleNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -32,21 +31,22 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:src="@drawable/brainy_thumbup"
         android:id="@+id/brainyWinnerImage"
         android:layout_below="@id/winnerDialogTitle"
+        android:layout_marginBottom="@dimen/pad_20dp"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <Utils.AppButton
         android:id="@+id/continueButton"
         style="@style/app_btn"
         android:background="@drawable/app_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:stateListAnimator="@null"
         android:text="@string/winner_dialog_continue"
         android:layout_below="@+id/brainyWinnerImage"

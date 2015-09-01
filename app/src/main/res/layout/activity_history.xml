@@ -11,13 +11,12 @@
 
     <Utils.AppTextView
         android:id="@+id/title"
+        style="@style/appActivityTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/pad_20dp"
-        android:text="History"
-        android:textColor="@color/black"
-        android:textSize="50sp" />
+        android:text="History" />
 
     <LinearLayout
         android:id="@+id/spinnersLayout"
@@ -29,23 +28,23 @@
         android:layout_marginStart="@dimen/pad_20dp"
         android:orientation="horizontal">
 
-        <com.weiwangcn.betterspinner.library.BetterSpinner
+        <Utils.AppSpinner
             android:id="@+id/showListSpinner"
             style="@style/history_spinner"
-            android:background="@drawable/app_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/pad_5dp"
             android:layout_weight="3"
+            android:background="@drawable/app_spinner"
             android:hint="Guess The Number" />
 
-        <com.weiwangcn.betterspinner.library.BetterSpinner
+        <Utils.AppSpinner
             android:id="@+id/timeRangeSpinner"
             style="@style/history_spinner"
-            android:background="@drawable/app_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:background="@drawable/app_spinner"
             android:hint="Last Week" />
 
     </LinearLayout>
@@ -57,13 +56,13 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/spinnersLayout"
         android:layout_below="@id/spinnersLayout"
-        android:paddingStart="@dimen/pad_5dp"
         android:layout_marginTop="@dimen/pad_15dp"
+        android:paddingStart="@dimen/pad_5dp"
         android:text="Name:" />
 
-    <TextView
-        style="@style/historyTextView"
+    <Utils.AppTextView
         android:id="@+id/nameTextView"
+        style="@style/historyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/recordName"
@@ -76,13 +75,13 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/recordName"
         android:layout_below="@+id/recordName"
-        android:paddingStart="@dimen/pad_5dp"
         android:layout_marginTop="@dimen/pad_15dp"
+        android:paddingStart="@dimen/pad_5dp"
         android:text="Date:" />
 
-    <TextView
-        style="@style/historyTextView"
+    <Utils.AppTextView
         android:id="@+id/dateTextView"
+        style="@style/historyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/recordDate"
@@ -95,18 +94,18 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/recordDate"
         android:layout_below="@+id/recordDate"
-        android:paddingStart="@dimen/pad_5dp"
         android:layout_marginTop="@dimen/pad_15dp"
+        android:paddingStart="@dimen/pad_5dp"
         android:text="Concentration:" />
 
-    <TextView
-        style="@style/historyTextView"
+    <Utils.AppTextView
         android:id="@+id/concentrationTextView"
+        style="@style/historyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/recordScore"
-        android:layout_marginStart="@dimen/pad_30dp"
         android:layout_alignBottom="@+id/recordConcentration"
+        android:layout_marginStart="@dimen/pad_30dp"
         android:layout_toEndOf="@+id/recordConcentration" />
 
     <Utils.AppTextView
@@ -115,14 +114,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/recordConcentration"
-        android:paddingStart="@dimen/pad_5dp"
         android:layout_below="@+id/recordConcentration"
         android:layout_marginTop="@dimen/pad_15dp"
+        android:paddingStart="@dimen/pad_5dp"
         android:text="Score:" />
 
-    <TextView
-        style="@style/historyTextView"
+    <Utils.AppTextView
         android:id="@+id/scoreTextView"
+        style="@style/historyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/recordScore"
@@ -133,20 +132,20 @@
         android:id="@+id/graph"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/pad_15dp"
         android:layout_above="@+id/historyBackButton"
-        android:layout_below="@id/scoreTextView" />
+        android:layout_below="@id/scoreTextView"
+        android:layout_marginTop="@dimen/pad_15dp" />
 
-    <Button
+    <Utils.AppButton
         android:id="@+id/historyBackButton"
-        android:background="@drawable/app_button"
         style="@style/app_btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:stateListAnimator="@null"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/pad_10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/pad_10dp"
+        android:background="@drawable/app_button"
+        android:stateListAnimator="@null"
         android:text="@string/winner_dialog_back" />
 
 </RelativeLayout>

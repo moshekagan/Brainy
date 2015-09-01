@@ -27,7 +27,7 @@ public class SettingsFragment extends DialogFragment {
 
     private Context mContext;
     private SettingsCommunicator mCurrScreen;
-    private AudioManager mAudioManager;
+//    private AudioManager mAudioManager;
     private boolean mIsShowing = false;
     //    private Button increaseButton;
 //    private Button decreaseButton;
@@ -74,8 +74,9 @@ public class SettingsFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container);
 
-        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-        mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+//        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        final AudioManager audioManager = AppManager.getInstance().getAudioManager();
+        audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
 //        decreaseButton = (Button) view.findViewById(R.id.decreaseButton);
         view.findViewById(R.id.decreaseButton).setOnClickListener(new View.OnClickListener() {
@@ -83,7 +84,7 @@ public class SettingsFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 // decrease the volume and show the ui
-                mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) - 1,
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) - 1,
                         AudioManager.FLAG_SHOW_UI);
             }
         });
@@ -94,7 +95,7 @@ public class SettingsFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 // increase the volume and show the ui
-                mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC) + 1,
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) + 1,
                         AudioManager.FLAG_SHOW_UI);
             }
         });
@@ -105,7 +106,7 @@ public class SettingsFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 // mute the volume and show the ui
-                mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0,
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0,
                         AudioManager.FLAG_SHOW_UI);
             }
         });
@@ -124,7 +125,7 @@ public class SettingsFragment extends DialogFragment {
         view.findViewById(R.id.musicDisableButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppManager.getInstance().muteMusic(true);
+                AppManager.getInstance().muteMusicForUserRequest(true);
             }
         });
 
@@ -132,7 +133,7 @@ public class SettingsFragment extends DialogFragment {
         view.findViewById(R.id.musicEnableButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppManager.getInstance().muteMusic(false);
+                AppManager.getInstance().muteMusicForUserRequest(false);
             }
         });
 

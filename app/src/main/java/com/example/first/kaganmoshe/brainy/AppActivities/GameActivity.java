@@ -95,10 +95,17 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected void onStart(){
         super.onStart();
 
-        if(!mWasGameStarted && !AppManager.getGamesManager().isDailyPracticeModeOn()){
+//        AppManager.getInstance().muteMusicForAppRequest(true);
+
+        if(!mWasGameStarted && !AppManager.getInstance().getGamesManager().isDailyPracticeModeOn()){
             mWasGameStarted = true;
             mGameHelpDialog.show(mFragmentManager, "helpDialog");
         }
+    }
+
+    @Override
+    protected boolean playMusicInActivity(){
+        return false;
     }
 
     @Override
@@ -155,7 +162,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     protected void showFinishDialog() {
         onPause();
-        AppManager.getGamesManager().showFinishDialog(mFragmentManager, this);
+        AppManager.getInstance().getGamesManager().showFinishDialog(mFragmentManager, this);
 //        mFinishGameDialog.show(mFragmentManager, "FinishGameDialog");
     }
 
@@ -275,7 +282,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 //        } else {
 //            Utils.startNewActivity(this, targetActivity);
 //        }
-        AppManager.getGamesManager().continueAfterQuitConfirmed(this);
+        AppManager.getInstance().getGamesManager().continueAfterQuitConfirmed(this);
 //        Utils.startNewActivity(this, MainActivity.class);
     }
 
@@ -346,12 +353,12 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     @Override
     protected void onQuitClicked() {
 //        mQuitGameDialog.show(mFragmentManager, "QUIT CONFIRMATION");
-        AppManager.getGamesManager().showQuitDialog(mFragmentManager, mQuitGameDialog);
+        AppManager.getInstance().getGamesManager().showQuitDialog(mFragmentManager, mQuitGameDialog);
     }
 
     @Override
     public void onFinishGameContinueClicked() {
-        AppManager.getGamesManager().continueToActivityAfterGameFinished(this);
+        AppManager.getInstance().getGamesManager().continueToActivityAfterGameFinished(this);
 //        continueToNextActivity(FeedbackActivity.class);
 
 //        Intent intent = makeIntentForFinishedGame(FeedbackActivity.class);

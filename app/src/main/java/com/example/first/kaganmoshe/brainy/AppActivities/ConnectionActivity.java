@@ -117,4 +117,16 @@ public class ConnectionActivity extends AppActivity {
     public void onBackPressed(){
         finish();
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+//        AppManager.playBackgroundMusic();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+//        AppManager.pauseBackgroundMusic();
+    }
 }

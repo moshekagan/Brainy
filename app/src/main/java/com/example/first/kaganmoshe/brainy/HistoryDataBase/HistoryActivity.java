@@ -370,4 +370,16 @@ public class HistoryActivity extends ActionBarAppActivity {
         mScoreSeries.setTitle("Score");
         mScoreSeries.setColor(SCORE_COLOR);
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+//        AppManager.playBackgroundMusic();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+//        AppManager.pauseBackgroundMusic();
+    }
 }

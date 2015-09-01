@@ -3,6 +3,8 @@ package com.example.first.kaganmoshe.brainy.Games.GuessTheNumber;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import com.jjoe64.graphview.GraphView;
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
 import EEG.EegHeadSet;
+import Utils.CustomFontHelper;
 import Utils.Logs;
 
 
@@ -49,7 +52,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
     private ImageSwitcher mArrowImage;
     protected AppStopWatch mStopWatch = new AppStopWatch(AppTime.ETimeStringFormat.MINUTES_AND_SECONDS);
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +65,11 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         mArrowImage = (ImageSwitcher) findViewById(R.id.arrowImageView);
 
 //        if (mSoundPool == null && wrongAnswerSound == null) {
-        mSoundPool = new SoundPool.Builder()
-                .setMaxStreams(10)
-                .build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            createNewSoundPool();
+        }else{
+            createOldSoundPool();
+        }
         mButtonClickSoundId = mSoundPool.load(this, R.raw.button_click_sound, 1);
         mWrongAnswerSoundId = mSoundPool.load(this, R.raw.wrong_sound2, 1);
 //            mSoundPool = MediaPlayer.create(this, R.raw.button_click_sound);
@@ -83,6 +87,17 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         }
 
         startFeedbackSession();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected void createNewSoundPool(){
+        mSoundPool = new SoundPool.Builder()
+                .setMaxStreams(10)
+                .build();
+    }
+    @SuppressWarnings("deprecation")
+    protected void createOldSoundPool(){
+        mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
     }
 
     @Override
@@ -125,7 +140,8 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
             public View makeView() {
                 TextView textView = new TextView(GuessTheNumberGameActivity.this);
                 textView.setTextAppearance(GuessTheNumberGameActivity.this, R.style.gameOutputText);
-                textView.setTypeface(AppTextView.getAppFontTypeface());
+//                textView.setTypeface(AppTextView.getAppFontTypeface());
+                CustomFontHelper.setAppFont(textView, getApplicationContext());
                 return textView;
             }
         });

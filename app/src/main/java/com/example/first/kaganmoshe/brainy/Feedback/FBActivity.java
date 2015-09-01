@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.first.kaganmoshe.brainy.AppActivities.ActionBarActivity.ActionBarAppActivity;
 import com.example.first.kaganmoshe.brainy.AppActivities.AppActivity;
 import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
+import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 import com.jjoe64.graphview.GraphView;
@@ -32,6 +33,18 @@ public abstract class FBActivity extends ActionBarAppActivity {
     protected ArrayList<ParcelableDataPoint> mParcelableConcentrationPointsList;
     protected LinearLayout mFeedbackStatsLayout;
 //    protected Button continueButton;
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+//        AppManager.playBackgroundMusic();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+//        AppManager.pauseBackgroundMusic();
+    }
 
     protected void addConcentrationStat(int score){
         addStat(prepareStat(CONCENTRATION_AVERAGE, Integer.toString(score) + " (0-100)", mStatsTextSize, getApplicationContext()));

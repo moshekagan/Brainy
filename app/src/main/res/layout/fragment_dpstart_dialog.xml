@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/pad_20dp"
-    android:background="@drawable/settings_background"
+    android:background="@drawable/dp_dialog_background"
     tools:context="com.example.first.kaganmoshe.brainy.DailyPractice.DPStartDialog">
 
     <!--<ImageView-->
@@ -25,23 +25,32 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:paddingBottom="@dimen/pad_10dp"
-        android:paddingTop="@dimen/pad_10dp"
-        android:paddingStart="@dimen/pad_15dp"
-        android:paddingEnd="@dimen/pad_15dp">
+        android:paddingTop="@dimen/pad_20dp"
+        android:paddingStart="@dimen/pad_20dp"
+        android:paddingEnd="@dimen/pad_20dp">
 
         <Utils.AppTextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:text="Lets practice!"
             android:textColor="@color/white"
             android:textSize="30sp" />
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/brainy_weights3" />
+
         <RelativeLayout
             android:id="@+id/explanationLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingEnd="@dimen/pad_10dp"
+            android:paddingStart="@dimen/pad_10dp"
+            android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/pad_20dp">
 
             <Utils.AppTextView

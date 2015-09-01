@@ -1,8 +1,11 @@
 package com.example.first.kaganmoshe.brainy.AppManagement;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 
+import com.example.first.kaganmoshe.brainy.AppActivities.GameActivity;
 import com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryDBAdapter;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
@@ -14,6 +17,7 @@ import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 import EEG.MindWave;
 import EEG.MockerHeadSet;
+import Utils.AppTimer;
 import Utils.Logs;
 
 /**
@@ -24,12 +28,16 @@ public class AppManager implements IHeadSetData {
     private static final String APP_MANAGER = "AppManager";
     private static AppManager mInstance;
     private static MediaPlayer mBackgroundMusic;
-    private static boolean mMusicMute = false;
+    private static AudioManager mAudioManager;
+    private static boolean mMusicMutedByUser = false;
+    private static boolean mMusicMutedByApp = false;
     private static Context mContext;
     private static HistoryDBAdapter mHistoryDB;
-    private static final GamesManager mGamesManager = new GamesManager();
+    private final static GamesManager mGamesManager = new GamesManager();
     private EegHeadSet mHeadSet;
     private AppSettings mAppSettings;
+
+    private static int mActivitiesOpened = 0;
 
 
 //    private HashMap<Integer, Drawable> m_Drawables;
@@ -42,14 +50,15 @@ public class AppManager implements IHeadSetData {
         Logs.info("APP_MANAGER", "APP_MANAGER");
 //        configureAndConnectHeadSet();
     }
+
     //
 //    public Drawable getDrawable(int i//d){
 //        if(!m_Drawables.containsKey(id//)){
 //            m_Drawables.put(id, //co)
 //      //  }
 //    }
-    public static HistoryDBAdapter getHistoryDBInstance(Context context){
-        if(mHistoryDB == null){
+    public static HistoryDBAdapter getHistoryDBInstance(Context context) {
+        if (mHistoryDB == null) {
             mHistoryDB = new HistoryDBAdapter(context);
         }
 
@@ -128,45 +137,126 @@ public class AppManager implements IHeadSetData {
     @Override
     public void onPoorSignalReceived(ESignalVolume signalVolume) { /* Do Nothing! */ }
 
-    public static void setBackgroundMusic(Context context) {
+    public void setBackgroundMusic(Context context) {
         if (mBackgroundMusic == null) {
             mContext = context;
-            mBackgroundMusic = MediaPlayer.create(mContext, R.raw.background_music);
+            mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            mAudioManager.requestAudioFocus(
+                    new AudioManager.OnAudioFocusChangeListener() {
+                        @Override
+                        public void onAudioFocusChange(int focusChange) {
+                            AppManager.getInstance().onAudioFocusChange(focusChange);
+                        }
+                    },
+                    AudioManager.STREAM_MUSIC,
+                    AudioManager.AUDIOFOCUS_GAIN);
+            initBackgroundMusic();
+//            mBackgroundMusic = MediaPlayer.create(mContext, R.raw.background_music);
         }
     }
 
-    public static void playBackgroundMusic() {
-        if (!mBackgroundMusic.isPlaying() && !mMusicMute) {
+    private void initBackgroundMusic() {
+        mBackgroundMusic = MediaPlayer.create(mContext, R.raw.background_music);
+        mBackgroundMusic.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mBackgroundMusic.setLooping(true);
+    }
+
+    public void playBackgroundMusic() {
+        if (mBackgroundMusic == null) {
+            initBackgroundMusic();
+        }
+        if (!mBackgroundMusic.isPlaying() && !mMusicMutedByUser && !mMusicMutedByApp) {
             mBackgroundMusic.start();
-            mBackgroundMusic.setLooping(true);
+//            mBackgroundMusic.setLooping(true);
         }
     }
 
-    public static void stopBackgroundMusic() {
-        mBackgroundMusic.stop();
-    }
-
-    public static void pauseBackgroundMusic() {
+    public void pauseBackgroundMusic() {
         mBackgroundMusic.pause();
     }
 
-    public static void muteMusic(boolean muteMode) {
-        if (mMusicMute && !muteMode) {
-            mBackgroundMusic = MediaPlayer.create(mContext, R.raw.background_music);
-            mBackgroundMusic.setLooping(true);
-            mBackgroundMusic.start();
-        } else if (!mMusicMute && muteMode) {
-            mBackgroundMusic.reset();
+    public void muteMusicForUserRequest(boolean muteMode) {
+        if (mMusicMutedByUser && !muteMode && !mMusicMutedByApp) {
+            mMusicMutedByUser = muteMode;
+            playBackgroundMusic();
+        } else if (!mMusicMutedByUser && muteMode && !mMusicMutedByApp) {
+            mBackgroundMusic.stop();
+            mBackgroundMusic.release();
+            mBackgroundMusic = null;
         }
 
-        mMusicMute = muteMode;
+        mMusicMutedByUser = muteMode;
     }
 
-    public static Context getContext() {
-        return mContext;
+    public void muteMusicForAppRequest(boolean muteMode) {
+        if (mMusicMutedByApp && !muteMode && !mMusicMutedByUser) {
+            mMusicMutedByApp = muteMode;
+            playBackgroundMusic();
+        } else if (!mMusicMutedByApp && muteMode && !mMusicMutedByUser) {
+            mBackgroundMusic.stop();
+            mBackgroundMusic.release();
+            mBackgroundMusic = null;
+        }
+
+        mMusicMutedByApp = muteMode;
     }
 
-    public static GamesManager getGamesManager(){
+//    public Context getContext() {
+//        return mContext;
+//    }
+
+    public GamesManager getGamesManager() {
         return mGamesManager;
+    }
+
+    public void onAudioFocusChange(int focusChange) {
+        switch (focusChange) {
+            case AudioManager.AUDIOFOCUS_GAIN:
+                // resume playback
+                if (mBackgroundMusic == null) initBackgroundMusic();
+                else if (!mBackgroundMusic.isPlaying()) playBackgroundMusic();
+                mBackgroundMusic.setVolume(1.0f, 1.0f);
+                break;
+
+            case AudioManager.AUDIOFOCUS_LOSS:
+                // Lost focus for an unbounded amount of time: stop playback and release media player
+                if (mBackgroundMusic.isPlaying()) mBackgroundMusic.stop();
+                mBackgroundMusic.release();
+                mBackgroundMusic = null;
+                break;
+
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                // Lost focus for a short time, but we have to stop
+                // playback. We don't release the media player because playback
+                // is likely to resume
+                if (mBackgroundMusic.isPlaying()) mBackgroundMusic.pause();
+                break;
+
+            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                // Lost focus for a short time, but it's ok to keep playing
+                // at an attenuated level
+                if (mBackgroundMusic.isPlaying()) mBackgroundMusic.setVolume(0.1f, 0.1f);
+                break;
+        }
+    }
+
+    public void onActivityStopped() {
+        if (--mActivitiesOpened == 0) {
+            pauseBackgroundMusic();
+        }
+        Log.d("APP_MANAGER", "onActivityStopped");
+    }
+
+    public void onActivityStarted(boolean playMusic) {
+        muteMusicForAppRequest(!playMusic);
+
+        if (++mActivitiesOpened > 0) {
+            playBackgroundMusic();
+        }
+        Log.d("APP_MANAGER", "onActivityStarted");
+    }
+
+    public AudioManager getAudioManager() {
+        return mAudioManager;
     }
 }

@@ -23,7 +23,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/pad_20dp">
+        android:paddingEnd="@dimen/pad_20dp"
+        android:paddingStart="@dimen/pad_20dp"
+        android:paddingTop="@dimen/pad_20dp">
 
         <Utils.AppTextView
             android:id="@+id/titleTextView"
@@ -35,6 +37,7 @@
             android:textSize="30sp" />
 
         <RelativeLayout
+            android:id="@+id/contentLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -47,18 +50,7 @@
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
-            <Utils.AppTextView
-                android:id="@+id/musicTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/volumeDivider"
-                android:layout_marginTop="@dimen/pad_10dp"
-                android:text="Music:"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <Button
+            <Utils.AppButton
                 android:id="@+id/decreaseButton"
                 style="@style/btn_blue"
                 android:layout_width="25dp"
@@ -69,7 +61,7 @@
                 android:padding="0dp"
                 android:text="-" />
 
-            <Button
+            <Utils.AppButton
                 android:id="@+id/increaseButton"
                 style="@style/btn_blue"
                 android:layout_width="25dp"
@@ -80,7 +72,7 @@
                 android:padding="0dp"
                 android:text="+" />
 
-            <Button
+            <Utils.AppButton
                 android:id="@+id/muteButton"
                 style="@style/btn_blue"
                 android:layout_width="75dp"
@@ -94,12 +86,24 @@
                 android:id="@+id/volumeDivider"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_alignEnd="@+id/doneButton"
+                android:layout_alignEnd="@+id/muteButton"
                 android:layout_alignStart="@+id/musicTextView"
+                android:layout_marginEnd="@dimen/pad_10dp"
                 android:layout_below="@+id/volumeTextView"
                 android:background="@android:color/darker_gray" />
 
-            <Button
+            <Utils.AppTextView
+                android:id="@+id/musicTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/volumeDivider"
+                android:layout_marginTop="@dimen/pad_15dp"
+                android:text="Music:"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Utils.AppButton
                 android:id="@+id/musicEnableButton"
                 style="@style/btn_blue"
                 android:layout_width="50dp"
@@ -110,7 +114,7 @@
                 android:padding="0dp"
                 android:text="On" />
 
-            <Button
+            <Utils.AppButton
                 android:id="@+id/musicDisableButton"
                 style="@style/btn_blue"
                 android:layout_width="50dp"
@@ -120,13 +124,13 @@
                 android:padding="0dp"
                 android:text="Off" />
 
-            <Button
+            <Utils.AppButton
                 android:id="@+id/doneButton"
                 style="@style/app_btn"
                 android:background="@drawable/app_button"
                 android:layout_width="80dp"
                 android:layout_height="35dp"
-                android:layout_alignEnd="@+id/muteButton"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/musicEnableButton"
                 android:layout_marginTop="50dp"
                 android:text="Done" />

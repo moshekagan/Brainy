@@ -221,7 +221,7 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     @Override
     public void onStartClicked() {
         mDailyPracticeStartDialog.dismiss();
-        AppManager.getGamesManager().startDailyPractice(this);
+        AppManager.getInstance().getGamesManager().startDailyPractice(this);
     }
 
     @Override
@@ -232,5 +232,17 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     @Override
     public void onDialogShow(Class thisClass) {
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+//        AppManager.playBackgroundMusic();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+//        AppManager.pauseBackgroundMusic();
     }
 }
