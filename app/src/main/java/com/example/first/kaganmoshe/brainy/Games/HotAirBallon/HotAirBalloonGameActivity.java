@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
+import com.example.first.kaganmoshe.brainy.Games.MindShooter.MindShooterFeedback;
 import com.example.first.kaganmoshe.brainy.GenericDialogFragment;
 import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
 import com.example.first.kaganmoshe.brainy.R;
@@ -30,11 +31,13 @@ import EEG.ESignalVolume;
 import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 import Utils.Logs;
+import Utils.AppTimer;
 import com.example.first.kaganmoshe.brainy.Utils;
 
 
 
-public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetData, GenericDialogFragment.gameCommunicator {
+public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetData,
+        GenericDialogFragment.gameCommunicator, AppTimer.IAppTimerListener {
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
     private final int distanceFromTopActivity = 15;
@@ -51,16 +54,18 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //    private FeedbackClass mFeedback;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
 //    StartGameDialogFragment startGameDialogFragment;
-
     // Data Members For Timer
+    private long timerValueInMilliseconds = 60000l;
+
+    private AppTimer m_Timer = new AppTimer(timerValueInMilliseconds, AppTimer.ETimeStringFormat.MINUTES_AND_SECONDS);
+    private TextView m_TimeTextView;
     private long timeToPlayInMilSec;
-    private long timeInMilliseconds = 0L;
-    private long timeSwapBuff = 0L;
-    private long updatedTime = 0L;
-    private long timerValueInMilliseconds = 60000l; //
-    private long startTime = 0L;
-    private TextView timerValue;
-    private Handler customHandler = new Handler();
+    private boolean m_IsPlaying = false;
+//    private long timeInMilliseconds = 0L;
+//    private long timeSwapBuff = 0L;
+//    private long updatedTime = 0L;
+//    private long startTime = 0L;
+//    private Handler customHandler = new Handler();
 
     // Methods
     @Override
@@ -75,7 +80,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
 //        mFeedback = new HotAirBalloonFeedback();
         hotAirBalloonImageView = (ImageView) findViewById(R.id.balloonImageView);
-        timerValue = (TextView) findViewById(R.id.timerValue);
+        m_TimeTextView = (TextView) findViewById(R.id.timerValue);
         hotAirBalloonSoundAffect = MediaPlayer.create(this, R.raw.hot_air_balloon_sound_affect);
 
         setAttentionValues();
@@ -183,11 +188,26 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //    }
 
     private void startTimerGame(long value) {
-        timerValueInMilliseconds = value;
-        startTime = SystemClock.uptimeMillis();
-//        mFeedback.startTimer();
+        m_Timer.registerListener(this);
+        m_TimeTextView.setText(m_Timer.toString());
+        m_IsPlaying = true;
         startFeedbackSession();
-        customHandler.postDelayed(updateTimerThread, 0);
+
+//        timerValueInMilliseconds = value;
+//        startTime = SystemClock.uptimeMillis();
+////        mFeedback.startTimer();
+//        startFeedbackSession();
+//        customHandler.postDelayed(updateTimerThread, 0);
+    }
+
+    private void stopTimer(){
+        m_Timer.stopTimer();
+        m_IsPlaying = false;
+    }
+
+    private void resumeTimer() {
+        m_Timer.resumeTimer();
+        m_IsPlaying = true;
     }
 
     private float getAttentionAsFraction(int attVal) {
@@ -250,7 +270,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
     @Override
     public void onAttentionReceived(int attValue) {
-        if (listenToHeadSet) {
+        if (listenToHeadSet && m_IsPlaying) {
             // Raised the balloon
             Logs.warn(HOT_AIR_BALLOON_ACTIVITY, "Got Attention: " + attValue);
             float attPresent = getAttentionAsFraction(attValue);
@@ -279,38 +299,41 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         // Do Nothing
     }
 
-    private Runnable updateTimerThread = new Runnable() {
-        public void run() {
-            updatedTimeForThread(this);
-        }
-    };
+//    private Runnable updateTimerThread = new Runnable() {
+//        public void run() {
+//            updatedTimeForThread(this);
+//        }
+//    };
 
-    private void updatedTimeForThread(Runnable runnable) {
-        timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
-        timeInMilliseconds = timerValueInMilliseconds - timeInMilliseconds;
-
-        if (timeInMilliseconds > 0L) {
-            updatedTime = timeSwapBuff + timeInMilliseconds;
-
-
-            int secs = (int) (updatedTime / 1000);
-            int mins = secs / 60;
-            secs = secs % 60;
-//                int milliseconds = (int) (updatedTime % 1000);
-            timerValue.setText("" + mins + ":"
-                    + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
-            customHandler.postDelayed(runnable, 0);
-        } else {
-            finishTimerGame();
-        }
-    }
+//    private void updatedTimeForThread(Runnable runnable) {
+//        timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+//        timeInMilliseconds = timerValueInMilliseconds - timeInMilliseconds;
+//
+//        if (timeInMilliseconds > 0L) {
+//            updatedTime = timeSwapBuff + timeInMilliseconds;
+//
+//
+//            int secs = (int) (updatedTime / 1000);
+//            int mins = secs / 60;
+//            secs = secs % 60;
+////                int milliseconds = (int) (updatedTime % 1000);
+//            m_TimeTextView.setText("" + mins + ":"
+//                    + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
+//            customHandler.postDelayed(runnable, 0);
+//        } else {
+//            finishTimerGame();
+//        }
+//    }
 
     private void finishTimerGame() {
-        timeSwapBuff += timeInMilliseconds;
-        customHandler.removeCallbacks(updateTimerThread);
-        mFeedback.stopTimerAndRecievingData();
+        ((MindShooterFeedback) mFeedback).calculateFinalScore(10);
         hotAirBalloonSoundAffect.stop();
         showFinishDialog();
+
+//        timeSwapBuff += timeInMilliseconds;
+//        customHandler.removeCallbacks(updateTimerThread);
+//        mFeedback.stopTimerAndRecievingData();
+//        showFinishDialog();
     }
 
 //    private void showFinishGameDialog() {
@@ -338,7 +361,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
     @Override
     public void onDialogShow(Class thisClass) {
-//        stopClock();
+        stopTimer();
         super.onDialogShow(thisClass);
     }
 
@@ -350,18 +373,29 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     @Override
     protected void onMenuPopupShow() {
         super.onMenuPopupShow();
-//        stopClock();
+        stopTimer();
     }
 
     @Override
     public void onGameResumed() {
         super.onGameResumed();
-//        resumeClock();
-//        showSpecialCell();
+        resumeTimer();
     }
 
     @Override
-    public void onPause(){
+    protected void onPause() {
         super.onPause();
+        stopTimer();
+    }
+
+    @Override
+    public void onTimeTick(String timeString) { m_TimeTextView.setText(m_Timer.toString()); }
+
+    @Override
+    public void onTimeFinish(String timeString) { finishTimerGame(); }
+
+    @Override
+    public String toString(){
+        return MainActivity.HOT_AIR_BALLOON_STR;
     }
 }

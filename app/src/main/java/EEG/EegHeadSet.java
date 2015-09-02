@@ -66,6 +66,7 @@ public abstract class EegHeadSet {
     public void raiseOnHeadSetChangedState(String headSetName, EConnectionState connectionState){
         Logs.info(EEGHEADSET_STR, headSetName + " connecetd!");
 
+        m_CurrentState = connectionState;
         for (IHeadSetData headSetData : m_HeadSetData){
             if (headSetData != null){
                 headSetData.onHeadSetChangedState(headSetName, connectionState);

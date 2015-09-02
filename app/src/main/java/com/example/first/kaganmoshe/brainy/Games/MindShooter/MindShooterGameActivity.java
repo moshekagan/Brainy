@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import Utils.AppTimer;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameActivity;
+import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
@@ -58,17 +59,17 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     // Timer Members
     private AppTimer m_Timer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.MINUTES_AND_SECONDS);
     private TextView m_TimeTextView;
-    private Handler m_CustomHandler = new Handler();
-    private long m_StartTime = 0;
-    private long m_TimeInMilliseconds;
-    private long m_TimerValueInMilliseconds = TIME_FOR_GAME;
-    private long m_UpdatedTime;
-    private long m_TimeSwapBuff;
-    private Runnable m_UpdateTimerThread = new Runnable() {
-        public void run() {
-            updatedTimeForThread(this);
-        }
-    };
+//    private Handler m_CustomHandler = new Handler();
+//    private long m_StartTime = 0;
+//    private long m_TimeInMilliseconds;
+//    private long m_TimerValueInMilliseconds = TIME_FOR_GAME;
+//    private long m_UpdatedTime;
+//    private long m_TimeSwapBuff;
+//    private Runnable m_UpdateTimerThread = new Runnable() {
+//        public void run() {
+//            updatedTimeForThread(this);
+//        }
+//    };
 
     // Methods
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -148,34 +149,35 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         startTimerGame(TIME_FOR_GAME);
     }
 
-    private void updatedTimeForThread(Runnable runnable) {
-        m_TimeInMilliseconds = SystemClock.uptimeMillis() - m_StartTime;
-        m_TimeInMilliseconds = m_TimerValueInMilliseconds - m_TimeInMilliseconds;
-
-        if (m_TimeInMilliseconds > 0L) {
-            m_UpdatedTime = m_TimeSwapBuff + m_TimeInMilliseconds;
-
-
-            int secs = (int) (m_UpdatedTime / 1000);
-            int mins = secs / 60;
-            secs = secs % 60;
-//                int milliseconds = (int) (m_UpdatedTime % 1000);
-            m_TimeTextView.setText("" + mins + ":"
-                    + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
-            m_CustomHandler.postDelayed(runnable, 0);
-        } else {
-            finishTimerGame();
-        }
-    }
+//    private void updatedTimeForThread(Runnable runnable) {
+//        m_TimeInMilliseconds = SystemClock.uptimeMillis() - m_StartTime;
+//        m_TimeInMilliseconds = m_TimerValueInMilliseconds - m_TimeInMilliseconds;
+//
+//        if (m_TimeInMilliseconds > 0L) {
+//            m_UpdatedTime = m_TimeSwapBuff + m_TimeInMilliseconds;
+//
+//
+//            int secs = (int) (m_UpdatedTime / 1000);
+//            int mins = secs / 60;
+//            secs = secs % 60;
+////                int milliseconds = (int) (m_UpdatedTime % 1000);
+//            m_TimeTextView.setText("" + mins + ":"
+//                    + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
+//            m_CustomHandler.postDelayed(runnable, 0);
+//        } else {
+//            finishTimerGame();
+//        }
+//    }
 
     private void startTimerGame(long value) {
         m_Timer.registerListener(this);
         m_TimeTextView.setText(m_Timer.toString());
         m_IsPlaying = true;
+        startFeedbackSession();
+
 //        m_TimerValueInMilliseconds = value;
 //        m_StartTime = SystemClock.uptimeMillis();
 //        mFeedback.startTimer();
-        startFeedbackSession();
 //        m_CustomHandler.postDelayed(m_UpdateTimerThread, 0);
 
     }
@@ -365,5 +367,10 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     @Override
     public void onTimeFinish(String timeString) {
         finishTimerGame();
+    }
+
+    @Override
+    public String toString(){
+        return MainActivity.MIND_SHOOTER_STR;
     }
 }
