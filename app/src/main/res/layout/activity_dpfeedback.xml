@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/blue_sky_and_green_grass_new"
     android:orientation="vertical"
-    android:paddingTop="@dimen/pad_20dp"
+    android:paddingBottom="@dimen/pad_10dp"
+    android:paddingTop="@dimen/pad_30dp"
     android:weightSum="22"
     tools:context="com.example.first.kaganmoshe.brainy.Feedback.FBActivity">
 

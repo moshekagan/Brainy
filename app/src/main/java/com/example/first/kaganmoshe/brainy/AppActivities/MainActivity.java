@@ -92,7 +92,7 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     private static final String MENU_TOOLBAR_TEXT = "Menu";
 
     public static final String GUESS_THE_NUMBER_STR = "Guess The Number";
-    public static final String HOT_AIR_BALLOON_STR = "HotAir Balloon";
+    public static final String HOT_AIR_BALLOON_STR = "Hot Air Balloon";
     public static final String CRAZY_CUBE_STR = "Crazy Cube";
     public static final String MIND_SHOOTER_STR = "Mind Shooter";
     private static final String[] mGamesTitles = new String[EGameItem.values().length];

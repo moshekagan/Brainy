@@ -346,8 +346,8 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     protected void onFinishGameShow() {
 //        AppManager.getHistoryDBInstance(getApplicationContext())
-        mFeedback.insertRecordToHistoryDB(getApplicationContext(), getGameName());
-        Log.d("DAILY PRACTICE", "INSERT RECORD " + getGameName());
+        mFeedback.insertRecordToHistoryDB(getApplicationContext(), this.toString());
+        Log.d("DAILY PRACTICE", "INSERT RECORD " + this.toString());
     }
 
     @Override
@@ -392,9 +392,9 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     protected abstract void addTotalTimeSessionFeedbackStat(Intent intent);
 
-    protected String getGameName(){
-        return "Guess The Number";
-    }
+//    private String getGameName(){
+//        return "Guess The Number";
+//    }
 
     public Intent prepareIntentForFeedback() {
 //        Intent intent = makeIntentForFinishedGame(targetActivity);

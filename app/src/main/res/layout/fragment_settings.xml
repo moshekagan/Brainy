@@ -4,6 +4,7 @@
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/pad_10dp"
     android:background="@drawable/settings_background"
     tools:context="com.example.first.kaganmoshe.brainy.AppManagement.SettingsFragment">
 

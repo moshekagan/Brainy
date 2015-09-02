@@ -6,6 +6,7 @@
     android:background="@drawable/blue_sky_and_green_grass_new"
     android:paddingEnd="@dimen/pad_5dp"
     android:paddingStart="@dimen/pad_5dp"
+    android:paddingBottom="@dimen/pad_10dp"
     android:paddingTop="@dimen/pad_30dp"
     tools:context="com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryActivity">
 

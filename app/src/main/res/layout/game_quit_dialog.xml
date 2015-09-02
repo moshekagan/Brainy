@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/settings_background"
+    android:paddingBottom="@dimen/pad_10dp"
     tools:context=".QuitGameDialog">
 
     <!--android:layout_gravity="center_horizontal"-->
@@ -61,31 +62,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:orientation="horizontal"
-            android:paddingEnd="@dimen/pad_30dp">
+            android:paddingEnd="40dp"
+            android:paddingStart="40dp">
 
-            <Utils.AppButton
-                android:id="@+id/continueButton"
-                style="@style/app_btn"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/pad_10dp"
-                android:background="@drawable/app_button"
-                android:padding="@dimen/pad_5dp"
-                android:stateListAnimator="@null"
-                android:text="@string/winner_dialog_continue" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Utils.AppButton
-                android:id="@+id/quitButton"
-                style="@style/app_btn"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:background="@drawable/app_button"
-                android:paddingEnd="@dimen/pad_5dp"
-                android:paddingStart="@dimen/pad_5dp"
-                android:stateListAnimator="@null"
-                android:text="@string/winner_dialog_quit" />
+                <Utils.AppButton
+                    android:id="@+id/continueButton"
+                    style="@style/app_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/pad_10dp"
+                    android:background="@drawable/app_button"
+                    android:padding="@dimen/pad_5dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/winner_dialog_continue" />
+
+                <Utils.AppButton
+                    android:id="@+id/quitButton"
+                    style="@style/app_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/app_button"
+                    android:paddingEnd="@dimen/pad_5dp"
+                    android:paddingStart="@dimen/pad_5dp"
+                    android:layout_alignParentEnd="true"
+                    android:stateListAnimator="@null"
+                    android:text="@string/winner_dialog_quit" />
+
+
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 

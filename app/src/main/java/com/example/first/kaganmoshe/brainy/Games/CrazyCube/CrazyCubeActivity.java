@@ -19,6 +19,7 @@ import android.widget.TextView;
 import Utils.AppTimer;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameGraph.GameGraph;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameGraph.GameGraphActivity;
+import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
@@ -52,7 +53,7 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     private AppTimer mTimer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.SECONDS_ONLY);
 
     private static final int MIN_SPECIAL_CELL_FACTOR = -5;
-    private static final int MAX_SPECIAL_CELL_FACTOR = -40;
+    private static final int MAX_SPECIAL_CELL_FACTOR = -20;
     private static final int FACTOR_DELTA_JUMP = 5;
     private static final int INIT_BOARD_SIZE = 2;
     private static final int MAX_BOARD_SIZE = 8;
@@ -331,7 +332,7 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     @Override
     public void onFinishGameContinueClicked() {
         //this is the format to add your own stat
-        addNewStatForFeedback("Bonus", "100");
+//        addNewStatForFeedback("Bonus", "100");
         //then you call this method
 //        continueToNextActivity(FeedbackActivity.class);
         super.onFinishGameContinueClicked();
@@ -342,10 +343,10 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         intent.putExtra(FeedbackActivity.TOTAL_TIME, "01:00");
     }
 
-    @Override
-    protected String getGameName() {
-        return "Crazy Cube";
-    }
+//    @Override
+//    protected String getGameName() {
+//        return "Crazy Cube";
+//    }
 
 //    @Override
 //    protected int calculateScore() {
@@ -372,6 +373,11 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     private void finishGame() {
         ((CCubeFeedback) mFeedback).calculateFinalScore(mCurrScore, mBadChoicesLeft);
         showFinishDialog();
+    }
+
+    @Override
+    public String toString(){
+        return MainActivity.CRAZY_CUBE_STR;
     }
 //    @Override
 //    protected void onFinishGameShow() {

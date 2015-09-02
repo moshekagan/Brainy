@@ -96,24 +96,24 @@ public abstract class FeedbackClass implements IHeadSetData {
     }
 
     public int getDistractionScore() {
-        int score;
+//        int score;
+//
+//        switch (mNumOfUserPauses) {
+//            case 0:
+//                score = 150;
+//                break;
+//            case 1:
+//                score = 100;
+//                break;
+//            case 2:
+//                score = 80;
+//                break;
+//            default:
+//                score = 60;
+//                break;
+//        }
 
-        switch (mNumOfUserPauses) {
-            case 0:
-                score = 150;
-                break;
-            case 1:
-                score = 100;
-                break;
-            case 2:
-                score = 80;
-                break;
-            default:
-                score = 60;
-                break;
-        }
-
-        return score;
+        return 0;
     }
 
 //    public int getGameScore() {

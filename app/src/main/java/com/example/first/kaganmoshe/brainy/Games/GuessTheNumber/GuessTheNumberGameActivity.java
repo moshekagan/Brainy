@@ -25,6 +25,7 @@ import Utils.AppTextView;
 import Utils.AppTime;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameGraph.GameGraph;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameGraph.GameGraphActivity;
+import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
@@ -123,10 +124,10 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         intent.putExtra(FeedbackActivity.TOTAL_TIME, mStopWatch.toString());
     }
 
-    @Override
-    protected String getGameName() {
-        return "Guess The Number";
-    }
+//    @Override
+//    protected String getGameName() {
+//        return "Guess The Number";
+//    }
 
 //    @Override
 //    protected int calculateScore() {
@@ -326,5 +327,10 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
     protected void onMenuPopupShow() {
         mStopWatch.stopTimer();
         super.onMenuPopupShow();
+    }
+
+    @Override
+    public String toString(){
+        return MainActivity.GUESS_THE_NUMBER_STR;
     }
 }
