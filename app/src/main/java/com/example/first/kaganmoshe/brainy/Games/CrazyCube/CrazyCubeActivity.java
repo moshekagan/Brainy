@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,7 +61,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     private static final int TIME_FOR_GAME = 60;
     private static final int BAD_CHOICES_SIZE = 3;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +72,12 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         mBadChoiceLeftTextView = (TextView) findViewById(R.id.CCubeBadChoiceLeftTextView);
         mContext = getApplicationContext();
 
-        mSoundPool = new SoundPool.Builder()
-                .setMaxStreams(10)
-                .build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            createNewSoundPool();
+        }else{
+            createOldSoundPool();
+        }
+
         mGoodSoundId = mSoundPool.load(this, R.raw.good_sound_effect, 1);
         mBadSoundId = mSoundPool.load(this, R.raw.wrong_sound2, 1);
 //        mGoodSoundId = MediaPlayer.create(this, R.raw.good_sound_effect);
@@ -96,6 +99,17 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         BuildTable(++mCurrBoardSize);
 //        ResumeGameCountDown rgc = new ResumeGameCountDown();
 //        rgc.show(mFragmentManager, "Countdown");
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void createOldSoundPool() {
+        mSoundPool = new SoundPool.Builder()
+                .setMaxStreams(10)
+                .build();
+    }
+
+    private void createNewSoundPool() {
+        mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
     }
 
     private void stopClock() {

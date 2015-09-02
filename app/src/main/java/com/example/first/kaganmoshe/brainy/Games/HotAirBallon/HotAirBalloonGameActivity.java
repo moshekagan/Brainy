@@ -1,9 +1,13 @@
 package com.example.first.kaganmoshe.brainy.Games.HotAirBallon;
 
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -51,11 +55,10 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     private boolean displayMessage = true;
     private MediaPlayer hotAirBalloonSoundAffect;
     private int oldAtt = 0;
-//    private FeedbackClass mFeedback;
     private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-//    StartGameDialogFragment startGameDialogFragment;
-    // Data Members For Timer
     private long timerValueInMilliseconds = 60000l;
+    private SoundPool m_SoundEffect;
+    private int m_HABSoundAffectID;
 
     private AppTimer m_Timer = new AppTimer(timerValueInMilliseconds, AppTimer.ETimeStringFormat.MINUTES_AND_SECONDS);
     private TextView m_TimeTextView;
@@ -68,6 +71,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //    private Handler customHandler = new Handler();
 
     // Methods
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +85,15 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //        mFeedback = new HotAirBalloonFeedback();
         hotAirBalloonImageView = (ImageView) findViewById(R.id.balloonImageView);
         m_TimeTextView = (TextView) findViewById(R.id.timerValue);
-        hotAirBalloonSoundAffect = MediaPlayer.create(this, R.raw.hot_air_balloon_sound_affect);
+//        hotAirBalloonSoundAffect = MediaPlayer.create(this, R.raw.hot_air_balloon_sound_affect);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            createNewSoundPool();
+        }else{
+            createOldSoundPool();
+        }
+
+        m_HABSoundAffectID = m_SoundEffect.load(this, R.raw.hot_air_balloon_sound_affect, 1);
 
         setAttentionValues();
 
@@ -111,10 +123,22 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //        showStartGameDialogFragment();
     }
 
+
 //    @Override
 //    protected int calculateScore() {
 //        return 100;
 //    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void createOldSoundPool() {
+        m_SoundEffect = new SoundPool.Builder()
+                .setMaxStreams(10)
+                .build();
+    }
+
+    private void createNewSoundPool() {
+        m_SoundEffect = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+    }
 
     private void initialize() {
         Intent intent = getIntent();
@@ -166,8 +190,10 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
         float destination = getDestination(attPresent);
         if (oldAtt < attValues.get(i))
-            hotAirBalloonSoundAffect.start();
-                else hotAirBalloonSoundAffect.pause();
+            m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
+//        hotAirBalloonSoundAffect.start();
+                else m_SoundEffect.pause(m_HABSoundAffectID);
+//            hotAirBalloonSoundAffect.pause();
         oldAtt = attValues.get(i);
 //                Log.e(HOT_AIR_BALLOON_ACTIVITY, "# ATT = " + attVal);
 //                Log.e(HOT_AIR_BALLOON_ACTIVITY, "++++++ destination = " + destination);
@@ -278,8 +304,11 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
             Logs.warn(HOT_AIR_BALLOON_ACTIVITY, "New Destination: " + destination);
             raisedTheAirBalloon(destination);
             if (oldAtt < attValue)
-                hotAirBalloonSoundAffect.start();
-//            else hotAirBalloonSoundAffect.stop();
+                m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
+//        hotAirBalloonSoundAffect.start();
+            else m_SoundEffect.pause(m_HABSoundAffectID);
+//            hotAirBalloonSoundAffect.pause();
+
             oldAtt = attValue;
         }
     }
@@ -327,13 +356,14 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
     private void finishTimerGame() {
         ((HotAirBalloonFeedback) mFeedback).calculateFinalScore(10);
-        hotAirBalloonSoundAffect.stop();
+        m_SoundEffect.stop(m_HABSoundAffectID);
+//        hotAirBalloonSoundAffect.stop();
         showFinishDialog();
 
 //        timeSwapBuff += timeInMilliseconds;
 //        customHandler.removeCallbacks(updateTimerThread);
 //        mFeedback.stopTimerAndRecievingData();
-//        showFinishDialog();
+//        showFinishDialog();x
     }
 
 //    private void showFinishGameDialog() {

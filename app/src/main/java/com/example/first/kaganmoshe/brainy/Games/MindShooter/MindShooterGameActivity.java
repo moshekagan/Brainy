@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
@@ -49,8 +50,6 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     private TextView m_ScoreTextView;
     private Button m_ShootBtn;
     private boolean timerOn = true;
-    private MediaPlayer m_BalloonPoppingAffect_;
-    private MediaPlayer m_SingleShotAffect_;
     private SoundPool m_SoundEffect;
     private int m_BalloonPoppingAffectId;
     private int m_SingleShotAffectId;
@@ -72,8 +71,6 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
 //    };
 
     // Methods
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maind_shooter_game);
@@ -85,12 +82,11 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         m_ScoreTextView = (TextView) findViewById(R.id.MindShooterScoreTextView);
         m_TimeTextView = (TextView) findViewById(R.id.MindShooterTimeTextView);
 
-        m_SingleShotAffect_ = MediaPlayer.create(this, R.raw.single_shot_affect);
-        m_BalloonPoppingAffect_ = MediaPlayer.create(this, R.raw.balloon_popping_affect);
-
-        m_SoundEffect = new SoundPool.Builder()
-                .setMaxStreams(10)
-                .build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            createNewSoundPool();
+        }else{
+            createOldSoundPool();
+        }
 
         m_BalloonPoppingAffectId = m_SoundEffect.load(this, R.raw.balloon_popping_affect, 1);
         m_SingleShotAffectId = m_SoundEffect.load(this, R.raw.single_shot_affect, 1);
@@ -133,6 +129,17 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
 
         setScore(0);
         startGame();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void createOldSoundPool() {
+        m_SoundEffect = new SoundPool.Builder()
+                .setMaxStreams(10)
+                .build();
+    }
+
+    private void createNewSoundPool() {
+        m_SoundEffect = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
     }
 
     private void shoot() {
