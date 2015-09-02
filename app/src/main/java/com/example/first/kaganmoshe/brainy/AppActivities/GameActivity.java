@@ -47,7 +47,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         Log.d("FEEDBACK_USER_PAUSE", "PAUSED");
     }
 
-//    protected abstract void onMenuPopupDismiss();
+    protected abstract String setContentForHelpDialog();
 
     protected int calculateScore(){
         return 100;
@@ -70,6 +70,9 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         mResumeGameCountDown.setListener(this);
         mGameHelpDialog.setListener(this);
 
+        mGameHelpDialog.setHelpContentText(this.setContentForHelpDialog());
+        mFinishGameDialog.setTitle(this.setFinishDialogTitle());
+
         initGameHelpDialog();
 //        try {
 //            mBackPressedActivityTarget = Class.forName(getIntent().getStringExtra(Utils.CALLING_CLASS));
@@ -79,6 +82,8 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
         mBackPressedActivityTarget = MainActivity.class;
     }
+
+    protected abstract String setFinishDialogTitle();
 
     private void initGameHelpDialog() {
         String gameTitle = MainActivity.EGameItem.getGameNameByClass(this.getClass());

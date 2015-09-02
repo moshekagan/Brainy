@@ -18,6 +18,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import Utils.AppTimer;
+
 import com.example.first.kaganmoshe.brainy.AppActivities.GameGraph.GameGraph;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameGraph.GameGraphActivity;
 import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
@@ -74,7 +75,7 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             createNewSoundPool();
-        }else{
+        } else {
             createOldSoundPool();
         }
 
@@ -101,6 +102,11 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
 //        rgc.show(mFragmentManager, "Countdown");
     }
 
+    @Override
+    protected String setFinishDialogTitle() {
+        return getResources().getString(R.string.crazy_cube_finish_title);
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void createOldSoundPool() {
         mSoundPool = new SoundPool.Builder()
@@ -109,7 +115,7 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     }
 
     private void createNewSoundPool() {
-        mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+        mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
     }
 
     private void stopClock() {
@@ -390,13 +396,18 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return MainActivity.CRAZY_CUBE_STR;
     }
-//    @Override
+
+    //    @Override
 //    protected void onFinishGameShow() {
 //        super.onFinishGameShow();
 //
 //        mTimeTextView.setText("");
 //    }
+    @Override
+    protected String setContentForHelpDialog() {
+        return getResources().getString(R.string.crazy_cube_help_content);
+    }
 }

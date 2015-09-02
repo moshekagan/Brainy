@@ -58,7 +58,7 @@ public class ConnectionActivity extends AppActivity {
                         mHeadSetType = EHeadSetType.MindWave;
                         break;
                     case EMOTIV_SRT:
-                        Utils.showToastMessage(getApplicationContext(), EMOTIV_SRT + " unsupported yet, choose other option.");
+                        Utils.showToastMessage(getApplicationContext(), EMOTIV_SRT + " is not supported yet.");
                     case MOCKER_STR:
                         mHeadSetType = EHeadSetType.Moker;
                         break;
@@ -77,6 +77,15 @@ public class ConnectionActivity extends AppActivity {
         setTouchNClick(R.id.skipButton);
 
         initViewActivity();
+
+//        View spinnerOverlay = findViewById(R.id.spinner_overlay);
+//        spinnerOverlay.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mHeadsetSpinner.performClick();
+//            }
+//
+//        });
 
         HistoryDBAdapter db = AppManager.getHistoryDBInstance(getApplicationContext());
         db.insertRecord("Guess The Number", 50, 89);

@@ -4,172 +4,209 @@
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_blue_sunburst2"
-    android:paddingEnd="@dimen/pad_30dp"
-    android:paddingStart="@dimen/pad_30dp"
-    android:paddingTop="@dimen/pad_20dp"
-    tools:context="com.example.first.kaganmoshe.brainy.Fe">
+    tools:context=".WinnerDialogFragment">
 
-    <!--<ImageView-->
-    <!--android:src="@drawable/winner_background"-->
-    <!--android:scaleType="fitXY"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_alignTop="@+id/dialog_layout_main"-->
-    <!--android:layout_alignBottom="@id/dialog_layout_main"-->
-    <!--android:layout_alignLeft="@id/dialog_layout_main"-->
-    <!--android:layout_alignRight="@id/dialog_layout_main" />-->
-
-
-    <Utils.AppTextView
-        android:id="@+id/winnerDialogTitle"
-        style="@style/winnerDialogTitleNew"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/pad_10dp"
-        android:gravity="center_horizontal"
-        android:text="@string/winner_dialog_title" />
-
-    <Utils.AppTextView
-        android:id="@+id/winnerDialogDPTitle"
-        style="@style/winnerDialogDPTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/winnerDialogTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/pad_10dp"
-        android:gravity="center_horizontal"
-        android:text="" />
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/imageAndStatsLayout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_below="@+id/winnerDialogDPTitle"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_marginBottom="@dimen/pad_20dp"-->
-    <!--android:layout_alignParentEnd="true">-->
     <ImageView
-        android:id="@+id/brainyWinnerImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:adjustViewBounds="true"
-        android:paddingBottom="@dimen/pad_10dp"
-        android:src="@drawable/brainy_thumbup"
-        android:layout_below="@+id/winnerDialogDPTitle"
-        android:layout_centerHorizontal="true" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@+id/dialog_layout_main"
+        android:layout_alignEnd="@+id/dialog_layout_main"
+        android:layout_alignStart="@+id/dialog_layout_main"
+        android:layout_alignTop="@+id/dialog_layout_main"
+        android:scaleType="fitXY"
+        android:src="@drawable/blue_sparkle_background_vertical" />
 
     <LinearLayout
-        android:id="@+id/statsLayout"
+        android:id="@+id/dialog_layout_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/brainyWinnerImage"
-        android:layout_marginBottom="@dimen/pad_30dp">
+        android:paddingBottom="@dimen/pad_10dp"
+        android:paddingEnd="@dimen/pad_30dp"
+        android:paddingStart="@dimen/pad_30dp"
+        android:paddingTop="@dimen/pad_20dp">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Utils.AppTextView
-                style="@style/feedbackActivityTextView"
-                android:layout_width="145dp"
-                android:layout_height="match_parent"
-                android:text="Concentration:" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <Utils.AppTextView
-                android:id="@+id/concentrationStatTextView"
-                style="@style/feedbackBestScoreTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/pad_10dp">
+                android:id="@+id/winnerDialogTitle"
+                style="@style/winnerDialogTitleNew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/pad_10dp"
+                android:gravity="center_horizontal" />
 
             <Utils.AppTextView
-                style="@style/feedbackActivityTextView"
-                android:layout_width="145dp"
-                android:layout_height="match_parent"
-                android:text="@string/feedbackScoreView" />
+                android:id="@+id/winnerDialogDPTitle"
+                style="@style/winnerDialogDPTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/winnerDialogTitle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/pad_10dp"
+                android:gravity="center_horizontal"
+                android:text="" />
 
-            <Utils.AppTextView
-                android:id="@+id/scoreStatTextView"
-                style="@style/feedbackBestScoreTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom" />
+            <!--<LinearLayout-->
+            <!--android:id="@+id/imageAndStatsLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="150dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_below="@+id/winnerDialogDPTitle"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginBottom="@dimen/pad_20dp"-->
+            <!--android:layout_alignParentEnd="true">-->
+            <ImageView
+                android:id="@+id/brainyWinnerImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/winnerDialogDPTitle"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:paddingBottom="@dimen/pad_10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/brainy_thumbup" />
+            <!--<ImageView-->
+                <!--android:id="@+id/brainyWinnerImage"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:layout_below="@id/winnerDialogTitle"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginBottom="@dimen/pad_30dp"-->
+                <!--android:layout_marginStart="@dimen/pad_30dp"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:src="@drawable/brainy_thumbup" />-->
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/statsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/brainyWinnerImage"
+                android:layout_marginBottom="@dimen/pad_30dp"
+                android:paddingStart="@dimen/pad_20dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/pad_10dp">
 
-            <Utils.AppTextView
-                style="@style/feedbackActivityTextView"
-                android:layout_width="145dp"
-                android:layout_height="match_parent"
-                android:text="@string/feedbackBestScoreView" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/bestScoreStatTextView"
-                style="@style/feedbackBestScoreTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom" />
+                    <Utils.AppTextView
+                        style="@style/daily_practice_winner_dialog"
+                        android:layout_width="145dp"
+                        android:layout_height="match_parent"
+                        android:text="Concentration:" />
 
-        </LinearLayout>
+                    <Utils.AppTextView
+                        android:id="@+id/concentrationStatTextView"
+                        style="@style/daily_practice_winner_dialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/pad_10dp">
+
+                    <Utils.AppTextView
+                        style="@style/daily_practice_winner_dialog"
+                        android:layout_width="145dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/feedbackScoreView" />
+
+                    <Utils.AppTextView
+                        android:id="@+id/scoreStatTextView"
+                        style="@style/daily_practice_winner_dialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/pad_10dp">
+
+                    <Utils.AppTextView
+                        style="@style/daily_practice_winner_dialog"
+                        android:layout_width="145dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/feedbackBestScoreView" />
+
+                    <Utils.AppTextView
+                        android:id="@+id/bestScoreStatTextView"
+                        style="@style/daily_practice_winner_dialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+            <!--android:id="@+id/statsLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_alignBottom="@+id/brainyWinnerImage"-->
+            <!--android:layout_alignTop="@+id/brainyWinnerImage"-->
+            <!--android:layout_toStartOf="@+id/brainyWinnerImage"-->
+            <!--android:layout_marginEnd="@dimen/pad_10dp">-->
+
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/brainyWinnerImage"-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="150dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:layout_marginBottom="@dimen/pad_20dp"-->
+            <!--android:paddingBottom="@dimen/pad_10dp"-->
+            <!--android:src="@drawable/brainy_thumbup"-->
+            <!--android:layout_below="@+id/winnerDialogDPTitle"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentEnd="true" />-->
+
+            <Utils.AppButton
+                android:id="@+id/continueButton"
+                style="@style/app_btn"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/statsLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/pad_10dp"
+                android:background="@drawable/app_button"
+                android:stateListAnimator="@null"
+                android:text="@string/winner_dialog_continue" />
+
+        </RelativeLayout>
+
+
+        <!--<Button-->
+        <!--android:id="@+id/continueButton"-->
+        <!--android:layout_width="45dp"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_below="@+id/brainyWinnerImage"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="@drawable/ic_play_button" />-->
+
+
     </LinearLayout>
-
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/statsLayout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical"-->
-    <!--android:layout_alignBottom="@+id/brainyWinnerImage"-->
-    <!--android:layout_alignTop="@+id/brainyWinnerImage"-->
-    <!--android:layout_toStartOf="@+id/brainyWinnerImage"-->
-    <!--android:layout_marginEnd="@dimen/pad_10dp">-->
-
-    <!--</LinearLayout>-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/brainyWinnerImage"-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:adjustViewBounds="true"-->
-    <!--android:layout_marginBottom="@dimen/pad_20dp"-->
-    <!--android:paddingBottom="@dimen/pad_10dp"-->
-    <!--android:src="@drawable/brainy_thumbup"-->
-    <!--android:layout_below="@+id/winnerDialogDPTitle"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_alignParentEnd="true" />-->
-
-    <Utils.AppButton
-        android:id="@+id/continueButton"
-        style="@style/app_btn"
-        android:background="@drawable/app_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:stateListAnimator="@null"
-        android:text="@string/winner_dialog_continue"
-        android:layout_below="@+id/statsLayout"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

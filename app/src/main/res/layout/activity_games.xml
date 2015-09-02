@@ -72,7 +72,6 @@
         android:divider="@color/list_divider"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_row_selector"
-        android:paddingBottom="@dimen/pad_10dp"
         android:paddingTop="@dimen/pad_10dp" />
 
     <LinearLayout

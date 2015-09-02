@@ -29,7 +29,7 @@ import EEG.IHeadSetData;
 public abstract class ActionBarAppActivity extends AppActivity implements IHeadSetData,
         SettingsFragment.SettingsCommunicator {
 
-    private final static String[] POPUP_MENU_TITLES = {"Games", "Settings", "Quit"};
+    private final static String[] POPUP_MENU_TITLES = {"Main", "Settings", "Quit"};
 
 //    ArrayAdapter actionsList;
 //    private View homeButtonView = null;
@@ -51,7 +51,7 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     protected ViewGroup mMeasureParent;
     protected static final SettingsFragment mSettingsFragment = new SettingsFragment();
     protected android.support.v4.app.FragmentManager mFragmentManager = getSupportFragmentManager();
-    private static final int POPUP_MENU_ROW_PADDING = 50;
+    private static final int POPUP_MENU_ROW_PADDING = 100;
     private static int popupMenuRowWidth = 0;
 
 //    private boolean homeButtonDisabled = false;
@@ -301,7 +301,7 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
-    private static int measureContentWidth(ArrayAdapter adapter, Context context, ViewGroup mMeasureParent) {
+    private static int measureContentWidth(ArrayAdapter adapter, Context context, ViewGroup measureParent) {
         int width = 0;
         View itemView = null;
         int itemType = 0;
@@ -309,21 +309,24 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
         final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int count = adapter.getCount();
 
+        Log.d("POPUP", "Count=" + count);
+
         for (int i = 0; i < count; i++) {
             final int positionType = adapter.getItemViewType(i);
             if (positionType != itemType) {
                 itemType = positionType;
                 itemView = null;
             }
-            if (mMeasureParent == null) {
-                mMeasureParent = new FrameLayout(context);
+            if (measureParent == null) {
+                measureParent = new FrameLayout(context);
             }
-            itemView = adapter.getView(i, itemView, mMeasureParent);
+            itemView = adapter.getView(i, itemView, measureParent);
             itemView.setLayoutParams(new ViewGroup.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT));
             itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                     View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
             itemView.measure(widthMeasureSpec, heightMeasureSpec);
+            Log.d("POPUP", "viewWidth=" + itemView.getMeasuredWidth() + " maxWidth=" + width);
             width = Math.max(width, itemView.getMeasuredWidth());
         }
         //TODO - const

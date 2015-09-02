@@ -22,7 +22,7 @@ public class GameHelpDialog extends GameDialog {
 //    private TextView helpContentTextView;
 //    private TextView helpTitleTextView;
     private String mHelpTitleText;
-    private String mHelpContentText = "The goal is simple: Win the game gever!";
+    private String mHelpContentText;
 
     public interface GameHelpCommunicator extends GameDialog.GameDialogCommunicator {
         void onStartClicked();

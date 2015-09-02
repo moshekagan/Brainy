@@ -52,7 +52,7 @@ public class HistoryActivity extends ActionBarAppActivity {
     private BetterSpinner mShownItemsSpinner;
     private BetterSpinner mTimeRangeSpinner;
     private HistoryDBAdapter.ETimeRange mCurrTimeRangeSelection = HistoryDBAdapter.ETimeRange.LAST_WEEK;
-    private String mCurrGameSelection = "Guess The Number";
+    private String mCurrGameSelection = MainActivity.GUESS_THE_NUMBER_STR;
     private GraphView mGraphView;
     private LineGraphSeries<DataPoint> mConcentrationSeries;
     private LineGraphSeries<DataPoint> mScoreSeries;
@@ -66,10 +66,10 @@ public class HistoryActivity extends ActionBarAppActivity {
     private static final int CONCENTRATION_COLOR = Color.BLUE;
 
     private static final String[] ITEMS = new String[]{
-            "Guess The Number",
-            "Crazy Cube",
-            "MindShooter",
-            "Hot Air Balloon",
+            MainActivity.GUESS_THE_NUMBER_STR,
+            MainActivity.CRAZY_CUBE_STR,
+            MainActivity.MIND_SHOOTER_STR,
+            MainActivity.HOT_AIR_BALLOON_STR,
             "Daily Practices"
     };
 
@@ -155,7 +155,6 @@ public class HistoryActivity extends ActionBarAppActivity {
         initScoreSeries();
         initGraph();
         addRecords();
-
     }
 
     private void addRecords() {
@@ -196,49 +195,6 @@ public class HistoryActivity extends ActionBarAppActivity {
                 mGraphView.getSecondScale().addSeries(mScoreSeries);
             }
         }
-//        mConcentrationSeries.appendData(new DataPoint(index++, 0), false, Integer.MAX_VALUE);
-//
-//        for (HistoryRecordData record : records) {
-//            mConcentrationSeries.appendData(new HistoryDataPoint(index++, Double.valueOf(record.concentration), record),
-//                    false, Integer.MAX_VALUE);
-//
-////            mScoreSeries.appendData(new HistoryDataPoint(index++, Double.valueOf(record.score), record),
-////                    false, Integer.MAX_VALUE);
-//        }
-//
-//
-//        mConcentrationSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
-//            @Override
-//            public void onTap(Series series, DataPointInterface dataPoint) {
-//                if (dataPoint instanceof HistoryDataPoint) {
-//                    showData(((HistoryDataPoint) dataPoint).getData());
-//                }
-//            }
-//        });
-
-//        if (records.size() > 0) {
-//            index = 0;
-//            mScoreSeries.appendData(new DataPoint(index++, 0), false, Integer.MAX_VALUE);
-//
-//
-//            if (records.get(0).score.length() > 0) {
-//                for (HistoryRecordData record : records) {
-//                    mScoreSeries.appendData(new HistoryDataPoint(index++, Double.valueOf(record.score), record),
-//                            false, Integer.MAX_VALUE);
-//                }
-//
-//                mScoreSeries.setOnDataPointTapListener(new OnDataPointTapListener() {
-//                    @Override
-//                    public void onTap(Series series, DataPointInterface dataPoint) {
-//                        if (dataPoint instanceof HistoryDataPoint) {
-//                            showData(((HistoryDataPoint) dataPoint).getData());
-//                        }
-//                    }
-//                });
-//
-//
-//            }
-//        }
     }
 
     private void getRecordsToSeries(LineGraphSeries<DataPoint> series, ArrayList<HistoryRecordData> records){
@@ -285,13 +241,6 @@ public class HistoryActivity extends ActionBarAppActivity {
     private void initGraph() {
         GridLabelRenderer gridLabelRenderer = mGraphView.getGridLabelRenderer();
 
-//        NumberFormat nf = NumberFormat.getInstance();
-//        nf.setMinimumFractionDigits(0);
-//        nf.setMinimumIntegerDigits(0);
-//        nf.setMaximumIntegerDigits(5);
-//        nf.setMaximumFractionDigits(5);
-//        mGraphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(nf, nf));
-
         mGraphView.getSecondScale().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -305,12 +254,6 @@ public class HistoryActivity extends ActionBarAppActivity {
         });
 
 
-//        gridLabelRenderer.setHighlightZeroLines(false);
-
-
-//        gridLabelRenderer.setTextSize(1);
-
-//        gridLabelRenderer.setLabelsSpace(6);
         Viewport viewport = mGraphView.getViewport();
         viewport.setXAxisBoundsManual(true);
         viewport.setYAxisBoundsManual(true);
@@ -325,26 +268,6 @@ public class HistoryActivity extends ActionBarAppActivity {
         gridLabelRenderer.setVerticalLabelsSecondScaleColor(SCORE_COLOR);
         gridLabelRenderer.setVerticalLabelsColor(CONCENTRATION_COLOR);
     }
-
-//    private void initSeries() {
-//        mConcentrationSeries = new LineGraphSeries<>();
-//        mScoreSeries = new LineGraphSeries<>();
-//
-//        mScoreSeries.setDataPointsRadius(7f);
-//        mScoreSeries.setDrawDataPoints(true);
-//        mScoreSeries.setThickness(6);
-//        mConcentrationSeries.setDrawDataPoints(true);
-//        mConcentrationSeries.setDataPointsRadius(7f);
-//        mConcentrationSeries.setThickness(6);
-//
-//        mGraphView.getLegendRenderer().setVisible(true);
-//        mConcentrationSeries.setTitle("Concentration");
-//        mGraphView.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
-//        mGraphView.getLegendRenderer().setBackgroundColor(android.R.color.transparent);
-//        mConcentrationSeries.setColor(CONCENTRATION_COLOR);
-//        mScoreSeries.setTitle("Score");
-//        mScoreSeries.setColor(SCORE_COLOR);
-//    }
 
     private void initConcentrationSeries(){
         mConcentrationSeries = new LineGraphSeries<>();
@@ -369,17 +292,5 @@ public class HistoryActivity extends ActionBarAppActivity {
 
         mScoreSeries.setTitle("Score");
         mScoreSeries.setColor(SCORE_COLOR);
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-//        AppManager.playBackgroundMusic();
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-//        AppManager.pauseBackgroundMusic();
     }
 }

@@ -315,18 +315,23 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
 
     @Override
     protected void startFeedbackSession() {
-        Log.d("GTN", "GETTING FEEDBACK");
         mFeedback = mLogic.getFeedback();
-        Log.d("GTN", "FINISH SET FEEDBACK");
-        Log.d("GTN", "STARTING FEEDBACK TIMER");
-//        mFeedback.startTimer();
-        Log.d("GTN", "STARTED FEEDBACK TIMER");
     }
 
     @Override
     protected void onMenuPopupShow() {
         mStopWatch.stopTimer();
         super.onMenuPopupShow();
+    }
+
+    @Override
+    protected String setContentForHelpDialog() {
+        return getResources().getString(R.string.guess_number_help_content);
+    }
+
+    @Override
+    protected String setFinishDialogTitle() {
+        return getResources().getString(R.string.guess_number_finish_title);
     }
 
     @Override

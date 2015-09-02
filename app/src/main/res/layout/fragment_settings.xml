@@ -4,8 +4,8 @@
     android:id="@+id/winnerDialogLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/pad_10dp"
     android:background="@drawable/settings_background"
+    android:paddingBottom="@dimen/pad_10dp"
     tools:context="com.example.first.kaganmoshe.brainy.AppManagement.SettingsFragment">
 
     <!--<ImageView-->
@@ -29,11 +29,12 @@
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_horizontal"
             android:paddingEnd="@dimen/pad_20dp"
             android:paddingStart="@dimen/pad_20dp"
-            android:layout_marginBottom="5dp"
             android:text="Settings"
-            android:textColor="@color/white"
+            android:textColor="#ff7e17"
             android:textSize="30sp" />
 
         <View
@@ -46,11 +47,9 @@
         <RelativeLayout
             android:id="@+id/contentLayout"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingEnd="@dimen/pad_20dp"
-            android:paddingStart="@dimen/pad_20dp"
-            android:layout_height="wrap_content">
-
-
+            android:paddingStart="@dimen/pad_20dp">
 
             <Utils.AppTextView
                 android:id="@+id/volumeTextView"
@@ -66,9 +65,9 @@
                 style="@style/btn_blue"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_alignBottom="@+id/volumeTextView"
                 android:layout_marginEnd="@dimen/pad_5dp"
                 android:layout_toEndOf="@+id/volumeTextView"
+                android:background="@drawable/settings_button"
                 android:padding="0dp"
                 android:text="-" />
 
@@ -77,9 +76,9 @@
                 style="@style/btn_blue"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_alignBottom="@+id/volumeTextView"
                 android:layout_marginEnd="@dimen/pad_10dp"
                 android:layout_toEndOf="@+id/decreaseButton"
+                android:background="@drawable/settings_button"
                 android:padding="0dp"
                 android:text="+" />
 
@@ -90,6 +89,7 @@
                 android:layout_height="25dp"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/increaseButton"
+                android:background="@drawable/settings_button"
                 android:padding="0dp"
                 android:text="Mute" />
 
@@ -99,8 +99,8 @@
                 android:layout_height="1dp"
                 android:layout_alignEnd="@+id/muteButton"
                 android:layout_alignStart="@+id/musicTextView"
-                android:layout_marginEnd="@dimen/pad_10dp"
                 android:layout_below="@+id/volumeTextView"
+                android:layout_marginEnd="@dimen/pad_10dp"
                 android:background="@android:color/darker_gray" />
 
             <Utils.AppTextView
@@ -117,33 +117,35 @@
             <Utils.AppButton
                 android:id="@+id/musicEnableButton"
                 style="@style/btn_blue"
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="25dp"
                 android:layout_alignBottom="@+id/musicTextView"
                 android:layout_alignStart="@+id/decreaseButton"
                 android:layout_marginEnd="@dimen/pad_10dp"
+                android:background="@drawable/settings_button"
                 android:padding="0dp"
                 android:text="On" />
 
             <Utils.AppButton
                 android:id="@+id/musicDisableButton"
                 style="@style/btn_blue"
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="25dp"
-                android:layout_alignBottom="@+id/musicEnableButton"
-                android:layout_toEndOf="@+id/musicEnableButton"
+                android:background="@drawable/settings_button"
                 android:padding="0dp"
-                android:text="Off" />
+                android:text="Off"
+                android:layout_alignTop="@+id/musicEnableButton"
+                android:layout_alignEnd="@+id/muteButton" />
 
             <Utils.AppButton
                 android:id="@+id/doneButton"
                 style="@style/app_btn"
-                android:background="@drawable/app_button"
                 android:layout_width="80dp"
                 android:layout_height="35dp"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/musicEnableButton"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
+                android:background="@drawable/app_button"
                 android:text="Done" />
         </RelativeLayout>
 

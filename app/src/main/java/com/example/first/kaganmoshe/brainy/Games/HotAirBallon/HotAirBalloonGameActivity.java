@@ -428,4 +428,14 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     public String toString(){
         return MainActivity.HOT_AIR_BALLOON_STR;
     }
+
+    @Override
+    protected String setContentForHelpDialog() {
+        return getResources().getString(R.string.hot_air_balloon_help_content);
+    }
+
+    @Override
+    protected String setFinishDialogTitle() {
+        return getResources().getString(R.string.hot_air_balloon_finish_title);
+    }
 }

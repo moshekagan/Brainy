@@ -44,6 +44,14 @@
         android:drawableStart="@drawable/eegheadset_cartoon"
         android:hint="@string/choose_headset" />
 
+    <!--<View android:id="@+id/spinner_overlay"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignLeft="@id/showList"-->
+        <!--android:layout_alignRight="@id/showList"-->
+        <!--android:layout_alignTop="@id/showList"-->
+        <!--android:layout_alignBottom="@id/showList"  />-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

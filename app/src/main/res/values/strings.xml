@@ -56,7 +56,8 @@
     <string name="action_games">Games</string>
     <string name="action_quit">Quit</string>
     <string name="game_quit_dialog_title">Are you sure you want to leave?</string>
-    <string name="winner_dialog_quit">Leave</string>
+    <string name="winner_dialog_quit">Yes</string>
+    <string name="winner_dialog_stay">No</string>
 
     <string-array name="action_list">
         <item>Games</item>
@@ -77,4 +78,16 @@
     <string name="space_character">\u00A0</string>
     <string name="title_activity_dpfeedback">DPFeedbackActivity</string>
     <string name="title_activity_fb">FBActivity</string>
+    <string name="guess_number_help_content">Try to figure the number I\'m thinking with as least attempts as possible.
+        \nI will help you!</string>
+    <string name="hot_air_balloon_help_content">I\'m giving you one minute to lift the hot air balloon for as high and as long as you can.
+        \nHow do you lift it? That\'s easy.. Concentrate!</string>
+    <string name="mind_shooter_help_content">You have one minute to pop as many balloons as you can.
+        \nYou will get your aiming right only if you\'ll concentrate!</string>
+    <string name="crazy_cube_help_content">There is only one different cube each time.
+        \nYou have one minute to find as many of them as you can - If you\'ll concentrate it will be easier.</string>
+    <string name="crazy_cube_finish_title">Time\'s up!</string>
+    <string name="guess_number_finish_title">You got my number!</string>
+    <string name="hot_air_balloon_finish_title">Time\'s up!</string>
+    <string name="mind_shooter_finish_title">Time\'s up!</string>
 </resources>

@@ -9,25 +9,25 @@
     tools:context="com.example.first.kaganmoshe.brainy.DailyPractice.DPStartDialog">
 
     <!--<ImageView-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_alignBottom="@+id/dialog_layout_main"-->
-        <!--android:layout_alignEnd="@+id/dialog_layout_main"-->
-        <!--android:layout_alignStart="@+id/dialog_layout_main"-->
-        <!--android:layout_alignTop="@+id/dialog_layout_main"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:src="@drawable/background" />-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_alignBottom="@+id/dialog_layout_main"-->
+    <!--android:layout_alignEnd="@+id/dialog_layout_main"-->
+    <!--android:layout_alignStart="@+id/dialog_layout_main"-->
+    <!--android:layout_alignTop="@+id/dialog_layout_main"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/background" />-->
 
     <LinearLayout
         android:id="@+id/dialog_layout_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/pad_10dp"
-        android:paddingTop="@dimen/pad_20dp"
+        android:paddingEnd="@dimen/pad_20dp"
         android:paddingStart="@dimen/pad_20dp"
-        android:paddingEnd="@dimen/pad_20dp">
+        android:paddingTop="@dimen/pad_20dp">
 
         <Utils.AppTextView
             android:id="@+id/titleTextView"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Lets practice!"
-            android:textColor="@color/white"
+            android:textColor="#ff7e17"
             android:textSize="30sp" />
 
         <ImageView
@@ -48,33 +48,73 @@
         <RelativeLayout
             android:id="@+id/explanationLayout"
             android:layout_width="match_parent"
-            android:paddingEnd="@dimen/pad_10dp"
-            android:paddingStart="@dimen/pad_10dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/pad_20dp">
+            android:layout_marginBottom="@dimen/pad_20dp"
+            android:paddingEnd="@dimen/pad_10dp"
+            android:paddingStart="@dimen/pad_10dp">
 
             <Utils.AppTextView
                 android:id="@+id/explanationTextView"
                 android:layout_width="wrap_content"
-                android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/pad_10dp"
                 android:text="Do your best in a session of 15 random games and improve your abilities!"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/pad_10dp">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:paddingBottom="@dimen/pad_10dp">-->
 
-            <include
-                layout="@layout/layout_play_config_button"/>
+            <!--<include-->
+                <!--android:id="@+id/exitButton"-->
+                <!--ali-->
+                <!--layout="@layout/layout_exit_button""/>-->
 
-        </RelativeLayout>
+            <!--<include-->
+                <!--android:id="@+id/playButton"-->
+            <!--layout="@layout/layout_play_config_button"/>-->
+
+        <!--</RelativeLayout>-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--<include-->
+                <!--android:id="@+id/exitButton"-->
+                <!--layout="@layout/layout_exit_button"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_marginEnd="@dimen/pad_10dp"/>-->
+
+            <!--<include-->
+                <!--android:id="@+id/playButton"-->
+                <!--layout="@layout/layout_play_config_button"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_marginStart="@dimen/pad_10dp"/>-->
+            <Button
+                android:id="@+id/exitButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/exit_button"
+                android:layout_marginEnd="@dimen/pad_10dp"/>
+
+            <Button
+                android:id="@+id/startGameButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="@dimen/pad_10dp"
+                android:background="@drawable/ic_play_button" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

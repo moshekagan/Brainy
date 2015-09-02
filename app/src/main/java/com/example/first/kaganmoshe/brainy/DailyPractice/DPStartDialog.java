@@ -30,11 +30,22 @@ public class DPStartDialog extends GameDialog {
             }
         });
 
+        view.findViewById(R.id.exitButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         return view;
     }
 
     private void onStartButtonClicked() {
         ((DPStartCommunicator) mListener).onStartClicked();
+    }
+
+    protected void onBackPressed(){
+        dismiss();
     }
 
 //    @Override

@@ -48,7 +48,7 @@
             android:paddingEnd="@dimen/pad_10dp"
             android:paddingStart="@dimen/pad_20dp"
             android:text="@string/game_quit_dialog_title"
-            android:textColor="@color/white" />
+            android:textColor="#ff7e17" />
 
         <ImageView
             android:id="@+id/image"
@@ -79,7 +79,7 @@
                     android:background="@drawable/app_button"
                     android:padding="@dimen/pad_5dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/winner_dialog_continue" />
+                    android:text="@string/winner_dialog_stay" />
 
                 <Utils.AppButton
                     android:id="@+id/quitButton"

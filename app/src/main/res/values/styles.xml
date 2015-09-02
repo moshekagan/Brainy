@@ -76,9 +76,9 @@
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">1dp</item>
         <item name="android:paddingBottom">1dp</item>
-        <item name="android:textColor">#225072</item>
+        <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">35sp</item>
-        <item name="android:shadowColor">#ffffffff</item>
+        <item name="android:shadowColor">#000000</item>
         <item name="android:shadowDx">3</item>
         <item name="android:shadowDy">3</item>
         <item name="android:shadowRadius">1</item>
@@ -107,6 +107,7 @@
         <item name="android:shadowRadius">1</item>
     </style>
     <style name="winnerDialogDPTitle">
+        <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
     </style>
@@ -248,11 +249,29 @@
         <item name="android:textColor">@color/feedback_best_score_text</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="daily_practice_winner_dialog" parent="feedbackActivityTextViewText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
 
     <style name="app_btn">
         <item name="android:padding">@dimen/pad_5dp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="game_help_title">
+        <item name="android:textColor">#ff7e17</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <!--<style name="button" parent="@android:style/Widget.Button">-->
         <!--<item name="com.my.package:font">fonts/copperplate_gothic_light.TTF</item>-->

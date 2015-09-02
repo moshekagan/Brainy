@@ -380,4 +380,14 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     public String toString(){
         return MainActivity.MIND_SHOOTER_STR;
     }
+
+    @Override
+    protected String setContentForHelpDialog() {
+        return getResources().getString(R.string.mind_shooter_help_content);
+    }
+
+    @Override
+    protected String setFinishDialogTitle() {
+        return getResources().getString(R.string.mind_shooter_finish_title);
+    }
 }
