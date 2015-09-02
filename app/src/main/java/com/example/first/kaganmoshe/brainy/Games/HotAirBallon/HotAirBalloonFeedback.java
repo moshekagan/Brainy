@@ -8,4 +8,8 @@ public class HotAirBalloonFeedback extends com.example.first.kaganmoshe.brainy.F
     public int getGameScore() {
         return 100;
     }
+
+    public void calculateFinalScore(int score) {
+        finalScore =  10 * score;
+    }
 }

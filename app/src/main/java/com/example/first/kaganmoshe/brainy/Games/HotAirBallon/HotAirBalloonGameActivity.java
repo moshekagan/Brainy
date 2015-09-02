@@ -326,7 +326,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //    }
 
     private void finishTimerGame() {
-        ((MindShooterFeedback) mFeedback).calculateFinalScore(10);
+        ((HotAirBalloonFeedback) mFeedback).calculateFinalScore(10);
         hotAirBalloonSoundAffect.stop();
         showFinishDialog();
 
