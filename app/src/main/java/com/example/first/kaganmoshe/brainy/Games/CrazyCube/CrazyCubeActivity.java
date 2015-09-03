@@ -79,7 +79,7 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
             createOldSoundPool();
         }
 
-        mGoodSoundId = mSoundPool.load(this, R.raw.good_sound_effect, 1);
+        mGoodSoundId = mSoundPool.load(this, R.raw.bonus_sound, 1);
         mBadSoundId = mSoundPool.load(this, R.raw.wrong_sound2, 1);
 //        mGoodSoundId = MediaPlayer.create(this, R.raw.good_sound_effect);
 //        badSound = MediaPlayer.create(this, R.raw.wrong_sound2);

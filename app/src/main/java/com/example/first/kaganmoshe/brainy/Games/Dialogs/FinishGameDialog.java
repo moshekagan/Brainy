@@ -125,6 +125,7 @@ public class FinishGameDialog extends GameDialog {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
+        winnerSound = MediaPlayer.create(getActivity(), R.raw.finish_sound);
 //        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            createNewSoundPool();
@@ -156,7 +157,6 @@ public class FinishGameDialog extends GameDialog {
 
     private void playSound() {
 //        mSoundPool.play(finishSoundId, 1, 1, 1, 0, 1);
-        winnerSound = MediaPlayer.create(getActivity(), R.raw.winner_sound);
         winnerSound.start();
     }
 
