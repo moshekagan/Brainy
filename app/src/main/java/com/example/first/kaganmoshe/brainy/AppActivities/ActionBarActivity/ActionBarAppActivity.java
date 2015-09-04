@@ -29,7 +29,12 @@ import EEG.IHeadSetData;
 public abstract class ActionBarAppActivity extends AppActivity implements IHeadSetData,
         SettingsFragment.SettingsCommunicator {
 
-    private final static String[] POPUP_MENU_TITLES = {"Main", "Settings", "Quit"};
+    public final static String MAIN_ACTIVITY_STR = "Main";
+    public final static String SETTINGS_STR = "Settings";
+    public final static String QUIT_STR = "Quit";
+
+    private final static String[] POPUP_MENU_TITLES = {MAIN_ACTIVITY_STR, SETTINGS_STR,
+            QUIT_STR};
 
 //    ArrayAdapter actionsList;
 //    private View homeButtonView = null;
@@ -158,16 +163,16 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                 Class cls = null;
 
                 switch (POPUP_MENU_TITLES[+position]) {
-                    case "Settings":
+                    case SETTINGS_STR:
                         onSettingsDialogClicked();
                         break;
-                    case "Games":
+                    case MAIN_ACTIVITY_STR:
                         if (parent.getContext().getClass() != MainActivity.class) {
                             Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
                             onPopupMenuOptionSelected();
                         }
                         break;
-                    case "Quit":
+                    case QUIT_STR:
                         onQuitClicked();
                         break;
                 }

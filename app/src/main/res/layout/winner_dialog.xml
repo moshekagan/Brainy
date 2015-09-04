@@ -14,7 +14,7 @@
         android:layout_alignEnd="@id/dialog_layout_main"
         android:layout_alignTop="@+id/dialog_layout_main"
         android:scaleType="fitXY"
-        android:src="@drawable/blue_sparkle_background_vertical" />
+        android:src="@drawable/blue_sparkle_sunburst_background" />
 
     <LinearLayout
         android:id="@+id/dialog_layout_main"

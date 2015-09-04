@@ -146,7 +146,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
                 android:background="@drawable/app_button"
-                android:text="Done" />
+                android:text="@string/done_button" />
         </RelativeLayout>
 
     </LinearLayout>

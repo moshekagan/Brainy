@@ -34,9 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Lets practice!"
-            android:textColor="#ff7e17"
-            android:textSize="30sp" />
+            style="@style/daily_practice_title"
+            android:text="Lets practice!" />
 
         <ImageView
             android:id="@+id/image"
@@ -58,29 +57,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/pad_10dp"
-                android:text="Do your best in a session of 15 random games and improve your abilities!"
+                android:text="Do your best in a session of 15 games and improve your abilities!"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
+            <Utils.AppButton
+                android:id="@+id/scheduleButton"
+                style="@style/app_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/explanationTextView"
+                android:textColor="#1f73a3"
+                android:background="@drawable/dp_reminder_button"
+                android:text="Reminder" />
+
         </RelativeLayout>
-
-        <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--android:paddingBottom="@dimen/pad_10dp">-->
-
-            <!--<include-->
-                <!--android:id="@+id/exitButton"-->
-                <!--ali-->
-                <!--layout="@layout/layout_exit_button""/>-->
-
-            <!--<include-->
-                <!--android:id="@+id/playButton"-->
-            <!--layout="@layout/layout_play_config_button"/>-->
-
-        <!--</RelativeLayout>-->
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -100,18 +91,19 @@
                 <!--android:layout_height="wrap_content"-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_marginStart="@dimen/pad_10dp"/>-->
+
             <Button
                 android:id="@+id/exitButton"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:background="@drawable/exit_button"
-                android:layout_marginEnd="@dimen/pad_10dp"/>
+                android:layout_marginEnd="@dimen/pad_20dp"/>
 
             <Button
                 android:id="@+id/startGameButton"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="@dimen/pad_10dp"
+                android:layout_marginStart="@dimen/pad_20dp"
                 android:background="@drawable/ic_play_button" />
 
         </LinearLayout>

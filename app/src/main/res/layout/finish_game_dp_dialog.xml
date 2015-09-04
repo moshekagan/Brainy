@@ -14,7 +14,7 @@
         android:layout_alignStart="@+id/dialog_layout_main"
         android:layout_alignTop="@+id/dialog_layout_main"
         android:scaleType="fitXY"
-        android:src="@drawable/blue_sparkle_background_vertical" />
+        android:src="@drawable/blue_sparkle_sunburst_background" />
 
     <LinearLayout
         android:id="@+id/dialog_layout_main"
@@ -36,8 +36,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/pad_10dp"
-                android:gravity="center_horizontal" />
+                android:layout_marginBottom="@dimen/pad_20dp"
+                android:gravity="center_horizontal"
+                android:text=""/>
 
             <Utils.AppTextView
                 android:id="@+id/winnerDialogDPTitle"
@@ -66,7 +67,7 @@
                 android:layout_below="@+id/winnerDialogDPTitle"
                 android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
-                android:paddingBottom="@dimen/pad_10dp"
+                android:paddingTop="@dimen/pad_15dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/brainy_thumbup" />
             <!--<ImageView-->

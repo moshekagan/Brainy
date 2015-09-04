@@ -90,4 +90,7 @@
     <string name="guess_number_finish_title">You got my number!</string>
     <string name="hot_air_balloon_finish_title">Time\'s up!</string>
     <string name="mind_shooter_finish_title">Time\'s up!</string>
+    <string name="dp_schedule_explanation">Select on which days you want me to remind you to practice!</string>
+    <string name="dp_schedule_title">Reminder</string>
+    <string name="done_button">Done</string>
 </resources>

@@ -14,9 +14,12 @@ public class DPStartDialog extends GameDialog {
 
     public interface DPStartCommunicator extends GameDialog.GameDialogCommunicator {
         void onStartClicked();
+
+        void onSchedulePracticeClicked();
     }
 
-    public DPStartDialog(){}
+    public DPStartDialog() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +33,13 @@ public class DPStartDialog extends GameDialog {
             }
         });
 
+        view.findViewById(R.id.scheduleButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onScheduleClicked();
+            }
+        });
+
         view.findViewById(R.id.exitButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,14 +47,25 @@ public class DPStartDialog extends GameDialog {
             }
         });
 
+//        view.findViewById(R.id.cancelScheduleButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
         return view;
+    }
+
+    private void onScheduleClicked() {
+        ((DPStartCommunicator) mListener).onSchedulePracticeClicked();
     }
 
     private void onStartButtonClicked() {
         ((DPStartCommunicator) mListener).onStartClicked();
     }
 
-    protected void onBackPressed(){
+    protected void onBackPressed() {
         dismiss();
     }
 

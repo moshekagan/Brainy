@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="35dp"
+    android:paddingEnd="35dp"
+    android:background="@drawable/blue_sky_and_green_grass_new"
+    android:paddingBottom="@dimen/pad_10dp"
+    android:paddingTop="@dimen/pad_30dp"
+    android:orientation="vertical">
+
+    <Utils.AppTextView
+        android:id="@+id/dpScheduleTitle"
+        style="@style/appActivityTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/dp_schedule_title"
+        android:layout_marginBottom="@dimen/pad_20dp"
+        android:layout_centerHorizontal="true" />
+
+    <Utils.AppTextView
+        android:id="@+id/dpScheduleExplanation"
+        style="@style/dailyPracticeExplanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/dpScheduleTitle"
+        android:text="@string/dp_schedule_explanation"
+        android:layout_marginBottom="@dimen/pad_10dp"
+        android:layout_centerHorizontal="true" />
+
+    <Utils.AppCheckBox
+        android:id="@+id/sundayCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sunday"
+        android:paddingEnd="@dimen/pad_20dp"
+        android:layout_below="@id/dpScheduleExplanation"
+        android:layout_centerHorizontal="true"
+        android:checked="false" />
+
+    <Utils.AppCheckBox
+        android:id="@+id/mondayCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sundayCheckBox"
+        android:text="Monday"
+        android:layout_alignStart="@id/sundayCheckBox"
+        android:checked="false" />
+
+    <Utils.AppCheckBox
+        android:id="@+id/tuesdayCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/sundayCheckBox"
+        android:layout_below="@id/mondayCheckBox"
+        android:text="Tuesday"
+        android:checked="false" />
+
+    <Utils.AppCheckBox
+        android:id="@+id/wednesdayCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/tuesdayCheckBox"
+        android:layout_alignStart="@id/sundayCheckBox"
+        android:layout_height="wrap_content"
+        android:text="Wednesday"
+        android:checked="false" />
+
+    <Utils.AppCheckBox
+        android:id="@+id/thursdayCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/wednesdayCheckBox"
+        android:layout_alignStart="@id/sundayCheckBox"
+        android:layout_height="wrap_content"
+        android:text="Thursday"
+        android:checked="false" />
+
+    <Utils.AppCheckBox
+        android:id="@+id/fridayCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/thursdayCheckBox"
+        android:layout_alignStart="@id/sundayCheckBox"
+        android:layout_height="wrap_content"
+        android:text="Friday"
+        android:checked="false" />
+
+    <Utils.AppCheckBox
+        android:id="@+id/saturdayCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/fridayCheckBox"
+        android:layout_alignStart="@id/sundayCheckBox"
+        android:layout_height="wrap_content"
+        android:text="Saturday"
+        android:checked="false" />
+
+    <Utils.AppButton
+        android:id="@+id/dpScheduleDoneButton"
+        style="@style/app_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/pad_10dp"
+        android:background="@drawable/app_button"
+        android:stateListAnimator="@null"
+        android:text="@string/done_button" />
+
+    <!--<TextView-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Hello" />-->
+
+    <!--<DatePicker-->
+        <!--android:id="@+id/scheduleTimePicker"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/selectButton"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:onClick="onDateSelectedButtonClick"-->
+        <!--android:text="Set notification for this date" />-->
+
+
+
+    <!--<Utils.AppButton-->
+        <!--android:id="@+id/cancelScheduleButton"-->
+        <!--style="@style/app_btn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="@dimen/pad_10dp"-->
+        <!--android:background="@drawable/app_button"-->
+        <!--android:onClick="onCancelScheduleButtonClick"-->
+        <!--android:text="Cancel" />-->
+
+</RelativeLayout>

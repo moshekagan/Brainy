@@ -108,6 +108,13 @@
             android:name=".Feedback.FBActivity"
             android:label="@string/title_activity_fb" >
         </activity>
+        <activity
+            android:name=".AppManagement.DPNotification"
+            android:label="Notification" >
+        </activity>
+
+        <service android:name=".AppManagement.ScheduleService" />
+        <service android:name=".AppManagement.NotifyService" />
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.example.first.kaganmoshe.brainy.AppActivities.ActionBarActivity.ActionBarAppActivity;
 import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
+import com.example.first.kaganmoshe.brainy.AppManagement.DPNotification;
 import com.example.first.kaganmoshe.brainy.Games.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.DailyPractice.DPStartDialog;
 import com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryActivity;
@@ -222,6 +223,11 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     public void onStartClicked() {
         mDailyPracticeStartDialog.dismiss();
         AppManager.getInstance().getGamesManager().startDailyPractice(this);
+    }
+
+    @Override
+    public void onSchedulePracticeClicked() {
+        Utils.startNewActivity(this, DPNotification.class);
     }
 
     @Override

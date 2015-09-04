@@ -1,4 +1,5 @@
 <resources>
+
     <style name="Theme.TranslucentActionBar" parent="@android:style/Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/Widget.ActionBar</item>
     </style>
@@ -24,7 +25,7 @@
         <!--<item name="android:listPreferredItemPaddingRight">5dp</item>-->
     </style>
     <!--<style name="MyActionButtonOverflow" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">-->
-        <!--<item name="android:src">@mipmap/ic_action_menu</item>-->
+    <!--<item name="android:src">@mipmap/ic_action_menu</item>-->
     <!--</style>-->
     <style name="Widget.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@android:color/transparent</item>
@@ -53,8 +54,6 @@
     </style>
 
 
-
-
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">20sp</item>
@@ -63,90 +62,99 @@
     <style name="gameButton">
         <item name="android:textSize">20sp</item>
     </style>
+
     <style name="dialogButtonText">
         <item name="android:textSize">20sp</item>
     </style>
+
     <style name="winnerDialogTitle">
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:textColor">#256085</item>
     </style>
-    <style name="winnerDialogTitleNew">
+
+    <style name="winnerDialogTitleNew" parent="text_shadow">
         <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">1dp</item>
-        <item name="android:paddingBottom">1dp</item>
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">35sp</item>
         <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">3</item>
-        <item name="android:shadowDy">3</item>
-        <item name="android:shadowRadius">1</item>
     </style>
-    <style name="appActivityTitle">
+
+    <style name="appActivityTitle" parent="text_shadow">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#225072</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:shadowColor">#ffffffff</item>
+    </style>
+
+    <style name="dailyPracticeExplanation">
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">1dp</item>
         <item name="android:paddingBottom">1dp</item>
         <item name="android:textColor">#225072</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:shadowColor">#ffffffff</item>
-        <item name="android:shadowDx">3</item>
-        <item name="android:shadowDy">3</item>
-        <item name="android:shadowRadius">1</item>
     </style>
-    <style name="connectionBrainyTitle">
+
+    <style name="connectionBrainyTitle" parent="text_shadow">
         <item name="android:text">@string/app_name</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">1dp</item>
-        <item name="android:paddingBottom">1dp</item>
         <item name="android:textColor">#174259</item>
         <item name="android:textSize">65sp</item>
         <item name="android:shadowColor">#ffffffff</item>
-        <item name="android:shadowDx">3</item>
-        <item name="android:shadowDy">3</item>
-        <item name="android:shadowRadius">1</item>
     </style>
+
     <style name="winnerDialogDPTitle">
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
     </style>
+
     <style name="gameOutputText">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#D54F4D</item>
     </style>
+
     <style name="feedbackActivityTitle">
         <item name="android:textSize">40sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#ffd58b1f</item>
     </style>
+
     <style name="gamesActivityTitle">
         <item name="android:textColor">#000000</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">50sp</item>
     </style>
+
     <style name="guessTheNumberTitle">
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="feedbackActivityTextView">
         <!--<item name="android:textStyle">bold</item>-->
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#000</item>
     </style>
+
     <style name="historyTextView">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#000</item>
     </style>
+
     <style name="configActivityText">
         <item name="android:textSize">20sp</item>
     </style>
+
     <style name="crazyCubeActivityTitle">
         <item name="android:textSize">35sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#ffd58b1f</item>
     </style>
+
     <style name="ccubeTable">
         <item name="android:background">#ffedfdcd</item>
     </style>
@@ -179,6 +187,7 @@
         <item name="android:paddingRight">@dimen/pad_10dp</item>
         <item name="android:textSize">@dimen/txt_16sp</item>
     </style>
+
     <style name="editext_white" parent="android:Widget.Holo.Light.EditText">
         <item name="android:background">@color/white</item>
         <item name="android:inputType">textEmailAddress</item>
@@ -187,6 +196,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/txt_14sp</item>
     </style>
+
     <style name="btn_green_white_bg" parent="@style/btn">
         <item name="android:background">@color/white</item>
         <item name="android:paddingBottom">@dimen/pad_10dp</item>
@@ -195,17 +205,21 @@
         <item name="android:textColor">@color/main_color_green</item>
         <item name="android:textSize">@dimen/txt_16sp</item>
     </style>
+
     <color name="main_color_green">#00b863</color>
     <color name="black">#000000</color>
+
     <style name="btn" parent="android:Widget.Holo.Light.Button">
         <item name="android:minHeight">1dp</item>
         <item name="android:minWidth">1dp</item>
     </style>
+
     <style name="btn_white_large" parent="@style/btn">
         <item name="android:background">@drawable/green_btn</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/txt_18sp</item>
     </style>
+
     <style name="btn_blue" parent="style/btn">
         <!--<item name="android:background">#668B8B</item>-->
         <item name="android:background">#37a8d6</item>
@@ -214,9 +228,9 @@
         <item name="android:padding">@dimen/pad_10dp</item>
     </style>
     <!--<style name="btn_blue" parent="@style/btn">-->
-        <!--<item name="android:background">@drawable/green_btn</item>-->
-        <!--<item name="android:textColor">@color/white</item>-->
-        <!--<item name="android:textSize">@dimen/txt_18sp</item>-->
+    <!--<item name="android:background">@drawable/green_btn</item>-->
+    <!--<item name="android:textColor">@color/white</item>-->
+    <!--<item name="android:textSize">@dimen/txt_18sp</item>-->
     <!--</style>-->
     <style name="choose_headset_spinner">
         <item name="android:textColor">@color/white</item>
@@ -226,6 +240,7 @@
         <item name="android:paddingStart">@dimen/pad_10dp</item>
         <item name="android:textColorHint">@color/white</item>
     </style>
+
     <style name="history_spinner">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/txt_15sp</item>
@@ -236,6 +251,7 @@
         <item name="android:paddingBottom">@dimen/pad_10dp</item>
         <item name="android:textColorHint">@color/white</item>
     </style>
+
     <style name="animation_menu_button_popup">
         <item name="android:windowEnterAnimation">@anim/abc_fade_in</item>
         <item name="android:windowExitAnimation">@anim/abc_fade_out</item>
@@ -249,6 +265,7 @@
         <item name="android:textColor">@color/feedback_best_score_text</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="daily_practice_winner_dialog" parent="feedbackActivityTextViewText">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">#fff</item>
@@ -256,9 +273,6 @@
         <item name="android:paddingLeft">1dp</item>
         <item name="android:paddingBottom">1dp</item>
         <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">3</item>
-        <item name="android:shadowDy">3</item>
-        <item name="android:shadowRadius">1</item>
     </style>
 
 
@@ -273,8 +287,21 @@
         <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="daily_practice_title" parent="text_shadow">
+        <item name="android:textColor">#ff7e17</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:shadowColor">#ffffff</item>
+    </style>
+    <style name="text_shadow">
+        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
     <!--<style name="button" parent="@android:style/Widget.Button">-->
-        <!--<item name="com.my.package:font">fonts/copperplate_gothic_light.TTF</item>-->
+    <!--<item name="com.my.package:font">fonts/copperplate_gothic_light.TTF</item>-->
     <!--</style>-->
 
 
