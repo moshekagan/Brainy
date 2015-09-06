@@ -25,12 +25,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Games.GuessTheNumber.GuessTheNumberConfigActivity"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_main"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".Games.GuessTheNumber.GuessTheNumberGameActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_game"
@@ -67,25 +61,9 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Games.HotAirBallon.HABConfigActivity"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_habconfig"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".Games.CrazyCube.CCConfigActivity"
-            android:label="@string/title_activity_ccconfing"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".Games.MindShooter.MindShooterGameActivity"
             android:label="@string/title_activity_maind_shooter_game"
             android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name=".Games.MindShooter.MindShooterConfigActivity"
-            android:label="@string/title_activity_mind_shooter_config"
-            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".AppActivities.GameGraph.GameGraphActivity"
@@ -109,12 +87,12 @@
             android:label="@string/title_activity_fb" >
         </activity>
         <activity
-            android:name=".AppManagement.DPNotification"
+            android:name=".DailyPractice.DPReminder.DPNotification"
             android:label="Notification" >
         </activity>
 
-        <service android:name=".AppManagement.ScheduleService" />
-        <service android:name=".AppManagement.NotifyService" />
+        <service android:name=".DailyPractice.DPReminder.ScheduleService" />
+        <service android:name=".DailyPractice.DPReminder.NotifyService" />
     </application>
 
 </manifest>

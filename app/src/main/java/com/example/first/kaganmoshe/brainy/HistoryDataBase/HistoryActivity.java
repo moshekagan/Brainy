@@ -103,7 +103,7 @@ public class HistoryActivity extends ActionBarAppActivity {
         mDateTextView = (TextView) findViewById(R.id.dateTextView);
 //        mBackButton = (Button) findViewById(R.id.historyBackButton);
 
-        setTouchNClick(R.id.historyBackButton);
+//        setTouchNClick(R.id.historyBackButton);
 
         findViewById(R.id.historyBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,8 +148,8 @@ public class HistoryActivity extends ActionBarAppActivity {
         });
         mShownItemsSpinner.setAdapter(itemsAdapter);
 
-        setTouchNClick(R.id.showListSpinner);
-        setTouchNClick(R.id.timeRangeSpinner);
+//        setTouchNClick(R.id.showListSpinner);
+//        setTouchNClick(R.id.timeRangeSpinner);
 
         initConcentrationSeries();
         initScoreSeries();

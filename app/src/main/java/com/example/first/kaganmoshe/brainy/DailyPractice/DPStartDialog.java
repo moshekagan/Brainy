@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.first.kaganmoshe.brainy.AppActivities.AppActivity;
 import com.example.first.kaganmoshe.brainy.Games.Dialogs.GameDialog;
 import com.example.first.kaganmoshe.brainy.R;
 
@@ -46,6 +47,8 @@ public class DPStartDialog extends GameDialog {
                 onBackPressed();
             }
         });
+
+        view.findViewById(R.id.scheduleButton).setOnTouchListener(AppActivity.TOUCH);
 
 //        view.findViewById(R.id.cancelScheduleButton).setOnClickListener(new View.OnClickListener() {
 //            @Override

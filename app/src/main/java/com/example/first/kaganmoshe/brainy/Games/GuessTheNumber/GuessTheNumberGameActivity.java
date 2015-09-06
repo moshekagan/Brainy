@@ -3,12 +3,10 @@ package com.example.first.kaganmoshe.brainy.Games.GuessTheNumber;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,7 +19,6 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import Utils.AppStopWatch;
-import Utils.AppTextView;
 import Utils.AppTime;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameGraph.GameGraph;
 import com.example.first.kaganmoshe.brainy.AppActivities.GameGraph.GameGraphActivity;
@@ -31,7 +28,6 @@ import com.example.first.kaganmoshe.brainy.R;
 import com.jjoe64.graphview.GraphView;
 
 import EEG.EConnectionState;
-import EEG.ESignalVolume;
 import EEG.EegHeadSet;
 import Utils.CustomFontHelper;
 import Utils.Logs;
@@ -65,7 +61,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         mInputTextView = (TextView) findViewById(R.id.guessInput);
         mArrowImage = (ImageSwitcher) findViewById(R.id.arrowImageView);
 
-//        if (mSoundPool == null && wrongAnswerSound == null) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             createNewSoundPool();
         }else{
@@ -73,9 +68,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         }
         mButtonClickSoundId = mSoundPool.load(this, R.raw.button_click_sound, 1);
         mWrongAnswerSoundId = mSoundPool.load(this, R.raw.wrong_sound2, 1);
-//            mSoundPool = MediaPlayer.create(this, R.raw.button_click_sound);
-//            wrongAnswerSound = MediaPlayer.create(this, R.raw.wrong_sound2);
-//        }
 
         gameGraph = new GameGraph((GraphView) findViewById(R.id.graph), this);
 
@@ -124,17 +116,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         intent.putExtra(FeedbackActivity.TOTAL_TIME, mStopWatch.toString());
     }
 
-//    @Override
-//    protected String getGameName() {
-//        return "Guess The Number";
-//    }
-
-//    @Override
-//    protected int calculateScore() {
-//        int minAttemptsToWin ;
-//        return 100;
-//    }
-
     private void initTextLines() {
         mOutputTextView.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -170,11 +151,7 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
     }
 
     private void initialize() {
-//        Intent intent = getIntent();
-        Log.d("GTN", "CREATE_LOGIC");
-//        mLogic = new GuessTheNumberLogic(Integer.parseInt(intent.getStringExtra(GuessTheNumberConfigActivity.EXTRA_MESSAGE)));
         mLogic = new GuessTheNumberLogic(100);
-        Log.d("GTN", "FINISH CREATE LOGIC");
         mGuessRequestTextView.append(" " + Integer.toString(mLogic.getMaxValue()));
     }
 
@@ -201,12 +178,10 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
                     return;
             }
 
-//            wrongAnswerSound.start();
             mSoundPool.play(mWrongAnswerSoundId, 1, 1, 1, 0, 1);
             mInputTextView.setText("");
         } catch (NumberFormatException ex) {
             mOutputTextView.setText("Invalid input");
-//            wrongAnswerSound.start();
             mSoundPool.play(mWrongAnswerSoundId, 1, 1, 1, 0, 1);
         }
     }
@@ -215,7 +190,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         if (view.getId() == mApproveGuessButton.getId()) {
             checkGuess();
         } else {
-//            mSoundPool.start();
             mSoundPool.play(mButtonClickSoundId, 1, 1, 1, 0, 1);
 
             if (view.getId() == mBackspaceButton.getId()) {
@@ -226,7 +200,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
 
             mOutputTextView.setText("");
             mArrowImage.setImageResource(android.R.color.transparent);
-//            mArrowImage.setImageDrawable(null);
         }
     }
 
@@ -281,37 +254,10 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         toast.show();
     }
 
-    @Override
-    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-        final ESignalVolume newSignalVolume = signalVolume;
-
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                switch (newSignalVolume){
-//                    case HEAD_SET_NOT_COVERED:
-//                        m_ConnectivityIconImageV.setImageResource(R.drawable.bad);
-//                        break;
-//                    case POOR_SIGNAL_HIGH:
-//                    case POOR_SIGNAL_LOW:
-//                        m_ConnectivityIconImageV.setImageResource(R.drawable.medium);
-//                        break;
-//                    case GOOD_SIGNAL:
-//                        m_ConnectivityIconImageV.setImageResource(R.drawable.good);
-//                        break;
-//                }
-//            }
-//        });
-//
-//        if (newSignalVolume == ESignalVolume.HEAD_SET_NOT_COVERED){
-//            Context context = getApplicationContext();
-//            CharSequence text = "The Head set should be on the head... da!";
-//            int duration = Toast.LENGTH_SHORT;
-//
-//            Toast toast = Toast.makeText(context, text, duration);
-//            toast.show();
-//        }
-    }
+//    @Override
+//    public void onPoorSignalReceived(ESignalVolume signalVolume) {
+//        final ESignalVolume newSignalVolume = signalVolume;
+//    }
 
     @Override
     protected void startFeedbackSession() {

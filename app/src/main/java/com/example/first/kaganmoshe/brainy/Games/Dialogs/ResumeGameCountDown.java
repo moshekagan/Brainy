@@ -39,7 +39,7 @@ public class ResumeGameCountDown extends GameDialog {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_resume_game_countdown, container);
         mCountdownView = (TextView) view.findViewById(R.id.countdownTimer);
-//        mCountdownView.setText(COUNTDOWN_TIME_TEXT);
+
         return view;
     }
 
@@ -62,8 +62,6 @@ public class ResumeGameCountDown extends GameDialog {
                 }
             }
         };
-
-//        mCounter.run();
     }
 
     private void finishResuming() {
@@ -78,7 +76,6 @@ public class ResumeGameCountDown extends GameDialog {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
         return dialog;
     }
@@ -96,8 +93,4 @@ public class ResumeGameCountDown extends GameDialog {
         mCountdownView.setText(COUNTDOWN_TIME_TEXT);
         mCounter.run();
     }
-//
-//    synchronized private void updateTimer(){
-//
-//    }
 }

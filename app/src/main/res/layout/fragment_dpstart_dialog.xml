@@ -63,13 +63,12 @@
 
             <Utils.AppButton
                 android:id="@+id/scheduleButton"
-                style="@style/app_btn"
+                style="@style/reminder_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/explanationTextView"
-                android:textColor="#1f73a3"
                 android:background="@drawable/dp_reminder_button"
-                android:text="Reminder" />
+                android:text="Reminder"/>
 
         </RelativeLayout>
 

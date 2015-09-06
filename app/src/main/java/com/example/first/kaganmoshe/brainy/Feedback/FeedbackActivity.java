@@ -99,6 +99,8 @@ public class FeedbackActivity extends FBActivity {
         mBackButton = (Button) findViewById(R.id.backFeedbackButton);
         mPlayAgainButton = (Button) findViewById(R.id.playAgainFeedbackButton);
 
+//        setTouchNClick(R.id.backFeedbackButton);
+//        setTouchNClick(R.id.playAgainFeedbackButton);
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +123,7 @@ public class FeedbackActivity extends FBActivity {
                 }
             }
         });
+
     }
 
     private void initConcentrationPoints() {

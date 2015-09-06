@@ -32,37 +32,11 @@ public abstract class FBActivity extends ActionBarAppActivity {
     protected LineGraphSeries<DataPoint> mGraphConcentrationPoints = new LineGraphSeries<>();
     protected ArrayList<ParcelableDataPoint> mParcelableConcentrationPointsList;
     protected LinearLayout mFeedbackStatsLayout;
-//    protected Button continueButton;
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-//        AppManager.playBackgroundMusic();
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-//        AppManager.pauseBackgroundMusic();
-    }
 
     protected void addConcentrationStat(int score){
         addStat(prepareStat(CONCENTRATION_AVERAGE, Integer.toString(score) + " (0-100)", mStatsTextSize, getApplicationContext()));
 //        addStat(CONCENTRATION_AVERAGE, Integer.toString(score) + " (0-100)");
     }
-
-//    protected void addStat(String statName, String statValue) {
-//        LinearLayout newStatLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_feedback_stat, null);
-//        TextView statKeyText = (TextView) newStatLayout.findViewById(R.id.statNameText);
-//        TextView statValueText = (TextView) newStatLayout.findViewById(R.id.statValueText);
-//
-//        statKeyText.setText(formatStatKey(statName));
-//        statValueText.setText(formatStatValue(statValue));
-//        statKeyText.setTextSize(TypedValue.COMPLEX_UNIT_SP, mStatsTextSize);
-//        statValueText.setTextSize(TypedValue.COMPLEX_UNIT_SP, mStatsTextSize);
-//
-//        mFeedbackStatsLayout.addView(newStatLayout);
-//    }
 
     protected static LinearLayout prepareStat(String statName, String statValue, float textSize, Context context){
         LinearLayout newStatLayout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.layout_feedback_stat, null);
@@ -116,30 +90,6 @@ public abstract class FBActivity extends ActionBarAppActivity {
         viewport.setMinY(0);
         viewport.setMaxY(100);
         viewport.setScrollable(true);
-//        viewport.setMaxX(mGraphConcentrationPoints.getHighestValueX());
-
-
-
-
-//        mGraphView = (GraphView) findViewById(R.id.graph);
-//        mGraphConcentrationPoints.setThickness(6);
-//        mGraphConcentrationPoints.setDataPointsRadius(7f);
-//
-//        GridLabelRenderer gridLabelRenderer = mGraphView.getGridLabelRenderer();
-//        gridLabelRenderer.setNumHorizontalLabels(2);
-//        gridLabelRenderer.setNumVerticalLabels(3);
-//        gridLabelRenderer.setHorizontalLabelsVisible(false);
-//
-//        Viewport viewport = mGraphView.getViewport();
-//        viewport.setYAxisBoundsManual(true);
-//        viewport.setXAxisBoundsManual(true);
-//        viewport.setMaxX(10);
-//        viewport.setMinY(0);
-//        viewport.setMaxY(100);
-//        viewport.setScrollable(true);
-//        viewport.setMaxX(mGraphConcentrationPoints.getHighestValueX());
-
-//        mGraphView.addSeries(mGraphConcentrationPoints);
     }
 
     protected void addSeries(){

@@ -1,7 +1,5 @@
 package com.example.first.kaganmoshe.brainy.Games.GuessTheNumber;
 
-import android.util.Log;
-
 import com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass;
 
 /**
@@ -21,12 +19,10 @@ public class GTNFeedback extends FeedbackClass {
     private static final int NONE = -1;
 
     static{
-        Log.d("GTN", "STARTING INIT RANGES ARRAY");
         for(int i = 0; i < GuessTheNumberLogic.NUM_OF_RANGES; i++){
             mRangeArrays[i] = new int[((i + 1) * GuessTheNumberLogic.RANGE_DIFFERENCE) + 1];
             initRangeArray(mRangeArrays[i], mRangeArrays[i].length);
         }
-        Log.d("GTN", "FINISH INIT RANGES ARRAY");
     }
 
     private static void initRangeArray(int[] rangeArray, int size){
@@ -38,9 +34,7 @@ public class GTNFeedback extends FeedbackClass {
     public GTNFeedback(int rightValue, int range){
         super();
         this.mRightValue = rightValue;
-        Log.d("GTN", "RANGE: " + range + " VALUE: " + rightValue);
         mMinAttemptsToAnswer = initMinAttemptsToAnswer(range, rightValue);
-        Log.d("GTN", "MIN ATTEMPTS: " + Integer.valueOf(mMinAttemptsToAnswer));
     }
 
     private static int initMinAttemptsToAnswer(int range, int value) {
@@ -49,8 +43,6 @@ public class GTNFeedback extends FeedbackClass {
         int right = rangeArray.length - 1;
         int mid;
         int result = 0;
-
-        Log.d("GTN", "RANGE ARRAY SIZE: " + Integer.valueOf(right));
 
         while(left <= right){
             result++;
@@ -73,7 +65,6 @@ public class GTNFeedback extends FeedbackClass {
 
         if(mLastInputEntered != NONE && ((input < mRightValue && mLastInputEntered >= input) ||
                 (input > mRightValue && mLastInputEntered <= input))){
-            Log.d("GTN", "OFF BASE");
             mNumOfOffBaseInputs++;
         }
 
@@ -82,10 +73,11 @@ public class GTNFeedback extends FeedbackClass {
 
     @Override
     public int getGameScore() {
-        int finalScore = PERFECT_SCORE - (10 * (mNumOfOffBaseInputs)) - (5 * (mNumOfAttempts - mMinAttemptsToAnswer));
-        Log.d("GTN", "FINAL SCORE: " + finalScore);
-        Log.d("GTN", "OFF BASE INPUTS: " + mNumOfOffBaseInputs);
-        Log.d("GTN", "NUM OF ATTEMPTS: " + mNumOfAttempts);
+        int finalScore = PERFECT_SCORE - (10 * (mNumOfOffBaseInputs));
+
+        if(mNumOfAttempts > mMinAttemptsToAnswer){
+            finalScore -= (5 * (mNumOfAttempts - mMinAttemptsToAnswer));
+        }
 
         return finalScore > MIN_SCORE ? finalScore : MIN_SCORE;
     }

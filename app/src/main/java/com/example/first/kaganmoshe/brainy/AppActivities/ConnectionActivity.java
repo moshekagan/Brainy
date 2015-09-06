@@ -72,9 +72,9 @@ public class ConnectionActivity extends AppActivity {
         });
         mHeadsetSpinner.setAdapter(adapter);
 
-        setTouchNClick(R.id.showList);
-        setTouchNClick(R.id.connectButton);
-        setTouchNClick(R.id.skipButton);
+//        setTouchNClick(R.id.showList);
+//        setTouchNClick(R.id.connectButton);
+//        setTouchNClick(R.id.skipButton);
 
         initViewActivity();
 

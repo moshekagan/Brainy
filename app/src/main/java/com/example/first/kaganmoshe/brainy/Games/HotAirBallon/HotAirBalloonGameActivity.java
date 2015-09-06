@@ -42,6 +42,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
 
 public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetData,
         GenericDialogFragment.gameCommunicator, AppTimer.IAppTimerListener {
+    private static final long TIME_FOR_GAME = 60000l;
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
     private final int distanceFromTopActivity = 15;
@@ -141,9 +142,9 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     }
 
     private void initialize() {
-        Intent intent = getIntent();
-        timeToPlayInMilSec = intent.getLongExtra(HABConfigActivity.TIME_TO_PLAY, HABConfigActivity.ONE_MIN);
-
+//        Intent intent = getIntent();
+//        timeToPlayInMilSec = intent.getLongExtra(HABConfigActivity.TIME_TO_PLAY, HABConfigActivity.ONE_MIN);
+        timeToPlayInMilSec = TIME_FOR_GAME;
     }
 
     @Override

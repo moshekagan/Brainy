@@ -9,7 +9,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -52,7 +51,7 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     private ArrayList<DataPoint> mConcentrationList = new ArrayList<>();
     private int mGoodSoundId;
     private int mBadSoundId;
-    private AppTimer mTimer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.SECONDS_ONLY);
+    private AppTimer mTimer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.MINUTES_AND_SECONDS);
 
     private static final int MIN_SPECIAL_CELL_FACTOR = -5;
     private static final int MAX_SPECIAL_CELL_FACTOR = -20;
@@ -81,25 +80,15 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
 
         mGoodSoundId = mSoundPool.load(this, R.raw.bonus_sound, 1);
         mBadSoundId = mSoundPool.load(this, R.raw.wrong_sound2, 1);
-//        mGoodSoundId = MediaPlayer.create(this, R.raw.good_sound_effect);
-//        badSound = MediaPlayer.create(this, R.raw.wrong_sound2);
 
         gameGraph = new GameGraph((GraphView) findViewById(R.id.graph), this);
         setScoreView();
         setBadChoicesLeftView();
 
         mTimer.registerListener(this);
-//        mTimer = new Runnable() {
-//            @Override
-//            public void run() {
-//                updateTimeTextView();
-//            }
-//        };
         mTimeTextView.setText(mTimer.toString());
         startFeedbackSession();
         BuildTable(++mCurrBoardSize);
-//        ResumeGameCountDown rgc = new ResumeGameCountDown();
-//        rgc.show(mFragmentManager, "Countdown");
     }
 
     @Override
@@ -119,15 +108,11 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     }
 
     private void stopClock() {
-//        handler.removeCallbacks(mTimer);
-//        timerOn = false;
         mTimer.stopTimer();
     }
 
     private void resumeClock() {
         mTimer.resumeTimer();
-//        timerOn = true;
-//        handler.postDelayed(mTimer, 1000);
     }
 
     @Override
@@ -135,31 +120,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         super.onPause();
         stopClock();
         hideSpecialCell();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        if (mGraphView == null) {
-//            graphFragment = (GraphFragment) mFragmentManager.findFragmentById(R.id.fragment);
-////            graphFragment.stopReceivingData();
-//      }
-//        resumeClock();
-    }
-
-    private void updateTimeTextView() {
-//        if (timerOn) {
-//            mTimeTextView.setText(Integer.toString(mCurrTime--));
-//
-//            if (mCurrTime != 0)
-//                handler.postDelayed(mTimer, 1000);
-//            else{
-////                mTimeTextView.setText("0");
-//                ((CCubeFeedback)mFeedback).calculateFinalScore(mCurrScore, mBadChoicesLeft);
-//                showFinishDialog();
-//            }
-//        }
     }
 
     private void setScoreView() {
@@ -229,8 +189,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     }
 
     private void playGoodSound() {
-//        goodSound.seekTo(0);
-//        goodSound.start();
         mSoundPool.play(mGoodSoundId, 1, 1, 1, 0, 1);
     }
 
@@ -252,8 +210,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
 
     private void playBadSound() {
         mSoundPool.play(mBadSoundId, 1, 1, 1, 0, 1);
-//        badSound.seekTo(0);
-//        badSound.start();
     }
 
     private void setSpecialCell() {
@@ -270,14 +226,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
 
         mCurrSpecialCell = (Button) tableRow.getChildAt(column);
         mCurrSpecialCell.setBackgroundColor(mCurrColor + mCurrSpecialCellFactor);
-//        mCurrSpecialCell.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setScoreView(++mCurrScore);
-//                mGameTableLayout.removeAllViews();
-//                BuildTable((mCurrBoardSize < MAX_BOARD_SIZE) ? ++mCurrBoardSize : MAX_BOARD_SIZE);
-//            }
-//        });
     }
 
     private void hideSpecialCell() {
@@ -297,9 +245,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
             mCurrSpecialCellFactor += FACTOR_DELTA_JUMP;
 
         mLastConcentrationAverage = average;
-
-        Log.d("CCUBE_ACTIVITY", Double.toString(average));
-        Log.d("CCUBE_ACTIVITY", Integer.toString(mCurrSpecialCellFactor));
     }
 
     private double getAverageConcentration() {
@@ -363,16 +308,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         intent.putExtra(FeedbackActivity.TOTAL_TIME, "01:00");
     }
 
-//    @Override
-//    protected String getGameName() {
-//        return "Crazy Cube";
-//    }
-
-//    @Override
-//    protected int calculateScore() {
-//        return ((5 * mBadChoicesLeft) + (10 * mCurrScore));
-//    }
-
     //home button icon on the actionbar was clicked
     @Override
     public void homeMenuButtonClicked() {
@@ -400,12 +335,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
         return MainActivity.CRAZY_CUBE_STR;
     }
 
-    //    @Override
-//    protected void onFinishGameShow() {
-//        super.onFinishGameShow();
-//
-//        mTimeTextView.setText("");
-//    }
     @Override
     protected String setContentForHelpDialog() {
         return getResources().getString(R.string.crazy_cube_help_content);

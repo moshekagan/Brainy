@@ -22,7 +22,7 @@
     <string name="connect_to_head_set">Connect to Head Set</string>
     <string name="winner_dialog_title">Well done!</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="winner_dialog_feedback">Feedback</string>
     <string name="winner_dialog_play_again">Play again</string>
@@ -93,4 +93,12 @@
     <string name="dp_schedule_explanation">Select on which days you want me to remind you to practice!</string>
     <string name="dp_schedule_title">Reminder</string>
     <string name="done_button">Done</string>
+
+    <string name="Sunday">Sunday</string>
+    <string name="Monday">Monday</string>
+    <string name="Tuesday">Tuesday</string>
+    <string name="Wednesday">Wednesday</string>
+    <string name="Thursday">Thursday</string>
+    <string name="Friday">Friday</string>
+    <string name="Saturday">Saturday</string>
 </resources>

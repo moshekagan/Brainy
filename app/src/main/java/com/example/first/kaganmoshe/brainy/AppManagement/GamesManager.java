@@ -14,6 +14,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
  */
 public class GamesManager {
     private DailyPractice mDailyPractice = new DailyPractice();
+    private boolean mNoHeadsetMode = false;
 
     public void showFinishDialog(FragmentManager fm, GameActivity gameActivity) {
         if (mDailyPractice.isDailyPracticeOn()) {
@@ -23,17 +24,10 @@ public class GamesManager {
         }
     }
 
-    public void showQuitDialog(GameActivity gamesActivity, FragmentManager fm,
-                               QuitGameDialog quitGameDialog) {
-
-    }
-
-//    public void showResumeGameDialog(GameActivity gamesActivity, FragmentManager mFragmentManager,
-//                                      ResumeGameCountDown mResumeGameCountDown) {
-//
-//    }
-
     public void continueToActivityAfterGameFinished(GameActivity gamesActivity) {
+//        if(mNoHeadsetMode){
+//
+//        }
         if (mDailyPractice.isDailyPracticeOn()) {
             mDailyPractice.continueAfterGameFinished(gamesActivity);
         } else {
@@ -58,14 +52,6 @@ public class GamesManager {
         quitGameDialog.show(fm, "QUIT CONFIRMATION");
     }
 
-//    private void initConcentrationPoints() {
-//        mParcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
-//
-////        prepareConcentrationPoints();
-//        for (ParcelableDataPoint p : mParcelableConcentrationPointsList) {
-//            mGraphConcentrationPoints.appendData(p, false, Integer.MAX_VALUE);
-//        }
-//    }
     public boolean isDailyPracticeModeOn(){
         return mDailyPractice.isDailyPracticeOn();
     }

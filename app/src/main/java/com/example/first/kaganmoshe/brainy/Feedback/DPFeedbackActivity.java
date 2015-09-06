@@ -29,12 +29,14 @@ public class DPFeedbackActivity extends FBActivity {
     protected void initButtons() {
         mContinueButton = (Button) findViewById(R.id.continueButton);
 
+//        setTouchNClick(R.id.continueButton);
         mContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startNewActivity(MainActivity.class);
             }
         });
+
     }
 
     protected void initConcentrationPoints() {

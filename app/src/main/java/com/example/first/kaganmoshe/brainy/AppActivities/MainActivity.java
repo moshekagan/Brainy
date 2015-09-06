@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import com.example.first.kaganmoshe.brainy.AppActivities.ActionBarActivity.ActionBarAppActivity;
 import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
-import com.example.first.kaganmoshe.brainy.AppManagement.DPNotification;
+import com.example.first.kaganmoshe.brainy.DailyPractice.DPReminder.DPNotification;
 import com.example.first.kaganmoshe.brainy.Games.CrazyCube.CrazyCubeActivity;
 import com.example.first.kaganmoshe.brainy.DailyPractice.DPStartDialog;
 import com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryActivity;
@@ -25,14 +25,10 @@ import EEG.ESignalVolume;
 public class MainActivity extends ActionBarAppActivity implements DPStartDialog.DPStartCommunicator {
 
     public enum EGameItem {
-        //        GUESS_THE_NUMBER(GUESS_THE_NUMBER_STR, GuessTheNumberConfigActivity.class, R.drawable.numbers),
-//        HOT_AIR_BALLOON(HOT_AIR_BALLOON_STR, HABConfigActivity.class, R.drawable.hot_air_balloon),
-//        CRAZY_CUBE(CRAZY_CUBE_STR, CCConfigActivity.class, R.drawable.kuku_cube),
-//        MIND_SHOOTER(MIND_SHOOTER_STR, MindShooterConfigActivity.class, R.drawable.ic_kavent);
-        GUESS_THE_NUMBER(GUESS_THE_NUMBER_STR, GuessTheNumberGameActivity.class, R.drawable.numbers),
         HOT_AIR_BALLOON(HOT_AIR_BALLOON_STR, HotAirBalloonGameActivity.class, R.drawable.hot_air_balloon),
         CRAZY_CUBE(CRAZY_CUBE_STR, CrazyCubeActivity.class, R.drawable.kuku_cube),
-        MIND_SHOOTER(MIND_SHOOTER_STR, MindShooterGameActivity.class, R.drawable.ic_kavent);
+        MIND_SHOOTER(MIND_SHOOTER_STR, MindShooterGameActivity.class, R.drawable.ic_kavent),
+        GUESS_THE_NUMBER(GUESS_THE_NUMBER_STR, GuessTheNumberGameActivity.class, R.drawable.numbers);
 
         private String name;
         private Class targetActivity;
@@ -92,17 +88,17 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     private ListView mGamesRowsListView;
     private static final String MENU_TOOLBAR_TEXT = "Menu";
 
-    public static final String GUESS_THE_NUMBER_STR = "Guess The Number";
     public static final String HOT_AIR_BALLOON_STR = "Hot Air Balloon";
     public static final String CRAZY_CUBE_STR = "Crazy Cube";
     public static final String MIND_SHOOTER_STR = "Mind Shooter";
+    public static final String GUESS_THE_NUMBER_STR = "Guess The Number";
     private static final String[] mGamesTitles = new String[EGameItem.values().length];
     private static final Integer[] mGamesImagesId = new Integer[EGameItem.values().length];
     private static final String[] mGamesReviews = {
-            "Figure which number am I thinking of!",
             "Lift the hot air balloon with your mind!",
             "There is only one different cube, Can you find it?",
-            "Shoot the target using your mind!"
+            "Shoot the target using your mind!",
+            "Figure which number am I thinking of!"
     };
 
     private EConnectionState mCurrnetConnectionState = EConnectionState.IDLE;
@@ -119,7 +115,7 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_games);
+        setContentView(R.layout.activity_main);
 //        this.setOnBackPressedActivity(ConnectionActivity.class);
 
         if (mGamesRowsAdapter == null) {
@@ -140,8 +136,8 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
             }
         });
 
-        setTouchNClick(R.id.dailyPracticeButton);
-        setTouchNClick(R.id.historyButton);
+//        setTouchNClick(R.id.dailyPracticeButton);
+//        setTouchNClick(R.id.historyButton);
 
         findViewById(R.id.historyButton).setOnClickListener(new View.OnClickListener() {
             @Override
