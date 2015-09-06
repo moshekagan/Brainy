@@ -44,6 +44,10 @@ public abstract class EegHeadSet {
     public void raiseOnAttention(int attValue){
         Logs.info(EEGHEADSET_STR, ATTENTION_STR + ": " + attValue);
 
+        if (attValue < 80 && attValue > 35)
+            attValue += 13;
+        else if (attValue <= 35 && attValue >= 15)
+            attValue -= 11;
         for (IHeadSetData headSetData : m_HeadSetData){
             if (headSetData != null){
                 headSetData.onAttentionReceived(attValue);

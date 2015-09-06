@@ -53,37 +53,55 @@
         <!--android:layout_alignBottom="@id/showList"  />-->
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignEnd="@+id/showList"
-        android:layout_alignStart="@+id/showList"
         android:layout_below="@+id/showList"
-        android:layout_marginTop="@dimen/pad_10dp"
-        android:orientation="horizontal">
+        android:layout_alignStart="@+id/showList"
+        android:layout_alignEnd="@+id/showList">
 
-        <Utils.AppButton
-            android:id="@+id/skipButton"
-            style="@style/app_btn"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/pad_5dp"
-            android:layout_weight="1"
-            android:background="@drawable/app_button"
-            android:text="@string/settings_skip"
-            android:textSize="19sp" />
+            android:layout_alignEnd="@+id/showList"
+            android:layout_alignStart="@+id/showList"
+            android:layout_below="@+id/showList"
+            android:layout_marginTop="@dimen/pad_10dp"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout">
 
-        <Utils.AppButton
-            android:id="@+id/connectButton"
-            style="@style/app_btn"
-            android:layout_width="0dp"
+            <Utils.AppButton
+                android:id="@+id/skipButton"
+                style="@style/app_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/pad_5dp"
+                android:layout_weight="1"
+                android:background="@drawable/app_button"
+                android:text="@string/settings_skip"
+                android:textSize="19sp" />
+
+            <Utils.AppButton
+                android:id="@+id/connectButton"
+                style="@style/app_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/pad_5dp"
+                android:layout_weight="1"
+                android:background="@drawable/app_button"
+                android:text="@string/settings_connect"
+                android:textSize="19sp" />
+
+
+        </LinearLayout>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/pad_5dp"
-            android:layout_weight="1"
-            android:background="@drawable/app_button"
-            android:text="@string/settings_connect"
-            android:textSize="19sp" />
-
-
+            android:id="@+id/connectProgressBar"
+            android:layout_gravity="center_horizontal"
+            android:indeterminate="false" />
     </LinearLayout>
 
 </RelativeLayout>

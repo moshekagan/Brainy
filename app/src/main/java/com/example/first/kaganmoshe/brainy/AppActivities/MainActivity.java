@@ -210,10 +210,7 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     }
 
     @Override
-    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-
-    }
-
+    public void onPoorSignalReceived(ESignalVolume signalVolume) {}
 
     @Override
     public void onStartClicked() {

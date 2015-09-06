@@ -107,12 +107,20 @@ public class MindShooterLogic implements IHeadSetData{
                 goToTheTarget(attFranction);
             else if(attValue >= 65)
                 newPositionForIntent(1);
-            else if (attValue >= 50) // Bring the intent close but not enough
+            else if (attValue >= 55)
                 newPositionForIntent(2);
-            else if (attValue >= 35)
+            else if (attValue >= 50)
                 newPositionForIntent(3);
-            else if (attValue >= 25)  // Taking the intent far from the target
+            else if (attValue >= 45)
                 newPositionForIntent(4);
+            else if (attValue >= 40)
+                newPositionForIntent(5);
+            else if (attValue >= 35)
+                newPositionForIntent(6);
+            else if (attValue >= 30)
+                newPositionForIntent(7);
+            else if (attValue >= 25)
+                newPositionForIntent(8);
             else { // Taking the intent far from
                 goFarAwayFromTarget(attFranction, 2);
             }
@@ -328,10 +336,14 @@ public class MindShooterLogic implements IHeadSetData{
     private float calcValByLevel(int level) {
         float val = 1;
 
-        if (level == 1) val = 0.25f;
-        else if (level == 2) val = 0.33f;
-        else if (level == 3) val = 0.5f;
-        else if (level == 4) val = 0.75f;
+        if (level == 1) val = 0.15f;
+        else if (level == 2) val = 0.25f;
+        else if (level == 3) val = 0.30f;
+        else if (level == 4) val = 0.40f;
+        else if (level == 5) val = 0.50f;
+        else if (level == 6) val = 0.60f;
+        else if (level == 7) val = 0.70f;
+        else if (level == 8) val = 0.80f;
 
         return val;
     }

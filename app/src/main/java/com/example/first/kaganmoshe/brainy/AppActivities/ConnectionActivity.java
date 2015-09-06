@@ -5,17 +5,22 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
 import com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryDBAdapter;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
+
+import EEG.EConnectionState;
 import EEG.EHeadSetType;
+import EEG.ESignalVolume;
+import EEG.IHeadSetData;
 import Utils.Logs;
 
 
-public class ConnectionActivity extends AppActivity {
+public class ConnectionActivity extends AppActivity implements IHeadSetData{
 
     // Const Members
     final private String SETTINGS_ACTIVITY = "Settings Activity";
@@ -24,6 +29,7 @@ public class ConnectionActivity extends AppActivity {
     final private static String EMOTIV_SRT = "Emotiv";
 
     // Data Members
+    private ProgressBar mConnectProgressBar;
     private Button mSkipButton;
     private Button mConnectButton;
     private BetterSpinner mHeadsetSpinner;
@@ -48,6 +54,10 @@ public class ConnectionActivity extends AppActivity {
         mHeadsetSpinner = (BetterSpinner) findViewById(R.id.showList);
         mConnectButton = (Button) findViewById(R.id.connectButton);
         mSkipButton = (Button) findViewById(R.id.skipButton);
+        mConnectProgressBar = (ProgressBar) findViewById(R.id.connectProgressBar);
+
+        mConnectProgressBar.setVisibility(View.INVISIBLE);
+
 
         mHeadsetSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -116,10 +126,15 @@ public class ConnectionActivity extends AppActivity {
 
     private void onDoneClick() {
         updateHeadSetType();
-        AppManager.getInstance().configureAndConnectHeadSet();
 
-        // TODO - Update settings
-        Utils.startNewActivity(this, MainActivity.class);
+        AppManager.getInstance().configureHeadSet();
+        AppManager.getInstance().getHeadSet().registerListener(this);
+        AppManager.getInstance().connectToHeadSet();
+
+        mConnectProgressBar.setVisibility(View.VISIBLE);
+
+//        // TODO - Update settings
+//        Utils.startNewActivity(this, MainActivity.class);
     }
 
     @Override
@@ -138,4 +153,51 @@ public class ConnectionActivity extends AppActivity {
         super.onPause();
 //        AppManager.pauseBackgroundMusic();
     }
+
+    @Override
+    public void onAttentionReceived(int attValue) {}
+
+    @Override
+    public void onMeditationReceived(int medValue) {}
+
+    @Override
+    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
+        String msg = headSetName + " ";
+        boolean showMessage = true;
+        switch (connectionState){
+            case DEVICE_CONNECTING:
+                msg += "is connecting...";
+                showMessage = false;
+                break;
+            case BLUETOOTH_NOT_AVAILABLE:
+                msg = "Bluetooth are off or your device is not pair to: " + headSetName;
+                break;
+            case DEVICE_NOT_FOUND:
+                msg += "doesn't found, make sure that the distance in not longer then 10 meters";
+                break;
+            case DEVICE_NOT_CONNECTED:
+                msg += "is not connected :(";
+                break;
+            case DEVICE_CONNECTED:
+                msg += "is connected :)";
+                mConnectProgressBar.setVisibility(View.GONE);
+                Utils.startNewActivity(this, MainActivity.class);
+                break;
+        }
+
+        if (showMessage)
+            showConnectionMessage(msg);
+    }
+
+    private void showConnectionMessage(final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Utils.showToastMessage(getApplicationContext(), msg);
+            }
+        });
+    }
+
+    @Override
+    public void onPoorSignalReceived(ESignalVolume signalVolume) {}
 }

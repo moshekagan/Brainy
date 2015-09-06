@@ -48,7 +48,6 @@ public class AppManager implements IHeadSetData {
     private AppManager() {
         mAppSettings = new AppSettings();
         Logs.info("APP_MANAGER", "APP_MANAGER");
-//        configureAndConnectHeadSet();
     }
 
     //
@@ -83,7 +82,7 @@ public class AppManager implements IHeadSetData {
         return mAppSettings;
     }
 
-    public void configureAndConnectHeadSet() {
+    public void configureHeadSet() {
         EHeadSetType type = getAppSettings().getHeadSetType();
         if (mAppSettings.isUsingHeadSet() && mHeadSet == null) {
             switch (type) {
@@ -97,8 +96,6 @@ public class AppManager implements IHeadSetData {
                     break;
             }
         }
-
-        connectToHeadSet();
     }
 
     public void connectToHeadSet() {
