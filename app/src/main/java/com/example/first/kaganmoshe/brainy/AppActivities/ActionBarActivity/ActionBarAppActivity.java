@@ -29,8 +29,6 @@ import EEG.IHeadSetData;
 public abstract class ActionBarAppActivity extends AppActivity implements IHeadSetData,
         SettingsFragment.SettingsCommunicator {
 
-    private boolean mIsDestroyed = false;
-
     public final static String MAIN_ACTIVITY_STR = "Main";
     public final static String SETTINGS_STR = "Settings";
     public final static String QUIT_STR = "Quit";
@@ -60,6 +58,8 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     protected android.support.v4.app.FragmentManager mFragmentManager = getSupportFragmentManager();
     private static final int POPUP_MENU_ROW_PADDING = 100;
     private static int popupMenuRowWidth = 0;
+
+//    private Menu mMenu;
 
 //    private boolean homeButtonDisabled = false;
 
@@ -134,6 +134,10 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        if(savedInstanceState != null){
+//            onCreateOptionsMenu(mMenu);
+//        }
 
         mSettingsFragment.setCommunicator(this, getApplicationContext());
     }
@@ -269,8 +273,9 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mConnectionMenuItem == null || mIsDestroyed) {
-            mIsDestroyed = false;
+//        mMenu = menu;
+
+        if (mConnectionMenuItem == null) {
             mConnectionMenuItem = menu.add("Connection").setEnabled(false);
         }
 
@@ -339,9 +344,9 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
         return width + POPUP_MENU_ROW_PADDING;
     }
 
-    @Override
-    public void onDestroy(){
-        mIsDestroyed = true;
-        super.onDestroy();
-    }
+//    @Override
+//    public void onDestroy(){
+//        mConnectionMenuItem = null;
+//        super.onDestroy();
+//    }
 }

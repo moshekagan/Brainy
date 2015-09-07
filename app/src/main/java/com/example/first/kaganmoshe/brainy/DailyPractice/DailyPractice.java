@@ -39,12 +39,12 @@ public class DailyPractice {
     };
     private final Random mRandom = new Random();
 
-    private static final int TOTAL_GAMES = 2;
+    private static final int TOTAL_GAMES = 15;
 
     public void startPractice(MainActivity activity) {
         mDailyPracticeOn = true;
-//        Utils.startNewActivity(activity, mGames[mRandom.nextInt(mGames.length)]);
-        Utils.startNewActivity(activity, GuessTheNumberGameActivity.class);
+        Utils.startNewActivity(activity, mGames[mRandom.nextInt(mGames.length)]);
+//        Utils.startNewActivity(activity, GuessTheNumberGameActivity.class);
         //make the activity know that its the first game in the daily practice
         //maybe gameActivity will notify the mGames manager its starting and then the mGames manager will start a short dialog
         //explaining things about the daily practice
@@ -71,8 +71,8 @@ public class DailyPractice {
             reset();
 
         } else {
-//            Utils.startNewActivity(gameActivity, mGames[mRandom.nextInt(mGames.length)]);
-            Utils.startNewActivity(gameActivity, GuessTheNumberGameActivity.class);
+            Utils.startNewActivity(gameActivity, mGames[mRandom.nextInt(mGames.length)]);
+//            Utils.startNewActivity(gameActivity, GuessTheNumberGameActivity.class);
         }
     }
 
