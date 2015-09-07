@@ -83,12 +83,14 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
 
         initViewActivity();
 
-        HistoryDBAdapter db = AppManager.getHistoryDBInstance(getApplicationContext());
-        db.insertRecord("Guess The Number", 150, 89);
-        db.insertRecord("Daily Practices", 60);
-
-        AppManager.getInstance().setBackgroundMusic(getApplicationContext());
-        AppManager.getInstance().playBackgroundMusic();
+//        HistoryDBAdapter db = AppManager.getHistoryDBInstance(getApplicationContext());
+//        db.insertRecord("Guess The Number", 150, 89);
+//        db.insertRecord("Guess The Number", 150, 89);
+//        db.insertRecord("Guess The Number", 150, 89);
+//        db.insertRecord("Daily Practices", 60);
+//
+//        AppManager.getInstance().setBackgroundMusic(getApplicationContext());
+//        AppManager.getInstance().playBackgroundMusic();
     }
 
     private void initViewActivity() {
