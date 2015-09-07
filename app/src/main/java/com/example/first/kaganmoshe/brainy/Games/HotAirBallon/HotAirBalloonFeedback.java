@@ -6,10 +6,10 @@ package com.example.first.kaganmoshe.brainy.Games.HotAirBallon;
 public class HotAirBalloonFeedback extends com.example.first.kaganmoshe.brainy.Feedback.FeedbackClass {
     @Override
     public int getGameScore() {
-        return 100;
+        return finalScore;
     }
 
     public void calculateFinalScore(int score) {
-        finalScore =  10 * score;
+        finalScore =  score ;
     }
 }

@@ -84,7 +84,11 @@ public class AppManager implements IHeadSetData {
 
     public void configureHeadSet() {
         EHeadSetType type = getAppSettings().getHeadSetType();
-        if (mAppSettings.isUsingHeadSet() && mHeadSet == null) {
+        if (mAppSettings.isUsingHeadSet() /*&& mHeadSet == null*/ && mAppSettings.isChangedHeadSetType()) {
+            if (mHeadSet != null) {
+                mHeadSet.close();
+                mHeadSet = null;
+            }
             switch (type) {
                 case MindWave:
                     mHeadSet = new MindWave();

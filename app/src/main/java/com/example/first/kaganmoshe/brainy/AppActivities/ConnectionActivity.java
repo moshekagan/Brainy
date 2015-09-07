@@ -110,10 +110,15 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
 
         AppManager.getInstance().configureHeadSet();
         AppManager.getInstance().getHeadSet().registerListener(this);
-        AppManager.getInstance().connectToHeadSet();
 
-        mConnectProgressBar.setVisibility(View.VISIBLE);
-
+        if (AppManager.getInstance().getHeadSet().IsConnected()) {
+            AppManager.getInstance().getHeadSet().unregisterListener(this);
+            Utils.startNewActivity(this, MainActivity.class);
+        }
+        else {
+            AppManager.getInstance().connectToHeadSet();
+            mConnectProgressBar.setVisibility(View.VISIBLE);
+        }
 //        // TODO - Update settings
 //        Utils.startNewActivity(this, MainActivity.class);
     }
@@ -147,17 +152,21 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         boolean showMessage = true;
         switch (connectionState){
             case DEVICE_CONNECTING:
-                msg = "Connecting to " + headSetName;
-//                msg += "is connecting...";
+                msg = "Connecting to " + headSetName + "...";
                 showMessage = false;
                 break;
             case BLUETOOTH_NOT_AVAILABLE:
                 msg = "Bluetooth is off or your device is not paired to: " + headSetName;
+                mConnectProgressBar.setVisibility(View.INVISIBLE);
                 break;
             case DEVICE_NOT_FOUND:
                 msg = "Can not find " + headSetName + ", make sure the distance is not longer than 10 meters";
-//                msg += "doesn't found, make sure that the distance in not longer than 10 meters";
+                mConnectProgressBar.setVisibility(View.INVISIBLE);
                 break;
+//            case DEVICE_NOT_FOUND:
+//                mConnectProgressBar.setVisibility(View.INVISIBLE);
+//                msg += "doesn't found, make sure that the distance in not longer then 10 meters";
+//                break;
             case DEVICE_NOT_CONNECTED:
                 msg += "is not connected :(";
                 break;

@@ -60,16 +60,18 @@ public class MockerHeadSet extends EegHeadSet {
     public EConnectionState connect() {
         m_CurrentState = EConnectionState.DEVICE_CONNECTING; // TODO - Change it
         raiseOnHeadSetChangedState(MOCKER, EConnectionState.DEVICE_CONNECTING);
+        m_IsConnected = true;
         return state;
     }
 
     @Override
     public void close() {
-
+        raiseOnHeadSetChangedState(MOCKER, EConnectionState.DEVICE_NOT_CONNECTED);
+        m_IsConnected = false;
     }
 
     @Override
     public boolean IsConnected() {
-        return true;
+        return m_IsConnected;
     }
 }

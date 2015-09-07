@@ -20,6 +20,7 @@ public abstract class EegHeadSet {
     protected List<IHeadSetData> m_HeadSetData = new LinkedList<>();
     private int m_CurrentPoorSignal = ESignalVolume.HEAD_SET_NOT_COVERED.value();
     protected EConnectionState m_CurrentState = EConnectionState.IDLE;
+    protected boolean m_IsConnected = false;
 
     // Methods
     public abstract EConnectionState connect();
@@ -35,10 +36,6 @@ public abstract class EegHeadSet {
     public void unregisterListener(IHeadSetData headSetDate){
         if (m_HeadSetData.contains(headSetDate))
             m_HeadSetData.remove(headSetDate);
-    }
-
-    public void removeListener(IHeadSetData headSetData){
-        m_HeadSetData.remove(headSetData);
     }
 
     public void raiseOnAttention(int attValue){

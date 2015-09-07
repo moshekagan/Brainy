@@ -60,6 +60,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     private long timerValueInMilliseconds = 60000l;
     private SoundPool m_SoundEffect;
     private int m_HABSoundAffectID;
+    private int m_CounterRaisingBalloon = 0;
 
     private AppTimer m_Timer = new AppTimer(timerValueInMilliseconds, AppTimer.ETimeStringFormat.MINUTES_AND_SECONDS);
     private TextView m_TimeTextView;
@@ -99,6 +100,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         setAttentionValues();
 
         btn = (Button) findViewById(R.id.button);
+        btn.setVisibility(View.INVISIBLE);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -304,11 +306,19 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
             float destination = getDestination(attPresent);
             Logs.warn(HOT_AIR_BALLOON_ACTIVITY, "New Destination: " + destination);
             raisedTheAirBalloon(destination);
-            if (oldAtt < attValue)
-                m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
-//        hotAirBalloonSoundAffect.start();
-            else m_SoundEffect.pause(m_HABSoundAffectID);
-//            hotAirBalloonSoundAffect.pause();
+
+            if (oldAtt < attValue) {
+                if (m_CounterRaisingBalloon%3 == 0) {
+                    m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
+                    Logs.error("", "____in 1 case: Att = " + attValue + "Count = " + m_CounterRaisingBalloon);
+                }
+                m_CounterRaisingBalloon++;
+            }
+            else {
+                Logs.error("", "____in 2 case: Att = " + attValue + "Count = " + m_CounterRaisingBalloon);
+                m_SoundEffect.pause(m_HABSoundAffectID);
+            }
+
 
             oldAtt = attValue;
         }
@@ -356,7 +366,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 //    }
 
     private void finishTimerGame() {
-        ((HotAirBalloonFeedback) mFeedback).calculateFinalScore(10);
+        ((HotAirBalloonFeedback) mFeedback).calculateFinalScore(188);
         m_SoundEffect.stop(m_HABSoundAffectID);
 //        hotAirBalloonSoundAffect.stop();
         showFinishDialog();

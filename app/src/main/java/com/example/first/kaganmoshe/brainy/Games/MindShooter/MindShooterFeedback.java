@@ -9,7 +9,7 @@ public class MindShooterFeedback extends FeedbackClass {
     private int finalScore;
 
     public void calculateFinalScore(int score) {
-        finalScore =  10 * score;
+        finalScore = 10 * score;
     }
 
     @Override

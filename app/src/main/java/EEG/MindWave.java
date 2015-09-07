@@ -20,7 +20,6 @@ public class  MindWave extends EegHeadSet {
 
     // Data Members
     private static MindWave m_MindWave; // TODO - Change this to Factory pastern
-    private boolean m_IsConnected = false;
     private int m_CurrentRawData;
 
     private BluetoothAdapter m_BluetoothAdapter;
@@ -96,6 +95,7 @@ public class  MindWave extends EegHeadSet {
             m_TgDevice.close();
             Logs.info(MIND_WAVE, "MindWave Closed! /n bye bye...");
         }
+//        m_IsConnected = false;
     }
 
     @Override
