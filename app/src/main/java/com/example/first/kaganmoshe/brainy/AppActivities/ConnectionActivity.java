@@ -48,8 +48,8 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
 
 //        this.setOnBackPressedActivity(LoginActivity.class);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                R.layout.app_spinner_row, HEADSETS);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
+                R.layout.headsets_spinner_row, HEADSETS);
 
         mHeadsetSpinner = (BetterSpinner) findViewById(R.id.showList);
         mConnectButton = (Button) findViewById(R.id.connectButton);
@@ -57,7 +57,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         mConnectProgressBar = (ProgressBar) findViewById(R.id.connectProgressBar);
 
         mConnectProgressBar.setVisibility(View.INVISIBLE);
-
 
         mHeadsetSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -82,28 +81,10 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         });
         mHeadsetSpinner.setAdapter(adapter);
 
-//        setTouchNClick(R.id.showList);
-//        setTouchNClick(R.id.connectButton);
-//        setTouchNClick(R.id.skipButton);
-
         initViewActivity();
 
-//        View spinnerOverlay = findViewById(R.id.spinner_overlay);
-//        spinnerOverlay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mHeadsetSpinner.performClick();
-//            }
-//
-//        });
-
         HistoryDBAdapter db = AppManager.getHistoryDBInstance(getApplicationContext());
-        db.insertRecord("Guess The Number", 50, 89);
-        db.insertRecord("Guess The Number", 60, 22);
-        db.insertRecord("Guess The Number", 70, 23);
-        db.insertRecord("Guess The Number", 60, 76);
-        db.insertRecord("Guess The Number", 32, 45);
-        db.insertRecord("Guess The Number", 15, 20);
+        db.insertRecord("Guess The Number", 150, 89);
         db.insertRecord("Daily Practices", 60);
 
         AppManager.getInstance().setBackgroundMusic(getApplicationContext());
@@ -166,14 +147,16 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         boolean showMessage = true;
         switch (connectionState){
             case DEVICE_CONNECTING:
-                msg += "is connecting...";
+                msg = "Connecting to " + headSetName;
+//                msg += "is connecting...";
                 showMessage = false;
                 break;
             case BLUETOOTH_NOT_AVAILABLE:
-                msg = "Bluetooth are off or your device is not pair to: " + headSetName;
+                msg = "Bluetooth is off or your device is not paired to: " + headSetName;
                 break;
             case DEVICE_NOT_FOUND:
-                msg += "doesn't found, make sure that the distance in not longer then 10 meters";
+                msg = "Can not find " + headSetName + ", make sure the distance is not longer than 10 meters";
+//                msg += "doesn't found, make sure that the distance in not longer than 10 meters";
                 break;
             case DEVICE_NOT_CONNECTED:
                 msg += "is not connected :(";

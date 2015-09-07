@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Utils.AppTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#003549"
+    android:ellipsize="marquee"
+    android:padding="@dimen/pad_10dp"
+    android:singleLine="true"
+    android:textAlignment="inherit"
+    android:textColor="@color/white"
+    android:textSize="@dimen/txt_20sp" />
