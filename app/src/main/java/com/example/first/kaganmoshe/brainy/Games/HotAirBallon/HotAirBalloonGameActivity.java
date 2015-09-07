@@ -61,6 +61,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     private SoundPool m_SoundEffect;
     private int m_HABSoundAffectID;
     private int m_CounterRaisingBalloon = 0;
+    private boolean m_FirstAttRecived = true;
 
     private AppTimer m_Timer = new AppTimer(timerValueInMilliseconds, AppTimer.ETimeStringFormat.MINUTES_AND_SECONDS);
     private TextView m_TimeTextView;
@@ -306,6 +307,11 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
             float destination = getDestination(attPresent);
             Logs.warn(HOT_AIR_BALLOON_ACTIVITY, "New Destination: " + destination);
             raisedTheAirBalloon(destination);
+
+            if (m_FirstAttRecived){
+                m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
+                m_FirstAttRecived =     false;
+            }
 
             if (oldAtt < attValue) {
                 if (m_CounterRaisingBalloon%3 == 0) {

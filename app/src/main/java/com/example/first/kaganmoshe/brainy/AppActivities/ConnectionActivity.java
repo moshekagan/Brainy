@@ -89,8 +89,8 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
 //        db.insertRecord("Guess The Number", 150, 89);
 //        db.insertRecord("Daily Practices", 60);
 //
-//        AppManager.getInstance().setBackgroundMusic(getApplicationContext());
-//        AppManager.getInstance().playBackgroundMusic();
+        AppManager.getInstance().setBackgroundMusic(getApplicationContext());
+        AppManager.getInstance().playBackgroundMusic();
     }
 
     private void initViewActivity() {
