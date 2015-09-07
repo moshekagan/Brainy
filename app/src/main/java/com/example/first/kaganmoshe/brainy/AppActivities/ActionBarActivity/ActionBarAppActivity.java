@@ -29,6 +29,8 @@ import EEG.IHeadSetData;
 public abstract class ActionBarAppActivity extends AppActivity implements IHeadSetData,
         SettingsFragment.SettingsCommunicator {
 
+    private boolean mIsDestroyed = false;
+
     public final static String MAIN_ACTIVITY_STR = "Main";
     public final static String SETTINGS_STR = "Settings";
     public final static String QUIT_STR = "Quit";
@@ -147,8 +149,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
         mHomeButtonPopup.setAnchorView(findViewById(android.R.id.home));
 
         mHomeButtonPopup.setModal(true);
-
-
 
         if (popupMenuRowWidth == 0) {
             popupMenuRowWidth = measureContentWidth(adapter, getApplicationContext(), mMeasureParent);
@@ -269,7 +269,8 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mConnectionMenuItem == null) {
+        if (mConnectionMenuItem == null || mIsDestroyed) {
+            mIsDestroyed = false;
             mConnectionMenuItem = menu.add("Connection").setEnabled(false);
         }
 
@@ -336,5 +337,11 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
         }
         //TODO - const
         return width + POPUP_MENU_ROW_PADDING;
+    }
+
+    @Override
+    public void onDestroy(){
+        mIsDestroyed = true;
+        super.onDestroy();
     }
 }
