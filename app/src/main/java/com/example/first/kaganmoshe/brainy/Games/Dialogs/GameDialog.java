@@ -57,10 +57,6 @@ public abstract class GameDialog extends DialogFragment {
         super.onResume();
 
         isShowing = true;
-
-//        if (getDialog() != null) {
-
-//        }
     }
 
     protected void fireBackClickedEvent() {

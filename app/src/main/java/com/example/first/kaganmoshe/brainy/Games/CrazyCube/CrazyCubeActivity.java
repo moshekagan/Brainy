@@ -261,7 +261,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     @Override
     protected void startFeedbackSession() {
         mFeedback = new CCubeFeedback();
-//        mFeedback.startTimer();
     }
 
     @Override
@@ -296,10 +295,6 @@ public class CrazyCubeActivity extends GameGraphActivity implements AppTimer.IAp
     // If you dont override this, the default is to go to the mFeedback activity
     @Override
     public void onFinishGameContinueClicked() {
-        //this is the format to add your own stat
-//        addNewStatForFeedback("Bonus", "100");
-        //then you call this method
-//        continueToNextActivity(FeedbackActivity.class);
         super.onFinishGameContinueClicked();
     }
 

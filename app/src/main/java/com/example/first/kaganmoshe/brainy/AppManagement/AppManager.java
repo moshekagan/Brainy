@@ -4,12 +4,9 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.util.Log;
-
-import com.example.first.kaganmoshe.brainy.AppActivities.GameActivity;
 import com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryDBAdapter;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
-
 import EEG.EConnectionState;
 import EEG.EHeadSetType;
 import EEG.ESignalVolume;
@@ -17,7 +14,6 @@ import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 import EEG.MindWave;
 import EEG.MockerHeadSet;
-import Utils.AppTimer;
 import Utils.Logs;
 
 /**
@@ -39,23 +35,12 @@ public class AppManager implements IHeadSetData {
 
     private static int mActivitiesOpened = 0;
 
-
-//    private HashMap<Integer, Drawable> m_Drawables;
-//
-//    public static final String MENU_CONNECTION_ICON = "MENU";
-
     // C'tor
     private AppManager() {
         mAppSettings = new AppSettings();
         Logs.info("APP_MANAGER", "APP_MANAGER");
     }
 
-    //
-//    public Drawable getDrawable(int i//d){
-//        if(!m_Drawables.containsKey(id//)){
-//            m_Drawables.put(id, //co)
-//      //  }
-//    }
     public static HistoryDBAdapter getHistoryDBInstance(Context context) {
         if (mHistoryDB == null) {
             mHistoryDB = new HistoryDBAdapter(context);
@@ -152,7 +137,6 @@ public class AppManager implements IHeadSetData {
                     AudioManager.STREAM_MUSIC,
                     AudioManager.AUDIOFOCUS_GAIN);
             initBackgroundMusic();
-//            mBackgroundMusic = MediaPlayer.create(mContext, R.raw.background_music);
         }
     }
 
@@ -168,7 +152,6 @@ public class AppManager implements IHeadSetData {
         }
         if (!mBackgroundMusic.isPlaying() && !mMusicMutedByUser && !mMusicMutedByApp) {
             mBackgroundMusic.start();
-//            mBackgroundMusic.setLooping(true);
         }
     }
 
@@ -201,10 +184,6 @@ public class AppManager implements IHeadSetData {
 
         mMusicMutedByApp = muteMode;
     }
-
-//    public Context getContext() {
-//        return mContext;
-//    }
 
     public GamesManager getGamesManager() {
         return mGamesManager;

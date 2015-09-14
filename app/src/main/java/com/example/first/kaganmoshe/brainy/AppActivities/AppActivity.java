@@ -103,12 +103,6 @@ public abstract class AppActivity extends FragmentActivity implements View.OnCli
         }
     }
 
-//    @Override
-//    protected void onPause(){
-//        super.onPause();
-////        AppManager.getInstance().pauseBackgroundMusic();
-//    }
-
     @Override
     protected void onStop(){
         super.onStop();
@@ -125,14 +119,4 @@ public abstract class AppActivity extends FragmentActivity implements View.OnCli
         return true;
     }
 
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-////        AppManager.getInstance().playBackgroundMusic();
-//    }
-
-//    @Override
-//    public void onUserLeaveHint(){
-//        super.onUserLeaveHint();
-//    }
 }

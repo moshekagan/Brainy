@@ -36,9 +36,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     private final static String[] POPUP_MENU_TITLES = {MAIN_ACTIVITY_STR, SETTINGS_STR,
             QUIT_STR};
 
-//    ArrayAdapter actionsList;
-//    private View homeButtonView = null;
-
     private Integer[] imageId = {
             R.drawable.hot_air_balloon,
             R.drawable.settings_icon,
@@ -58,11 +55,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     protected android.support.v4.app.FragmentManager mFragmentManager = getSupportFragmentManager();
     private static final int POPUP_MENU_ROW_PADDING = 100;
     private static int popupMenuRowWidth = 0;
-
-//    private Menu mMenu;
-
-//    private boolean homeButtonDisabled = false;
-
 
     @Override
     public void onAttentionReceived(int attValue) {
@@ -93,11 +85,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     public void onSettingsShow() {
 
     }
-
-//    @Override
-//    public void onSettingsBackPressed() {
-//
-//    }
 
     @Override
     public void onSettingsDonePressed() {
@@ -135,10 +122,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        if(savedInstanceState != null){
-//            onCreateOptionsMenu(mMenu);
-//        }
-
         mSettingsFragment.setCommunicator(this, getApplicationContext());
     }
 
@@ -164,8 +147,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
         mHomeButtonPopup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Class cls = null;
-
                 switch (POPUP_MENU_TITLES[+position]) {
                     case SETTINGS_STR:
                         onSettingsDialogClicked();
@@ -185,21 +166,8 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                     Log.d("HOME BUTTON", "setOnItemClickListener dismiss");
                     mHomeButtonPopup.dismiss();
                 }
-
-//                if (parent.getContext().getClass() != cls) {
-//                    Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
-//                    onPopupMenuOptionSelected(cls);
-//                }
             }
         });
-
-//        mHomeButtonPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//            @Override
-//            public void onDismiss() {
-//                Log.d("HOME BUTTON", "setOnDismissListener homeButtonDisabled=false");
-//                homeButtonDisabled = false;
-//            }
-//        });
     }
 
     protected void onQuitClicked() {
@@ -227,27 +195,7 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
 
         mActionBar.setDisplayShowTitleEnabled(false);
         mActionBar.setDisplayUseLogoEnabled(true);
-//        mActionBar.setLogo(getResources().getDrawable(R.drawable.pause_icon5));
-//        mActionBar.setBackgroundDrawable();
-//        mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
-//        mActionBar.setDisplayShowHomeEnabled(false);
-
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_dropdown_item_1line, MENU);
-//
-//        BetterSpinner spinner = new BetterSpinner(mActionBar.getThemedContext());
-//
-//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//            }
-//        });
-//        spinner.setAdapter(adapter);
-//        //TODO attach to an adapter of some sort
-//        mActionBar.setCustomView(spinner);
     }
 
     private void setNewConnectionIconByConnectionState(EConnectionState connectionState) {
@@ -273,8 +221,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        mMenu = menu;
-
         if (mConnectionMenuItem == null) {
             mConnectionMenuItem = menu.add("Connection").setEnabled(false);
         }
@@ -304,12 +250,7 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
 
     protected void homeMenuButtonClicked() {
         Log.d("HOME BUTTON", "homeMenuButtonClicked()");
-        //TODO - take care of things not happening twice!
-//        actionsList = ArrayAdapter.createFromResource(this,
-//                R.array.action_list, android.R.layout.simple_dropdown_item_1line);
-//        popup.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, POPUP_MENU_TITLES));
         mHomeButtonPopup.show();
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
     private static int measureContentWidth(ArrayAdapter adapter, Context context, ViewGroup measureParent) {
@@ -343,10 +284,4 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
         //TODO - const
         return width + POPUP_MENU_ROW_PADDING;
     }
-
-//    @Override
-//    public void onDestroy(){
-//        mConnectionMenuItem = null;
-//        super.onDestroy();
-//    }
 }

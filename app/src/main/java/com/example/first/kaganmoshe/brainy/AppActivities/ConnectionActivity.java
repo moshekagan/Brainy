@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
-import com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryDBAdapter;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
@@ -46,8 +45,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
-//        this.setOnBackPressedActivity(LoginActivity.class);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
                 R.layout.headsets_spinner_row, HEADSETS);
 
@@ -82,12 +79,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         mHeadsetSpinner.setAdapter(adapter);
 
         initViewActivity();
-
-//        HistoryDBAdapter db = AppManager.getHistoryDBInstance(getApplicationContext());
-//        db.insertRecord("Guess The Number", 150, 89);
-//        db.insertRecord("Guess The Number", 150, 89);
-//        db.insertRecord("Guess The Number", 150, 89);
-//        db.insertRecord("Daily Practices", 60);
 //
         AppManager.getInstance().setBackgroundMusic(getApplicationContext());
         AppManager.getInstance().playBackgroundMusic();
@@ -121,25 +112,11 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
             AppManager.getInstance().connectToHeadSet();
             mConnectProgressBar.setVisibility(View.VISIBLE);
         }
-//        // TODO - Update settings
-//        Utils.startNewActivity(this, MainActivity.class);
     }
 
     @Override
     public void onBackPressed(){
         finish();
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-//        AppManager.playBackgroundMusic();
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-//        AppManager.pauseBackgroundMusic();
     }
 
     @Override
@@ -165,10 +142,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
                 msg = "Can not find " + headSetName + ", make sure the distance is not longer than 10 meters";
                 mConnectProgressBar.setVisibility(View.INVISIBLE);
                 break;
-//            case DEVICE_NOT_FOUND:
-//                mConnectProgressBar.setVisibility(View.INVISIBLE);
-//                msg += "doesn't found, make sure that the distance in not longer then 10 meters";
-//                break;
             case DEVICE_NOT_CONNECTED:
                 msg += "is not connected :(";
                 break;

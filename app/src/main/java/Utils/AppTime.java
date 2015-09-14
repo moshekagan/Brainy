@@ -2,11 +2,6 @@ package Utils;
 
 import android.os.Handler;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import Utils.Logs;
-
 /**
  * Created by tamirkash on 8/23/15.
  */
@@ -58,7 +53,6 @@ public abstract class AppTime {
     @Override
     public String toString() {
         String timeString;
-//                int milliseconds = (int) (updatedTime % 1000);
         int seconds = (int) (currTime / 1000);
         int minutes = seconds / 60;
 

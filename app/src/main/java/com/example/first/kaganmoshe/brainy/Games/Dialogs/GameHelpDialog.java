@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.R;
@@ -18,9 +17,6 @@ import com.example.first.kaganmoshe.brainy.R;
  */
 public class GameHelpDialog extends GameDialog {
 
-//    private Button startButton;
-//    private TextView helpContentTextView;
-//    private TextView helpTitleTextView;
     private String mHelpTitleText;
     private String mHelpContentText;
 
@@ -44,10 +40,6 @@ public class GameHelpDialog extends GameDialog {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_help_dialog, container, false);
-
-//        startButton = (Button) view.findViewById(R.id.startGameButton);
-//        helpContentTextView = (TextView) view.findViewById(R.id.helpContentTextView);
-//        helpTitleTextView = (TextView) view.findViewById(R.id.helpTitleTextView);
 
         ((TextView)view.findViewById(R.id.helpContentTextView)).setText(mHelpContentText);
         ((TextView)view.findViewById(R.id.helpTitleTextView)).setText(mHelpTitleText);

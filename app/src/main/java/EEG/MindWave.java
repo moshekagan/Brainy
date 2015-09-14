@@ -25,7 +25,6 @@ public class  MindWave extends EegHeadSet {
     private BluetoothAdapter m_BluetoothAdapter;
     private TGDevice m_TgDevice;
     private TGEegPower m_TGEegPower;
-//    private EConnectionState m_ConnectState;
 
     private int m_PreviousAttentionValue;
     private int m_PreviousMeditationValue;
@@ -64,18 +63,6 @@ public class  MindWave extends EegHeadSet {
         m_TgDevice = new TGDevice(m_BluetoothAdapter, m_TgDeviceHandler);
     }
 
-//    public static EegHeadSet getInstance(EHeadSetType headSetType) throws Exception {
-//        if (headSetType == EHeadSetType.MindWave){
-//            if (m_MindWave == null){
-//                m_MindWave = new MindWave();
-//            }
-//        } else {
-//            throw new Exception("Some Wird ERROR Happend Because There is no other type excepted 'MindWave' - WE ARE IN : EegHeadSet.getInstance()");
-//        }
-//
-//        return m_MindWave;
-//    }
-
     // Methods
     @Override
     public EConnectionState connect(){
@@ -95,7 +82,6 @@ public class  MindWave extends EegHeadSet {
             m_TgDevice.close();
             Logs.info(MIND_WAVE, "MindWave Closed! /n bye bye...");
         }
-//        m_IsConnected = false;
     }
 
     @Override
@@ -106,7 +92,6 @@ public class  MindWave extends EegHeadSet {
     private void stateChangeReceived(int newStateValue) {
         switch (newStateValue) {
             case TGDevice.STATE_IDLE:
-                // TODO
                 break;
             case TGDevice.STATE_CONNECTING:
                 Logs.info(MIND_WAVE, Logs.SEPARATOR_LINE + "Connecting..." + Logs.SEPARATOR_LINE);
@@ -142,7 +127,6 @@ public class  MindWave extends EegHeadSet {
     }
 
     private void rawDataReceived(int rawDataValue) {
-        // Logs.info(MIND_WAVE, "Raw Data: " + rawDataValue);
         m_CurrentRawData = rawDataValue;
     }
 

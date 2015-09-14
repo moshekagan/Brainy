@@ -73,7 +73,6 @@ public class NotifyService extends Service {
         // What time to show on the notification
         long time = System.currentTimeMillis();
 
-//        Notification notification = new Notification(icon, text, time);
         Notification notification = new Notification.Builder(getApplicationContext())
                 .setContentTitle(title)
                 .setTicker("Hi there!")

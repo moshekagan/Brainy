@@ -122,7 +122,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
             public View makeView() {
                 TextView textView = new TextView(GuessTheNumberGameActivity.this);
                 textView.setTextAppearance(GuessTheNumberGameActivity.this, R.style.gameOutputText);
-//                textView.setTypeface(AppTextView.getAppFontTypeface());
                 CustomFontHelper.setAppFont(textView, getApplicationContext());
                 return textView;
             }
@@ -253,11 +252,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-
-//    @Override
-//    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-//        final ESignalVolume newSignalVolume = signalVolume;
-//    }
 
     @Override
     protected void startFeedbackSession() {

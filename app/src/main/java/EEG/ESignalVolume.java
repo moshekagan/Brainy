@@ -25,7 +25,6 @@ public enum ESignalVolume {
         if (value == GOOD_SIGNAL.value()){
             resualt = GOOD_SIGNAL;
         } else if (value == HEAD_SET_NOT_COVERED.value()){
-            // Poor signal, head set not covered!
             resualt = HEAD_SET_NOT_COVERED;
         } else if (value < POOR_SIGNAL_HIGH.value()){
             resualt = POOR_SIGNAL_LOW;

@@ -14,7 +14,6 @@ import com.example.first.kaganmoshe.brainy.Utils;
  */
 public class GamesManager {
     private DailyPractice mDailyPractice = new DailyPractice();
-    private boolean mNoHeadsetMode = false;
 
     public void showFinishDialog(FragmentManager fm, GameActivity gameActivity) {
         if (mDailyPractice.isDailyPracticeOn()) {
@@ -25,9 +24,6 @@ public class GamesManager {
     }
 
     public void continueToActivityAfterGameFinished(GameActivity gamesActivity) {
-//        if(mNoHeadsetMode){
-//
-//        }
         if (mDailyPractice.isDailyPracticeOn()) {
             mDailyPractice.continueAfterGameFinished(gamesActivity);
         } else {

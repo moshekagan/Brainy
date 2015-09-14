@@ -4,18 +4,14 @@ package EEG;
  * Created by kaganmoshe on 5/24/15.
  */
 public enum EHeadSetType {
-    MindWave
-    , Moker;
-//    ,Emotive
-//    ,OpenBCI
-//    ,Muse
+    MindWave, Moker;
 
 
     @Override
     public String toString() {
         String res = "";
 
-        switch (this){
+        switch (this) {
             case MindWave:
                 res = "MindWave";
                 break;

@@ -73,10 +73,6 @@ public class StartGameDialogFragment extends DialogFragment {
         continueButton = (Button) rootView.findViewById(R.id.continueButton);
         title = (TextView) rootView.findViewById(R.id.winnerDialogTitle);
 
-//        mContinueButton.setText(continueButtonText);
-//        title.setText(titleText);
-
-//        Utils.changeFont(getActivity().getAssets(), title);
         initButtons();
 
         return rootView;

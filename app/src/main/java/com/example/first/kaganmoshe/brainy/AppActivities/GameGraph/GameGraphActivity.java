@@ -37,6 +37,4 @@ public abstract class GameGraphActivity extends GameActivity {
             gameGraph.stopReceivingData();
         }
     }
-
-
 }

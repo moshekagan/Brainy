@@ -52,7 +52,6 @@ public class ResumeGameCountDown extends GameDialog {
             public void run() {
                 if (isShowing) {
                     if (mCurrTime <= 0) {
-//                        isShowing = false;
                         mCurrTime = COUNTDOWN_TIME;
                         finishResuming();
                     } else {
@@ -78,11 +77,6 @@ public class ResumeGameCountDown extends GameDialog {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         return dialog;
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
     }
 
     @Override

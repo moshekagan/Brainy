@@ -27,14 +27,7 @@ public class SettingsFragment extends DialogFragment {
 
     private Context mContext;
     private SettingsCommunicator mCurrScreen;
-//    private AudioManager mAudioManager;
     private boolean mIsShowing = false;
-    //    private Button increaseButton;
-//    private Button decreaseButton;
-//    private Button muteButton;
-//    private Button doneButton;
-//    private Button musicEnableButton;
-//    private Button musicDisableButton;
 
     public boolean isShowing() {
         return mIsShowing;
@@ -64,7 +57,7 @@ public class SettingsFragment extends DialogFragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
         mIsShowing = true;
@@ -74,11 +67,9 @@ public class SettingsFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container);
 
-//        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         final AudioManager audioManager = AppManager.getInstance().getAudioManager();
         audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-//        decreaseButton = (Button) view.findViewById(R.id.decreaseButton);
         view.findViewById(R.id.decreaseButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -89,7 +80,6 @@ public class SettingsFragment extends DialogFragment {
             }
         });
 
-//        increaseButton = (Button) view.findViewById(R.id.increaseButton);
         view.findViewById(R.id.increaseButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -100,7 +90,6 @@ public class SettingsFragment extends DialogFragment {
             }
         });
 
-//        muteButton = (Button) view.findViewById(R.id.muteButton);
         view.findViewById(R.id.muteButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -111,7 +100,6 @@ public class SettingsFragment extends DialogFragment {
             }
         });
 
-//        doneButton = (Button) view.findViewById(R.id.doneButton);
         view.findViewById(R.id.doneButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +109,6 @@ public class SettingsFragment extends DialogFragment {
             }
         });
 
-//        musicDisableButton = (Button) view.findViewById(R.id.musicDisableButton);
         view.findViewById(R.id.musicDisableButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +116,6 @@ public class SettingsFragment extends DialogFragment {
             }
         });
 
-//        musicEnableButton = (Button) view.findViewById(R.id.musicEnableButton);
         view.findViewById(R.id.musicEnableButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +140,7 @@ public class SettingsFragment extends DialogFragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
         getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -163,7 +149,6 @@ public class SettingsFragment extends DialogFragment {
                                              if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
                                                  mIsShowing = false;
                                                  mCurrScreen.onSettingsBackPressed();
-//                                                 dismiss();
                                                  return true;
                                              } else {
                                                  return false;

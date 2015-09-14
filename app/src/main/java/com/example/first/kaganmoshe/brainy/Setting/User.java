@@ -1,7 +1,5 @@
 package com.example.first.kaganmoshe.brainy.Setting;
 
-import android.provider.ContactsContract;
-
 /**
  * Created by kaganmoshe on 5/30/15.
  */

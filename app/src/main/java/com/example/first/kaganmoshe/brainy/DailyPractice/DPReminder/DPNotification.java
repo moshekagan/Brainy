@@ -10,14 +10,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.first.kaganmoshe.brainy.AppActivities.ActionBarActivity.ActionBarAppActivity;
 import com.example.first.kaganmoshe.brainy.AppActivities.MainActivity;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Utils;
+
 import Utils.AppCheckBox;
 
 /**
@@ -29,7 +28,6 @@ public class DPNotification extends ActionBarAppActivity {
     private ScheduleClient scheduleClient;
     private LinearLayout mCheckBoxesLayout;
     // This is the date picker used to select the date for our notification
-    private DatePicker picker;
 
     private static final String CHECKED_DAYS_PREFERENCES = "CHECKED_DAYS";
     private static final int REMINDER_HOUR = 6;
@@ -50,8 +48,6 @@ public class DPNotification extends ActionBarAppActivity {
         scheduleClient = new ScheduleClient(this.getApplicationContext());
         scheduleClient.doBindService();
 
-//        setTouchNClick(R.id.dpScheduleDoneButton);
-
         findViewById(R.id.dpScheduleDoneButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,31 +57,6 @@ public class DPNotification extends ActionBarAppActivity {
 
 
         initCheckBoxes();
-
-        // Get a reference to our date picker
-//        picker = (DatePicker) findViewById(R.id.scheduleTimePicker);
-    }
-
-    /**
-     * This is the onClick called from the XML to set a new notification
-     */
-    public void onDateSelectedButtonClick(View v) {
-        // Get the date from our datepicker
-//        int day = picker.getDayOfMonth();
-//        int month = picker.getMonth();
-//        int year = picker.getYear();
-        // Create a new calendar set to the date chosen
-        // we set the time to midnight (i.e. the first minute of that day)
-        Calendar c = Calendar.getInstance();
-
-//        c.set(year, month, day);
-        c.set(Calendar.HOUR_OF_DAY, 18);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
-        scheduleClient.setAlarmForNotification(c);
-        // Notify the user what they just did
-        Toast.makeText(this, "Notification set for: " + c.getTime().getDay() + "/" + (c.getTime().getMonth() + 1) + "/" + c.getTime().getYear(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -95,16 +66,6 @@ public class DPNotification extends ActionBarAppActivity {
         if (scheduleClient != null)
             scheduleClient.doUnbindService();
         super.onStop();
-    }
-
-    public void onCancelScheduleButtonClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), NotifyService.class);
-        intent.putExtra(NotifyService.INTENT_NOTIFY, true);
-        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        alarmManager.cancel(pendingIntent);
     }
 
     private void initCheckBoxes() {
@@ -159,7 +120,7 @@ public class DPNotification extends ActionBarAppActivity {
     private void cancelDayReminder(CheckBox dayCheckBox) {
         Intent intent = new Intent(getApplicationContext(), NotifyService.class);
         intent.putExtra(NotifyService.INTENT_NOTIFY, true);
-        intent.putExtra(AlarmTask.DAY, ((AppCheckBox)dayCheckBox).getDayOfWeek());
+        intent.putExtra(AlarmTask.DAY, ((AppCheckBox) dayCheckBox).getDayOfWeek());
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -169,7 +130,7 @@ public class DPNotification extends ActionBarAppActivity {
 
     private void setDayReminder(CheckBox dayCheckBox) {
         Calendar c = Calendar.getInstance();
-        int dayNum = ((AppCheckBox)dayCheckBox).getDayOfWeek();
+        int dayNum = ((AppCheckBox) dayCheckBox).getDayOfWeek();
         int thisDayNum = c.get(Calendar.DAY_OF_WEEK);
 
         c.set(Calendar.HOUR_OF_DAY, REMINDER_HOUR);
@@ -177,7 +138,7 @@ public class DPNotification extends ActionBarAppActivity {
         c.set(Calendar.SECOND, REMINDER_SECOND);
         c.set(Calendar.DAY_OF_WEEK, dayNum);
 
-        if(dayNum < thisDayNum || (dayNum == thisDayNum && c.get(Calendar.HOUR_OF_DAY) >= REMINDER_HOUR)){
+        if (dayNum < thisDayNum || (dayNum == thisDayNum && c.get(Calendar.HOUR_OF_DAY) >= REMINDER_HOUR)) {
             int i = c.get(Calendar.WEEK_OF_MONTH);
             c.set(Calendar.WEEK_OF_MONTH, ++i);
         }

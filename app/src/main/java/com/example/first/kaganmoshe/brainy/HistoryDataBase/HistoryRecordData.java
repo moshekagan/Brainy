@@ -2,7 +2,6 @@ package com.example.first.kaganmoshe.brainy.HistoryDataBase;
 
 import android.util.Log;
 
-import com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryDBAdapter;
 
 /**
  * Created by tamirkash on 8/26/15.
@@ -21,12 +20,10 @@ public class HistoryRecordData {
                 this.name = value;
                 break;
             case HistoryDBAdapter.HistoryDB.SCORE:
-//                this.score = Integer.valueOf(value);
                 this.score = value;
                 break;
             case HistoryDBAdapter.HistoryDB.CONCENTRATION:
                 this.concentration = value;
-//                this.concentration = Integer.valueOf(value);
                 break;
             case HistoryDBAdapter.HistoryDB.DATE_TIME:
                 this.date = value.substring(8, 10) + "." + value.substring(5, 7)

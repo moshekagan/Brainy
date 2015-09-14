@@ -1,10 +1,6 @@
 package EEG;
 
 import android.os.Handler;
-import android.util.Log;
-
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,7 +10,6 @@ import java.util.TimerTask;
  */
 public class MockerHeadSet extends EegHeadSet {
     final String MOCKER = "Mocker";
-    int stam = 0;
     private EConnectionState state = EConnectionState.DEVICE_CONNECTED;
     public Random rand = new Random();
 
@@ -28,9 +23,6 @@ public class MockerHeadSet extends EegHeadSet {
                 for (IHeadSetData headSetData : m_HeadSetData) {
                     if (headSetData != null){
                         headSetData.onAttentionReceived(randomNum);
-//                        if (stam++ < 3){
-//                            raiseOnHeadSetChangedState(MOCKER, m_CurrentState);
-//                        }
                     }
                 }
             }
@@ -44,8 +36,6 @@ public class MockerHeadSet extends EegHeadSet {
         };
 
         Handler handler = new Handler();
-//        handler.postDelayed(notConnectedTimer, 5000);
-
         Runnable connectedTimer = new Runnable() {
             @Override
             public void run() {

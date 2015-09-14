@@ -1,13 +1,8 @@
 package com.example.first.kaganmoshe.brainy.Games.Dialogs;
 
 
-import android.annotation.TargetApi;
 import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,20 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
 import com.example.first.kaganmoshe.brainy.R;
-
-import java.net.URI;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FinishGameDialog extends GameDialog {
 
-    //TODO - replace with soundPool
     private MediaPlayer winnerSound;
-//    private SoundPool mSoundPool;
-//    private int finishSoundId;
     private TextView mTitleTextView;
     private Button mContinueButton;
     private String mTitle = "Well Done";
@@ -73,16 +62,9 @@ public class FinishGameDialog extends GameDialog {
         this.mDPTitle = dpTitle;
     }
 
-    //    @Override
-//    protected void fireBackClickedEvent() {
-//        mListener.onDialogBackClicked(FinishGameDialog.class);
-//    }
-
-
     @Override
     public void onDetach() {
         super.onDetach();
-//        mSoundPool.stop(finishSoundId);
         winnerSound.stop();
     }
 
@@ -126,23 +108,6 @@ public class FinishGameDialog extends GameDialog {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         winnerSound = MediaPlayer.create(getActivity(), R.raw.finish_sound);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            createNewSoundPool();
-//        }else{
-//            createOldSoundPool();
-//        }
-//
-//        finishSoundId = mSoundPool.load(AppManager.getContext(), R.raw.winner_sound, 1);
-//
-//        mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-//            @Override
-//            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-//                if (sampleId == R.raw.winner_sound) {
-//                    playSound();
-//                }
-//            }
-//        });
         playSound();
 
         return dialog;
@@ -152,22 +117,9 @@ public class FinishGameDialog extends GameDialog {
     public void onStop() {
         super.onStop();
         winnerSound.stop();
-//        mSoundPool.stop(finishSoundId);
     }
 
     private void playSound() {
-//        mSoundPool.play(finishSoundId, 1, 1, 1, 0, 1);
         winnerSound.start();
     }
-
-//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-//    protected void createNewSoundPool(){
-//        mSoundPool = new SoundPool.Builder()
-//                .setMaxStreams(10)
-//                .build();
-//    }
-//    @SuppressWarnings("deprecation")
-//    protected void createOldSoundPool(){
-//        mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
-//    }
 }

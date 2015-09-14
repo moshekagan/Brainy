@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.first.kaganmoshe.brainy" >
+    package="com.example.first.kaganmoshe.brainy">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -9,15 +9,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_brainy_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.TranslucentActionBar.ActionBar.Overlay" >
+        android:theme="@style/Theme.TranslucentActionBar.ActionBar.Overlay">
         <activity
             android:name=".AppActivities.ConnectionActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar">
 
-            <!-- android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" > -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,68 +27,49 @@
             android:name=".Games.GuessTheNumber.GuessTheNumberGameActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_game"
-            android:screenOrientation="portrait" >
-        </activity>
-        <!-- <activity -->
-        <!-- android:name=".ConnectionActivity" -->
-        <!-- android:configChanges="orientation" -->
-        <!-- android:label="@string/title_activity_setting" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@android:style/Theme.Holo.Light.NoActionBar" > -->
-        <!-- </activity> -->
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".AppActivities.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_menu"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Feedback.FeedbackActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_feedback"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Games.HotAirBallon.HotAirBalloonGameActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_hot_air_ballon"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Games.CrazyCube.CrazyCubeActivity"
             android:label="@string/title_activity_crazy_cube"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Games.MindShooter.MindShooterGameActivity"
             android:label="@string/title_activity_maind_shooter_game"
-            android:screenOrientation="landscape" >
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".AppActivities.GameGraph.GameGraphActivity"
-            android:label="@string/title_activity_game_graph" >
-        </activity>
+            android:label="@string/title_activity_game_graph"></activity>
         <activity
             android:name=".AppActivities.ActionBarActivity.ActionBarAppActivity"
-            android:label="@string/title_activity_action_bar_app" >
-        </activity>
+            android:label="@string/title_activity_action_bar_app"></activity>
         <activity
             android:name=".HistoryDataBase.HistoryActivity"
             android:label="@string/title_activity_history"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Feedback.DPFeedbackActivity"
-            android:label="@string/title_activity_dpfeedback" >
-        </activity>
+            android:label="@string/title_activity_dpfeedback"></activity>
         <activity
             android:name=".Feedback.FBActivity"
-            android:label="@string/title_activity_fb" >
-        </activity>
+            android:label="@string/title_activity_fb"></activity>
         <activity
             android:name=".DailyPractice.DPReminder.DPNotification"
-            android:label="Notification" >
-        </activity>
+            android:label="Notification"></activity>
 
         <service android:name=".DailyPractice.DPReminder.ScheduleService" />
         <service android:name=".DailyPractice.DPReminder.NotifyService" />

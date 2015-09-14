@@ -4,21 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-
 import android.content.res.AssetManager;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.util.Size;
-import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.security.cert.PolicyNode;
-
 import Utils.Logs;
-
-import EEG.IHeadSetData;
 
 /**
  * Created by tamirkash on 5/28/15.
@@ -27,13 +17,6 @@ public class Utils {
     public static final String UTILS = "Utils";
     public static final String CALLING_CLASS = "CALLING_CLASS";
 
-//    public static final String GUESS_NUMBER_TITLE_FONT = "fonts/Kidsn.ttf";
-//    //TODO - make this generic
-//
-//    public static void changeFont(AssetManager am, TextView view){
-//        Typeface tf = Typeface.createFromAsset(am, GUESS_NUMBER_TITLE_FONT);
-//        view.setTypeface(tf);
-//    }
     public static final String GUESS_NUMBER_TITLE_FONT = "fonts/Kidsn.ttf";
     //TODO - make this generic
 
@@ -55,10 +38,7 @@ public class Utils {
         activity.finish();
     }
 
-    // Need to call by application like that (For example):
-    // Utils.showToastMessage(getApplicationContext(), "Your Message");
     public static void showToastMessage(Context context, String msg){
-//        Context context = getApplicationContext();
         CharSequence text = msg;
         int duration = Toast.LENGTH_SHORT;
 
@@ -66,18 +46,7 @@ public class Utils {
         toast.show();
     }
 
-    // Return point like that:
-    // p.x = activity width
-    // p.y = activity height
     static public Point getActivityScreenSize(Activity activity){
-//        Point displaySize = new Point();
-//        getWindowManager().getDefaultDisplay().getRealSize(displaySize);
-//
-//        Rect windowSize = new Rect();
-//        getWindow().getDecorView().getWindowVisibleDisplayFrame(windowSize);
-//
-//        int width = displaySize.x - Math.abs(windowSize.width());
-//        int height = displaySize.y - Math.abs(windowSize.height());
         int width = activity.getResources().getDisplayMetrics().widthPixels;
         int height = activity.getResources().getDisplayMetrics().heightPixels;
 
