@@ -46,8 +46,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
-//        this.setOnBackPressedActivity(LoginActivity.class);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
                 R.layout.headsets_spinner_row, HEADSETS);
 
@@ -114,8 +112,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
             AppManager.getInstance().connectToHeadSet();
             mConnectProgressBar.setVisibility(View.VISIBLE);
         }
-//        // TODO - Update settings
-//        Utils.startNewActivity(this, MainActivity.class);
     }
 
     @Override

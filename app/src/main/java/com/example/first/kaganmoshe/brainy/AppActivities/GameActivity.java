@@ -34,12 +34,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected boolean mWasGameStarted = false;
     protected LinkedHashMap<String, String> mExtraStats = new LinkedHashMap<>();
 
-//    protected GraphView mGraphView;
-    //    private Class targetActivity = null;
-    //    protected GraphFragment graphFragment;
-//    protected LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-//    protected int lastXGraphAtt = 0;
-
     // Need To Implements
     protected abstract void startFeedbackSession();
 
@@ -74,11 +68,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         mFinishGameDialog.setTitle(this.setFinishDialogTitle());
 
         initGameHelpDialog();
-//        try {
-//            mBackPressedActivityTarget = Class.forName(getIntent().getStringExtra(Utils.CALLING_CLASS));
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
 
         mBackPressedActivityTarget = MainActivity.class;
     }
@@ -91,16 +80,9 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         mGameHelpDialog.setHelpTitleText(gameTitle);
     }
 
-//    @Override
-//    public void onGameDialogBackPressed() {
-//        Utils.startNewActivity(this, MainActivity.class);
-//    }
-
     @Override
     protected void onStart(){
         super.onStart();
-
-//        AppManager.getInstance().muteMusicForAppRequest(true);
 
         if(!mWasGameStarted && !AppManager.getInstance().getGamesManager().isDailyPracticeModeOn()){
             mWasGameStarted = true;
@@ -123,14 +105,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
                 && !mResumeGameCountDown.isShowing() && !mGameHelpDialog.isShowing()) {
             mResumeGameCountDown.show(mFragmentManager, "SHOW COUNTDOWN");
         }
-
-//        if(this.hasWindowFocus() && !mHomeButtonPopup.isShowing()){
-//            mResumeGameCountDown.show(mFragmentManager, "SHOW COUNTDOWN");
-//        }
-
-//        showResumeCountdown();
-//                Log.d("GRAPH_LIFE", "RESUME_GRAPH_ON_RESUME");
-//                resumeReceivingEEGData();
     }
 
     @Override
@@ -158,40 +132,13 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         }
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        graphFragment.stopReceivingData();
-//        mFeedback.stopTimerAndRecievingData();
-//    }
-
     protected void showFinishDialog() {
         onPause();
         AppManager.getInstance().getGamesManager().showFinishDialog(mFragmentManager, this);
-//        mFinishGameDialog.show(mFragmentManager, "FinishGameDialog");
     }
-
-//    @Override
-//    public void onFinishDialogConfirmed() {
-//        Intent intent = makeIntentForFeedback();
-//
-//        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
-//        Utils.startNewActivity(this, intent);
-//    }
-
-//    @Override
-//    protected void homeMenuButtonClicked() {
-//        mResumeGameCountDown.show(mFragmentManager, "Show Resume");
-//        super.homeMenuButtonClicked();
-//    }
-
-//    private Intent makeIntentForFeedback() {
-//        return makeIntent(FeedbackActivity.class);
-//    }
 
     private Intent makeIntentForFinishedGame(Class targetActivity){
         Intent intent = new Intent(getApplicationContext(), targetActivity);
-//        int score = calculateScore();
 
         intent.putExtra(FeedbackActivity.DISTRACTION_STAT, Integer.toString(mFeedback.getDistractionScore()));
         intent.putExtra(FeedbackActivity.SCORE_STAT, Integer.toString(mFeedback.getGameScore()));
