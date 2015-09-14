@@ -28,7 +28,6 @@ import java.util.Random;
 
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
-import Utils.Logs;
 
 public class MindShooterGameActivity extends GameActivity implements IMindShooter, AppTimer.IAppTimerListener {
 
@@ -165,9 +164,6 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     private void calcViewSizeAbdLocation(ImageView image, Point pointLocation, Point pointSize) {
         pointSize.set(image.getHeight(), image.getWidth());
         pointLocation.set(image.getLeft(), image.getTop());
-
-        Logs.error(MIND_SHOOTER_GAME_ACTIVITY, "Image location: " + pointLocation.toString());
-        Logs.error(MIND_SHOOTER_GAME_ACTIVITY, "Image size: " + pointSize.toString());
     }
 
     private void moveImageViewTo(ImageView image,Point newDestination, int duration){
@@ -211,31 +207,22 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         return 100;
     }
 
-    // GameActivity Override Methods
     @Override
     protected void startFeedbackSession() {
         mFeedback = new MindShooterFeedback();
     }
 
     @Override
-    public void onAttentionReceived(int attValue) {
-
-    }
+    public void onAttentionReceived(int attValue) {}
 
     @Override
-    public void onMeditationReceived(int medValue) {
-
-    }
+    public void onMeditationReceived(int medValue) {}
 
     @Override
-    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
-
-    }
+    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {}
 
     @Override
-    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-
-    }
+    public void onPoorSignalReceived(ESignalVolume signalVolume) {}
 
     // implements IMindShooter
     @Override

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -138,7 +137,6 @@ public class HistoryDBAdapter {
                     continue;
                 }
 
-                Log.d("DB", cursor.getString(cursor.getColumnIndex(column)));
                 record.addAttribute(cursor.getString(cursor.getColumnIndex(column)), column);
             }
 

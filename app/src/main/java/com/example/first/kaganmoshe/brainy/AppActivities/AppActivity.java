@@ -118,5 +118,4 @@ public abstract class AppActivity extends FragmentActivity implements View.OnCli
     protected boolean playMusicInActivity(){
         return true;
     }
-
 }

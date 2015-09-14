@@ -6,7 +6,6 @@ import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
 
@@ -60,7 +59,6 @@ public abstract class GameDialog extends DialogFragment {
     }
 
     protected void fireBackClickedEvent() {
-        Log.d("Back Clicked", this.getClass().toString());
         mListener.onDialogBackClicked(this.getClass());
     }
 
@@ -68,7 +66,6 @@ public abstract class GameDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
 
-        // request a window without the title
         dialog.getWindow().
                 requestFeature(Window.FEATURE_NO_TITLE);
         dialog.setCanceledOnTouchOutside(false);

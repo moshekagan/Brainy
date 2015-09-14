@@ -16,7 +16,6 @@ import EEG.EConnectionState;
 import EEG.EHeadSetType;
 import EEG.ESignalVolume;
 import EEG.IHeadSetData;
-import Utils.Logs;
 
 
 public class ConnectionActivity extends AppActivity implements IHeadSetData{
@@ -50,7 +49,7 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
 
         mHeadsetSpinner = (BetterSpinner) findViewById(R.id.showList);
         mConnectButton = (Button) findViewById(R.id.connectButton);
-        mSkipButton = (Button) findViewById(R.id.skipButton);
+//        mSkipButton = (Button) findViewById(R.id.skipButton);
         mConnectProgressBar = (ProgressBar) findViewById(R.id.connectProgressBar);
 
         mConnectProgressBar.setVisibility(View.INVISIBLE);
@@ -71,7 +70,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
                 }
 
                 mHeadSetType = (headSetSelection.equals("MindWave")) ? EHeadSetType.MindWave : EHeadSetType.Moker;
-                Logs.debug("HEADSET_TYPE", headSetSelection);
                 mHeadsetSpinner.onItemClick(parent, view, position, id);
 
             }
@@ -79,7 +77,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         mHeadsetSpinner.setAdapter(adapter);
 
         initViewActivity();
-//
         AppManager.getInstance().setBackgroundMusic(getApplicationContext());
         AppManager.getInstance().playBackgroundMusic();
     }
@@ -92,9 +89,7 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
         });
     }
 
-
     private void updateHeadSetType() {
-        Logs.debug(SETTINGS_ACTIVITY, "Set Headset to: " + mHeadSetType.toString());
         AppManager.getInstance().getAppSettings().setHeadSetType(mHeadSetType);
     }
 
@@ -117,6 +112,15 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
     @Override
     public void onBackPressed(){
         finish();
+    }
+
+    protected void onResume(){
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
     }
 
     @Override

@@ -19,7 +19,6 @@ public class MockerHeadSet extends EegHeadSet {
             @Override
             public void run() {
                 int randomNum = rand.nextInt(51) + 50;
-                // What you want to do goes here
                 for (IHeadSetData headSetData : m_HeadSetData) {
                     if (headSetData != null){
                         headSetData.onAttentionReceived(randomNum);
@@ -27,13 +26,6 @@ public class MockerHeadSet extends EegHeadSet {
                 }
             }
         }, 0, 1000);
-
-        Runnable notConnectedTimer = new Runnable() {
-            @Override
-            public void run() {
-                raiseOnHeadSetChangedState(MOCKER, EConnectionState.DEVICE_NOT_CONNECTED);
-            }
-        };
 
         Handler handler = new Handler();
         Runnable connectedTimer = new Runnable() {

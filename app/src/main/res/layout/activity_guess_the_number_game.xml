@@ -10,20 +10,6 @@
     android:weightSum="60"
     tools:context=".GuessTheNumberGameActivity">
 
-    <!--android:background="@drawable/background"-->
-
-
-    <!--<TextView-->
-    <!--android:text="@string/guess_number_title"-->
-    <!--android:id="@+id/guessNumberTitle"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--android:layout_marginLeft="@dimen/start_margin_layout"-->
-    <!--android:layout_marginStart="@dimen/start_margin_layout"-->
-    <!--style="@style/guessTheNumberTitle"-->
-    <!--android:layout_weight="0" />-->
-
     <Utils.AppTextView
         android:id="@+id/guessNumberRequest"
         android:layout_width="wrap_content"
@@ -254,11 +240,6 @@
         android:layout_weight="15"
         android:orientation="horizontal"
         android:weightSum="20">
-
-        <!--<android.widget.Space-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1" />-->
 
         <com.jjoe64.graphview.GraphView
 

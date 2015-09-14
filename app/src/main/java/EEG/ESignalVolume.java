@@ -15,23 +15,23 @@ public enum ESignalVolume {
         this.value = value;
     }
 
-    public int value(){
+    public int value() {
         return value;
     }
 
-    static public ESignalVolume getSignalVolume(int value){
-        ESignalVolume resualt;
+    static public ESignalVolume getSignalVolume(int value) {
+        ESignalVolume result;
 
-        if (value == GOOD_SIGNAL.value()){
-            resualt = GOOD_SIGNAL;
-        } else if (value == HEAD_SET_NOT_COVERED.value()){
-            resualt = HEAD_SET_NOT_COVERED;
-        } else if (value < POOR_SIGNAL_HIGH.value()){
-            resualt = POOR_SIGNAL_LOW;
+        if (value == GOOD_SIGNAL.value()) {
+            result = GOOD_SIGNAL;
+        } else if (value == HEAD_SET_NOT_COVERED.value()) {
+            result = HEAD_SET_NOT_COVERED;
+        } else if (value < POOR_SIGNAL_HIGH.value()) {
+            result = POOR_SIGNAL_LOW;
         } else {
-            resualt = POOR_SIGNAL_HIGH;
+            result = POOR_SIGNAL_HIGH;
         }
 
-        return resualt;
+        return result;
     }
 }

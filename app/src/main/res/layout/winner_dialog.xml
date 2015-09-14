@@ -65,16 +65,6 @@
 
         </RelativeLayout>
 
-
-        <!--<Button-->
-        <!--android:id="@+id/continueButton"-->
-        <!--android:layout_width="45dp"-->
-        <!--android:layout_height="45dp"-->
-        <!--android:layout_below="@+id/brainyWinnerImage"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:background="@drawable/ic_play_button" />-->
-
-
     </LinearLayout>
 
 </RelativeLayout>

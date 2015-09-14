@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 
 import com.example.first.kaganmoshe.brainy.AppActivities.GameActivity;
 import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
@@ -54,7 +53,6 @@ public class DailyPractice {
         int concentration = FeedbackClass.getConcentrationScore(gameActivity.getFeedback().getConcentrationPoints());
 
         mParcelableConcentrationPointsList.add(new ParcelableDataPoint(mCurrConcentrationPointIndex++, concentration));
-        Log.d("DAILY PRACTICE", "CONCENTRATION (" + String.valueOf(mCurrGameNum) + "): " + String.valueOf(concentration));
         mCurrGameNum++;
 
         if (mCurrGameNum > TOTAL_GAMES) {
@@ -108,8 +106,6 @@ public class DailyPractice {
         SharedPreferences sharedPref = gameActivity.getApplicationContext().getSharedPreferences("bestScore", Context.MODE_PRIVATE);
         int defaultValue = gameActivity.getResources().getInteger(R.integer.default_high_score);
         long highScore = sharedPref.getInt(gameActivity.getClass().getCanonicalName(), defaultValue);
-
-        Log.d("DP", "defaultValue=" +defaultValue+ " highScore=" + highScore);
 
         if(highScore < finalScore){
             FeedbackActivity.setBestScore(gameActivity, gameActivity.getClass().getCanonicalName(), finalScore);

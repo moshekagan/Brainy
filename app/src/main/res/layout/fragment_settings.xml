@@ -8,16 +8,6 @@
     android:paddingBottom="@dimen/pad_10dp"
     tools:context="com.example.first.kaganmoshe.brainy.AppManagement.SettingsFragment">
 
-    <!--<ImageView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_alignBottom="@id/dialog_layout_main"-->
-    <!--android:layout_alignEnd="@id/dialog_layout_main"-->
-    <!--android:layout_alignStart="@id/dialog_layout_main"-->
-    <!--android:layout_alignTop="@+id/dialog_layout_main"-->
-    <!--android:scaleType="fitXY"-->
-    <!--android:src="@drawable/background" />-->
-
     <LinearLayout
         android:id="@+id/dialog_layout_main"
         android:layout_width="wrap_content"
@@ -151,6 +141,3 @@
 
     </LinearLayout>
 </RelativeLayout>
-
-
-    <!--</LinearLayout>-->

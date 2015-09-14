@@ -8,30 +8,6 @@
     android:paddingBottom="@dimen/pad_10dp"
     tools:context=".QuitGameDialog">
 
-    <!--android:layout_gravity="center_horizontal"-->
-
-
-    <!--<ImageView-->
-    <!--android:src="@drawable/winner_background"-->
-    <!--android:scaleType="fitXY"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_alignTop="@+id/dialog_layout_main"-->
-    <!--android:layout_alignBottom="@id/dialog_layout_main"-->
-    <!--android:layout_alignLeft="@id/dialog_layout_main"-->
-    <!--android:layout_alignRight="@id/dialog_layout_main" />-->
-
-
-    <!--<ImageView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_alignBottom="@id/dialog_layout_main"-->
-    <!--android:layout_alignEnd="@id/dialog_layout_main"-->
-    <!--android:layout_alignStart="@id/dialog_layout_main"-->
-    <!--android:layout_alignTop="@+id/dialog_layout_main"-->
-    <!--android:scaleType="fitXY"-->
-    <!--android:src="@drawable/background" />-->
-
     <LinearLayout
         android:id="@+id/dialog_layout_main"
         android:layout_width="match_parent"
@@ -93,10 +69,7 @@
                     android:stateListAnimator="@null"
                     android:text="@string/winner_dialog_quit" />
 
-
             </RelativeLayout>
-
-
 
         </LinearLayout>
 

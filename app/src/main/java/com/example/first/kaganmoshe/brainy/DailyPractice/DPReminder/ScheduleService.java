@@ -6,7 +6,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 /**
  * Created by tamirkash on 9/4/15.
@@ -23,8 +22,6 @@ public class ScheduleService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("ScheduleService", "Received start id " + startId + ": " + intent);
-
         // We want this service to continue running until it is explicitly stopped, so return sticky.
         return START_STICKY;
     }

@@ -154,7 +154,6 @@ public class SettingsFragment extends DialogFragment {
                                                  return false;
                                              }
                                          }
-                                     }
-        );
+                                     });
     }
 }

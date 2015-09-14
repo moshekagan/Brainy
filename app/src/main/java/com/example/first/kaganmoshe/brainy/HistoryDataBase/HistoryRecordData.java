@@ -1,7 +1,5 @@
 package com.example.first.kaganmoshe.brainy.HistoryDataBase;
 
-import android.util.Log;
-
 
 /**
  * Created by tamirkash on 8/26/15.
@@ -28,7 +26,6 @@ public class HistoryRecordData {
             case HistoryDBAdapter.HistoryDB.DATE_TIME:
                 this.date = value.substring(8, 10) + "." + value.substring(5, 7)
                         + "." + value.substring(2, 4) + " - " + value.substring(11);
-                Log.d("DB", "Date: " + this.date);
                 break;
         }
     }

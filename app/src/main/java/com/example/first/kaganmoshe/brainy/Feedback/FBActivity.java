@@ -2,7 +2,6 @@ package com.example.first.kaganmoshe.brainy.Feedback;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -97,7 +96,6 @@ public abstract class FBActivity extends ActionBarAppActivity {
         SharedPreferences sharedPref = appActivity.getApplicationContext().getSharedPreferences("bestScore", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, score);
-        Log.d("DP", "setBestScore: key=" + key + " score=" + score);
         editor.commit();
     }
 }

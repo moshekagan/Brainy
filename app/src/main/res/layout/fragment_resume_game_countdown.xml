@@ -24,14 +24,4 @@
 
     </LinearLayout>
 
-
-    <!--android:background="@drawable/circle_border"-->
 </RelativeLayout>
-
-<!--<TextView-->
-<!--android:id="@+id/countdownTimer"-->
-<!--android:layout_width="wrap_content"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:gravity="center_vertical"-->
-<!--android:text="9"-->
-<!--android:textAppearance="?android:attr/textAppearanceMedium" />-->

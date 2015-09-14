@@ -1,7 +1,5 @@
 package com.example.first.kaganmoshe.brainy.Setting;
 
-import android.util.Log;
-
 import EEG.EHeadSetType;
 
 /**
@@ -43,7 +41,6 @@ public class AppSettings {
         }
 
         m_HeadSetType = type;
-        Log.i("HEADSET_SET", type.toString());
     }
 
     public EHeadSetType getHeadSetType(){

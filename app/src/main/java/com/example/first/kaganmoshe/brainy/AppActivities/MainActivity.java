@@ -81,9 +81,10 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
         }
     }
 
-    private static MenuCustomList mGamesRowsAdapter;
-    private final DPStartDialog mDailyPracticeStartDialog = new DPStartDialog();
     private ListView mGamesRowsListView;
+    private final DPStartDialog mDailyPracticeStartDialog = new DPStartDialog();
+    private static final String MENU_TOOLBAR_TEXT = "Menu";
+    private static MenuCustomList mGamesRowsAdapter;
     public static final String HOT_AIR_BALLOON_STR = "Hot Air Balloon";
     public static final String CRAZY_CUBE_STR = "Crazy Cube";
     public static final String MIND_SHOOTER_STR = "Mind Shooter";

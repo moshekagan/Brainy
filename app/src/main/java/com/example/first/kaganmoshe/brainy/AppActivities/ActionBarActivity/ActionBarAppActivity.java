@@ -3,7 +3,6 @@ package com.example.first.kaganmoshe.brainy.AppActivities.ActionBarActivity;
 import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -121,7 +120,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mSettingsFragment.setCommunicator(this, getApplicationContext());
     }
 
@@ -143,7 +141,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
         mHomeButtonPopup.setContentWidth(popupMenuRowWidth);
         mHomeButtonPopup.setAnimationStyle(R.style.animation_menu_button_popup);
 
-        //TODO - need to change if user picks settings or someplace that doest switch context
         mHomeButtonPopup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -153,7 +150,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                         break;
                     case MAIN_ACTIVITY_STR:
                         if (parent.getContext().getClass() != MainActivity.class) {
-                            Log.d("APP_CONTEXT", parent.getContext().getClass().toString());
                             onPopupMenuOptionSelected();
                         }
                         break;
@@ -163,7 +159,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
                 }
 
                 if (mHomeButtonPopup.isShowing()) {
-                    Log.d("HOME BUTTON", "setOnItemClickListener dismiss");
                     mHomeButtonPopup.dismiss();
                 }
             }
@@ -200,7 +195,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
 
     private void setNewConnectionIconByConnectionState(EConnectionState connectionState) {
 
-        //TODO - need to take care of the synchronization. the if statement is not enough!!!!
         if (mConnectionMenuItem != null) {
             switch (connectionState) {
                 case DEVICE_CONNECTED:
@@ -238,18 +232,15 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home && !mHomeButtonPopup.isShowing()) {
-            Log.d("HOME BUTTON", "onOptionsItemSelected calls homeMenuButtonClicked()");
             homeMenuButtonClicked();
         } else if (item.getItemId() != android.R.id.home && mHomeButtonPopup.isShowing()) {
             mHomeButtonPopup.dismiss();
-            Log.d("HOME BUTTON", "onOptionsItemSelected dismiss");
         }
 
         return true;
     }
 
     protected void homeMenuButtonClicked() {
-        Log.d("HOME BUTTON", "homeMenuButtonClicked()");
         mHomeButtonPopup.show();
     }
 
@@ -260,8 +251,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
         final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int count = adapter.getCount();
-
-        Log.d("POPUP", "Count=" + count);
 
         for (int i = 0; i < count; i++) {
             final int positionType = adapter.getItemViewType(i);
@@ -278,7 +267,6 @@ public abstract class ActionBarAppActivity extends AppActivity implements IHeadS
             itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                     View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
             itemView.measure(widthMeasureSpec, heightMeasureSpec);
-            Log.d("POPUP", "viewWidth=" + itemView.getMeasuredWidth() + " maxWidth=" + width);
             width = Math.max(width, itemView.getMeasuredWidth());
         }
         //TODO - const

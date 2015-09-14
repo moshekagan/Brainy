@@ -30,7 +30,6 @@ import com.jjoe64.graphview.GraphView;
 import EEG.EConnectionState;
 import EEG.EegHeadSet;
 import Utils.CustomFontHelper;
-import Utils.Logs;
 
 
 public class GuessTheNumberGameActivity extends GameGraphActivity {
@@ -218,7 +217,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
     @Override
     public void onMeditationReceived(int medValue) {
         String GUESS_THE_NUMBER_GAME_ACTIVITY = "GuessTheNumberGameActivity";
-        Logs.info(GUESS_THE_NUMBER_GAME_ACTIVITY, "Got Meditation!" + EegHeadSet.MEDITATION_STR + ": " + medValue);
     }
 
     @Override

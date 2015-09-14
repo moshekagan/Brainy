@@ -27,14 +27,6 @@
         android:layout_gravity="center_horizontal"
         android:scaleType="centerInside"/>
 
-    <!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_marginStart="@dimen/pad_20dp"-->
-    <!--android:layout_weight="7"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:paddingBottom="@dimen/pad_20dp">-->
-
     <LinearLayout
         android:id="@+id/feedbackStatsLayout"
         android:layout_width="match_parent"
@@ -46,7 +38,6 @@
         android:paddingStart="@dimen/pad_15dp">
 
     </LinearLayout>
-    <!--</ScrollView>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,11 +46,6 @@
         android:orientation="horizontal"
         android:paddingBottom="@dimen/pad_10dp"
         android:weightSum="20">
-
-        <!--<android.widget.Space-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1" />-->
 
         <com.jjoe64.graphview.GraphView
 

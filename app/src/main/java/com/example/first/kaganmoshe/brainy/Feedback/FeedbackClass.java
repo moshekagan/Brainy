@@ -1,12 +1,8 @@
 package com.example.first.kaganmoshe.brainy.Feedback;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.example.first.kaganmoshe.brainy.AppManagement.AppManager;
-
 import java.util.ArrayList;
-
 import EEG.EConnectionState;
 import EEG.ESignalVolume;
 import EEG.EegHeadSet;
@@ -52,7 +48,6 @@ public abstract class FeedbackClass implements IHeadSetData {
     @Override
     public void onAttentionReceived(int attValue) {
         concentrationPoints.add(new ParcelableDataPoint(mLastX++, attValue));
-        Log.d("FEEDBACK - onAttention", "att=" + attValue);
     }
 
     @Override
@@ -83,7 +78,6 @@ public abstract class FeedbackClass implements IHeadSetData {
     public void insertRecordToHistoryDB(Context context, String name) {
         int concentrationScore = getConcentrationScore(concentrationPoints);
 
-        Log.d("DP", name);
         AppManager.getHistoryDBInstance(context).insertRecord(name, concentrationScore
                 + getGameScore() + getDistractionScore(), concentrationScore);
     }
@@ -92,7 +86,6 @@ public abstract class FeedbackClass implements IHeadSetData {
         int concentrationSum = 0;
 
         for (ParcelableDataPoint dp : concentrationPoints) {
-            Log.d("FEEDBACK - getScore", "att=" + dp.getY());
             concentrationSum += dp.getY();
         }
 

@@ -44,7 +44,4 @@ public class CustomFontHelper {
             textView.setTypeface(tf);
         }
     }
-
-
-
 }

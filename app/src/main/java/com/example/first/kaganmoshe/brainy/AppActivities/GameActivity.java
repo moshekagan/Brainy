@@ -2,7 +2,6 @@ package com.example.first.kaganmoshe.brainy.AppActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.PopupWindow;
 
@@ -37,7 +36,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected abstract void startFeedbackSession();
 
     protected void onMenuPopupShow() {
-        Log.d("FEEDBACK_USER_PAUSE", "PAUSED");
     }
 
     protected abstract String setContentForHelpDialog();
@@ -82,7 +80,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected void onStart() {
         super.onStart();
 
-        if (!mWasGameStarted && !AppManager.getInstance().getGamesManager().isDailyPracticeModeOn()) {
+        if(!mWasGameStarted && !AppManager.getInstance().getGamesManager().isDailyPracticeModeOn()){
             mWasGameStarted = true;
             mGameHelpDialog.show(mFragmentManager, "helpDialog");
         }
@@ -97,8 +95,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     protected void onResume() {
         super.onResume();
 
-        Log.d("RESUME", "onResume");
-
         if (!mQuitGameDialog.isShowing() && !mSettingsFragment.isShowing() && !mHomeButtonPopup.isShowing()
                 && !mResumeGameCountDown.isShowing() && !mGameHelpDialog.isShowing()) {
             mResumeGameCountDown.show(mFragmentManager, "SHOW COUNTDOWN");
@@ -108,23 +104,17 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("GRAPH_LIFE", "STOPPING_GRAPH_ON_PAUSE");
         mFeedback.incNumOfUserPauses();
         stopReceivingEEGData();
     }
 
     protected void stopReceivingEEGData() {
-        Log.d("GRAPH_LIFE", "STOPPING_GRAPH");
-
         if (mFeedback != null) {
             mFeedback.stopTimerAndRecievingData();
         }
     }
 
     protected void resumeReceivingEEGData() {
-        Log.d("GRAPH_LIFE", "RESUME_GRAPH");
-
-
         if (mFeedback != null) {
             mFeedback.resumeTimerAndReceivingData();
         }
@@ -135,7 +125,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         AppManager.getInstance().getGamesManager().showFinishDialog(mFragmentManager, this);
     }
 
-    private Intent makeIntentForFinishedGame(Class targetActivity) {
+    private Intent makeIntentForFinishedGame(Class targetActivity){
         Intent intent = new Intent(getApplicationContext(), targetActivity);
 
         intent.putExtra(FeedbackActivity.DISTRACTION_STAT, Integer.toString(mFeedback.getDistractionScore()));
@@ -147,7 +137,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         return intent;
     }
 
-    protected void loadExtraStatsToIntent(Intent intent) {
+    protected void loadExtraStatsToIntent(Intent intent){
         ArrayList<String> extraStatKeys = new ArrayList<>();
 
         for (String extraStat : mExtraStats.keySet()) {
@@ -197,8 +187,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     @Override
     public void onDialogBackClicked(Class thisClass) {
-        //TODO - not good !!
-        Log.d("Back class", thisClass.toString());
 
         if (thisClass == FinishGameDialog.class) {
             onBackClickedFinishGame();
@@ -244,7 +232,6 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     protected void onFinishGameShow() {
         mFeedback.insertRecordToHistoryDB(getApplicationContext(), this.toString());
-        Log.d("DAILY PRACTICE", "INSERT RECORD " + this.toString());
     }
 
     @Override

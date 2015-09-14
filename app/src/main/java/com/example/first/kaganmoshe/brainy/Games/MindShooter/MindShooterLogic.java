@@ -10,7 +10,6 @@ import EEG.EConnectionState;
 import EEG.EHeadSetType;
 import EEG.ESignalVolume;
 import EEG.IHeadSetData;
-import Utils.Logs;
 
 /**
  * Created by kaganmoshe on 8/13/15.
@@ -87,7 +86,6 @@ public class MindShooterLogic implements IHeadSetData{
     @Override
     public void onAttentionReceived(int attValue) {
         if (m_ListenToHeadSet) {
-            Logs.error(MIND_SHOOTER_LOGIC, "Att Rec =>" + attValue);
             m_CurrentAttention = attValue;
             float attFranction = getAttentionAsFraction(attValue);
 
@@ -115,7 +113,6 @@ public class MindShooterLogic implements IHeadSetData{
         }
     }
 
-    int count1 = 0;
     private void calculateNewLocationForBalloon() {
         int newX_Position;
         int newY_Position;
@@ -127,7 +124,6 @@ public class MindShooterLogic implements IHeadSetData{
                 newX_Position >= screenWidth / 2 - 1.5*m_BalloonSize.x &&
                 newX_Position <= screenWidth / 2 + m_BalloonSize.x);
 
-        Logs.debug(MIND_SHOOTER_LOGIC, "Balloon new location: X=" + newX_Position + " Y=" + newY_Position);
         m_CurrentBalloonLocation.set(newX_Position, newY_Position);
     }
 
@@ -138,7 +134,6 @@ public class MindShooterLogic implements IHeadSetData{
         int randPosition;
         while ((randPosition = rand.nextInt(8) + 1) == m_PreviousRandPosition);
         m_PreviousRandPosition = randPosition;
-        Logs.error(MIND_SHOOTER_LOGIC, "In goFarAwayFromTarget(attFranction = " + attFranction + ")");
 
         int newXPosition = getX_MinRange();
         int newYPosition = getY_MinRange();
@@ -229,13 +224,10 @@ public class MindShooterLogic implements IHeadSetData{
 
         int res = (int)(m_CurrentBalloonLocation.x - m_CurrentBalloonLocation.x*val /*+ m_SpaceVal + m_BalloonSize.x/2*/);
 
-        Logs.error(MIND_SHOOTER_LOGIC, "m_CurrentBalloonLocation.x/val= " + m_CurrentBalloonLocation.x * val);
-
         if (m_CurrentBalloonLocation.x < m_CurrentIntentLocation.x)
             res = (int)(m_CurrentBalloonLocation.x + m_BalloonSize.x +
                     (screenWidth - (m_CurrentIntentLocation.x + m_BalloonSize.x))*val /*- m_SpaceVal - m_BalloonSize.x/2*/);
 
-        Logs.error(MIND_SHOOTER_LOGIC, "X = " + res);
         return res;
     }
 
@@ -243,15 +235,12 @@ public class MindShooterLogic implements IHeadSetData{
         float val = calcValByLevel(level);
         int res;
 
-        res = (int)(m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y*val /*+ m_SpaceVal + m_BalloonSize.y/2*/);
-
-        Logs.error(MIND_SHOOTER_LOGIC, "m_CurrentBalloonLocation.y/val= " + m_CurrentBalloonLocation.y*val);
+        res = (int)(m_CurrentBalloonLocation.y - m_CurrentBalloonLocation.y*val);
 
         if (m_CurrentBalloonLocation.y < m_CurrentIntentLocation.y)
             res = (int)(m_CurrentBalloonLocation.y + m_BalloonSize.y +
-                    (screenHeight - (m_CurrentIntentLocation.y + m_BalloonSize.y))*val /* - m_SpaceVal - m_BalloonSize.y/2*/);
+                    (screenHeight - (m_CurrentIntentLocation.y + m_BalloonSize.y))*val);
 
-        Logs.error(MIND_SHOOTER_LOGIC, "Y = " + res);
         return res;
     }
 
@@ -271,17 +260,14 @@ public class MindShooterLogic implements IHeadSetData{
     }
 
     public void shoot(){
-        Logs.error(MIND_SHOOTER_LOGIC, "Enter to MindShooterLogic.Shoot()");
         int XmiddelIntentLocation = m_CurrentIntentLocation.x + (m_IntentSize.x/2);
         int YmiddelIntentLocation = m_CurrentIntentLocation.y + (m_IntentSize.y/2);
 
-        // TODO - Make sound of shoot
         if ( XmiddelIntentLocation >= m_CurrentBalloonLocation.x + m_SpaceVal &&
                 XmiddelIntentLocation <= m_CurrentBalloonLocation.x + m_BalloonSize.x - m_SpaceVal &&
                 YmiddelIntentLocation >= m_CurrentBalloonLocation.y + m_SpaceVal &&
                 YmiddelIntentLocation <= m_CurrentBalloonLocation.y + m_BalloonSize.y - m_SpaceVal)
         { // Good Shoot
-            // TODO - Make sound of the balloon bamp
             calculateNewLocationForBalloon();
             m_MindShooter.theBalloonExploded(m_CurrentBalloonLocation, ++m_CurrentScore);
         }

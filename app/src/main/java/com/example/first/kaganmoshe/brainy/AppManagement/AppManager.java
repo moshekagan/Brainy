@@ -3,7 +3,6 @@ package com.example.first.kaganmoshe.brainy.AppManagement;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.util.Log;
 import com.example.first.kaganmoshe.brainy.HistoryDataBase.HistoryDBAdapter;
 import com.example.first.kaganmoshe.brainy.R;
 import com.example.first.kaganmoshe.brainy.Setting.AppSettings;
@@ -14,7 +13,6 @@ import EEG.EegHeadSet;
 import EEG.IHeadSetData;
 import EEG.MindWave;
 import EEG.MockerHeadSet;
-import Utils.Logs;
 
 /**
  * Created by kaganmoshe on 5/30/15.
@@ -38,7 +36,6 @@ public class AppManager implements IHeadSetData {
     // C'tor
     private AppManager() {
         mAppSettings = new AppSettings();
-        Logs.info("APP_MANAGER", "APP_MANAGER");
     }
 
     public static HistoryDBAdapter getHistoryDBInstance(Context context) {
@@ -52,7 +49,6 @@ public class AppManager implements IHeadSetData {
     public static AppManager getInstance() {
         if (mInstance == null) {
             mInstance = new AppManager();
-            Logs.info(APP_MANAGER, "~ * ~ * ~ * Just created AppManager instance (Singleton)! * ~ * ~ * ~");
         }
 
         return mInstance;
@@ -69,7 +65,7 @@ public class AppManager implements IHeadSetData {
 
     public void configureHeadSet() {
         EHeadSetType type = getAppSettings().getHeadSetType();
-        if (mAppSettings.isUsingHeadSet() /*&& mHeadSet == null*/ && mAppSettings.isChangedHeadSetType()) {
+        if (mAppSettings.isUsingHeadSet() && mAppSettings.isChangedHeadSetType()) {
             if (mHeadSet != null) {
                 mHeadSet.close();
                 mHeadSet = null;
@@ -77,10 +73,8 @@ public class AppManager implements IHeadSetData {
             switch (type) {
                 case MindWave:
                     mHeadSet = new MindWave();
-                    Logs.info(APP_MANAGER, "Connected to: MINDWAVE :)");
                     break;
                 case Moker:
-                    Logs.info(APP_MANAGER, "Connected to: MOCKER");
                     mHeadSet = new MockerHeadSet();
                     break;
             }
@@ -90,7 +84,6 @@ public class AppManager implements IHeadSetData {
     public void connectToHeadSet() {
         if (mAppSettings.isUsingHeadSet() && mHeadSet != null) {
             mHeadSet.connect();
-            Logs.info(APP_MANAGER, "Try to connect to MindWave");
         }
         //mocker
         else {
@@ -115,7 +108,6 @@ public class AppManager implements IHeadSetData {
             case DEVICE_NOT_FOUND:
             case DEVICE_NOT_CONNECTED:
                 connectToHeadSet();
-                Logs.info(APP_MANAGER, "Connection fail from some reason, try to connect again...");
                 break;
         }
     }
@@ -224,7 +216,6 @@ public class AppManager implements IHeadSetData {
         if (--mActivitiesOpened == 0) {
             pauseBackgroundMusic();
         }
-        Log.d("APP_MANAGER", "onActivityStopped");
     }
 
     public void onActivityStarted(boolean playMusic) {
@@ -233,7 +224,6 @@ public class AppManager implements IHeadSetData {
         if (++mActivitiesOpened > 0) {
             playBackgroundMusic();
         }
-        Log.d("APP_MANAGER", "onActivityStarted");
     }
 
     public AudioManager getAudioManager() {

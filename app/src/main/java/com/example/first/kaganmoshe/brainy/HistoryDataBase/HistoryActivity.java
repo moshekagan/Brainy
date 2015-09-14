@@ -2,7 +2,6 @@ package com.example.first.kaganmoshe.brainy.HistoryDataBase;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -137,8 +136,6 @@ public class HistoryActivity extends ActionBarAppActivity {
 
                     mShownItemsSpinner.onItemClick(parent, view, position, id);
                 }
-
-                Log.d("HISTORY ACTIVITY", "currNameSelection: " + mCurrGameSelection);
             }
         });
         mShownItemsSpinner.setAdapter(itemsAdapter);

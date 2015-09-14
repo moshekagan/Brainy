@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
-
 import com.example.first.kaganmoshe.brainy.AppActivities.ConnectionActivity;
 import com.example.first.kaganmoshe.brainy.R;
 
@@ -36,14 +34,11 @@ public class NotifyService extends Service {
 
     @Override
     public void onCreate() {
-        Log.i("NotifyService", "onCreate()");
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("LocalService", "Received start id " + startId + ": " + intent);
-
         // If this service was started by out AlarmTask intent then we want to show our notification
         if(intent.getBooleanExtra(INTENT_NOTIFY, false))
             showNotification();

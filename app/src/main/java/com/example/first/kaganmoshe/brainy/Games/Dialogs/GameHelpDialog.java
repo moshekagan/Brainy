@@ -25,7 +25,6 @@ public class GameHelpDialog extends GameDialog {
     }
 
     public GameHelpDialog() {
-        // Required empty public constructor
     }
 
     public void setHelpContentText(String text){

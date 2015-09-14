@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +29,6 @@ import EEG.EHeadSetType;
 import EEG.ESignalVolume;
 import EEG.EegHeadSet;
 import EEG.IHeadSetData;
-import Utils.Logs;
 import Utils.AppTimer;
 
 import com.example.first.kaganmoshe.brainy.Utils;
@@ -39,6 +37,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
 public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetData,
         AppTimer.IAppTimerListener {
     private static final long TIME_FOR_GAME = 60000l;
+
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
     private final int distanceFromTopActivity = 15;
@@ -51,7 +50,6 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     private boolean listenToHeadSet = false;
     private boolean displayMessage = true;
     private int oldAtt = 0;
-    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     private long timerValueInMilliseconds = 60000l;
     private SoundPool m_SoundEffect;
     private int m_HABSoundAffectID;
@@ -72,8 +70,6 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
         startLocationOnActivity = Utils.getActivityScreenSize(this).y - (int) (Utils.getActivityScreenSize(this).y * 0.32f);
         balloonRange = startLocationOnActivity - distanceFromTopActivity;
-
-        Logs.error("TESTTTTTTT", "!!!!!! Balloon Range = " + balloonRange);
 
         hotAirBalloonImageView = (ImageView) findViewById(R.id.balloonImageView);
         m_TimeTextView = (TextView) findViewById(R.id.timerValue);
@@ -98,12 +94,10 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         });
 
         setBalloonDefaultLocation();
-        // Get HeadSet - ic_mind_wave_mobile and register
         try {
             EegHeadSet headSet = AppManager.getInstance().getHeadSet();
             headSet.registerListener(this);
         } catch (Exception e) {
-            // TODO - Not need to go hear never!!!!
         }
 
         if (savedInstanceState == null) {
@@ -174,8 +168,10 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         float destination = getDestination(attPresent);
         if (oldAtt < attValues.get(i))
             m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
-        else m_SoundEffect.pause(m_HABSoundAffectID);
+        else
+            m_SoundEffect.pause(m_HABSoundAffectID);
         oldAtt = attValues.get(i);
+
         raisedTheAirBalloon(destination);
     }
 
@@ -231,10 +227,8 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     public void onAttentionReceived(int attValue) {
         if (listenToHeadSet && m_IsPlaying) {
             // Raised the balloon
-            Logs.warn(HOT_AIR_BALLOON_ACTIVITY, "Got Attention: " + attValue);
             float attPresent = getAttentionAsFraction(attValue);
             float destination = getDestination(attPresent);
-            Logs.warn(HOT_AIR_BALLOON_ACTIVITY, "New Destination: " + destination);
             raisedTheAirBalloon(destination);
 
             if (m_FirstAttRecived) {
@@ -245,33 +239,23 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
             if (oldAtt < attValue) {
                 if (m_CounterRaisingBalloon % 3 == 0) {
                     m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
-                    Logs.error("", "____in 1 case: Att = " + attValue + "Count = " + m_CounterRaisingBalloon);
                 }
                 m_CounterRaisingBalloon++;
             } else {
-                Logs.error("", "____in 2 case: Att = " + attValue + "Count = " + m_CounterRaisingBalloon);
                 m_SoundEffect.pause(m_HABSoundAffectID);
             }
-
 
             oldAtt = attValue;
         }
     }
 
     @Override
-    public void onMeditationReceived(int medValue) {
-        // Do Nothing
-    }
+    public void onMeditationReceived(int medValue) { /*Do Nothing*/ }
 
     @Override
-    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
-        // Do Nothing
-    }
+    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) { /*Do Nothing*/ }
 
-    @Override
-    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-        // Do Nothing
-    }
+    public void onPoorSignalReceived(ESignalVolume signalVolume) { /*Do Nothing*/ }
 
     private void finishTimerGame() {
         ((HotAirBalloonFeedback) mFeedback).calculateFinalScore(188);

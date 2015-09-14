@@ -3,8 +3,6 @@ package EEG;
 import java.util.LinkedList;
 import java.util.List;
 
-import Utils.Logs;
-
 /**
  * Created by kaganmoshe on 5/9/15.
  */
@@ -39,7 +37,6 @@ public abstract class EegHeadSet {
     }
 
     public void raiseOnAttention(int attValue){
-        Logs.info(EEGHEADSET_STR, ATTENTION_STR + ": " + attValue);
 
         if (attValue < 80 && attValue > 35)
             attValue += 13;
@@ -54,8 +51,6 @@ public abstract class EegHeadSet {
 
     public void raiseOnMeditation(int medValue){
 
-        Logs.info(EEGHEADSET_STR, MEDITATION_STR + ": " + medValue);
-
         for (IHeadSetData headSetData : m_HeadSetData){
             if (headSetData != null){
                 headSetData.onMeditationReceived(medValue);
@@ -64,7 +59,6 @@ public abstract class EegHeadSet {
     }
 
     public void raiseOnHeadSetChangedState(String headSetName, EConnectionState connectionState){
-        Logs.info(EEGHEADSET_STR, headSetName + " connecetd!");
 
         m_CurrentState = connectionState;
         for (IHeadSetData headSetData : m_HeadSetData){
@@ -75,7 +69,6 @@ public abstract class EegHeadSet {
     }
 
     public void raiseOnPoorSignal(int poorSignalValue){
-        Logs.info(EEGHEADSET_STR, POOR_SIGNAL_STR + ": " + poorSignalValue);
 
         ESignalVolume signalVolume = ESignalVolume.getSignalVolume(poorSignalValue);
 

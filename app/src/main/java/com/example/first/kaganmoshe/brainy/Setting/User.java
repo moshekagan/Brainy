@@ -17,7 +17,4 @@ public class User {
         m_LastName = lastName;
         m_UserName = firstName + lastName;
     }
-
-    // Methods
-    //TODO - Implements
 }

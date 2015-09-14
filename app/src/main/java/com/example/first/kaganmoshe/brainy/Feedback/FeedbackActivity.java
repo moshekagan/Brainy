@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -47,8 +46,6 @@ public class FeedbackActivity extends FBActivity {
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("bestScore", Context.MODE_PRIVATE);
         int defaultValue = getResources().getInteger(R.integer.default_high_score);
         long highScore = sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue);
-
-        Log.d("DP", "defaultValue=" + defaultValue + " highScore=" + highScore);
 
         return (int) highScore;
     }
@@ -108,7 +105,6 @@ public class FeedbackActivity extends FBActivity {
         mPlayAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("PLAY_AGAIN_TARGET", getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET));
                 if (getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET) != null) {
                     try {
                         startNewActivity(Class.forName(getIntent().getStringExtra(PLAY_AGAIN_ACTIVITY_TARGET)));

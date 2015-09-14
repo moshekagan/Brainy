@@ -31,7 +31,6 @@ public class FinishGameDialog extends GameDialog {
     private int layoutID = R.layout.winner_dialog;
 
     public FinishGameDialog() {
-        // Required empty public constructor
     }
 
     public interface FinishGameCommunicator extends GameDialogCommunicator {

@@ -8,7 +8,6 @@ import android.content.res.AssetManager;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.widget.TextView;
-import Utils.Logs;
 
 /**
  * Created by tamirkash on 5/28/15.
@@ -51,7 +50,6 @@ public class Utils {
         int height = activity.getResources().getDisplayMetrics().heightPixels;
 
         Point p = new Point(width, height);
-        Logs.error(UTILS, "Screen Size - " + "Width: " + p.x + " Height: " + p.y);
         return p;
     }
 }

@@ -27,10 +27,6 @@
         android:text="Brainy" />
 
 
-    <!--android:textColor="@color/black"-->
-    <!--android:textStyle="bold"-->
-    <!--android:textSize="50sp" />-->
-
     <Utils.AppSpinner
         android:id="@+id/showList"
         style="@style/choose_headset_spinner"
@@ -44,64 +40,30 @@
         android:drawableStart="@drawable/eegheadset_cartoon"
         android:hint="@string/choose_headset" />
 
-    <!--<View android:id="@+id/spinner_overlay"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignLeft="@id/showList"-->
-        <!--android:layout_alignRight="@id/showList"-->
-        <!--android:layout_alignTop="@id/showList"-->
-        <!--android:layout_alignBottom="@id/showList"  />-->
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connectProgressBar"
+        android:layout_gravity="center_horizontal"
+        android:indeterminate="false"
+        android:layout_below="@+id/connectButton"
+        android:layout_centerHorizontal="true" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <Utils.AppButton
+        android:id="@+id/connectButton"
+        style="@style/app_btn"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.33"
+        android:background="@drawable/app_button"
+        android:text="@string/settings_connect"
+        android:textSize="19sp"
+        android:layout_gravity="center_horizontal"
         android:layout_below="@+id/showList"
-        android:layout_alignStart="@+id/showList"
-        android:layout_alignEnd="@+id/showList">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/showList"
-            android:layout_alignStart="@+id/showList"
-            android:layout_below="@+id/showList"
-            android:layout_marginTop="@dimen/pad_10dp"
-            android:orientation="horizontal"
-            android:id="@+id/linearLayout">
-
-            <Utils.AppButton
-                android:id="@+id/skipButton"
-                style="@style/app_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/pad_5dp"
-                android:layout_weight="1"
-                android:background="@drawable/app_button"
-                android:text="@string/settings_skip"
-                android:textSize="19sp" />
-
-            <Utils.AppButton
-                android:id="@+id/connectButton"
-                style="@style/app_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/pad_5dp"
-                android:layout_weight="1"
-                android:background="@drawable/app_button"
-                android:text="@string/settings_connect"
-                android:textSize="19sp" />
-
-
-        </LinearLayout>
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/connectProgressBar"
-            android:layout_gravity="center_horizontal"
-            android:indeterminate="false" />
-    </LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
 
 </RelativeLayout>

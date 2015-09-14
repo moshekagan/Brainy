@@ -10,18 +10,6 @@
     android:weightSum="60"
     tools:context=".CrazyCubeActivity">
 
-    <!--android:background="@drawable/background"-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/CrazyCubeHeadline"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:text="@string/CrazyCubeActivityTitle"-->
-    <!--style="@style/crazyCubeActivityTitle"-->
-    <!--android:gravity="center_horizontal"-->
-    <!--android:layout_marginBottom="5dp"-->
-    <!--android:layout_weight="5"/>-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -79,25 +67,12 @@
 
     </FrameLayout>
 
-
-    <!--<fragment-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="15"-->
-        <!--android:name="com.example.first.kaganmoshe.brainy.GraphFragment"-->
-        <!--android:id="@+id/fragment"/>-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="15"
         android:weightSum="20"
         android:orientation="horizontal">
-
-        <!--<android.widget.Space-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1" />-->
 
         <com.jjoe64.graphview.GraphView
 
