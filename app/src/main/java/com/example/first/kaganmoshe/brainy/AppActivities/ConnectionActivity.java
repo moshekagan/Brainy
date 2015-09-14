@@ -53,7 +53,7 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
 
         mHeadsetSpinner = (BetterSpinner) findViewById(R.id.showList);
         mConnectButton = (Button) findViewById(R.id.connectButton);
-        mSkipButton = (Button) findViewById(R.id.skipButton);
+//        mSkipButton = (Button) findViewById(R.id.skipButton);
         mConnectProgressBar = (ProgressBar) findViewById(R.id.connectProgressBar);
 
         mConnectProgressBar.setVisibility(View.INVISIBLE);
@@ -94,7 +94,6 @@ public class ConnectionActivity extends AppActivity implements IHeadSetData{
             }
         });
     }
-
 
     private void updateHeadSetType() {
         Logs.debug(SETTINGS_ACTIVITY, "Set Headset to: " + mHeadSetType.toString());
