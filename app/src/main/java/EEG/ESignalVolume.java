@@ -20,19 +20,18 @@ public enum ESignalVolume {
     }
 
     static public ESignalVolume getSignalVolume(int value){
-        ESignalVolume resualt;
+        ESignalVolume result;
 
         if (value == GOOD_SIGNAL.value()){
-            resualt = GOOD_SIGNAL;
+            result = GOOD_SIGNAL;
         } else if (value == HEAD_SET_NOT_COVERED.value()){
-            // Poor signal, head set not covered!
-            resualt = HEAD_SET_NOT_COVERED;
+            result = HEAD_SET_NOT_COVERED;
         } else if (value < POOR_SIGNAL_HIGH.value()){
-            resualt = POOR_SIGNAL_LOW;
+            result = POOR_SIGNAL_LOW;
         } else {
-            resualt = POOR_SIGNAL_HIGH;
+            result = POOR_SIGNAL_HIGH;
         }
 
-        return resualt;
+        return result;
     }
 }

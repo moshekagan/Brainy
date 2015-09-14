@@ -43,6 +43,7 @@ import com.example.first.kaganmoshe.brainy.Utils;
 public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetData,
         GenericDialogFragment.gameCommunicator, AppTimer.IAppTimerListener {
     private static final long TIME_FOR_GAME = 60000l;
+
     // Data Members
     private final String HOT_AIR_BALLOON_ACTIVITY = "Hot Ait Balloon Activity";
     private final int distanceFromTopActivity = 15;
@@ -54,9 +55,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     private int i = 1;
     private boolean listenToHeadSet = false;
     private boolean displayMessage = true;
-    private MediaPlayer hotAirBalloonSoundAffect;
     private int oldAtt = 0;
-    private android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
     private long timerValueInMilliseconds = 60000l;
     private SoundPool m_SoundEffect;
     private int m_HABSoundAffectID;
@@ -67,11 +66,6 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     private TextView m_TimeTextView;
     private long timeToPlayInMilSec;
     private boolean m_IsPlaying = false;
-//    private long timeInMilliseconds = 0L;
-//    private long timeSwapBuff = 0L;
-//    private long updatedTime = 0L;
-//    private long startTime = 0L;
-//    private Handler customHandler = new Handler();
 
     // Methods
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -83,12 +77,8 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         startLocationOnActivity = Utils.getActivityScreenSize(this).y - (int)(Utils.getActivityScreenSize(this).y * 0.32f);
         balloonRange = startLocationOnActivity - distanceFromTopActivity;
 
-        Logs.error("TESTTTTTTT", "!!!!!! Balloon Range = " + balloonRange);
-
-//        mFeedback = new HotAirBalloonFeedback();
         hotAirBalloonImageView = (ImageView) findViewById(R.id.balloonImageView);
         m_TimeTextView = (TextView) findViewById(R.id.timerValue);
-//        hotAirBalloonSoundAffect = MediaPlayer.create(this, R.raw.hot_air_balloon_sound_affect);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             createNewSoundPool();
@@ -110,7 +100,6 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         });
 
         setBalloonDefaultLocation();
-        // Get HeadSet - ic_mind_wave_mobile and register
         try{
             EegHeadSet headSet = AppManager.getInstance().getHeadSet();
             headSet.registerListener(this);
@@ -124,14 +113,7 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
 
         startGame();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-//        showStartGameDialogFragment();
     }
-
-
-//    @Override
-//    protected int calculateScore() {
-//        return 100;
-//    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void createOldSoundPool() {
@@ -145,15 +127,12 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     }
 
     private void initialize() {
-//        Intent intent = getIntent();
-//        timeToPlayInMilSec = intent.getLongExtra(HABConfigActivity.TIME_TO_PLAY, HABConfigActivity.ONE_MIN);
         timeToPlayInMilSec = TIME_FOR_GAME;
     }
 
     @Override
     protected void startFeedbackSession() {
         mFeedback = new HotAirBalloonFeedback();
-//        mFeedback.startTimer();
     }
 
     private void setBalloonDefaultLocation() {
@@ -195,39 +174,17 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         float destination = getDestination(attPresent);
         if (oldAtt < attValues.get(i))
             m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
-//        hotAirBalloonSoundAffect.start();
                 else m_SoundEffect.pause(m_HABSoundAffectID);
-//            hotAirBalloonSoundAffect.pause();
         oldAtt = attValues.get(i);
-//                Log.e(HOT_AIR_BALLOON_ACTIVITY, "# ATT = " + attVal);
-//                Log.e(HOT_AIR_BALLOON_ACTIVITY, "++++++ destination = " + destination);
 
         raisedTheAirBalloon(destination);
     }
-
-//    private void showStartGameDialogFragment() {
-//        startGameDialogFragment = new StartGameDialogFragment();
-//        startGameDialogFragment.setListener(this);
-//        startGameDialogFragment.show(mFragmentManager, "StartGameDialogFragment");
-//        changeActivityDarkerOrLighter(1f);
-//    }
-
-//    private void changeActivityDarkerOrLighter(float val){
-//        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
-//        lp.dimAmount = val;
-//    }
 
     private void startTimerGame(long value) {
         m_Timer.registerListener(this);
         m_TimeTextView.setText(m_Timer.toString());
         m_IsPlaying = true;
         startFeedbackSession();
-
-//        timerValueInMilliseconds = value;
-//        startTime = SystemClock.uptimeMillis();
-////        mFeedback.startTimer();
-//        startFeedbackSession();
-//        customHandler.postDelayed(updateTimerThread, 0);
     }
 
     private void stopTimer(){
@@ -271,33 +228,6 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
         attValues.add(100);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-//    @Override
-//    protected void onMenuPopupDismiss() {
-//
-//    }
-
     @Override
     public void onAttentionReceived(int attValue) {
         if (listenToHeadSet && m_IsPlaying) {
@@ -316,12 +246,10 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
             if (oldAtt < attValue) {
                 if (m_CounterRaisingBalloon%3 == 0) {
                     m_SoundEffect.play(m_HABSoundAffectID, 1, 1, 1, 0, 1);
-                    Logs.error("", "____in 1 case: Att = " + attValue + "Count = " + m_CounterRaisingBalloon);
                 }
                 m_CounterRaisingBalloon++;
             }
             else {
-                Logs.error("", "____in 2 case: Att = " + attValue + "Count = " + m_CounterRaisingBalloon);
                 m_SoundEffect.pause(m_HABSoundAffectID);
             }
 
@@ -331,73 +259,24 @@ public class HotAirBalloonGameActivity extends GameActivity implements IHeadSetD
     }
 
     @Override
-    public void onMeditationReceived(int medValue) {
-        // Do Nothing
-    }
+    public void onMeditationReceived(int medValue) { /*Do Nothing*/ }
 
     @Override
-    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
-        // Do Nothing
-    }
-
+    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) { /*Do Nothing*/ }
     @Override
-    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-        // Do Nothing
-    }
-
-//    private Runnable updateTimerThread = new Runnable() {
-//        public void run() {
-//            updatedTimeForThread(this);
-//        }
-//    };
-
-//    private void updatedTimeForThread(Runnable runnable) {
-//        timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
-//        timeInMilliseconds = timerValueInMilliseconds - timeInMilliseconds;
-//
-//        if (timeInMilliseconds > 0L) {
-//            updatedTime = timeSwapBuff + timeInMilliseconds;
-//
-//
-//            int secs = (int) (updatedTime / 1000);
-//            int mins = secs / 60;
-//            secs = secs % 60;
-////                int milliseconds = (int) (updatedTime % 1000);
-//            m_TimeTextView.setText("" + mins + ":"
-//                    + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
-//            customHandler.postDelayed(runnable, 0);
-//        } else {
-//            finishTimerGame();
-//        }
-//    }
+    public void onPoorSignalReceived(ESignalVolume signalVolume) { /*Do Nothing*/ }
 
     private void finishTimerGame() {
         ((HotAirBalloonFeedback) mFeedback).calculateFinalScore(188);
         m_SoundEffect.stop(m_HABSoundAffectID);
-//        hotAirBalloonSoundAffect.stop();
         showFinishDialog();
-
-//        timeSwapBuff += timeInMilliseconds;
-//        customHandler.removeCallbacks(updateTimerThread);
-//        mFeedback.stopTimerAndRecievingData();
-//        showFinishDialog();x
     }
-
-//    private void showFinishGameDialog() {
-//        GenericDialogFragment finishDialogFragment = new GenericDialogFragment();
-//        finishDialogFragment.setListener(this);
-//        finishDialogFragment.setTitleText("End Of Time, Good Work!");
-//        finishDialogFragment.setContinueButtonText("Show Results");
-//        finishDialogFragment.show(mFragmentManager, "FinishDialogFragment");
-//    }
 
     @Override
     public void continueNextScreen() {
         Intent intent = new Intent(this, FeedbackActivity.class);
 
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, mFeedback.getConcentrationPoints());
-//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, mFeedback.getSessionTimeInSeconds());
-//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, mFeedback.getSessionTimeInMinutes());
         startActivity(intent);
     }
 

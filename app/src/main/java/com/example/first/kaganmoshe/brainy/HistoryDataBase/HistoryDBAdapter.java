@@ -38,14 +38,9 @@ public class HistoryDBAdapter {
             calendar.add(Calendar.DATE, timeRange.getValue());
 
             String startDate = DATE_FORMAT.format(calendar.getTime());
-//            startDate = startDate.substring(startDate.indexOf(" " + 1)) + "00:00:00";
 
             return startDate.substring(0, startDate.indexOf(" ")) + " 00:00:00";
         }
-
-//        public enum ERecordType{
-//
-//        }
 
         @Override
         public String toString(){
@@ -86,10 +81,6 @@ public class HistoryDBAdapter {
         newRecord.put(HistoryDB.CONCENTRATION, concentrationAvg);
         newRecord.put(HistoryDB.SCORE, score);
         success = db.insert(HistoryDB.TABLE_NAME, null, newRecord);
-//        Log.d("DB", "insert-name: " + name);
-//        Log.d("DB", "insert-datetime: " + DATE_FORMAT.format(date));
-//        Log.d("DB", "insert-concentration: " + concentrationAvg);
-//        Log.d("DB", "insert-success: " + String.valueOf(success));
         db.close();
 
         return success >= 0;
@@ -105,10 +96,6 @@ public class HistoryDBAdapter {
         newRecord.put(HistoryDB.DATE_TIME, DATE_FORMAT.format(date));
         newRecord.put(HistoryDB.CONCENTRATION, concentrationAvg);
         success = db.insert(HistoryDB.TABLE_NAME, HistoryDB.SCORE, newRecord);
-//        Log.d("DB", "insert-name: " + name);
-//        Log.d("DB", "insert-datetime: " + DATE_FORMAT.format(date));
-//        Log.d("DB", "insert-concentration: " + concentrationAvg);
-//        Log.d("DB", "insert-success: " + String.valueOf(success));
         db.close();
 
         return success >= 0;
@@ -138,18 +125,6 @@ public class HistoryDBAdapter {
         return getRecords(selectionArgs, selection, columns);
     }
 
-//    public ArrayList<HistoryRecordData> getDailyPracticeRecords(ETimeRange timeRange){
-//        String timeRangeFrom = ETimeRange.getStartDate(timeRange);
-//        String timeRangeTo = DATE_FORMAT.format(new Date());
-//
-//        String[] selectionArgs = {timeRangeFrom, timeRangeTo};
-//        String selection = HistoryDB.DATE_TIME + " BETWEEN ? AND ? AND " + HistoryDB.NAME + "=" +;
-//        //TODO - same in other method
-//        String[] columns = {HistoryDB.NAME, HistoryDB.DATE_TIME, HistoryDB.CONCENTRATION};
-//
-//        return getRecords(selectionArgs, selection, columns);
-//    }
-
     private ArrayList<HistoryRecordData> getRecords(String[] selectionArgs, String selection, String[] columns){
         SQLiteDatabase db = mHistoryDB.getWritableDatabase();
         ArrayList<HistoryRecordData> records = new ArrayList<>();
@@ -170,13 +145,6 @@ public class HistoryDBAdapter {
             }
 
             records.add(record);
-//            String dateTime = cursor.getString(cursor.getColumnIndex(HistoryDB.DATE_TIME));
-//            String score = cursor.getString(cursor.getColumnIndex(HistoryDB.SCORE));
-//            String concentration = cursor.getString(cursor.getColumnIndex(HistoryDB.CONCENTRATION));
-//
-//            Log.d("DB", "get-dateTime: " + dateTime);
-//            Log.d("DB", "get-score: " + score);
-//            Log.d("DB", "get-concentration:" + concentration);
         }
 
         db.close();

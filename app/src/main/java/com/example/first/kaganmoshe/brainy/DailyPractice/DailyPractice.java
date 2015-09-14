@@ -72,7 +72,6 @@ public class DailyPractice {
 
         } else {
             Utils.startNewActivity(gameActivity, mGames[mRandom.nextInt(mGames.length)]);
-//            Utils.startNewActivity(gameActivity, GuessTheNumberGameActivity.class);
         }
     }
 
@@ -122,14 +121,5 @@ public class DailyPractice {
 
         gameActivity.getFinishGameDialog().setScoreStat(finalScore);
         gameActivity.getFinishGameDialog().setBestScoreStat(sharedPref.getInt(gameActivity.getClass().getCanonicalName(), defaultValue));
-//        bestScoreTextView.append(String.valueOf(sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue)));
-//        addStat("Best score", String.valueOf(sharedPref.getInt(getIntent().getStringExtra(Utils.CALLING_CLASS), defaultValue)));//
     }
-
-//    private void setBestScore(int finalScore, GameActivity gameAct//ivity){
-//        SharedPreferences sharedPref = gameActivity.getPreferences(Context.MODE_PR//IVATE);
-//        SharedPreferences.Editor editor = sharedPref.//edit();
-//        editor.putInt(gameActivity.getClass().getCanonicalName(), final//Score);
-//        editor.co//mmit();
-//    }
 }

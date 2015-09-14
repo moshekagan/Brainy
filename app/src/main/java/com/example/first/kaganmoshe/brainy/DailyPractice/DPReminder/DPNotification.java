@@ -50,7 +50,6 @@ public class DPNotification extends ActionBarAppActivity {
         scheduleClient = new ScheduleClient(this.getApplicationContext());
         scheduleClient.doBindService();
 
-//        setTouchNClick(R.id.dpScheduleDoneButton);
 
         findViewById(R.id.dpScheduleDoneButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,9 +60,6 @@ public class DPNotification extends ActionBarAppActivity {
 
 
         initCheckBoxes();
-
-        // Get a reference to our date picker
-//        picker = (DatePicker) findViewById(R.id.scheduleTimePicker);
     }
 
     /**
@@ -71,9 +67,6 @@ public class DPNotification extends ActionBarAppActivity {
      */
     public void onDateSelectedButtonClick(View v) {
         // Get the date from our datepicker
-//        int day = picker.getDayOfMonth();
-//        int month = picker.getMonth();
-//        int year = picker.getYear();
         // Create a new calendar set to the date chosen
         // we set the time to midnight (i.e. the first minute of that day)
         Calendar c = Calendar.getInstance();

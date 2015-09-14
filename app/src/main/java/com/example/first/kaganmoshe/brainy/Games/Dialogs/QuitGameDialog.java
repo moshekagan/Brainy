@@ -18,26 +18,10 @@ public class QuitGameDialog extends GameDialog {
     private Button mLeaveButton;
     private TextView mTitleTextView;
 
-//    @Override
-//    protected void fireBackClickedEvent() {
-//        mListener.onDialogBackClicked(QuitGameDialog.class);
-//    }
-
-//    @Override
-//    protected void fireBackClickedEvent() {
-//        isShowing = false;
-//        super.fireBackClickedEvent();
-//    }
-
     public interface QuitGameCommunicator extends GameDialogCommunicator{
         void onQuitGameConfirmed();
         void onQuitGameCanceled();
     }
-
-//    @Override
-//    public void setListener(GameDialogCommunicator mListener){
-//        this.mListener = mListener;
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,29 +34,10 @@ public class QuitGameDialog extends GameDialog {
         mTitleTextView = (TextView) rootView.findViewById(R.id.quitGameDialogTitle);
         mLeaveButton = (Button) rootView.findViewById(R.id.quitButton);
 
-//        Utils.changeFont(getActivity().getAssets(), mTitleTextView);
         initButtons();
 
         return rootView;
     }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
-//                                         @Override
-//                                         public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-//                                             if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-//                                                 mListener.onGameDialogBackPressed();
-//                                                 return true;
-//                                             } else {
-//                                                 return false;
-//                                             }
-//                                         }
-//                                     }
-//        );
-//    }
 
     private void initButtons() {
         mContinueButton.setOnClickListener(new View.OnClickListener() {
@@ -91,8 +56,4 @@ public class QuitGameDialog extends GameDialog {
             }
         });
     }
-
-//    public void show(FragmentManager manager, String tag, Class targetActivity){
-//
-//    }
 }

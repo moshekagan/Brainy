@@ -30,10 +30,6 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
         if (view == null) {
             LayoutInflater inflater = context.getLayoutInflater();
             view = inflater.inflate(layoutResource, null, true);
-
-//            TextView item = (TextView) view.findViewById(R.id.spinner_row);
-
-//            item.setText(items[position]);
         } else {
         /* Fetch data already in the row layout,
          *    primarily you only use this to get a copy of the ViewHolder */

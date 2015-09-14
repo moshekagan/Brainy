@@ -39,23 +39,12 @@ public class AppManager implements IHeadSetData {
 
     private static int mActivitiesOpened = 0;
 
-
-//    private HashMap<Integer, Drawable> m_Drawables;
-//
-//    public static final String MENU_CONNECTION_ICON = "MENU";
-
     // C'tor
     private AppManager() {
         mAppSettings = new AppSettings();
         Logs.info("APP_MANAGER", "APP_MANAGER");
     }
 
-    //
-//    public Drawable getDrawable(int i//d){
-//        if(!m_Drawables.containsKey(id//)){
-//            m_Drawables.put(id, //co)
-//      //  }
-//    }
     public static HistoryDBAdapter getHistoryDBInstance(Context context) {
         if (mHistoryDB == null) {
             mHistoryDB = new HistoryDBAdapter(context);
@@ -84,7 +73,7 @@ public class AppManager implements IHeadSetData {
 
     public void configureHeadSet() {
         EHeadSetType type = getAppSettings().getHeadSetType();
-        if (mAppSettings.isUsingHeadSet() /*&& mHeadSet == null*/ && mAppSettings.isChangedHeadSetType()) {
+        if (mAppSettings.isUsingHeadSet() && mAppSettings.isChangedHeadSetType()) {
             if (mHeadSet != null) {
                 mHeadSet.close();
                 mHeadSet = null;
@@ -152,7 +141,6 @@ public class AppManager implements IHeadSetData {
                     AudioManager.STREAM_MUSIC,
                     AudioManager.AUDIOFOCUS_GAIN);
             initBackgroundMusic();
-//            mBackgroundMusic = MediaPlayer.create(mContext, R.raw.background_music);
         }
     }
 
@@ -168,7 +156,6 @@ public class AppManager implements IHeadSetData {
         }
         if (!mBackgroundMusic.isPlaying() && !mMusicMutedByUser && !mMusicMutedByApp) {
             mBackgroundMusic.start();
-//            mBackgroundMusic.setLooping(true);
         }
     }
 
@@ -201,10 +188,6 @@ public class AppManager implements IHeadSetData {
 
         mMusicMutedByApp = muteMode;
     }
-
-//    public Context getContext() {
-//        return mContext;
-//    }
 
     public GamesManager getGamesManager() {
         return mGamesManager;

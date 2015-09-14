@@ -13,11 +13,11 @@ public class Logs {
     static private final String DATE_TIME_FORMAT = "yyyy/MM/dd HH:mm:ss";
     static public final String SEPARATOR_LINE = "-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-/n";
 
-    static public DateFormat m_DateFormat = new SimpleDateFormat(DATE_TIME_FORMAT);;
+    static public DateFormat m_DateFormat = new SimpleDateFormat(DATE_TIME_FORMAT);
     static public Date m_Date = new Date();
 
     static public String format(String tag, String msg){
-        return "||" /*+ m_DateFormat.format(m_Date)*/ + "||" + "BRAINY" + "|| " + "|| " + tag + " || " + msg;
+        return "||" + "BRAINY" + "|| " + tag + " || " + msg;
     }
 
     static public int info(String tag, String msg){

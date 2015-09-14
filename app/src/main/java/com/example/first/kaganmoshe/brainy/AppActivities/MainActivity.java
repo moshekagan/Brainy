@@ -81,13 +81,11 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
         }
     }
 
-    //    private TextView toolbarText;
-    private static MenuCustomList mGamesRowsAdapter;
+    private ListView mGamesRowsListView;
 
     private final DPStartDialog mDailyPracticeStartDialog = new DPStartDialog();
-    private ListView mGamesRowsListView;
     private static final String MENU_TOOLBAR_TEXT = "Menu";
-
+    private static MenuCustomList mGamesRowsAdapter;
     public static final String HOT_AIR_BALLOON_STR = "Hot Air Balloon";
     public static final String CRAZY_CUBE_STR = "Crazy Cube";
     public static final String MIND_SHOOTER_STR = "Mind Shooter";
@@ -116,7 +114,6 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        this.setOnBackPressedActivity(ConnectionActivity.class);
 
         if (mGamesRowsAdapter == null) {
             mGamesRowsAdapter = new
@@ -135,9 +132,6 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
                         EGameItem.getGameRowByName(mGamesTitles[+position]).getTargetActivity());
             }
         });
-
-//        setTouchNClick(R.id.dailyPracticeButton);
-//        setTouchNClick(R.id.historyButton);
 
         findViewById(R.id.historyButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,12 +230,10 @@ public class MainActivity extends ActionBarAppActivity implements DPStartDialog.
     @Override
     protected void onResume(){
         super.onResume();
-//        AppManager.playBackgroundMusic();
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-//        AppManager.pauseBackgroundMusic();
     }
 }

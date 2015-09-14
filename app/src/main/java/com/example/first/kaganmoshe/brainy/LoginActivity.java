@@ -26,9 +26,6 @@ public class LoginActivity extends AppActivity {
         setTouchNClick(R.id.RegisterButton);
         setTouchNClick(R.id.loginButton);
 
-//        loginTitle = (TextView) findViewById(R.id.loginTitle);
-//        Utils.changeFont(getAssets(), loginTitle);
-
         Logs.info(LOGIN_ACTIVITY, " geting the first instace of AppManager");
         AppManager.getInstance(); // Create the appManager
         AppManager.getInstance().setBackgroundMusic(getApplicationContext());

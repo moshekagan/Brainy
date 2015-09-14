@@ -58,17 +58,6 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     // Timer Members
     private AppTimer m_Timer = new AppTimer(TIME_FOR_GAME, AppTimer.ETimeStringFormat.MINUTES_AND_SECONDS);
     private TextView m_TimeTextView;
-//    private Handler m_CustomHandler = new Handler();
-//    private long m_StartTime = 0;
-//    private long m_TimeInMilliseconds;
-//    private long m_TimerValueInMilliseconds = TIME_FOR_GAME;
-//    private long m_UpdatedTime;
-//    private long m_TimeSwapBuff;
-//    private Runnable m_UpdateTimerThread = new Runnable() {
-//        public void run() {
-//            updatedTimeForThread(this);
-//        }
-//    };
 
     // Methods
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,48 +134,20 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     private void shoot() {
         if (m_IsPlaying) {
             m_MindShooterLogic.shoot();
-//        m_SingleShotAffect_.start();
             m_SoundEffect.play(m_SingleShotAffectId, 1, 1, 1, 0, 1);
         }
     }
 
     private void startGame() {
         m_MindShooterLogic.startGame();
-//        startFeedbackSession();
         startTimerGame(TIME_FOR_GAME);
     }
-
-//    private void updatedTimeForThread(Runnable runnable) {
-//        m_TimeInMilliseconds = SystemClock.uptimeMillis() - m_StartTime;
-//        m_TimeInMilliseconds = m_TimerValueInMilliseconds - m_TimeInMilliseconds;
-//
-//        if (m_TimeInMilliseconds > 0L) {
-//            m_UpdatedTime = m_TimeSwapBuff + m_TimeInMilliseconds;
-//
-//
-//            int secs = (int) (m_UpdatedTime / 1000);
-//            int mins = secs / 60;
-//            secs = secs % 60;
-////                int milliseconds = (int) (m_UpdatedTime % 1000);
-//            m_TimeTextView.setText("" + mins + ":"
-//                    + String.format("%02d", secs)/*+ String.format("%03d", milliseconds)*/);
-//            m_CustomHandler.postDelayed(runnable, 0);
-//        } else {
-//            finishTimerGame();
-//        }
-//    }
 
     private void startTimerGame(long value) {
         m_Timer.registerListener(this);
         m_TimeTextView.setText(m_Timer.toString());
         m_IsPlaying = true;
         startFeedbackSession();
-
-//        m_TimerValueInMilliseconds = value;
-//        m_StartTime = SystemClock.uptimeMillis();
-//        mFeedback.startTimer();
-//        m_CustomHandler.postDelayed(m_UpdateTimerThread, 0);
-
     }
 
     private void stopTimer(){
@@ -200,10 +161,6 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     }
 
     private void finishTimerGame() {
-//        m_TimeSwapBuff += m_TimeInMilliseconds;
-//        m_CustomHandler.removeCallbacks(m_UpdateTimerThread);
-//        mFeedback.stopTimerAndRecievingData();
-
         ((MindShooterFeedback) mFeedback).calculateFinalScore(m_MindShooterLogic.getScore());
         showFinishDialog();
     }
@@ -217,19 +174,12 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
     }
 
     private void moveImageViewTo(ImageView image,Point newDestination, int duration){
-//        ObjectAnimator animation = ObjectAnimator.ofFloat(m_IntentImageView,
-//                "y", newDestination);
-
-//        ObjectAnimator animation = ObjectAnimator.ofFloat(m_IntentImageView,"x", "y",new Path());
         ObjectAnimator animX = ObjectAnimator.ofFloat(image, "x", newDestination.x);
         ObjectAnimator animY = ObjectAnimator.ofFloat(image, "y", newDestination.y);
         AnimatorSet animSetXY = new AnimatorSet();
         animSetXY.playTogether(animX, animY);
         animSetXY.setDuration(duration);
         animSetXY.start();
-//        ObjectAnimator animation = ObjectAnimator.ofFloat(m_IntentImageView,"x", "y",new Path());
-//        animation.setDuration(1000);
-//        animation.start();
     }
 
     @Override
@@ -264,37 +214,22 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
         return 100;
     }
 
-    // GameActivity Override Methods
     @Override
     protected void startFeedbackSession() {
         mFeedback = new MindShooterFeedback();
-//        mFeedback.startTimer();
-    }
-
-//    @Override
-//    protected void onMenuPopupDismiss() {
-//
-//    }
-
-    @Override
-    public void onAttentionReceived(int attValue) {
-
     }
 
     @Override
-    public void onMeditationReceived(int medValue) {
-
-    }
+    public void onAttentionReceived(int attValue) {}
 
     @Override
-    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {
-
-    }
+    public void onMeditationReceived(int medValue) {}
 
     @Override
-    public void onPoorSignalReceived(ESignalVolume signalVolume) {
+    public void onHeadSetChangedState(String headSetName, EConnectionState connectionState) {}
 
-    }
+    @Override
+    public void onPoorSignalReceived(ESignalVolume signalVolume) {}
 
     // implements IMindShooter
     @Override
@@ -327,7 +262,6 @@ public class MindShooterGameActivity extends GameActivity implements IMindShoote
 
     @Override
     public void theBalloonExploded(Point currentBalloonLocation, int i) {
-//        m_BalloonPoppingAffect_.start();
         m_SoundEffect.play(m_BalloonPoppingAffectId, 1, 1, 1, 0, 1);
 
         setBalloonLocation(currentBalloonLocation, false);

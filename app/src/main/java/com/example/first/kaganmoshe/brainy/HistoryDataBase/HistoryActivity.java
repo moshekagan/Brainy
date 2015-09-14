@@ -60,7 +60,6 @@ public class HistoryActivity extends ActionBarAppActivity {
     private TextView mScoreTextView;
     private TextView mDateTextView;
     private TextView mConcentrationTextView;
-//    private Button mBackButton;
 
     private static final int SCORE_COLOR = Color.RED;
     private static final int CONCENTRATION_COLOR = Color.BLUE;
@@ -101,9 +100,6 @@ public class HistoryActivity extends ActionBarAppActivity {
         mScoreTextView = (TextView) findViewById(R.id.scoreTextView);
         mConcentrationTextView = (TextView) findViewById(R.id.concentrationTextView);
         mDateTextView = (TextView) findViewById(R.id.dateTextView);
-//        mBackButton = (Button) findViewById(R.id.historyBackButton);
-
-//        setTouchNClick(R.id.historyBackButton);
 
         findViewById(R.id.historyBackButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,9 +144,6 @@ public class HistoryActivity extends ActionBarAppActivity {
         });
         mShownItemsSpinner.setAdapter(itemsAdapter);
 
-//        setTouchNClick(R.id.showListSpinner);
-//        setTouchNClick(R.id.timeRangeSpinner);
-
         initConcentrationSeries();
         initScoreSeries();
         initGraph();
@@ -162,18 +155,7 @@ public class HistoryActivity extends ActionBarAppActivity {
                 mCurrTimeRangeSelection);
 
         makeGraph(records);
-//        for(String record : records){
-//            addRecord(record);
-//        }
     }
-
-//    private void addRecord(String record) {
-//        TextView recordTextView = new TextView(getApplicationContext());
-//
-//        recordTextView.setText(record);
-//
-//        itemsLayout.addView(recordTextView);
-//    }
 
     @Override
     public void onBackPressed() {

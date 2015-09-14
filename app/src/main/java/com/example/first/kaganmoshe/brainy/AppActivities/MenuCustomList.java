@@ -45,14 +45,6 @@ public class MenuCustomList extends ArrayAdapter<String>{
 
             review.setText(mReviews[position]);
             txtTitle.setText(mTitles[position]);
-//            Utils.changeFont(context.getAssets(), txtTitle);
-//            int alpha = 128; //50% transparency
-//            int color = Color.WHITE; //Your color value
-//            int bgColor = Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
-//
-//            view.setBackgroundColor(bgColor);
-//            Log.d("COLOR", Integer.toString(bgColor));
-//            view.setOnTouchListener(AppActivity.TOUCH);
         } else {
         /* Fetch data already in the row layout,
          *    primarily you only use this to get a copy of the ViewHolder */

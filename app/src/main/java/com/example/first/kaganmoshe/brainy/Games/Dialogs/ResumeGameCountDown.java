@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.first.kaganmoshe.brainy.R;
 
+
 ///**
 // * A simple {@link Fragment} subclass.
 // * Activities that contain this fragment must implement the

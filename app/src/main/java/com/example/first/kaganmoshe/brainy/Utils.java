@@ -27,13 +27,6 @@ public class Utils {
     public static final String UTILS = "Utils";
     public static final String CALLING_CLASS = "CALLING_CLASS";
 
-//    public static final String GUESS_NUMBER_TITLE_FONT = "fonts/Kidsn.ttf";
-//    //TODO - make this generic
-//
-//    public static void changeFont(AssetManager am, TextView view){
-//        Typeface tf = Typeface.createFromAsset(am, GUESS_NUMBER_TITLE_FONT);
-//        view.setTypeface(tf);
-//    }
     public static final String GUESS_NUMBER_TITLE_FONT = "fonts/Kidsn.ttf";
     //TODO - make this generic
 
@@ -70,14 +63,6 @@ public class Utils {
     // p.x = activity width
     // p.y = activity height
     static public Point getActivityScreenSize(Activity activity){
-//        Point displaySize = new Point();
-//        getWindowManager().getDefaultDisplay().getRealSize(displaySize);
-//
-//        Rect windowSize = new Rect();
-//        getWindow().getDecorView().getWindowVisibleDisplayFrame(windowSize);
-//
-//        int width = displaySize.x - Math.abs(windowSize.width());
-//        int height = displaySize.y - Math.abs(windowSize.height());
         int width = activity.getResources().getDisplayMetrics().widthPixels;
         int height = activity.getResources().getDisplayMetrics().heightPixels;
 

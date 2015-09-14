@@ -196,56 +196,12 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
         intent.putExtra(FeedbackActivity.DISTRACTION_STAT, Integer.toString(mFeedback.getDistractionScore()));
         intent.putExtra(FeedbackActivity.SCORE_STAT, Integer.toString(mFeedback.getGameScore()));
         intent.putParcelableArrayListExtra(FeedbackActivity.CURR_GAME_CONCENTRATION_POINTS, mFeedback.getConcentrationPoints());
-//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_SECONDS, mFeedback.getSessionTimeInSeconds());
-//        intent.putExtra(FeedbackActivity.CURR_GAME_TIME_MINUTES, mFeedback.getSessionTimeInMinutes());
-//        intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, getIntent().getStringExtra(Utils.CALLING_CLASS));
-//        intent.putExtra(FeedbackActivity.TOTAL_TIME, mStopWatch.toString());
         intent.putExtra(FeedbackActivity.PLAY_AGAIN_ACTIVITY_TARGET, this.getClass().getCanonicalName());
         addTotalTimeSessionFeedbackStat(intent);
 
         return intent;
     }
 
-//    private int calculateDistraction() {
-//        int score;
-//
-//        switch (mFeedback.getNumOfUserPauses()) {
-//            case 0:
-//                score = 150;
-//                break;
-//            case 1:
-//                score = 95;
-//                break;
-//            case 2:
-//                score = 85;
-//                break;
-//            default:
-//                score = 60;
-//                break;
-//        }
-//
-//        return score;
-//    }
-
-//    protected void setNewStatsListAndContinue(LinkedHashMap<String, String> mExtraStats) {
-//        ArrayList<String> extraStatKeys = new ArrayList<>();
-//        Intent intent = makeIntentForFeedback();
-//
-//        for (String extraStat : mExtraStats.keySet()) {
-//            intent.putExtra(extraStat, mExtraStats.get(extraStat));
-//            extraStatKeys.add(extraStat);
-//        }
-//
-//        intent.putStringArrayListExtra(FeedbackActivity.EXTRA_STATS, extraStatKeys);
-//        Utils.startNewActivity(this, intent);
-//    }
-
-//    protected void continueToNextActivity(Class targetActivity){
-//        Intent intent = makeIntentForFinishedGame(targetActivity);
-//
-//        loadExtraStatsToIntent(intent);
-//        Utils.startNewActivity(this, intent);
-//    }
 
     protected void loadExtraStatsToIntent(Intent intent){
         ArrayList<String> extraStatKeys = new ArrayList<>();
@@ -282,13 +238,7 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
 
     @Override
     public void onQuitGameConfirmed() {
-//        if (targetActivity == null) {
-//            Utils.startNewActivity(this, mBackPressedActivityTarget);
-//        } else {
-//            Utils.startNewActivity(this, targetActivity);
-//        }
         AppManager.getInstance().getGamesManager().continueAfterQuitConfirmed(this);
-//        Utils.startNewActivity(this, MainActivity.class);
     }
 
     @Override
@@ -350,59 +300,32 @@ public abstract class GameActivity extends ActionBarAppActivity implements Resum
     }
 
     protected void onFinishGameShow() {
-//        AppManager.getHistoryDBInstance(getApplicationContext())
         mFeedback.insertRecordToHistoryDB(getApplicationContext(), this.toString());
         Log.d("DAILY PRACTICE", "INSERT RECORD " + this.toString());
     }
 
     @Override
     protected void onQuitClicked() {
-//        mQuitGameDialog.show(mFragmentManager, "QUIT CONFIRMATION");
         AppManager.getInstance().getGamesManager().showQuitDialog(mFragmentManager, mQuitGameDialog);
     }
 
     @Override
     public void onFinishGameContinueClicked() {
         AppManager.getInstance().getGamesManager().continueToActivityAfterGameFinished(this);
-//        continueToNextActivity(FeedbackActivity.class);
-
-//        Intent intent = makeIntentForFinishedGame(FeedbackActivity.class);
-//        intent.putExtra("CALLING_CLASS", this.getClass().getCanonicalName());
-//        Utils.startNewActivity(this, intent);
     }
 
     @Override
     protected void onPopupMenuOptionSelected() {
-//        this.targetActivity = MainActivity.class;
         mQuitGameDialog.show(mFragmentManager, "QuitGameDialog");
     }
 
     @Override
     public void onSettingsShow() {
-//        mSettingsFragment.show(mFragmentManager, "SETTINGS SHOW");
     }
-
-//    protected abstract int calculateScore();
-
-//    @Override
-//    public void onSettingsBackPressed() {
-//        onResume();
-//        onGameDialogBackPressed();
-//    }
-//
-//    @Override
-//    public void onSettingsDonePressed(){
-//        onResume();
-//    }
 
     protected abstract void addTotalTimeSessionFeedbackStat(Intent intent);
 
-//    private String getGameName(){
-//        return "Guess The Number";
-//    }
-
     public Intent prepareIntentForFeedback() {
-//        Intent intent = makeIntentForFinishedGame(targetActivity);
         Intent intent = makeIntentForFinishedGame(FeedbackActivity.class);
 
         loadExtraStatsToIntent(intent);

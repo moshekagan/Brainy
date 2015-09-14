@@ -254,11 +254,6 @@ public class GuessTheNumberGameActivity extends GameGraphActivity {
         toast.show();
     }
 
-//    @Override
-//    public void onPoorSignalReceived(ESignalVolume signalVolume) {
-//        final ESignalVolume newSignalVolume = signalVolume;
-//    }
-
     @Override
     protected void startFeedbackSession() {
         mFeedback = mLogic.getFeedback();

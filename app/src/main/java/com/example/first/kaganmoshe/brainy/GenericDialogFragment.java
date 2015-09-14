@@ -73,7 +73,6 @@ public class GenericDialogFragment extends DialogFragment {
         continueButton.setText(continueButtonText);
         title.setText(titleText);
 
-//        Utils.changeFont(getActivity().getAssets(), title);
         initButtons();
 
         return rootView;

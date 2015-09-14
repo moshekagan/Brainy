@@ -35,7 +35,6 @@ public abstract class FBActivity extends ActionBarAppActivity {
 
     protected void addConcentrationStat(int score){
         addStat(prepareStat(CONCENTRATION_AVERAGE, Integer.toString(score) + " (0-100)", mStatsTextSize, getApplicationContext()));
-//        addStat(CONCENTRATION_AVERAGE, Integer.toString(score) + " (0-100)");
     }
 
     protected static LinearLayout prepareStat(String statName, String statValue, float textSize, Context context){

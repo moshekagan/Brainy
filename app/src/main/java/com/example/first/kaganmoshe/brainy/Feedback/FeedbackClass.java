@@ -16,15 +16,6 @@ import EEG.IHeadSetData;
  * Created by tamirkash on 6/7/15.
  */
 public abstract class FeedbackClass implements IHeadSetData {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//    private final String GRAPH_FRAGMENT = "Graph_Fragment";
-
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
 
     // Graph Data members
     private ArrayList<ParcelableDataPoint> concentrationPoints;
@@ -47,7 +38,6 @@ public abstract class FeedbackClass implements IHeadSetData {
     }
 
     public void startTimer() {
-//        sessionTimeStart = Calendar.getInstance().getTimeInMillis();
     }
 
     public void stopTimerAndRecievingData() {
@@ -67,13 +57,6 @@ public abstract class FeedbackClass implements IHeadSetData {
     public void onAttentionReceived(int attValue) {
         concentrationPoints.add(new ParcelableDataPoint(mLastX++, attValue));
         Log.d("FEEDBACK - onAttention", "att=" + attValue);
-//        getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                addEntry(attValue);
-//                Logs.debug(GRAPH_FRAGMENT, "Append to graph happen with value : " + attValue);
-//            }
-//        });
     }
 
     @Override
@@ -96,29 +79,8 @@ public abstract class FeedbackClass implements IHeadSetData {
     }
 
     public int getDistractionScore() {
-//        int score;
-//
-//        switch (mNumOfUserPauses) {
-//            case 0:
-//                score = 150;
-//                break;
-//            case 1:
-//                score = 100;
-//                break;
-//            case 2:
-//                score = 80;
-//                break;
-//            default:
-//                score = 60;
-//                break;
-//        }
-
         return 0;
     }
-
-//    public int getGameScore() {
-//        return 100;
-//    }
 
     public abstract int getGameScore();
 

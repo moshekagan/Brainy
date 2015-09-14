@@ -57,10 +57,6 @@ public abstract class GameDialog extends DialogFragment {
         super.onResume();
 
         isShowing = true;
-
-//        if (getDialog() != null) {
-
-//        }
     }
 
     protected void fireBackClickedEvent() {
@@ -72,7 +68,6 @@ public abstract class GameDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
 
-        // request a window without the title
         dialog.getWindow().
                 requestFeature(Window.FEATURE_NO_TITLE);
         dialog.setCanceledOnTouchOutside(false);

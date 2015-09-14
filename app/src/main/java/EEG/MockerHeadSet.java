@@ -14,7 +14,6 @@ import java.util.TimerTask;
  */
 public class MockerHeadSet extends EegHeadSet {
     final String MOCKER = "Mocker";
-    int stam = 0;
     private EConnectionState state = EConnectionState.DEVICE_CONNECTED;
     public Random rand = new Random();
 
@@ -24,27 +23,15 @@ public class MockerHeadSet extends EegHeadSet {
             @Override
             public void run() {
                 int randomNum = rand.nextInt(51) + 50;
-                // What you want to do goes here
                 for (IHeadSetData headSetData : m_HeadSetData) {
                     if (headSetData != null){
                         headSetData.onAttentionReceived(randomNum);
-//                        if (stam++ < 3){
-//                            raiseOnHeadSetChangedState(MOCKER, m_CurrentState);
-//                        }
                     }
                 }
             }
         }, 0, 1000);
 
-        Runnable notConnectedTimer = new Runnable() {
-            @Override
-            public void run() {
-                raiseOnHeadSetChangedState(MOCKER, EConnectionState.DEVICE_NOT_CONNECTED);
-            }
-        };
-
         Handler handler = new Handler();
-//        handler.postDelayed(notConnectedTimer, 5000);
 
         Runnable connectedTimer = new Runnable() {
             @Override

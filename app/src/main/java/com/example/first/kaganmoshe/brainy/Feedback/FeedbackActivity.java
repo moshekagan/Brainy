@@ -22,7 +22,6 @@ public class FeedbackActivity extends FBActivity {
     public static final String BEST_SCORE_STAT = "Best score";
     public static final String DISTRACTION_STAT = "DISTRACTION_STAT";
     public static final String PLAY_AGAIN_ACTIVITY_TARGET = "PLAY_AGAIN_ACTIVITY_TARGET";
-    //    public static final int BEST_CONCENTRATION_SCORE = 85;
     public static final String TOTAL_TIME = "Session time";
     private int mFinalScore;
 
@@ -99,8 +98,6 @@ public class FeedbackActivity extends FBActivity {
         mBackButton = (Button) findViewById(R.id.backFeedbackButton);
         mPlayAgainButton = (Button) findViewById(R.id.playAgainFeedbackButton);
 
-//        setTouchNClick(R.id.backFeedbackButton);
-//        setTouchNClick(R.id.playAgainFeedbackButton);
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +126,6 @@ public class FeedbackActivity extends FBActivity {
     private void initConcentrationPoints() {
         mParcelableConcentrationPointsList = getIntent().getParcelableArrayListExtra(CURR_GAME_CONCENTRATION_POINTS);
 
-//        prepareConcentrationPoints();
         for (ParcelableDataPoint p : mParcelableConcentrationPointsList) {
             mGraphConcentrationPoints.appendData(p, false, Integer.MAX_VALUE);
         }
